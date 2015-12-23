@@ -1,0 +1,43 @@
+@font-face {
+	font-family: 'fontawesome';
+	src: url(fontawesome.eot?70370404);
+	src: url(fontawesome.eot?70370404#iefix) format('embedded-opentype'),
+	url(fontawesome.svg?70370404#fontawesome) format('svg'),
+	url(fontawesome.woff?70370404) format('woff'),
+	url(fontawesome.ttf?70370404) format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+[class^="fa-"]:before,
+[class*=" fa-"]:before {
+	font-family: "fontawesome";
+	font-style: normal;
+	font-weight: normal;
+	speak: none;
+	display: inline-block;
+	text-decoration: inherit;
+	width: 1.000em;
+	margin-right: .2em;
+	text-align: center;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1.000em;
+	margin-left: .2em;
+}
+.fa-home:before { content: '\e805'; } /* '' */
+.fa-briefcase:before { content: '\e806'; } /* '' */
+.fa-mail-alt:before { content: '\e807'; } /* '' */
+.fa-chat-empty:before { content: '\e808'; } /* '' */
+.fa-skype:before { content: '\e80a'; } /* '' */
+.fa-edit:before { content: '\e80b'; } /* '' */
+.fa-location:before { content: '\e80c'; } /* '' */
+/**
+ * fix new names
+ */
+.fa-home:before { content: '\e805'; }
+.fa-briefcase:before { content: '\e806'; }
+.fa-envelope:before { content: '\e807'; }
+.fa-comments-o:before { content: '\e808'; }
+.fa-skype:before { content: '\e80a'; }
+.fa-pencil-square-o:before { content: '\e80b'; }
+.fa-map-marker:before { content: '\e80c'; }

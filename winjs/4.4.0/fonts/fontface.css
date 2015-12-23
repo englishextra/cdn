@@ -1,0 +1,13 @@
+﻿@font-face{font-family:"winjs-symbols";src:url(Symbols.eot);src:url(Symbols.eot) format("embedded-opentype"),url(Symbols.woff2) format("woff2"),url(Symbols.woff) format("woff"),url(Symbols.ttf) format("truetype"),url(Symbols.svg#Symbols) format("svg");}
+.win-back:before{font-family:"winjs-symbols";font-weight:normal;content:"\E0D5";}
+.win-star:before{font-family:"winjs-symbols";font-weight:normal;content:"\E082";}
+.win-semanticzoom-button:before{font-family:"winjs-symbols";font-weight:normal;content:"\E0B8";}
+.win-pivot-navbutton-prev:before{font-family:"winjs-symbols";font-weight:normal;content:"\E0E2";}
+.win-pivot-navbutton-next:before{font-family:"winjs-symbols";font-weight:normal;content:"\E0E3";}
+.win-navbar-ellipsis:before{font-family:"winjs-symbols";font-weight:normal;content:"\E10C";}
+.win-toggleicon:before{font-family:"winjs-symbols";font-weight:normal;content:"\E0E7";}
+.win-flyouticon-left:before{font-family:"winjs-symbols";font-weight:normal;content:"\E26C";}
+.win-flyouticon-right:before{font-family:"winjs-symbols";font-weight:normal;content:"\E26B";}
+.win-commandingsurface-ellipsis:before{font-family:"winjs-symbols";font-weight:normal;content:"\E10C";}
+.win-searchbox-button:before{font-family:"winjs-symbols";font-weight:normal;content:"\E094";}
+.win-splitviewpanetoggle:after{font-family:"winjs-symbols";font-weight:normal;content:"\E700";}

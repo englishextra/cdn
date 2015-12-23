@@ -1,0 +1,65 @@
+/*!
+ * jquery.sidr.dark.fixed.min.css
+ */
+.panel-nav-menu {
+	display: none;
+}
+.sidr {
+	display: none;
+	width: 280px;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	overflow-x: none;
+	overflow-y: auto;
+	font-family: inherit;
+	font-weight: 300;
+	font-size: 0.875em;
+	color: #FFFFFF;
+	background-color: #2E2E2E;
+	z-index: 998;
+}
+.sidr .sidr-inner {
+	padding: 0 0 1.143em;
+}
+.sidr.left {
+	left: -280px;
+	right: auto;
+}
+.sidr.right {
+	left: auto;
+	right: -280px;
+}
+.sidr ul {
+	display: block;
+	margin: 0 0 1.143em;
+	padding: 0;
+	border-top: 0.750pt solid #2E2E2E;
+}
+.sidr ul li {
+	display: block;
+	margin: 0;
+	text-align: left;
+	line-height: 3.143em;
+	border-bottom: 0 solid #2E2E2E;
+}
+.sidr ul li:hover,
+.sidr ul li:active,
+.sidr ul li:focus,
+.sidr ul li.active,
+.sidr ul li.sidr-class-active {
+	background-color: #464646;
+}
+.sidr ul li:last-child {
+	border-bottom-color: transparent;
+}
+.sidr ul li a,
+.sidr ul li span {
+	padding: 0 1.143em;
+	display: block;
+	text-decoration: none;
+	color: inherit;
+}
+.sidr ul li ul {
+	margin: 0;
+}

@@ -1,0 +1,5 @@
+/*!
+ * jquery.webks-responsive-table.fixed.min.js
+ * pastebin.com/5i8MQXy6
+ */.webks-responsive-table dl dt,.webks-responsive-table dl dd{display:inline-block;width:77%;font-size:14px;line-height:21px;margin:0 0 1px 0 !important;padding:5px 1% !important;}.webks-responsive-table dl dd:before{content:"";}.col.span_2 .webks-responsive-table dl dt,.col.span_3 .webks-responsive-table dl dt,.col.span_4 .webks-responsive-table dl dt,.col.span_2 .webks-responsive-table dl dd,.col.span_3 .webks-responsive-table dl dd,.col.span_4 .webks-responsive-table dl dd{font-size:13px;line-height:19px;}.webks-responsive-table dl dt{width:23%;font-style:italic;font-weight:600;text-align:right;vertical-align:top;color:#FFF;background:#5D5D5D;}.webks-responsive-table dl dd:nth-of-type(odd){background:#F4F4F4;}.webks-responsive-table dl dt:nth-of-type(even){background:#5D5D5D;}.webks-responsive-table dl dt{font-weight:400;color:inherit;background:#E2E2E2;}.webks-responsive-table dl dd{background:#ECECEC;}.webks-responsive-table dl dd:nth-of-type(odd){background:#ECECEC;}.webks-responsive-table dl dt:nth-of-type(even){background:#E2E2E2;}
+ 
