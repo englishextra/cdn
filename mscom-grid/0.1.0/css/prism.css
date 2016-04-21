@@ -4,7 +4,6 @@
  * Loosely based on Monokai textmate theme by http://www.monokai.nl/
  * @author ocodia
  */
-
 code[class*="language-"],
 pre[class*="language-"] {
 	color: #f8f8f2;
@@ -16,17 +15,14 @@ pre[class*="language-"] {
 	word-spacing: normal;
 	word-break: normal;
 	line-height: 1.5;
-
 	-moz-tab-size: 4;
 	-o-tab-size: 4;
 	tab-size: 4;
-
 	-webkit-hyphens: none;
 	-moz-hyphens: none;
 	-ms-hyphens: none;
 	hyphens: none;
 }
-
 /* Code blocks */
 pre[class*="language-"] {
 	padding: 1em;
@@ -34,33 +30,27 @@ pre[class*="language-"] {
 	overflow: auto;
 	border-radius: 0.3em;
 }
-
 :not(pre) > code[class*="language-"],
 pre[class*="language-"] {
 	background: #272822;
 }
-
 /* Inline code */
 :not(pre) > code[class*="language-"] {
 	padding: .1em;
 	border-radius: .3em;
 }
-
 .token.comment,
 .token.prolog,
 .token.doctype,
 .token.cdata {
 	color: slategray;
 }
-
 .token.punctuation {
 	color: #f8f8f2;
 }
-
 .namespace {
 	opacity: .7;
 }
-
 .token.property,
 .token.tag,
 .token.constant,
@@ -68,12 +58,10 @@ pre[class*="language-"] {
 .token.deleted {
 	color: #f92672;
 }
-
 .token.boolean,
 .token.number {
 	color: #ae81ff;
 }
-
 .token.selector,
 .token.attr-name,
 .token.string,
@@ -82,7 +70,6 @@ pre[class*="language-"] {
 .token.inserted {
 	color: #a6e22e;
 }
-
 .token.operator,
 .token.entity,
 .token.url,
@@ -91,21 +78,17 @@ pre[class*="language-"] {
 .token.variable {
 	color: #f8f8f2;
 }
-
 .token.atrule,
 .token.attr-value {
 	color: #e6db74;
 }
-
 .token.keyword {
 	color: #66d9ef;
 }
-
 .token.regex,
 .token.important {
 	color: #fd971f;
 }
-
 .token.important,
 .token.bold {
 	font-weight: bold;
@@ -113,23 +96,19 @@ pre[class*="language-"] {
 .token.italic {
 	font-style: italic;
 }
-
 .token.entity {
 	cursor: help;
 }
-
 pre[data-line] {
 	position: relative;
 	padding: 1em 0 1em 3em;
 }
-
 .line-highlight {
 	position: absolute;
 	left: 0;
 	right: 0;
 	padding: inherit 0;
 	margin-top: 1em; /* Same as .prism’s padding-top */
-
 	background: hsla(24, 20%, 50%,.08);
 	background: -moz-linear-gradient(left, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
 	background: -webkit-linear-gradient(left, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
@@ -141,7 +120,6 @@ pre[data-line] {
 	line-height: inherit;
 	white-space: pre;
 }
-
 	.line-highlight:before,
 	.line-highlight[data-end]:after {
 		content: attr(data-start);
@@ -170,11 +148,9 @@ pre.line-numbers {
 	padding-left: 3.8em;
 	counter-reset: linenumber;
 }
-
 pre.line-numbers > code {
 	position: relative;
 }
-
 .line-numbers .line-numbers-rows {
 	position: absolute;
 	pointer-events: none;
@@ -184,20 +160,16 @@ pre.line-numbers > code {
 	width: 3em; /* works for line-numbers below 1000 lines */
 	letter-spacing: -1px;
 	border-right: 1px solid #999;
-
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
-
 }
-
 	.line-numbers-rows > span {
 		pointer-events: none;
 		display: block;
 		counter-increment: linenumber;
 	}
-
 		.line-numbers-rows > span:before {
 			content: counter(linenumber);
 			color: #999;

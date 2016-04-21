@@ -3,7 +3,7 @@
 	URL: www.toddmotto.com
 */
 /*------------------------------------*\
-    SuperBox
+ SuperBox
 \*------------------------------------*/
 *,
 *:after,
@@ -59,7 +59,7 @@ img {
 	-webkit-box-shadow:inset 0 1px 5px #111;
 	-moz-box-shadow:inset 0 1px 5px #111;
 	width:100%;
-    float:left;
+ float:left;
 	padding:25px;
 	display:none;
 }

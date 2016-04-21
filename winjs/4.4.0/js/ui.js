@@ -264,13 +264,13 @@ define('WinJS/VirtualizedDataSource/_VirtualizedDataSourceImpl',[
                             handle: handle,
                             item: null,
                             itemNew: null,
-                            fetchListeners: null,
+                            fetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);: null,
                             cursorCount: 0,
                             bindingMap: null
                         };
 
                     // Deliberately not initialized:
-                    //   - directFetchListeners
+                    //   - directFetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);
 
                     handleMap[handle] = slotNew;
 
@@ -623,7 +623,7 @@ define('WinJS/VirtualizedDataSource/_VirtualizedDataSourceImpl',[
                 }
 
                 function slotRequested(slot) {
-                    return slotRetained(slot) || slot.fetchListeners || slot.directFetchListeners;
+                    return slotRetained(slot) || slot.fetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera); || slot.directFetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);;
                 }
 
                 function slotLive(slot) {
@@ -1149,12 +1149,12 @@ define('WinJS/VirtualizedDataSource/_VirtualizedDataSourceImpl',[
                                 slot = slot.slotMergedWith;
                             }
 
-                            var fetchListeners = slot[listenersProperty];
-                            if (fetchListeners) {
-                                delete fetchListeners[listenerID];
+                            var fetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera); = slot[listenersProperty];
+                            if (fetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);) {
+                                delete fetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);[listenerID];
 
                                 // See if there are any other listeners
-                                if (Object.keys(fetchListeners).length > 0) {
+                                if (Object.keys(fetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);).length > 0) {
                                     return;
                                 }
                                 delete slot[listenersProperty];
@@ -1173,10 +1173,10 @@ define('WinJS/VirtualizedDataSource/_VirtualizedDataSourceImpl',[
                 }
 
                 function completeFetchPromises(slot, completeSynchronously) {
-                    var fetchListeners = slot.fetchListeners,
-                        directFetchListeners = slot.directFetchListeners;
+                    var fetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera); = slot.fetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);,
+                        directFetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera); = slot.directFetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);;
 
-                    if (fetchListeners || directFetchListeners) {
+                    if (fetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera); || directFetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);) {
                         prepareSlotItem(slot);
 
                         // By default, complete asynchronously to minimize reentrancy
@@ -1193,14 +1193,14 @@ define('WinJS/VirtualizedDataSource/_VirtualizedDataSourceImpl',[
                             }
                         };
 
-                        if (directFetchListeners) {
-                            slot.directFetchListeners = null;
-                            completeOrQueuePromises(directFetchListeners);
+                        if (directFetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);) {
+                            slot.directFetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera); = null;
+                            completeOrQueuePromises(directFetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera););
                         }
 
-                        if (fetchListeners) {
-                            slot.fetchListeners = null;
-                            completeOrQueuePromises(fetchListeners);
+                        if (fetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);) {
+                            slot.fetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera); = null;
+                            completeOrQueuePromises(fetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera););
                         }
 
                         releaseSlotIfUnrequested(slot);
@@ -1219,12 +1219,12 @@ define('WinJS/VirtualizedDataSource/_VirtualizedDataSourceImpl',[
                 }
 
                 function returnDirectFetchError(slot, error) {
-                    var directFetchListeners = slot.directFetchListeners;
-                    if (directFetchListeners) {
-                        slot.directFetchListeners = null;
+                    var directFetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera); = slot.directFetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);;
+                    if (directFetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);) {
+                        slot.directFetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera); = null;
 
-                        for (var listenerID in directFetchListeners) {
-                            directFetchListeners[listenerID].error(error);
+                        for (var listenerID in directFetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);) {
+                            directFetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);[listenerID].error(error);
                         }
 
                         releaseSlotIfUnrequested(slot);
@@ -1281,7 +1281,7 @@ define('WinJS/VirtualizedDataSource/_VirtualizedDataSourceImpl',[
                     // Return a complete promise for a non-existent slot
                     return (
                         slot ?
-                            createFetchPromise(slot, "directFetchListeners", (nextListenerID++).toString()) :
+                            createFetchPromise(slot, "directFetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);", (nextListenerID++).toString()) :
                             Promise.wrap(null)
                     );
                 }
@@ -1786,12 +1786,12 @@ define('WinJS/VirtualizedDataSource/_VirtualizedDataSourceImpl',[
                     if (bindingMap) {
                         for (var listBindingID in listBindingIDsToDelete) {
                             if (bindingMap[listBindingID]) {
-                                var fetchListeners = slotToDiscard.fetchListeners;
-                                for (var listenerID in fetchListeners) {
-                                    var listener = fetchListeners[listenerID];
+                                var fetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera); = slotToDiscard.fetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);;
+                                for (var listenerID in fetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);) {
+                                    var listener = fetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);[listenerID];
 
                                     if (listener.listBindingID === listBindingID && listener.retained) {
-                                        delete fetchListeners[listenerID];
+                                        delete fetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);[listenerID];
                                         listener.complete(null);
                                     }
                                 }
@@ -1854,31 +1854,31 @@ define('WinJS/VirtualizedDataSource/_VirtualizedDataSourceImpl',[
 
                     // Transfer the fetch listeners from slotToDiscard to slot, or complete them if item is known
                     if (slot.item) {
-                        if (slotToDiscard.directFetchListeners) {
+                        if (slotToDiscard.directFetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);) {
                             fetchCompleteCallbacks.push(function () {
-                                completePromises(slot.item, slotToDiscard.directFetchListeners);
+                                completePromises(slot.item, slotToDiscard.directFetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera););
                             });
                         }
-                        if (slotToDiscard.fetchListeners) {
+                        if (slotToDiscard.fetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);) {
                             fetchCompleteCallbacks.push(function () {
-                                completePromises(slot.item, slotToDiscard.fetchListeners);
+                                completePromises(slot.item, slotToDiscard.fetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera););
                             });
                         }
                     } else {
                         var listenerID;
 
-                        for (listenerID in slotToDiscard.directFetchListeners) {
-                            if (!slot.directFetchListeners) {
-                                slot.directFetchListeners = {};
+                        for (listenerID in slotToDiscard.directFetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);) {
+                            if (!slot.directFetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);) {
+                                slot.directFetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera); = {};
                             }
-                            slot.directFetchListeners[listenerID] = slotToDiscard.directFetchListeners[listenerID];
+                            slot.directFetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);[listenerID] = slotToDiscard.directFetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);[listenerID];
                         }
 
-                        for (listenerID in slotToDiscard.fetchListeners) {
-                            if (!slot.fetchListeners) {
-                                slot.fetchListeners = {};
+                        for (listenerID in slotToDiscard.fetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);) {
+                            if (!slot.fetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);) {
+                                slot.fetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera); = {};
                             }
-                            slot.fetchListeners[listenerID] = slotToDiscard.fetchListeners[listenerID];
+                            slot.fetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);[listenerID] = slotToDiscard.fetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);[listenerID];
                         }
                     }
 
@@ -4549,13 +4549,13 @@ define('WinJS/VirtualizedDataSource/_VirtualizedDataSourceImpl',[
                         }
 
                         for (var slot = slotsStart.next; slot !== slotsEnd; slot = slot.next) {
-                            var fetchListeners = slot.fetchListeners;
-                            for (var listenerID in fetchListeners) {
-                                fetchListeners[listenerID].promise.cancel();
+                            var fetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera); = slot.fetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);;
+                            for (var listenerID in fetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);) {
+                                fetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);[listenerID].promise.cancel();
                             }
-                            var directFetchListeners = slot.directFetchListeners;
-                            for (var listenerID in directFetchListeners) {
-                                directFetchListeners[listenerID].promise.cancel();
+                            var directFetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera); = slot.directFetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);;
+                            for (var listenerID in directFetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);) {
+                                directFetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);[listenerID].promise.cancel();
                             }
                         }
 
@@ -5105,8 +5105,8 @@ define('WinJS/VirtualizedDataSource/_VirtualizedDataSourceImpl',[
                             };
                         }
 
-                        if (slot.fetchListeners) {
-                            var listener = slot.fetchListeners[listenerID];
+                        if (slot.fetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);) {
+                            var listener = slot.fetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);[listenerID];
                             if (listener) {
                                 listener.retained = true;
                             }
@@ -5119,9 +5119,9 @@ define('WinJS/VirtualizedDataSource/_VirtualizedDataSourceImpl',[
                         if (slot) {
                             var slotBinding = slot.bindingMap[listBindingID];
                             if (--slotBinding.count === 0) {
-                                var fetchListeners = slot.fetchListeners;
-                                for (var listenerID in fetchListeners) {
-                                    var listener = fetchListeners[listenerID];
+                                var fetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera); = slot.fetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);;
+                                for (var listenerID in fetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);) {
+                                    var listener = fetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);[listenerID];
                                     if (listener.listBindingID === listBindingID) {
                                         listener.retained = false;
                                     }
@@ -5136,7 +5136,7 @@ define('WinJS/VirtualizedDataSource/_VirtualizedDataSourceImpl',[
                         var handle = handleForBinding(slot, listBindingID),
                             listenerID = (nextListenerID++).toString();
 
-                        var itemPromise = createFetchPromise(slot, "fetchListeners", listenerID, listBindingID,
+                        var itemPromise = createFetchPromise(slot, "fetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);", listenerID, listBindingID,
                             function (complete, item) {
                                 complete(itemForBinding(item, handle));
                             }
@@ -5300,12 +5300,12 @@ define('WinJS/VirtualizedDataSource/_VirtualizedDataSourceImpl',[
                             for (var slot = slotsStart.next; slot !== slotsEnd;) {
                                 var slotNext = slot.next;
 
-                                var fetchListeners = slot.fetchListeners;
-                                for (var listenerID in fetchListeners) {
-                                    var listener = fetchListeners[listenerID];
+                                var fetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera); = slot.fetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);;
+                                for (var listenerID in fetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);) {
+                                    var listener = fetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);[listenerID];
                                     if (listener.listBindingID === listBindingID) {
                                         listener.promise.cancel();
-                                        delete fetchListeners[listenerID];
+                                        delete fetch(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);[listenerID];
                                     }
                                 }
 
@@ -28573,7 +28573,7 @@ define('WinJS/Controls/Repeater',[
                 this._modifying = false;
                 this._disposed = false;
                 this._element.winControl = this;
-                this._dataListeners = {
+                this._data(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera); = {
                     itemchanged: this._dataItemChangedHandler.bind(this),
                     iteminserted: this._dataItemInsertedHandler.bind(this),
                     itemmoved: this._dataItemMovedHandler.bind(this),
@@ -28617,10 +28617,10 @@ define('WinJS/Controls/Repeater',[
                     set: function (data) {
                         this._writeProfilerMark("data.set,StartTM");
                         if (this._data) {
-                            this._removeDataListeners();
+                            this._removeData(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);();
                         }
                         this._data = data || new BindingList.List();
-                        this._addDataListeners();
+                        this._addData(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);();
                         if (!this._initializing) {
                             this._reloadRepeater(true);
                             this.dispatchEvent(ITEMSLOADED, {});
@@ -28678,7 +28678,7 @@ define('WinJS/Controls/Repeater',[
                         return;
                     }
                     this._disposed = true; // Mark this control as disposed.
-                    this._removeDataListeners();
+                    this._removeData(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);();
                     this._data = null;
                     this._template = null;
                     for (var i = 0, len = this._repeatedDOM.length; i < len; i++) {
@@ -28789,9 +28789,9 @@ define('WinJS/Controls/Repeater',[
                     }
                 },
 
-                _addDataListeners: function Repeater_addDataListeners() {
-                    Object.keys(this._dataListeners).forEach(function (eventName) {
-                        this._data.addEventListener(eventName, this._dataListeners[eventName], false);
+                _addData(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);: function Repeater_addData(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);() {
+                    Object.keys(this._data(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);).forEach(function (eventName) {
+                        this._data.addEventListener(eventName, this._data(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);[eventName], false);
                     }.bind(this));
                 },
 
@@ -28806,9 +28806,9 @@ define('WinJS/Controls/Repeater',[
                     this._modifying = false;
                 },
 
-                _removeDataListeners: function Repeater_removeDataListeners() {
-                    Object.keys(this._dataListeners).forEach(function (eventName) {
-                        this._data.removeEventListener(eventName, this._dataListeners[eventName], false);
+                _removeData(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);: function Repeater_removeData(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);() {
+                    Object.keys(this._data(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);).forEach(function (eventName) {
+                        this._data.removeEventListener(eventName, this._data(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);[eventName], false);
                     }.bind(this));
                 },
 
@@ -38967,12 +38967,12 @@ define('WinJS/Controls/Flyout/_Overlay',[
                 this._windowResized = this._windowResized.bind(this);
             }, {
                 initialize: function _GlobalListener_initialize() {
-                    this._toggleListeners(_GlobalListener.states.on);
+                    this._toggle(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);(_GlobalListener.states.on);
                 },
                 // Expose this for unit tests.
                 reset: function _GlobalListener_reset() {
-                    this._toggleListeners(_GlobalListener.states.off);
-                    this._toggleListeners(_GlobalListener.states.on);
+                    this._toggle(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);(_GlobalListener.states.off);
+                    this._toggle(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);(_GlobalListener.states.on);
                 },
                 _inputPaneShowing: function _GlobalListener_inputePaneShowing(event) {
                     _WriteProfilerMark(_GlobalListener.profilerString + "_showingKeyboard,StartTM");
@@ -38994,7 +38994,7 @@ define('WinJS/Controls/Flyout/_Overlay',[
                     _allOverlaysCallback(event, "_baseResize");
                     _WriteProfilerMark(_GlobalListener.profilerString + "_baseResize,StopTM");
                 },
-                _toggleListeners: function _GlobalListener_toggleListeners(newState) {
+                _toggle(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);: function _GlobalListener_toggle(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);(newState) {
                     // Add/Remove global event listeners for all _Overlays
                     var listenerOperation;
                     if (this._currentState !== newState) {
@@ -39148,7 +39148,7 @@ define('WinJS/Controls/Flyout/_Overlay',[
                     }
 
                     // Make sure _Overlay event handlers are hooked up (this aids light dismiss)
-                    _Overlay._globalEventListeners.initialize();
+                    _Overlay._globalEvent(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);.initialize();
                 },
 
                 /// <field type="HTMLElement" domElement="true" readonly="true" hidden="true" locid="WinJS.UI._Overlay.element" helpKeyword="WinJS.UI._Overlay.element">The DOM element the Overlay is attached to</field>
@@ -39996,7 +39996,7 @@ define('WinJS/Controls/Flyout/_Overlay',[
                 },
 
                 // Static controller for _Overlay global events registering/unregistering.
-                _globalEventListeners: new _GlobalListener(),
+                _globalEvent(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);: new _GlobalListener(),
 
                 // Show/Hide all bars
                 _hideAppBars: function _Overlay_hideAppBars(bars, keyboardInvoked) {
@@ -43907,10 +43907,10 @@ define('WinJS/Controls/CommandingSurface/_CommandingSurface',["require", "export
                         throw new _ErrorFromName("WinJS.UI._CommandingSurface.BadData", strings.badData);
                     }
                     if (this._data) {
-                        this._removeDataListeners();
+                        this._removeData(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);();
                     }
                     this._data = value;
-                    this._addDataListeners();
+                    this._addData(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);();
                     this._dataUpdated();
                 }
             },
@@ -44237,13 +44237,13 @@ define('WinJS/Controls/CommandingSurface/_CommandingSurface',["require", "export
                 updateFn();
             }, Scheduler.Priority.high, null, "WinJS.UI._CommandingSurface._refresh");
         };
-        _CommandingSurface.prototype._addDataListeners = function () {
+        _CommandingSurface.prototype._addData(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera); = function () {
             var _this = this;
             this._dataChangedEvents.forEach(function (eventName) {
                 _this._data.addEventListener(eventName, _this._refreshBound, false);
             });
         };
-        _CommandingSurface.prototype._removeDataListeners = function () {
+        _CommandingSurface.prototype._removeData(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera); = function () {
             var _this = this;
             this._dataChangedEvents.forEach(function (eventName) {
                 _this._data.removeEventListener(eventName, _this._refreshBound, false);
@@ -53286,7 +53286,7 @@ define('WinJS/Controls/ContentDialog',[
                             return ready.then(function () {
                                 that._pendingHide = null;
                                 _ElementUtilities.addClass(that.dialog._dom.root, ClassNames._visible);
-                                that.dialog._addExternalListeners();
+                                that.dialog._addExternal(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);();
                                 if (_KeyboardInfo._KeyboardInfo._visible) {
                                     that.dialog._renderForInputPane();
                                 }
@@ -53380,7 +53380,7 @@ define('WinJS/Controls/ContentDialog',[
                             }).then(function () {
                                 return that.dialog._playExitAnimation();
                             }).then(function () {
-                                that.dialog._removeExternalListeners();
+                                that.dialog._removeExternal(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);();
                                 _LightDismissService.hidden(that.dialog._dismissable);
                                 _ElementUtilities.removeClass(that.dialog._dom.root, ClassNames._visible);
                                 that.dialog._clearInputPaneRendering();
@@ -53415,7 +53415,7 @@ define('WinJS/Controls/ContentDialog',[
                     hidden: true,
                     enter: function ContentDialog_DisposedState_enter() {
                         _LightDismissService.hidden(this.dialog._dismissable);
-                        this.dialog._removeExternalListeners();
+                        this.dialog._removeExternal(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);();
                         if (this.dialog._dismissedSignal) {
                             this.dialog._dismissedSignal.error(new _ErrorFromName("WinJS.UI.ContentDialog.ControlDisposed", Strings.controlDisposed));
                         }
@@ -53866,12 +53866,12 @@ define('WinJS/Controls/ContentDialog',[
                     return cancelablePromise(_Animations.fadeOut(this._dom.root));
                 },
 
-                _addExternalListeners: function ContentDialog_addExternalListeners() {
+                _addExternal(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);: function ContentDialog_addExternal(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);() {
                     _ElementUtilities._inputPaneListener.addEventListener(this._dom.root, "showing", this._onInputPaneShownBound);
                     _ElementUtilities._inputPaneListener.addEventListener(this._dom.root, "hiding", this._onInputPaneHiddenBound);
                 },
 
-                _removeExternalListeners: function ContentDialog_removeExternalListeners() {
+                _removeExternal(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);: function ContentDialog_removeExternal(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);() {
                     _ElementUtilities._inputPaneListener.removeEventListener(this._dom.root, "showing", this._onInputPaneShownBound);
                     _ElementUtilities._inputPaneListener.removeEventListener(this._dom.root, "hiding", this._onInputPaneHiddenBound);
                 },
@@ -54882,7 +54882,7 @@ define('WinJS/Controls/SplitViewPaneToggle/_SplitViewPaneToggle',["require", "ex
                 return;
             }
             this._disposed = true;
-            this._splitView && this._removeListeners(this._splitView);
+            this._splitView && this._remove(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);(this._splitView);
         };
         SplitViewPaneToggle.prototype._initializeDom = function (root) {
             if (root.tagName !== "BUTTON") {
@@ -54908,12 +54908,12 @@ define('WinJS/Controls/SplitViewPaneToggle/_SplitViewPaneToggle',["require", "ex
             if (this._splitView !== rendered.splitView) {
                 if (rendered.splitView) {
                     this._dom.root.removeAttribute("aria-controls");
-                    this._removeListeners(rendered.splitView);
+                    this._remove(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);(rendered.splitView);
                 }
                 if (this._splitView) {
                     _ElementUtilities._ensureId(this._splitView);
                     this._dom.root.setAttribute("aria-controls", this._splitView.id);
-                    this._addListeners(this._splitView);
+                    this._add(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);(this._splitView);
                 }
                 rendered.splitView = this._splitView;
             }
@@ -54936,14 +54936,14 @@ define('WinJS/Controls/SplitViewPaneToggle/_SplitViewPaneToggle',["require", "ex
                 }
             }
         };
-        SplitViewPaneToggle.prototype._addListeners = function (splitViewElement) {
+        SplitViewPaneToggle.prototype._add(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera); = function (splitViewElement) {
             splitViewElement.addEventListener("_openCloseStateSettled", this._onPaneStateSettledBound);
             this._ariaExpandedMutationObserver.observe(this._dom.root, {
                 attributes: true,
                 attributeFilter: ["aria-expanded"]
             });
         };
-        SplitViewPaneToggle.prototype._removeListeners = function (splitViewElement) {
+        SplitViewPaneToggle.prototype._remove(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera); = function (splitViewElement) {
             splitViewElement.removeEventListener("_openCloseStateSettled", this._onPaneStateSettledBound);
             this._ariaExpandedMutationObserver.disconnect();
         };

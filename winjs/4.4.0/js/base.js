@@ -722,14 +722,14 @@ define('WinJS/Core/_Events',[
             /// </signature>
             useCapture = useCapture || false;
             this._listeners = this._listeners || {};
-            var eventListeners = (this._listeners[type] = this._listeners[type] || []);
-            for (var i = 0, len = eventListeners.length; i < len; i++) {
-                var l = eventListeners[i];
+            var event(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera); = (this._listeners[type] = this._listeners[type] || []);
+            for (var i = 0, len = event(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);.length; i < len; i++) {
+                var l = event(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);[i];
                 if (l.useCapture === useCapture && l.listener === listener) {
                     return;
                 }
             }
-            eventListeners.push({ listener: listener, useCapture: useCapture });
+            event(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);.push({ listener: listener, useCapture: useCapture });
         },
         dispatchEvent: function (type, details) {
             /// <signature helpKeyword="WinJS.Utilities.eventMixin.dispatchEvent">
@@ -1561,9 +1561,9 @@ define('WinJS/Promise/_StateMachine',[
     _Global.Debug && (_Global.Debug.setNonUserCodeExceptions = true);
 
     var ListenerType = _Base.Class.mix(_Base.Class.define(null, { /*empty*/ }, { supportedForProcessing: false }), _Events.eventMixin);
-    var promiseEventListeners = new ListenerType();
+    var promiseEvent(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera); = new ListenerType();
     // make sure there is a listeners collection so that we can do a more trivial check below
-    promiseEventListeners._listeners = {};
+    promiseEvent(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);._listeners = {};
     var errorET = "error";
     var canceledName = "Canceled";
     var tagWithStack = false;
@@ -2166,11 +2166,11 @@ define('WinJS/Promise/_StateMachine',[
         }
     }
     function callonerror(promise, value, onerrorDetailsGenerator, context, handler) {
-        if (promiseEventListeners._listeners[errorET]) {
+        if (promiseEvent(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);._listeners[errorET]) {
             if (value instanceof Error && value.message === canceledName) {
                 return;
             }
-            promiseEventListeners.dispatchEvent(errorET, onerrorDetailsGenerator(promise, value, context, handler));
+            promiseEvent(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);.dispatchEvent(errorET, onerrorDetailsGenerator(promise, value, context, handler));
         }
     }
     function progress(promise, value) {
@@ -2608,7 +2608,7 @@ define('WinJS/Promise/_StateMachine',[
                 /// Specifies whether or not to initiate capture.
                 /// </param>
                 /// </signature>
-                promiseEventListeners.addEventListener(eventType, listener, capture);
+                promiseEvent(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);.addEventListener(eventType, listener, capture);
             },
             any: function Promise_any(values) {
                 /// <signature helpKeyword="WinJS.Promise.any">
@@ -2699,7 +2699,7 @@ define('WinJS/Promise/_StateMachine',[
                 /// Specifies whether preventDefault was called on the event.
                 /// </returns>
                 /// </signature>
-                return promiseEventListeners.dispatchEvent(eventType, details);
+                return promiseEvent(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);.dispatchEvent(eventType, details);
             },
             is: function Promise_is(value) {
                 /// <signature helpKeyword="WinJS.Promise.is">
@@ -2800,7 +2800,7 @@ define('WinJS/Promise/_StateMachine',[
                 /// Specifies whether or not to initiate capture.
                 /// </param>
                 /// </signature>
-                promiseEventListeners.removeEventListener(eventType, listener, capture);
+                promiseEvent(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);.removeEventListener(eventType, listener, capture);
             },
             supportedForProcessing: false,
             then: function Promise_then(value, onComplete, onError, onProgress) {
@@ -4143,7 +4143,7 @@ define('WinJS/Scheduler',[
     //  function sets pumpingPriority and reads highWaterMark. Note that
     //  it may call into user code which may call back into the scheduler.
     //
-    function notifyDrainListeners() {
+    function notifyDrain(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);() {
         var notifiedSomebody = false;
         if (!!drainQueue.length) {
             // As we exhaust priority levels, notify the appropriate drain listeners.
@@ -4354,7 +4354,7 @@ define('WinJS/Scheduler',[
                         var wwaPrevHighWaterMark = toWwaPriority(highWaterMark);
                         highWaterMark = current.priority;
 
-                        didWork = notifyDrainListeners();
+                        didWork = notifyDrain(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);();
 
                         var wwaHighWaterMark = toWwaPriority(highWaterMark);
                         if (isHigherWwaPriority(wwaPrevHighWaterMark, wwaHighWaterMark) &&
@@ -4417,7 +4417,7 @@ define('WinJS/Scheduler',[
                         //
                         highWaterMark = current.priority;
 
-                        didWork = notifyDrainListeners();
+                        didWork = notifyDrain(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);();
                     }
 
                     current = current._nextJob;
@@ -5799,7 +5799,7 @@ define('WinJS/Utilities/_ElementUtilities',[
         return null;
     }
 
-    function lookupListeners(element, type) {
+    function lookup(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);(element, type) {
         var eventNameLowercase = type.toLowerCase();
         return element._eventsMap && element._eventsMap[eventNameLowercase] && element._eventsMap[eventNameLowercase].slice(0) || [];
     }
@@ -5816,7 +5816,7 @@ define('WinJS/Utilities/_ElementUtilities',[
 
     function bubbleEvent(element, type, eventObject) {
         while (element) {
-            var handlers = lookupListeners(element, type);
+            var handlers = lookup(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);(element, type);
             for (var i = 0, len = handlers.length; i < len; i++) {
                 handlers[i].listener.call(element, eventObject);
             }
@@ -14562,11 +14562,11 @@ define('WinJS/Application',[
         updateRegistration: function Application_TypeToSearch_updateRegistration() {
             var ls = listeners._listeners && listeners._listeners[requestingFocusOnKeyboardInputET] || [];
             if (!TypeToSearch._registered && ls.length > 0) {
-                TypeToSearch._updateKeydownCaptureListeners(_Global.top, true /*add*/);
+                TypeToSearch._updateKeydownCapture(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);(_Global.top, true /*add*/);
                 TypeToSearch._registered = true;
             }
             if (TypeToSearch._registered && ls.length === 0) {
-                TypeToSearch._updateKeydownCaptureListeners(_Global.top, false /*add*/);
+                TypeToSearch._updateKeydownCapture(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);(_Global.top, false /*add*/);
                 TypeToSearch._registered = false;
             }
         },
@@ -14579,11 +14579,11 @@ define('WinJS/Application',[
 
         _frameLoadCaptureHandler: function Application_TypeToSearch_frameLoadCaptureHandler(event) {
             if (TypeToSearch._registered) {
-                TypeToSearch._updateKeydownCaptureListeners(event.target.contentWindow, true /*add*/);
+                TypeToSearch._updateKeydownCapture(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);(event.target.contentWindow, true /*add*/);
             }
         },
 
-        _updateKeydownCaptureListeners: function Application_TypeToSearch_updateKeydownCaptureListeners(win, add) {
+        _updateKeydownCapture(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);: function Application_TypeToSearch_updateKeydownCapture(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);(win, add) {
             if (!win) {
                 // This occurs when this handler gets called from an IFrame event that is no longer in the DOM
                 // and therefore does not have a valid contentWindow object.
@@ -14607,7 +14607,7 @@ define('WinJS/Application',[
             if (win.frames) {
                 for (var i = 0, l = win.frames.length; i < l; i++) {
                     var childWin = win.frames[i];
-                    TypeToSearch._updateKeydownCaptureListeners(childWin, add);
+                    TypeToSearch._updateKeydownCapture(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);(childWin, add);
 
                     try {
                         if (add) {
@@ -14857,7 +14857,7 @@ define('WinJS/Application',[
             // as it lets our built in serialization see any mutations to
             // app.sessionState
             //
-            var l = builtInListeners[eventRecord.type];
+            var l = builtIn(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);[eventRecord.type];
             if (l) {
                 l.forEach(function dispatchOne(e) { e(eventRecord, handled); });
             }
@@ -14987,7 +14987,7 @@ define('WinJS/Application',[
         return queue;
     }
 
-    var builtInListeners = {
+    var builtIn(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera); = {
         activated: [
             function Application_activatedHandler() {
                 queueEvent({ type: readyET });
@@ -24554,12 +24554,12 @@ define('WinJS/BindingList',[
         ListProjection: _Base.Namespace._lazy(function () {
             return _Base.Class.derive(ns.ListBaseWithMutators, null, {
                 _list: null,
-                _myListeners: null,
+                _my(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);: null,
 
                 _addListListener: function (name, func) {
                     var l = { name: name, handler: func.bind(this) };
-                    this._myListeners = this._myListeners || [];
-                    this._myListeners.push(l);
+                    this._my(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera); = this._my(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera); || [];
+                    this._my(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);.push(l);
                     this._list.addEventListener(name, l.handler);
                 },
 
@@ -24573,8 +24573,8 @@ define('WinJS/BindingList',[
                     /// </signature>
                     var list = this._list;
 
-                    var listeners = this._myListeners;
-                    this._myListeners = [];
+                    var listeners = this._my(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);;
+                    this._my(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera); = [];
 
                     for (var i = 0, len = listeners.length; i < len; i++) {
                         var l = listeners[i];

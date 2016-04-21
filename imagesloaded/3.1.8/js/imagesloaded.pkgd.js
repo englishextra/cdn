@@ -69,7 +69,7 @@
 	 * @param {String|RegExp} evt Name of the event to return the listeners from.
 	 * @return {Function[]|Object} All listener functions for the event.
 	 */
-	proto.getListeners = function getListeners(evt) {
+	proto.get(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera); = function get(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);(evt) {
 		var events = this._getEvents();
 		var response;
 		var key;
@@ -97,25 +97,25 @@
 	 * @param {Object[]} listeners Raw listener objects.
 	 * @return {Function[]} Just the listener functions.
 	 */
-	proto.flattenListeners = function flattenListeners(listeners) {
-		var flatListeners = [];
+	proto.flatten(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera); = function flatten(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);(listeners) {
+		var flat(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera); = [];
 		var i;
 
 		for (i = 0; i < listeners.length; i += 1) {
-			flatListeners.push(listeners[i].listener);
+			flat(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);.push(listeners[i].listener);
 		}
 
-		return flatListeners;
+		return flat(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);;
 	};
 
 	/**
-	 * Fetches the requested listeners via getListeners but will always return the results inside an object. This is mainly for internal use but others may find it useful.
+	 * Fetches the requested listeners via get(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera); but will always return the results inside an object. This is mainly for internal use but others may find it useful.
 	 *
 	 * @param {String|RegExp} evt Name of the event to return the listeners from.
 	 * @return {Object} All listener functions for an event in an object.
 	 */
-	proto.getListenersAsObject = function getListenersAsObject(evt) {
-		var listeners = this.getListeners(evt);
+	proto.get(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);AsObject = function get(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);AsObject(evt) {
+		var listeners = this.get(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);(evt);
 		var response;
 
 		if (listeners instanceof Array) {
@@ -137,7 +137,7 @@
 	 * @return {Object} Current instance of EventEmitter for chaining.
 	 */
 	proto.addListener = function addListener(evt, listener) {
-		var listeners = this.getListenersAsObject(evt);
+		var listeners = this.get(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);AsObject(evt);
 		var listenerIsWrapped = typeof listener === 'object';
 		var key;
 
@@ -186,7 +186,7 @@
 	 * @return {Object} Current instance of EventEmitter for chaining.
 	 */
 	proto.defineEvent = function defineEvent(evt) {
-		this.getListeners(evt);
+		this.get(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);(evt);
 		return this;
 	};
 
@@ -212,7 +212,7 @@
 	 * @return {Object} Current instance of EventEmitter for chaining.
 	 */
 	proto.removeListener = function removeListener(evt, listener) {
-		var listeners = this.getListenersAsObject(evt);
+		var listeners = this.get(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);AsObject(evt);
 		var index;
 		var key;
 
@@ -235,7 +235,7 @@
 	proto.off = alias('removeListener');
 
 	/**
-	 * Adds listeners in bulk using the manipulateListeners method.
+	 * Adds listeners in bulk using the manipulate(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera); method.
 	 * If you pass an object as the second argument you can add to multiple events at once. The object should contain key value pairs of events and listeners or listener arrays. You can also pass it an event name and an array of listeners to be added.
 	 * You can also pass it a regular expression to add the array of listeners to all events that match it.
 	 * Yeah, this function does quite a bit. That's probably a bad thing.
@@ -244,13 +244,13 @@
 	 * @param {Function[]} [listeners] An optional array of listener functions to add.
 	 * @return {Object} Current instance of EventEmitter for chaining.
 	 */
-	proto.addListeners = function addListeners(evt, listeners) {
-		// Pass through to manipulateListeners
-		return this.manipulateListeners(false, evt, listeners);
+	proto.add(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera); = function add(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);(evt, listeners) {
+		// Pass through to manipulate(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);
+		return this.manipulate(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);(false, evt, listeners);
 	};
 
 	/**
-	 * Removes listeners in bulk using the manipulateListeners method.
+	 * Removes listeners in bulk using the manipulate(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera); method.
 	 * If you pass an object as the second argument you can remove from multiple events at once. The object should contain key value pairs of events and listeners or listener arrays.
 	 * You can also pass it an event name and an array of listeners to be removed.
 	 * You can also pass it a regular expression to remove the listeners from all events that match it.
@@ -259,13 +259,13 @@
 	 * @param {Function[]} [listeners] An optional array of listener functions to remove.
 	 * @return {Object} Current instance of EventEmitter for chaining.
 	 */
-	proto.removeListeners = function removeListeners(evt, listeners) {
-		// Pass through to manipulateListeners
-		return this.manipulateListeners(true, evt, listeners);
+	proto.remove(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera); = function remove(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);(evt, listeners) {
+		// Pass through to manipulate(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);
+		return this.manipulate(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);(true, evt, listeners);
 	};
 
 	/**
-	 * Edits listeners in bulk. The addListeners and removeListeners methods both use this to do their job. You should really use those instead, this is a little lower level.
+	 * Edits listeners in bulk. The add(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera); and remove(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera); methods both use this to do their job. You should really use those instead, this is a little lower level.
 	 * The first argument will determine if the listeners are removed (true) or added (false).
 	 * If you pass an object as the second argument you can add/remove from multiple events at once. The object should contain key value pairs of events and listeners or listener arrays.
 	 * You can also pass it an event name and an array of listeners to be added/removed.
@@ -276,11 +276,11 @@
 	 * @param {Function[]} [listeners] An optional array of listener functions to add/remove.
 	 * @return {Object} Current instance of EventEmitter for chaining.
 	 */
-	proto.manipulateListeners = function manipulateListeners(remove, evt, listeners) {
+	proto.manipulate(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera); = function manipulate(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);(remove, evt, listeners) {
 		var i;
 		var value;
 		var single = remove ? this.removeListener : this.addListener;
-		var multiple = remove ? this.removeListeners : this.addListeners;
+		var multiple = remove ? this.remove(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera); : this.add(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);;
 
 		// If evt is an object then pass each of it's properties to this method
 		if (typeof evt === 'object' && !(evt instanceof RegExp)) {
@@ -350,7 +350,7 @@
 	 *
 	 * Added to mirror the node API.
 	 */
-	proto.removeAllListeners = alias('removeEvent');
+	proto.removeAll(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera); = alias('removeEvent');
 
 	/**
 	 * Emits an event of your choice.
@@ -365,7 +365,7 @@
 	 * @return {Object} Current instance of EventEmitter for chaining.
 	 */
 	proto.emitEvent = function emitEvent(evt, args) {
-		var listeners = this.getListenersAsObject(evt);
+		var listeners = this.get(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);AsObject(evt);
 		var listener;
 		var i;
 		var key;
