@@ -18,13 +18,11 @@
 			var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
 			ref = refs[ refs.length - 1];
 		}
-
 		var sheets = doc.styleSheets;
 		ss.rel = "stylesheet";
 		ss.href = href;
 		// temporarily set media to something inapplicable to ensure it'll fetch without blocking render
 		ss.media = "only x";
-
 		// wait until body is defined before injecting link. This ensures a non-blocking load in IE11.
 		function ready( cb ){
 			if( doc.body ){
@@ -53,14 +51,12 @@
 				onloadcssdefined( cb );
 			});
 		};
-
 		function loadCB(){
 			if( ss.addEventListener ){
 				ss.removeEventListener( "load", loadCB );
 			}
 			ss.media = media || "all";
 		}
-
 		// once loaded, set link's media back to `all` so that the stylesheet applies once it loads
 		if( ss.addEventListener ){
 			ss.addEventListener( "load", loadCB);

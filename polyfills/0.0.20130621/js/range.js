@@ -13,29 +13,24 @@
 var rangeTest = document.createElement('input'),
     smile = ':)';
 rangeTest.setAttribute('type', 'range');
-
 var bool = rangeTest.type !== 'text';
 if (bool) {
   rangeTest.style.cssText = 'position:absolute;visibility:hidden;';
   rangeTest.value = smile;
   if (rangeTest.style.WebkitAppearance !== undefined ) {
-
     document.body.appendChild(rangeTest);
     defaultView = document.defaultView;
-
     // Safari 2-4 allows the smiley as a value, despite making a slider
     bool =  defaultView.getComputedStyle &&
             defaultView.getComputedStyle(rangeTest, null).WebkitAppearance !== 'textfield' &&
             // Mobile android web browser has false positive, so must
             // check the height to see if the widget is actually there.
             (rangeTest.offsetHeight !== 0);
-
     document.body.removeChild(rangeTest);
   }
 } else {
   bool = rangeTest.value == smile;
 }
-
 // if the input[range] is natively supported, then upgrade the <select type="range">
 // into a range element.
 if (bool) {
@@ -47,7 +42,6 @@ if (bool) {
       return el.firstChild.nextSibling;
     }
   }
-
   function lastChild(el, nodeName) {
     nodeName = nodeName.toUpperCase();
     if (el.lastChild.nodeName === nodeName) {
@@ -56,10 +50,8 @@ if (bool) {
       return el.lastChild.previousSibling;
     }
   }
-
  var selects = document.getElementsByTagName('select'),
      i = 0;
-
   for (; i < selects.length; i++) {
     if (selects[i].getAttribute('data-type') == 'range') (function (select) {
       var range = document.createElement('input'),

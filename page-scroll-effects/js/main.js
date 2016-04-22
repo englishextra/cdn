@@ -15,7 +15,6 @@ jQuery(document).ready(function($){
     	verticalNav = $('.cd-vertical-nav'),
     	prevArrow = verticalNav.find('a.cd-prev'),
     	nextArrow = verticalNav.find('a.cd-next');
-
 	
 	//check the media query and bind corresponding events
 	var MQ = deviceType(),
@@ -29,7 +28,6 @@ jQuery(document).ready(function($){
 		if( MQ == 'mobile' ) bindToggle = true;
 		if( MQ == 'desktop' ) bindToggle = false;
 	});
-
     function bindEvents(MQ, bool) {
     	
     	if( MQ == 'desktop' && bool) {   		
@@ -65,12 +63,10 @@ jQuery(document).ready(function($){
     		$(document).off('keydown');
 		}
     }
-
 	function scrollAnimation(){
 		//normal scroll - use requestAnimationFrame (if defined) to optimize performance
 		(!window.requestAnimationFrame) ? animateSection() : window.requestAnimationFrame(animateSection);
 	}
-
 	function animateSection() {
 		var scrollTop = $(window).scrollTop(),
 			windowHeight = $(window).height(),
@@ -79,7 +75,6 @@ jQuery(document).ready(function($){
 		sectionsAvailable.each(function(){
 			var actualBlock = $(this),
 				offset = scrollTop - actualBlock.offset().top;
-
 			//according to animation type and window scroll, define animation parameters
 			var animationValues = setSectionAnimation(offset, windowHeight, animationType);
 			
@@ -89,7 +84,6 @@ jQuery(document).ready(function($){
 		
 		checkNavigation();
 	}
-
 	function transformSection(element, translateY, scaleValue, rotateXValue, opacityValue, boxShadow) {
 		//transform sections - normal scroll
 		element.velocity({
@@ -101,7 +95,6 @@ jQuery(document).ready(function($){
 			translateZ: 0,
 		}, 0);
 	}
-
 	function initHijacking() {
 		// initialize section style - scrollhijacking
 		var visibleSection = sectionsAvailable.filter('.visible'),
@@ -111,7 +104,6 @@ jQuery(document).ready(function($){
 			animationVisible = animationParams[0],
 			animationTop = animationParams[1],
 			animationBottom = animationParams[2];
-
 		visibleSection.children('div').velocity(animationVisible, 1, function(){
 			visibleSection.css('opacity', 1);
 	    	topSection.css('opacity', 1);
@@ -120,7 +112,6 @@ jQuery(document).ready(function($){
         topSection.children('div').velocity(animationTop, 0);
         bottomSection.children('div').velocity(animationBottom, 0);
 	}
-
 	function scrollHijacking (event) {
 		// on mouse scroll - check if animate section
         if (event.originalEvent.detail < 0 || event.originalEvent.wheelDelta > 0) { 
@@ -132,7 +123,6 @@ jQuery(document).ready(function($){
         }
         return false;
     }
-
     function prevSection(event) {
     	//go to previous section
     	typeof event !== 'undefined' && event.preventDefault();
@@ -140,10 +130,8 @@ jQuery(document).ready(function($){
     	var visibleSection = sectionsAvailable.filter('.visible'),
     		middleScroll = ( hijacking == 'off' && $(window).scrollTop() != visibleSection.offset().top) ? true : false;
     	visibleSection = middleScroll ? visibleSection.next('.cd-section') : visibleSection;
-
     	var animationParams = selectAnimation(animationType, middleScroll, 'prev');
     	unbindScroll(visibleSection.prev('.cd-section'), animationParams[3]);
-
         if( !animating && !visibleSection.is(":first-child") ) {
         	animating = true;
             visibleSection.removeClass('visible').children('div').velocity(animationParams[2], animationParams[3], animationParams[4])
@@ -154,20 +142,15 @@ jQuery(document).ready(function($){
             
             actual = actual - 1;
         }
-
         resetScroll();
     }
-
     function nextSection(event) {
     	//go to next section
     	typeof event !== 'undefined' && event.preventDefault();
-
         var visibleSection = sectionsAvailable.filter('.visible'),
     		middleScroll = ( hijacking == 'off' && $(window).scrollTop() != visibleSection.offset().top) ? true : false;
-
     	var animationParams = selectAnimation(animationType, middleScroll, 'next');
     	unbindScroll(visibleSection.next('.cd-section'), animationParams[3]);
-
         if(!animating && !visibleSection.is(":last-of-type") ) {
             animating = true;
             visibleSection.removeClass('visible').children('div').velocity(animationParams[1], animationParams[3], animationParams[4] )
@@ -175,12 +158,10 @@ jQuery(document).ready(function($){
             	animating = false;
             	if( hijacking == 'off') $(window).on('scroll', scrollAnimation);
             });
-
             actual = actual +1;
         }
         resetScroll();
     }
-
     function unbindScroll(section, time) {
     	//if clicking on navigation - unbind scroll and animate using custom velocity animation
     	if( hijacking == 'off') {
@@ -188,30 +169,25 @@ jQuery(document).ready(function($){
     		( animationType == 'catch') ? $('body, html').scrollTop(section.offset().top) : section.velocity("scroll", { duration: time });
     	}
     }
-
     function resetScroll() {
         delta = 0;
         checkNavigation();
     }
-
     function checkNavigation() {
     	//update navigation arrows visibility
 		( sectionsAvailable.filter('.visible').is(':first-of-type') ) ? prevArrow.addClass('inactive') : prevArrow.removeClass('inactive');
 		( sectionsAvailable.filter('.visible').is(':last-of-type')  ) ? nextArrow.addClass('inactive') : nextArrow.removeClass('inactive');
 	}
-
 	function resetSectionStyle() {
 		//on mobile - remove style applied with jQuery
 		sectionsAvailable.children('div').each(function(){
 			$(this).attr('style', '');
 		});
 	}
-
 	function deviceType() {
 		//detect if desktop/mobile
 		return window.getComputedStyle(document.querySelector('body'), '::before').getPropertyValue('content').replace(/"/g, "").replace(/'/g, "");
 	}
-
 	function selectAnimation(animationName, middleScroll, direction) {
 		// select section animation - scrollhijacking
 		var animationVisible = 'translateNone',
@@ -219,7 +195,6 @@ jQuery(document).ready(function($){
 			animationBottom = 'translateDown',
 			easing = 'ease',
 			animDuration = 800;
-
 		switch(animationName) {
 		    case 'scaleDown':
 		    	animationTop = 'scaleDown';
@@ -263,10 +238,8 @@ jQuery(document).ready(function($){
 		    	easing = 'easeInCubic';
 		        break;
 		}
-
 		return [animationVisible, animationTop, animationBottom, animDuration, easing];
 	}
-
 	function setSectionAnimation(sectionOffset, windowHeight, animationName ) {
 		// select section animation - normal scroll
 		var scale = 1,
@@ -317,7 +290,6 @@ jQuery(document).ready(function($){
 			        opacity = (sectionOffset + windowHeight)/windowHeight;
 					break;
 			}
-
 		} else if( sectionOffset > 0 && sectionOffset <= windowHeight ) {
 			//section leaving the viewport - still has the '.visible' class
 			translateY = (-sectionOffset)*100/windowHeight;
@@ -328,7 +300,6 @@ jQuery(document).ready(function($){
 					opacity = ( 1 - ( sectionOffset/windowHeight) ).toFixed(5);
 					translateY = 0;
 					boxShadowBlur = 40*(sectionOffset/windowHeight);
-
 					break;
 				case 'rotate':
 					opacity = ( 1 - ( sectionOffset/windowHeight) ).toFixed(5);
@@ -368,13 +339,10 @@ jQuery(document).ready(function($){
 				case 'parallax':
 					translateY = (-sectionOffset)*50/windowHeight;
 					break;
-
 			}
-
 		} else if( sectionOffset < -windowHeight ) {
 			//section not yet visible
 			translateY = 100;
-
 			switch(animationName) {
 			    case 'scaleDown':
 			        scale = 1;
@@ -389,11 +357,9 @@ jQuery(document).ready(function($){
 			        opacity = 0;
 					break;
 			}
-
 		} else {
 			//section not visible anymore
 			translateY = -100;
-
 			switch(animationName) {
 			    case 'scaleDown':
 			        scale = 0;
@@ -420,11 +386,9 @@ jQuery(document).ready(function($){
 					break;
 			}
 		}
-
 		return [translateY, scale, rotateX, opacity, boxShadowBlur]; 
 	}
 });
-
 /* Custom effects registration - feature available in the Velocity UI pack */
 //none
 $.Velocity
@@ -448,7 +412,6 @@ $.Velocity
             [ { translateY: '0', opacity: '1', scale: '1', rotateX: '0', boxShadowBlur: '0'}, 1]
         ]
     });
-
 //scale down
 $.Velocity
     .RegisterEffect("scaleDown", {

@@ -4,18 +4,14 @@ var MSdotcomOffsetMenu = MSdotcomOffsetMenu || {
     leftMenu: $('#msdotcomoffsetmenuleft'),
     leftCloseButton: $('#msdotcomoffsetmenuleft .close-button'),
     leftDockButton: $('#msdotcomoffsetmenuleft .dock-button'),
-
     Start: function () {
         MSdotcomOffsetMenu.leftMenuButton.on('click', function () {
             window.requestAnimationFrame(MSdotcomOffsetMenu.ToggleMainNav);
         });
-
         MSdotcomOffsetMenu.RemoveTabIndexOfNavItems();
-
         $(window).on("resize", function(e) {
             window.requestAnimationFrame(MSdotcomOffsetMenu.HandleDock);
         });
-
         $(document.body)
         .on('keydown', function (e) {
             var code = e.keyCode || e.which;
@@ -26,7 +22,6 @@ var MSdotcomOffsetMenu = MSdotcomOffsetMenu || {
         .on('click', '.page', function (e) {
             window.requestAnimationFrame(MSdotcomOffsetMenu.CloseMainNavIfOpen);
         });
-
         MSdotcomOffsetMenu.leftCloseButton.on('click', function (e) {
             window.requestAnimationFrame(MSdotcomOffsetMenu.CloseOffset);
         });
@@ -38,7 +33,6 @@ var MSdotcomOffsetMenu = MSdotcomOffsetMenu || {
                 e.preventDefault();
             }
         });
-
         MSdotcomOffsetMenu.leftDockButton.on("click", function (e) {
             MSdotcomOffsetMenu.leftMenu.toggleClass("offset-docked");
             MSdotcomOffsetMenu.page.toggleClass("offset-docked");
@@ -51,7 +45,6 @@ var MSdotcomOffsetMenu = MSdotcomOffsetMenu || {
             MSdotcomOffsetMenu.leftCloseButton.toggle();
             MSdotcomOffsetMenu.leftMenuButton.toggle();
         });
-
         $('.msdotcomoffsetmenu li:last-child .offset-menu-link').on('keydown', function (e) {
             var code = e.keyCode || e.which;
             if (!e.shiftKey && code === 9) {
@@ -60,7 +53,6 @@ var MSdotcomOffsetMenu = MSdotcomOffsetMenu || {
             }
         });
     },
-
     ToggleMainNav: function () {
         if (MSdotcomOffsetMenu.page.css("left") == '0px' || MSdotcomOffsetMenu.page.css("left") == 'auto') {
             MSdotcomOffsetMenu.OpenOffset();
@@ -69,26 +61,22 @@ var MSdotcomOffsetMenu = MSdotcomOffsetMenu || {
             MSdotcomOffsetMenu.CloseOffset();
         }
     },
-
     OpenOffset: function () {
         var w = $('#msdotcomoffsetmenuleft').width();
         MSdotcomOffsetMenu.AnimateOffsetJS($('#msdotcomoffsetmenuleft').width());
         MSdotcomOffsetMenu.AddTabIndexOfNavItems();
         $('body').addClass("offsetopened");
     },
-
     CloseOffset: function () {
         MSdotcomOffsetMenu.RemoveTabIndexOfNavItems();
         MSdotcomOffsetMenu.AnimateOffsetJS("0px");
         $('body').removeClass("offsetopened");
     },
-
     CloseMainNavIfOpen: function () {
         if (MSdotcomOffsetMenu.page.css("left") !== '0px' && MSdotcomOffsetMenu.page.css("left") !== 'auto') {
             MSdotcomOffsetMenu.CloseOffset();
         };
     },
-
     AnimateOffsetJS: function (width) {
         MSdotcomOffsetMenu.page.animate({ left: width }, {
             duration: 300, 
@@ -96,7 +84,6 @@ var MSdotcomOffsetMenu = MSdotcomOffsetMenu || {
             queue: false
         });
     },
-
     AddTabIndexOfNavItems: function () {
         $('.msdotcomoffsetmenu .offset-menu-link').each(function (e) {
             $(this).attr('tabindex', '0');
@@ -104,7 +91,6 @@ var MSdotcomOffsetMenu = MSdotcomOffsetMenu || {
         $('.toolbox button').attr('tabindex', '0');
         $('.msdotcomoffsetmenu li:first-child .offset-menu-link').focus();
     },
-
     RemoveTabIndexOfNavItems: function () {
         $('.msdotcomoffsetmenu .offset-menu-link').each(function (e) {
             $(this).attr('tabindex', '-1');
@@ -112,7 +98,6 @@ var MSdotcomOffsetMenu = MSdotcomOffsetMenu || {
         $('.toolbox button').attr('tabindex', '-1');
         MSdotcomOffsetMenu.page.focus();
     },
-
     HandleDock: function () {
         var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
         if(width < 768) {
@@ -133,7 +118,6 @@ var MSdotcomOffsetMenu = MSdotcomOffsetMenu || {
         }
     }
 };
-
 $(document).ready(function () {
     MSdotcomOffsetMenu.Start();
 });

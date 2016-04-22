@@ -6,17 +6,14 @@ var form = document.createElement('form'),
     body = document.body,
     id = 'f' + +new Date,
     inputTargetSupported = false;
-
 // insert into DOM, work out if it's supported
 form.setAttribute('id', id);
 input.setAttribute('form', id);
 body.appendChild(form);
 body.appendChild(input);
-
 inputTargetSupported = input.form !== null;
 body.removeChild(form);
 body.removeChild(input);
-
 // if not, hook click handlers to all existing submit elements
 function click(event) {
   event = event || window.event;
@@ -34,9 +31,7 @@ function click(event) {
 	  form.removeChild(clone);
 	}
 }
-
 if (!inputTargetSupported) {
   body.addEventListener ? body.addEventListener('click', click, false) : body.attachEvent('onclick', click);
 }
-
 })();

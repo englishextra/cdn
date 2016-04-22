@@ -1,7 +1,6 @@
 $('.gridlinesToggle').on("click", function () {
 	$('.gridlines').toggle();
 });
-
 $('.rtlToggle').on("click", function () {
 	var current = $('html').attr("dir");
 	if(current === "ltr") {
@@ -11,7 +10,6 @@ $('.rtlToggle').on("click", function () {
 		$('html').attr("dir", "ltr");
 	}
 });
-
 $('.fullGridToggle').on("click", function () {
 	var $grid = $('.ms-grid');
 	if(!$grid.hasClass('full')){
@@ -19,7 +17,6 @@ $('.fullGridToggle').on("click", function () {
 		$('.gridlines').children('row').addClass('full');
 	};
 });
-
 $('.marginGridToggle').on("click", function () {
 	var $grid = $('.ms-grid');
 	if($grid.hasClass('full')){
@@ -27,7 +24,6 @@ $('.marginGridToggle').on("click", function () {
 		$('.inside').removeClass('full');
 	};
 });
-
 $('.fixedGridToggle').on("click", function() {
 	var $grid = $('.ms-grid');
 	if($grid.hasClass('zero-margin')) {
@@ -41,7 +37,6 @@ $('.fixedGridToggle').on("click", function() {
 	}
 	$grid.toggleClass('fixed');
 });
-
 $('.fixedSmallGridToggle').on("click", function() {
 	var $grid = $('.ms-grid');
 	if($grid.hasClass('zero-margin')) {
@@ -55,7 +50,6 @@ $('.fixedSmallGridToggle').on("click", function() {
 	}
 	$grid.toggleClass('fixed-small');
 });
-
 $('.fixedLargeGridToggle').on("click", function() {
 	var $grid = $('.ms-grid');
 	if($grid.hasClass('zero-margin')) {
@@ -69,7 +63,6 @@ $('.fixedLargeGridToggle').on("click", function() {
 	}
 	$grid.toggleClass('fixed-large');
 });
-
 $('.zeroMarginToggle').on("click", function() {
 	var $grid = $('.ms-grid');
 	if($grid.hasClass('fixed')) {
@@ -83,15 +76,12 @@ $('.zeroMarginToggle').on("click", function() {
 	}
 	$grid.toggleClass('zero-margin');
 });
-
 $('.headersToggle').on("click", function () {
 	$('.fullGridDemo h1, .fullGridDemo h2, .fullGridDemo h3, .fullGridDemo h4').toggle();
 });
-
 $('.gridBackgroundToggle').on("click", function () {
 	$('.ms-grid').toggleClass('light-gray');
 });
-
 $(document).ready(function () {
 	$('.colNum').each(function() {
 		var cn = $(this).parent().attr('class')

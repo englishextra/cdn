@@ -1,7 +1,6 @@
 ﻿
 /*! Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information. */
 (function () {
-
     var globalObject = 
         typeof window !== 'undefined' ? window :
         typeof self !== 'undefined' ? self :
@@ -23,35 +22,28 @@
             globalObject.msWriteProfilerMark && msWriteProfilerMark('WinJS.4.4 4.4.0.winjs.2015.10.2 base.js,StopTM');
         }
     }(function (WinJS) {
-
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 /*jshint ignore:start */
 var require;
 var define;
 /*jshint ignore:end */
-
 (function () {
     "use strict";
-
     var defined = {};
     define = function (id, dependencies, factory) {
         if (!Array.isArray(dependencies)) {
             factory = dependencies;
             dependencies = [];
         }
-
         var mod = {
             dependencies: normalize(id, dependencies),
             factory: factory
         };
-
         if (dependencies.indexOf('exports') !== -1) {
             mod.exports = {};
         }
-
         defined[id] = mod;
     };
-
     // WinJS/Core depends on ./Core/_Base
     // should return WinJS/Core/_Base
     function normalize(id, dependencies) {
@@ -75,35 +67,29 @@ var define;
             }
         });
     }
-
     function resolve(dependencies, parent, exports) {
         return dependencies.map(function (depName) {
             if (depName === 'exports') {
                 return exports;
             }
-
             if (depName === 'require') {
                 return function (dependencies, factory) {
                     require(normalize(parent, dependencies), factory);
                 };
             }
-
             var dep = defined[depName];
             if (!dep) {
                 throw new Error("Undefined dependency: " + depName);
             }
-
             if (!dep.resolved) {
                 dep.resolved = load(dep.dependencies, dep.factory, depName, dep.exports);
                 if (typeof dep.resolved === "undefined") {
                     dep.resolved = dep.exports;
                 }
             }
-
             return dep.resolved;
         });
     }
-
     function load(dependencies, factory, parent, exports) {
         var deps = resolve(dependencies, parent, exports);
         if (factory && factory.apply) {
@@ -118,14 +104,10 @@ var define;
         }
         load(dependencies, factory);
     };
-
-
 })();
 define("amd", function(){});
-
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 define('WinJS/Core/_WinJS',{});
-
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 define('WinJS/Core/_Global',[], function () {
     "use strict";
@@ -140,15 +122,12 @@ define('WinJS/Core/_Global',[], function () {
         {};
     return globalObject;
 });
-
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 define('WinJS/Core/_BaseCoreUtils',[
     './_Global'
     ], function baseCoreUtilsInit(_Global) {
     "use strict";
-
     var hasWinRT = !!_Global.Windows;
-
     function markSupportedForProcessing(func) {
         /// <signature helpKeyword="WinJS.Utilities.markSupportedForProcessing">
         /// <summary locid="WinJS.Utilities.markSupportedForProcessing">
@@ -165,7 +144,6 @@ define('WinJS/Core/_BaseCoreUtils',[
         func.supportedForProcessing = true;
         return func;
     }
-
     return {
         hasWinRT: hasWinRT,
         markSupportedForProcessing: markSupportedForProcessing,
@@ -179,7 +157,6 @@ define('WinJS/Core/_WriteProfilerMark',[
     './_Global'
 ], function profilerInit(_Global) {
     "use strict";
-
     return _Global.msWriteProfilerMark || function () { };
 });
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
@@ -190,7 +167,6 @@ define('WinJS/Core/_Base',[
     './_WriteProfilerMark'
     ], function baseInit(_WinJS, _Global, _BaseCoreUtils, _WriteProfilerMark) {
     "use strict";
-
     function initializeProperties(target, members, prefix) {
         var keys = Object.keys(members);
         var isArray = Array.isArray(target);
@@ -236,14 +212,11 @@ define('WinJS/Core/_Base',[
             }
         }
     }
-
     (function () {
-
         var _rootNamespace = _WinJS;
         if (!_rootNamespace.Namespace) {
             _rootNamespace.Namespace = Object.create(Object.prototype);
         }
-
         function createNamespace(parentNamespace, name) {
             var currentNamespace = parentNamespace || {};
             if (name) {
@@ -264,7 +237,6 @@ define('WinJS/Core/_Base',[
             }
             return currentNamespace;
         }
-
         function defineWithParent(parentNamespace, name, members) {
             /// <signature helpKeyword="WinJS.Namespace.defineWithParent">
             /// <summary locid="WinJS.Namespace.defineWithParent">
@@ -284,14 +256,11 @@ define('WinJS/Core/_Base',[
             /// </returns>
             /// </signature>
             var currentNamespace = createNamespace(parentNamespace, name);
-
             if (members) {
                 initializeProperties(currentNamespace, members, name || "<ANONYMOUS>");
             }
-
             return currentNamespace;
         }
-
         function define(name, members) {
             /// <signature helpKeyword="WinJS.Namespace.define">
             /// <summary locid="WinJS.Namespace.define">
@@ -309,13 +278,11 @@ define('WinJS/Core/_Base',[
             /// </signature>
             return defineWithParent(_Global, name, members);
         }
-
         var LazyStates = {
             uninitialized: 1,
             working: 2,
             initialized: 3,
         };
-
         function lazy(f) {
             var name;
             var state = LazyStates.uninitialized;
@@ -328,7 +295,6 @@ define('WinJS/Core/_Base',[
                     switch (state) {
                         case LazyStates.initialized:
                             return result;
-
                         case LazyStates.uninitialized:
                             state = LazyStates.working;
                             try {
@@ -341,10 +307,8 @@ define('WinJS/Core/_Base',[
                             f = null;
                             state = LazyStates.initialized;
                             return result;
-
                         case LazyStates.working:
                             throw "Illegal: reentrancy on initialization";
-
                         default:
                             throw "Illegal";
                     }
@@ -353,7 +317,6 @@ define('WinJS/Core/_Base',[
                     switch (state) {
                         case LazyStates.working:
                             throw "Illegal: reentrancy on initialization";
-
                         default:
                             state = LazyStates.initialized;
                             result = value;
@@ -364,7 +327,6 @@ define('WinJS/Core/_Base',[
                 configurable: true,
             };
         }
-
         // helper for defining AMD module members
         function moduleDefine(exports, name, members) {
             var target = [exports];
@@ -376,24 +338,15 @@ define('WinJS/Core/_Base',[
             initializeProperties(target, members, name || "<ANONYMOUS>");
             return publicNS;
         }
-
         // Establish members of the "WinJS.Namespace" namespace
         Object.defineProperties(_rootNamespace.Namespace, {
-
             defineWithParent: { value: defineWithParent, writable: true, enumerable: true, configurable: true },
-
             define: { value: define, writable: true, enumerable: true, configurable: true },
-
             _lazy: { value: lazy, writable: true, enumerable: true, configurable: true },
-
             _moduleDefine: { value: moduleDefine, writable: true, enumerable: true, configurable: true }
-
         });
-
     })();
-
     (function () {
-
         function define(constructor, instanceMembers, staticMembers) {
             /// <signature helpKeyword="WinJS.Class.define">
             /// <summary locid="WinJS.Class.define">
@@ -422,7 +375,6 @@ define('WinJS/Core/_Base',[
             }
             return constructor;
         }
-
         function derive(baseClass, constructor, instanceMembers, staticMembers) {
             /// <signature helpKeyword="WinJS.Class.derive">
             /// <summary locid="WinJS.Class.derive">
@@ -461,7 +413,6 @@ define('WinJS/Core/_Base',[
                 return define(constructor, instanceMembers, staticMembers);
             }
         }
-
         function mix(constructor) {
             /// <signature helpKeyword="WinJS.Class.mix">
             /// <summary locid="WinJS.Class.mix">
@@ -482,28 +433,23 @@ define('WinJS/Core/_Base',[
             }
             return constructor;
         }
-
         // Establish members of "WinJS.Class" namespace
         _WinJS.Namespace.define("WinJS.Class", {
             define: define,
             derive: derive,
             mix: mix
         });
-
     })();
-
     return {
         Namespace: _WinJS.Namespace,
         Class: _WinJS.Class
     };
-
 });
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 define('WinJS/Core/_ErrorFromName',[
     './_Base'
     ], function errorsInit(_Base) {
     "use strict";
-
     var ErrorFromName = _Base.Class.derive(Error, function (name, message) {
         /// <signature helpKeyword="WinJS.ErrorFromName">
         /// <summary locid="WinJS.ErrorFromName">
@@ -520,18 +466,13 @@ define('WinJS/Core/_ErrorFromName',[
     }, {
         supportedForProcessing: false,
     });
-
     _Base.Namespace.define("WinJS", {
         // ErrorFromName establishes a simple pattern for returning error codes.
         //
         ErrorFromName: ErrorFromName
     });
-
     return ErrorFromName;
-
 });
-
-
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 define('WinJS/Core/_WinRT',[
     'exports',
@@ -539,10 +480,8 @@ define('WinJS/Core/_WinRT',[
     './_Base',
 ], function winrtInit(exports, _Global, _Base) {
     "use strict";
-
     exports.msGetWeakWinRTProperty = _Global.msGetWeakWinRTProperty;
     exports.msSetWeakWinRTProperty = _Global.msSetWeakWinRTProperty;
-
     var APIs = [
         "Windows.ApplicationModel.DesignMode.designModeEnabled",
         "Windows.ApplicationModel.Resources.Core.ResourceContext",
@@ -587,7 +526,6 @@ define('WinJS/Core/_WinRT',[
         "Windows.UI.WebUI.Core.WebUICommandBarSymbolIcon",
         "Windows.UI.WebUI.WebUIApplication",
     ];
-
     // If getForCurrentView fails, it is an indication that we are running in a WebView without
     // a CoreWindow where some WinRT APIs are not available. In this case, we just treat it as
     // if no WinRT APIs are available.
@@ -596,7 +534,6 @@ define('WinJS/Core/_WinRT',[
         _Global.Windows.UI.ViewManagement.InputPane.getForCurrentView();
         isCoreWindowAvailable = true;
     } catch (e) { }
-
     APIs.forEach(function (api) {
         var parts = api.split(".");
         var leaf = {};
@@ -612,18 +549,14 @@ define('WinJS/Core/_WinRT',[
         _Base.Namespace.defineWithParent(exports, parts.slice(0, -1).join("."), leaf);
     });
 });
-
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 define('WinJS/Core/_Events',[
     'exports',
     './_Base'
     ], function eventsInit(exports, _Base) {
     "use strict";
-
-
     function createEventProperty(name) {
         var eventPropStateName = "_on" + name + "state";
-
         return {
             get: function () {
                 var state = this[eventPropStateName];
@@ -646,7 +579,6 @@ define('WinJS/Core/_Events',[
             enumerable: true
         };
     }
-
     function createEventProperties() {
         /// <signature helpKeyword="WinJS.Utilities.createEventProperties">
         /// <summary locid="WinJS.Utilities.createEventProperties">
@@ -666,7 +598,6 @@ define('WinJS/Core/_Events',[
         }
         return props;
     }
-
     var EventMixinEvent = _Base.Class.define(
         function EventMixinEvent_ctor(type, detail, target) {
             this.detail = detail;
@@ -688,7 +619,6 @@ define('WinJS/Core/_Events',[
             target: null,
             timeStamp: null,
             type: null,
-
             preventDefault: function () {
                 this._preventDefaultCalled = true;
             },
@@ -701,10 +631,8 @@ define('WinJS/Core/_Events',[
             supportedForProcessing: false,
         }
     );
-
     var eventMixin = {
         _listeners: null,
-
         addEventListener: function (type, listener, useCapture) {
             /// <signature helpKeyword="WinJS.Utilities.eventMixin.addEventListener">
             /// <summary locid="WinJS.Utilities.eventMixin.addEventListener">
@@ -790,18 +718,13 @@ define('WinJS/Core/_Events',[
             }
         }
     };
-
     _Base.Namespace._moduleDefine(exports, "WinJS.Utilities", {
         _createEventProperty: createEventProperty,
         createEventProperties: createEventProperties,
         eventMixin: eventMixin
     });
-
 });
-
-
 define('require-json',{load: function(id){throw new Error("Dynamic load not allowed: " + id);}});
-
 define('require-json!strings/en-us/Microsoft.WinJS.resjson',{
     "tv/scrollViewerPageDown": "Page Down",
     "tv/scrollViewerPageUp": "Page Up",
@@ -1315,44 +1238,33 @@ define('WinJS/Core/_Resources',[
     'require-json!strings/en-us/Microsoft.WinJS.resjson',
     ], function resourcesInit(exports, _Global, _WinRT, _Base, _Events, defaultStrings) {
     "use strict";
-
     function _getWinJSString(id) {
         var result = getString("ms-resource:///Microsoft.WinJS/" + id);
-
         if (result.empty) {
             result = _getStringBuiltIn(id);
         }
-
         return result;
     }
-
     function _getStringBuiltIn(resourceId) {
         var str = defaultStrings[resourceId];
-
         if (typeof str === "string") {
             str = { value: str };
         }
-
         return str || { value: resourceId, empty: true };
     }
-
     var resourceMap;
     var mrtEventHook = false;
     var contextChangedET = "contextchanged";
     var resourceContext;
-
     var ListenerType = _Base.Class.mix(_Base.Class.define(null, { /* empty */ }, { supportedForProcessing: false }), _Events.eventMixin);
     var listeners = new ListenerType();
     var createEvent = _Events._createEventProperty;
-
     var strings = {
         get malformedFormatStringInput() { return "Malformed, did you mean to escape your '{0}'?"; },
     };
-
     _Base.Namespace.define("WinJS.Resources", {
         _getWinJSString: _getWinJSString
     });
-
     function formatString(string) {
         var args = arguments;
         if (args.length > 1) {
@@ -1363,7 +1275,6 @@ define('WinJS/Core/_Resources',[
         }
         return string;
     }
-
     _Base.Namespace._moduleDefine(exports, "WinJS.Resources", {
         addEventListener: function (type, listener, useCapture) {
             /// <signature helpKeyword="WinJS.Resources.addEventListener">
@@ -1388,7 +1299,6 @@ define('WinJS/Core/_Resources',[
                             resContext.qualifierValues.addEventListener("mapchanged", function (e) {
                                 exports.dispatchEvent(contextChangedET, { qualifier: e.key, changed: e.target[e.key] });
                             }, false);
-
                         } else {
                             // The API can be called in the Background thread (web worker).
                             _WinRT.Windows.ApplicationModel.Resources.Core.ResourceManager.current.defaultContext.qualifierValues.addEventListener("mapchanged", function (e) {
@@ -1404,9 +1314,7 @@ define('WinJS/Core/_Resources',[
         },
         removeEventListener: listeners.removeEventListener.bind(listeners),
         dispatchEvent: listeners.dispatchEvent.bind(listeners),
-
         _formatString: formatString,
-
         _getStringWinRT: function (resourceId) {
             if (!resourceMap) {
                 var mainResourceMap = _WinRT.Windows.ApplicationModel.Resources.Core.ResourceManager.current.mainResourceMap;
@@ -1419,7 +1327,6 @@ define('WinJS/Core/_Resources',[
                     resourceMap = mainResourceMap;
                 }
             }
-
             var stringValue;
             var langValue;
             var resCandidate;
@@ -1430,7 +1337,6 @@ define('WinJS/Core/_Resources',[
                 } else {
                     resCandidate = resourceMap.getValue(resourceId);
                 }
-
                 if (resCandidate) {
                     stringValue = resCandidate.valueAsString;
                     if (stringValue === undefined) {
@@ -1439,21 +1345,17 @@ define('WinJS/Core/_Resources',[
                 }
             }
             catch (e) { }
-
             if (!stringValue) {
                 return exports._getStringJS(resourceId);
             }
-
             try {
                 langValue = resCandidate.getQualifierValue("Language");
             }
             catch (e) {
                 return { value: stringValue };
             }
-
             return { value: stringValue, lang: langValue };
         },
-
         _getStringJS: function (resourceId) {
             var str = _Global.strings && _Global.strings[resourceId];
             if (typeof str === "string") {
@@ -1461,7 +1363,6 @@ define('WinJS/Core/_Resources',[
             }
             return str || { value: resourceId, empty: true };
         },
-
         _getResourceContext: function () {
             if (_Global.document) {
                 if (typeof (resourceContext) === 'undefined') {
@@ -1471,18 +1372,13 @@ define('WinJS/Core/_Resources',[
                     } else {
                         resourceContext = null;
                     }
-
                 }
             }
             return resourceContext;
         },
-
         oncontextchanged: createEvent(contextChangedET)
-
     });
-
     var getStringImpl = _WinRT.Windows.ApplicationModel.Resources.Core.ResourceManager ? exports._getStringWinRT : exports._getStringJS;
-
     var getString = function (resourceId) {
         /// <signature helpKeyword="WinJS.Resources.getString">
         /// <summary locid='WinJS.Resources.getString'>
@@ -1508,15 +1404,12 @@ define('WinJS/Core/_Resources',[
         ///
         /// </returns>
         /// </signature>
-
         return getStringImpl(resourceId);
     };
-
     _Base.Namespace._moduleDefine(exports, null, {
         _formatString: formatString,
         _getWinJSString: _getWinJSString
     });
-
     _Base.Namespace._moduleDefine(exports, "WinJS.Resources", {
         getString: {
             get: function () {
@@ -1527,19 +1420,15 @@ define('WinJS/Core/_Resources',[
             }
         }
     });
-
 });
-
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 define('WinJS/Core/_Trace',[
     './_Global'
     ], function traceInit(_Global) {
     "use strict";
-
     function nop(v) {
         return v;
     }
-
     return {
         _traceAsyncOperationStarting: (_Global.Debug && _Global.Debug.msTraceAsyncOperationStarting && _Global.Debug.msTraceAsyncOperationStarting.bind(_Global.Debug)) || nop,
         _traceAsyncOperationCompleted: (_Global.Debug && _Global.Debug.msTraceAsyncOperationCompleted && _Global.Debug.msTraceAsyncOperationCompleted.bind(_Global.Debug)) || nop,
@@ -1557,9 +1446,7 @@ define('WinJS/Promise/_StateMachine',[
     '../Core/_Trace'
     ], function promiseStateMachineInit(_Global, _BaseCoreUtils, _Base, _ErrorFromName, _Events, _Trace) {
     "use strict";
-
     _Global.Debug && (_Global.Debug.setNonUserCodeExceptions = true);
-
     var ListenerType = _Base.Class.mix(_Base.Class.define(null, { /*empty*/ }, { supportedForProcessing: false }), _Events.eventMixin);
     var promiseEvent(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera); = new ListenerType();
     // make sure there is a listeners collection so that we can do a more trivial check below
@@ -1575,7 +1462,6 @@ define('WinJS/Promise/_StateMachine',[
         completePromise: 0x10,
     };
     tag.all = tag.promise | tag.thenPromise | tag.errorPromise | tag.exceptionPromise | tag.completePromise;
-
     //
     // Global error counter, for each error which enters the system we increment this once and then
     // the error number travels with the error as it traverses the tree of potential handlers.
@@ -1588,7 +1474,6 @@ define('WinJS/Promise/_StateMachine',[
     // a new error id will be minted.
     //
     var error_number = 1;
-
     //
     // The state machine has a interesting hiccup in it with regards to notification, in order
     // to flatten out notification and avoid recursion for synchronous completion we have an
@@ -1602,7 +1487,6 @@ define('WinJS/Promise/_StateMachine',[
     // its children into an (as appropriate) success or error state and also notify that child's
     // listeners of the state transition, until leaf notes are reached.
     //
-
     var state_created,              // -> working
         state_working,              // -> error | error_notify | success | success_notify | canceled | waiting
         state_waiting,              // -> error | error_notify | success | success_notify | waiting_canceled
@@ -1613,12 +1497,9 @@ define('WinJS/Promise/_StateMachine',[
         state_success,              // -> .
         state_error_notify,         // -> error
         state_error;                // -> .
-
     // Noop function, used in the various states to indicate that they don't support a given
     // message. Named with the somewhat cute name '_' because it reads really well in the states.
-
     function _() { }
-
     // Initial state
     //
     state_created = {
@@ -1636,7 +1517,6 @@ define('WinJS/Promise/_StateMachine',[
         _setCompleteValue: _,
         _setErrorValue: _
     };
-
     // Ready state, waiting for a message (completed/error/progress), able to be canceled
     //
     state_working = {
@@ -1654,7 +1534,6 @@ define('WinJS/Promise/_StateMachine',[
         _setCompleteValue: setCompleteValue,
         _setErrorValue: setErrorValue
     };
-
     // Waiting state, if a promise is completed with a value which is itself a promise
     // (has a then() method) it signs up to be informed when that child promise is
     // fulfilled at which point it will be fulfilled with that value.
@@ -1703,7 +1582,6 @@ define('WinJS/Promise/_StateMachine',[
         _setCompleteValue: setCompleteValue,
         _setErrorValue: setErrorValue
     };
-
     // Waiting canceled state, when a promise has been in a waiting state and receives a
     // request to cancel its pending work it will forward that request to the child promise
     // and then waits to be informed of the result. This promise moves itself into the
@@ -1732,7 +1610,6 @@ define('WinJS/Promise/_StateMachine',[
         _setCompleteValue: setCompleteValue,
         _setErrorValue: setErrorValue
     };
-
     // Canceled state, moves to the canceling state and then tells the promise to do
     // whatever it might need to do on cancelation.
     //
@@ -1754,7 +1631,6 @@ define('WinJS/Promise/_StateMachine',[
         _setCompleteValue: setCompleteValue,
         _setErrorValue: setErrorValue
     };
-
     // Canceling state, commits to the promise moving to an error state with an error
     // object whose 'name' and 'message' properties contain the string "Canceled"
     //
@@ -1776,7 +1652,6 @@ define('WinJS/Promise/_StateMachine',[
         _setCompleteValue: _,
         _setErrorValue: _
     };
-
     // Success notify state, moves a promise to the success state and notifies all children
     //
     state_success_notify = {
@@ -1804,7 +1679,6 @@ define('WinJS/Promise/_StateMachine',[
         _setCompleteValue: _,
         _setErrorValue: _
     };
-
     // Success state, moves a promise to the success state and does NOT notify any children.
     // Some upstream promise is owning the notification pass.
     //
@@ -1825,7 +1699,6 @@ define('WinJS/Promise/_StateMachine',[
         _setCompleteValue: _,
         _setErrorValue: _
     };
-
     // Error notify state, moves a promise to the error state and notifies all children
     //
     state_error_notify = {
@@ -1853,7 +1726,6 @@ define('WinJS/Promise/_StateMachine',[
         _setCompleteValue: _,
         _setErrorValue: _
     };
-
     // Error state, moves a promise to the error state and does NOT notify any children.
     // Some upstream promise is owning the notification pass.
     //
@@ -1874,7 +1746,6 @@ define('WinJS/Promise/_StateMachine',[
         _setCompleteValue: _,
         _setErrorValue: _
     };
-
     //
     // The statemachine implementation follows a very particular pattern, the states are specified
     // as static stateless bags of functions which are then indirected through the state machine
@@ -1885,13 +1756,11 @@ define('WinJS/Promise/_StateMachine',[
     // We could instead call directly through the promise states however then every caller
     // would have to remember to do things like pumping the state machine to catch state transitions.
     //
-
     var PromiseStateMachine = _Base.Class.define(null, {
         _listeners: null,
         _nextState: null,
         _state: null,
         _value: null,
-
         cancel: function () {
             /// <signature helpKeyword="WinJS.PromiseStateMachine.cancel">
             /// <summary locid="WinJS.PromiseStateMachine.cancel">
@@ -1965,7 +1834,6 @@ define('WinJS/Promise/_StateMachine',[
             /// </signature>
             return this._state.then(this, onComplete, onError, onProgress);
         },
-
         _chainedError: function (value, context) {
             var result = this._state._error(this, value, detailsForChainedError, context);
             this._run();
@@ -2011,11 +1879,9 @@ define('WinJS/Promise/_StateMachine',[
     }, {
         supportedForProcessing: false
     });
-
     //
     // Implementations of shared state machine code.
     //
-
     function completed(promise, value) {
         var targetState;
         if (value && typeof value === "object" && typeof value.then === "function") {
@@ -2101,9 +1967,7 @@ define('WinJS/Promise/_StateMachine',[
             var listener = len === 1 ? listeners : listeners[i];
             var onComplete = listener.c;
             var target = listener.promise;
-
             _Trace._traceAsyncOperationCompleted(listener.asyncOpID, _Global.Debug && _Global.Debug.MS_ASYNC_OP_STATUS_SUCCESS);
-
             if (target) {
                 _Trace._traceAsyncCallbackStarting(listener.asyncOpID);
                 try {
@@ -2133,10 +1997,8 @@ define('WinJS/Promise/_StateMachine',[
             var listener = len === 1 ? listeners : listeners[i];
             var onError = listener.e;
             var target = listener.promise;
-
             var errorID = _Global.Debug && (value && value.name === canceledName ? _Global.Debug.MS_ASYNC_OP_STATUS_CANCELED : _Global.Debug.MS_ASYNC_OP_STATUS_ERROR);
             _Trace._traceAsyncOperationCompleted(listener.asyncOpID, errorID);
-
             if (target) {
                 var asyncCallbackStarted = false;
                 try {
@@ -2230,44 +2092,36 @@ define('WinJS/Promise/_StateMachine',[
         pushListener(promise, { promise: result, c: onComplete, e: onError, p: onProgress, asyncOpID: asyncOpID });
         return result;
     }
-
     //
     // Internal implementation detail promise, ThenPromise is created when a promise needs
     // to be returned from a then() method.
     //
     var ThenPromise = _Base.Class.derive(PromiseStateMachine,
         function (creator) {
-
             if (tagWithStack && (tagWithStack === true || (tagWithStack & tag.thenPromise))) {
                 this._stack = Promise._getStack();
             }
-
             this._creator = creator;
             this._setState(state_created);
             this._run();
         }, {
             _creator: null,
-
             _cancelAction: function () { if (this._creator) { this._creator.cancel(); } },
             _cleanupAction: function () { this._creator = null; }
         }, {
             supportedForProcessing: false
         }
     );
-
     //
     // Slim promise implementations for already completed promises, these are created
     // under the hood on synchronous completion paths as well as by WinJS.Promise.wrap
     // and WinJS.Promise.wrapError.
     //
-
     var ErrorPromise = _Base.Class.define(
         function ErrorPromise_ctor(value) {
-
             if (tagWithStack && (tagWithStack === true || (tagWithStack & tag.errorPromise))) {
                 this._stack = Promise._getStack();
             }
-
             this._value = value;
             callonerror(this, value, detailsForError);
         }, {
@@ -2362,7 +2216,6 @@ define('WinJS/Promise/_StateMachine',[
                 /// error function.
                 /// </returns>
                 /// </signature>
-
                 // If the promise is already in a error state and no error handler is provided
                 // we optimize by simply returning the promise instead of creating a new one.
                 //
@@ -2390,14 +2243,11 @@ define('WinJS/Promise/_StateMachine',[
             supportedForProcessing: false
         }
     );
-
     var ExceptionPromise = _Base.Class.derive(ErrorPromise,
         function ExceptionPromise_ctor(value) {
-
             if (tagWithStack && (tagWithStack === true || (tagWithStack & tag.exceptionPromise))) {
                 this._stack = Promise._getStack();
             }
-
             this._value = value;
             callonerror(this, value, detailsForException);
         }, {
@@ -2406,14 +2256,11 @@ define('WinJS/Promise/_StateMachine',[
             supportedForProcessing: false
         }
     );
-
     var CompletePromise = _Base.Class.define(
         function CompletePromise_ctor(value) {
-
             if (tagWithStack && (tagWithStack === true || (tagWithStack & tag.completePromise))) {
                 this._stack = Promise._getStack();
             }
-
             if (value && typeof value === "object" && typeof value.then === "function") {
                 var result = new ThenPromise(null);
                 result._setCompleteValue(value);
@@ -2513,11 +2360,9 @@ define('WinJS/Promise/_StateMachine',[
             supportedForProcessing: false
         }
     );
-
     //
     // Promise is the user-creatable WinJS.Promise object.
     //
-
     function timeout(timeoutMS) {
         var id;
         return new Promise(
@@ -2535,7 +2380,6 @@ define('WinJS/Promise/_StateMachine',[
             }
         );
     }
-
     function timeoutWithPromise(timeout, promise) {
         var cancelPromise = function () { promise.cancel(); };
         var cancelTimeout = function () { timeout.cancel(); };
@@ -2543,9 +2387,7 @@ define('WinJS/Promise/_StateMachine',[
         promise.then(cancelTimeout, cancelTimeout);
         return promise;
     }
-
     var staticCanceledPromise;
-
     var Promise = _Base.Class.derive(PromiseStateMachine,
         function Promise_ctor(init, oncancel) {
             /// <signature helpKeyword="WinJS.Promise">
@@ -2565,15 +2407,12 @@ define('WinJS/Promise/_StateMachine',[
             /// support cancellation.
             /// </param>
             /// </signature>
-
             if (tagWithStack && (tagWithStack === true || (tagWithStack & tag.promise))) {
                 this._stack = Promise._getStack();
             }
-
             this._oncancel = oncancel;
             this._setState(state_created);
             this._run();
-
             try {
                 var complete = this._completed.bind(this);
                 var error = this._error.bind(this);
@@ -2584,7 +2423,6 @@ define('WinJS/Promise/_StateMachine',[
             }
         }, {
             _oncancel: null,
-
             _cancelAction: function () {
                 if (this._oncancel) {
                     try { this._oncancel(); } catch (ex) { }
@@ -2592,7 +2430,6 @@ define('WinJS/Promise/_StateMachine',[
             },
             _cleanupAction: function () { this._oncancel = null; }
         }, {
-
             addEventListener: function Promise_addEventListener(eventType, listener, capture) {
                 /// <signature helpKeyword="WinJS.Promise.addEventListener">
                 /// <summary locid="WinJS.Promise.addEventListener">
@@ -2915,7 +2752,6 @@ define('WinJS/Promise/_StateMachine',[
                 /// </signature>
                 return new ErrorPromise(error);
             },
-
             _veryExpensiveTagWithStack: {
                 get: function () { return tagWithStack; },
                 set: function (value) { tagWithStack = value; }
@@ -2926,7 +2762,6 @@ define('WinJS/Promise/_StateMachine',[
                     try { throw new Error(); } catch (e) { return e.stack; }
                 }
             },
-
             _cancelBlocker: function Promise__cancelBlocker(input, oncancel) {
                 //
                 // Returns a promise which on cancelation will still result in downstream cancelation while
@@ -2955,38 +2790,31 @@ define('WinJS/Promise/_StateMachine',[
                 );
                 return output;
             },
-
         }
     );
     Object.defineProperties(Promise, _Events.createEventProperties(errorET));
-
     Promise._doneHandler = function (value) {
         _BaseCoreUtils._setImmediate(function Promise_done_rethrow() {
             throw value;
         });
     };
-
     return {
         PromiseStateMachine: PromiseStateMachine,
         Promise: Promise,
         state_created: state_created
     };
 });
-
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 define('WinJS/Promise',[
     './Core/_Base',
     './Promise/_StateMachine'
     ], function promiseInit( _Base, _StateMachine) {
     "use strict";
-
     _Base.Namespace.define("WinJS", {
         Promise: _StateMachine.Promise
     });
-
     return _StateMachine.Promise;
 });
-
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 define('WinJS/Core/_Log',[
     'exports',
@@ -2994,11 +2822,9 @@ define('WinJS/Core/_Log',[
     './_Base',
     ], function logInit(exports, _Global, _Base) {
     "use strict";
-
     var spaceR = /\s+/g;
     var typeR = /^(error|warn|info|log)$/;
     var WinJSLog = null;
-
     function format(message, tag, type) {
         /// <signature helpKeyword="WinJS.Utilities.formatLog">
         /// <summary locid="WinJS.Utilities.formatLog">
@@ -3013,7 +2839,6 @@ define('WinJS/Core/_Log',[
         /// </signature>
         var m = message;
         if (typeof (m) === "function") { m = m(); }
-
         return ((type && typeR.test(type)) ? ("") : (type ? (type + ": ") : "")) +
             (tag ? tag.replace(spaceR, ":") + ": " : "") +
             m;
@@ -3058,19 +2883,16 @@ define('WinJS/Core/_Log',[
             var not = options.excludeTags && new RegExp("(^|\\s)(" + escape(options.excludeTags).replace(spaceR, " ").split(" ").join("|") + ")(\\s|$)", "i");
             var has = options.tags && new RegExp("(^|\\s)(" + escape(options.tags).replace(spaceR, " ").split(" ").join("|") + ")(\\s|$)", "i");
             var action = options.action || defAction;
-
             if (!el && !not && !has && !exports.log) {
                 exports.log = action;
                 return;
             }
-
             var result = function (message, tag, type) {
                 if (!((el && !el.test(type))          // if the expected log level is not satisfied
                     || (not && not.test(tag))         // if any of the excluded categories exist
                     || (has && !has.test(tag)))) {    // if at least one of the included categories doesn't exist
                         action(message, tag, type);
                     }
-
                 result.next && result.next(message, tag, type);
             };
             result.next = exports.log;
@@ -3086,7 +2908,6 @@ define('WinJS/Core/_Log',[
         },
         formatLog: format
     });
-
     _Base.Namespace._moduleDefine(exports, "WinJS", {
         log: {
             get: function () {
@@ -3098,7 +2919,6 @@ define('WinJS/Core/_Log',[
         }
     });
 });
-
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 define('WinJS/Scheduler',[
     'exports',
@@ -3112,7 +2932,6 @@ define('WinJS/Scheduler',[
     './Promise'
     ], function schedulerInit(exports, _Global, _Base, _ErrorFromName, _Log, _Resources, _Trace, _WriteProfilerMark, Promise) {
     "use strict";
-
     function linkedListMixin(name) {
         var mixin = {};
         var PREV = "_prev" + name;
@@ -3141,7 +2960,6 @@ define('WinJS/Scheduler',[
             //
             node[PREV] = prev;
             this[PREV] = node;
-
             return node;
         };
         mixin["_insert" + name + "After"] = function (node) {
@@ -3154,28 +2972,21 @@ define('WinJS/Scheduler',[
             //
             node[PREV] = this;
             next && (next[PREV] = node);
-
             return node;
         };
         return mixin;
     }
-
     _Base.Namespace.define("WinJS.Utilities", {
-
         _linkedListMixin: linkedListMixin
-
     });
-
     var strings = {
         get jobInfoIsNoLongerValid() { return "The job info object can only be used while the job is running"; }
     };
-
     //
     // Profiler mark helpers
     //
     // markerType must be one of the following: info, StartTM, StopTM
     //
-
     function profilerMarkArgs(arg0, arg1, arg2) {
         if (arg2 !== undefined) {
             return "(" + arg0 + ";" + arg1 + ";" + arg2 + ")";
@@ -3187,7 +2998,6 @@ define('WinJS/Scheduler',[
             return "";
         }
     }
-
     function schedulerProfilerMark(operation, markerType, arg0, arg1) {
         _WriteProfilerMark(
             "WinJS.Scheduler:" + operation +
@@ -3195,22 +3005,18 @@ define('WinJS/Scheduler',[
             "," + markerType
         );
     }
-
     function jobProfilerMark(job, operation, markerType, arg0, arg1) {
         var argProvided = job.name || arg0 !== undefined || arg1 !== undefined;
-
         _WriteProfilerMark(
             "WinJS.Scheduler:" + operation + ":" + job.id +
             (argProvided ? profilerMarkArgs(job.name, arg0, arg1) : "") +
             "," + markerType
         );
     }
-
     //
     // Job type. This cannot be instantiated by developers and is instead handed back by the scheduler
     //  schedule method. Its public interface is what is used when interacting with a job.
     //
-
     var JobNode = _Base.Class.define(function (id, work, priority, context, name, asyncOpID) {
         this._id = id;
         this._work = work;
@@ -3221,7 +3027,6 @@ define('WinJS/Scheduler',[
         this._setState(state_created);
         jobProfilerMark(this, "job-scheduled", "info");
     }, {
-
         /// <field type="Boolean" locid="WinJS.Utilities.Scheduler._JobNode.completed" helpKeyword="WinJS.Utilities.Scheduler._JobNode.completed">
         /// Gets a value that indicates whether the job has completed. This value is true if job has run to completion
         /// and false if it hasn't yet run or was canceled.
@@ -3229,14 +3034,12 @@ define('WinJS/Scheduler',[
         completed: {
             get: function () { return !!this._state.completed; }
         },
-
         /// <field type="Number" locid="WinJS.Utilities.Scheduler._JobNode.id" helpKeyword="WinJS.Utilities.Scheduler._JobNode.id">
         /// Gets the unique identifier for this job.
         /// </field>
         id: {
             get: function () { return this._id; }
         },
-
         /// <field type="String" locid="WinJS.Utilities.Scheduler._JobNode.name" helpKeyword="WinJS.Utilities.Scheduler._JobNode.name">
         /// Gets or sets a string that specifies the diagnostic name for this job.
         /// </field>
@@ -3244,7 +3047,6 @@ define('WinJS/Scheduler',[
             get: function () { return this._name; },
             set: function (value) { this._name = value; }
         },
-
         /// <field type="WinJS.Utilities.Scheduler._OwnerToken" locid="WinJS.Utilities.Scheduler._JobNode.owner" helpKeyword="WinJS.Utilities.Scheduler._JobNode.owner">
         /// Gets an owner token for the job. You can use this owner token's cancelAll method to cancel related jobs.
         /// </field>
@@ -3256,7 +3058,6 @@ define('WinJS/Scheduler',[
                 this._owner && this._owner._add(this);
             }
         },
-
         /// <field type="WinJS.Utilities.Scheduler.Priority" locid="WinJS.Utilities.Scheduler._JobNode.priority" helpKeyword="WinJS.Utilities.Scheduler._JobNode.priority">
         /// Gets or sets the priority at which this job is executed by the scheduler.
         /// </field>
@@ -3267,40 +3068,33 @@ define('WinJS/Scheduler',[
                 this._state.setPriority(this, value);
             }
         },
-
         cancel: function () {
             /// <signature helpKeyword="WinJS.Utilities.Scheduler._JobNode.cancel">
             /// <summary locid="WinJS.Utilities.Scheduler._JobNode.cancel">Cancels the job.</summary>
             /// </signature>
             this._state.cancel(this);
         },
-
         pause: function () {
             /// <signature helpKeyword="WinJS.Utilities.Scheduler._JobNode.pause">
             /// <summary locid="WinJS.Utilities.Scheduler._JobNode.pause">Pauses the job.</summary>
             /// </signature>
             this._state.pause(this);
         },
-
         resume: function () {
             /// <signature helpKeyword="WinJS.Utilities.Scheduler._JobNode.resume">
             /// <summary locid="WinJS.Utilities.Scheduler._JobNode.resume">Resumes the job if it's been paused.</summary>
             /// </signature>
             this._state.resume(this);
         },
-
         _execute: function (shouldYield) {
             this._state.execute(this, shouldYield);
         },
-
         _executeDone: function (result) {
             return this._state.executeDone(this, result);
         },
-
         _blockedDone: function (result) {
             return this._state.blockedDone(this, result);
         },
-
         _setPriority: function (value) {
             if (+this._priority === this._priority && this._priority !== value) {
                 jobProfilerMark(this, "job-priority-changed", "info",
@@ -3309,7 +3103,6 @@ define('WinJS/Scheduler',[
             }
             this._priority = value;
         },
-
         _setState: function (state, arg0, arg1) {
             if (this._state) {
                 _Log.log && _Log.log("Transitioning job (" + this.id + ") from: " + this._state.name + " to: " + state.name, "winjs scheduler", "log");
@@ -3317,16 +3110,13 @@ define('WinJS/Scheduler',[
             this._state = state;
             this._state.enter(this, arg0, arg1);
         },
-
     });
     _Base.Class.mix(JobNode, linkedListMixin("Job"));
-
     var YieldPolicy = {
         complete: 1,
         continue: 2,
         block: 3,
     };
-
     //
     // JobInfo object is passed to a work item when it is executed and allows the work to ask whether it
     //  should cooperatively yield and in that event provide a continuation work function to run the
@@ -3334,14 +3124,12 @@ define('WinJS/Scheduler',[
     //  and the ability to provide a Promise for a future continuation work function in order to have
     //  jobs easily block on async work.
     //
-
     var JobInfo = _Base.Class.define(function (shouldYield, job) {
         this._job = job;
         this._result = null;
         this._yieldPolicy = YieldPolicy.complete;
         this._shouldYield = shouldYield;
     }, {
-
         /// <field type="WinJS.Utilities.Scheduler._JobNode" locid="WinJS.Utilities.Scheduler._JobInfo.job" helpKeyword="WinJS.Utilities.Scheduler._JobInfo.job">
         /// The job instance for which the work is currently being executed.
         /// </field>
@@ -3351,7 +3139,6 @@ define('WinJS/Scheduler',[
                 return this._job;
             }
         },
-
         /// <field type="Boolean" locid="WinJS.Utilities.Scheduler._JobInfo.shouldYield" helpKeyword="WinJS.Utilities.Scheduler._JobInfo.shouldYield">
         /// A boolean which will become true when the work item is requested to cooperatively yield by the scheduler.
         /// </field>
@@ -3361,7 +3148,6 @@ define('WinJS/Scheduler',[
                 return this._shouldYield();
             }
         },
-
         setPromise: function (promise) {
             /// <signature helpKeyword="WinJS.Utilities.Scheduler._JobInfo.setPromise">
             /// <summary locid="WinJS.Utilities.Scheduler._JobInfo.setPromise">
@@ -3376,7 +3162,6 @@ define('WinJS/Scheduler',[
             this._result = promise;
             this._yieldPolicy = YieldPolicy.block;
         },
-
         setWork: function (work) {
             /// <signature helpKeyword="WinJS.Utilities.Scheduler._JobInfo.setWork">
             /// <summary locid="WinJS.Utilities.Scheduler._JobInfo.setWork">
@@ -3391,7 +3176,6 @@ define('WinJS/Scheduler',[
             this._result = work;
             this._yieldPolicy = YieldPolicy.continue;
         },
-
         _disablePublicApi: function () {
             // _disablePublicApi should be called as soon as the job yields. This
             //  says that the job info object should no longer be used by the
@@ -3399,20 +3183,16 @@ define('WinJS/Scheduler',[
             //
             this._publicApiDisabled = true;
         },
-
         _throwIfDisabled: function () {
             if (this._publicApiDisabled) {
                 throw new _ErrorFromName("WinJS.Utilities.Scheduler.JobInfoIsNoLongerValid", strings.jobInfoIsNoLongerValid);
             }
         }
-
     });
-
     //
     // Owner type. Made available to developers through the createOwnerToken method.
     //  Allows cancelation of jobs in bulk.
     //
-
     var OwnerToken = _Base.Class.define(function OwnerToken_ctor() {
         this._jobs = {};
     }, {
@@ -3425,21 +3205,17 @@ define('WinJS/Scheduler',[
             var jobs = this._jobs,
                 jobIds = Object.keys(jobs);
             this._jobs = {};
-
             for (var i = 0, len = jobIds.length; i < len; i++) {
                 jobs[jobIds[i]].cancel();
             }
         },
-
         _add: function OwnerToken_add(job) {
             this._jobs[job.id] = job;
         },
-
         _remove: function OwnerToken_remove(job) {
             delete this._jobs[job.id];
         }
     });
-
     function _() {
         // Noop function, used in the various states to indicate that they don't support a given
         // message. Named with the somewhat cute name '_' because it reads really well in the states.
@@ -3450,7 +3226,6 @@ define('WinJS/Scheduler',[
         /*jshint validthis: true */
         throw "Illegal call by job(" + job.id + ") in state: " + this.name;
     }
-
     //
     // Scheduler job state machine.
     //
@@ -3465,7 +3240,6 @@ define('WinJS/Scheduler',[
     //
     // The job state machine accounts for these various states and interactions.
     //
-
     var State = _Base.Class.define(function (name) {
         this.name = name;
         this.enter = illegal;
@@ -3477,7 +3251,6 @@ define('WinJS/Scheduler',[
         this.resume = illegal;
         this.setPriority = illegal;
     });
-
     var state_created = new State("created"),                                   // -> scheduled
         state_scheduled = new State("scheduled"),                               // -> running | canceled | paused
         state_paused = new State("paused"),                                     // -> canceled | scheduled
@@ -3495,7 +3268,6 @@ define('WinJS/Scheduler',[
         state_blocked_paused_waiting = new State("blocked_paused_waiting"),     // -> cooperative_yield_paused | complete | blocked_canceled | blocked_waiting
         state_blocked_canceled = new State("blocked_canceled"),                 // -> canceled
         state_complete = new State("complete");                                 // -> .
-
     // A given state may include implementations for the following operations:
     //
     //  - enter(job, arg0, arg1)
@@ -3510,7 +3282,6 @@ define('WinJS/Scheduler',[
     // Any functions which are not implemented are illegal in that state.
     // Any functions which have an implementation of _ are a nop in that state.
     //
-
     // Helper which yields a function that transitions to the specified state
     //
     function setState(state) {
@@ -3518,20 +3289,17 @@ define('WinJS/Scheduler',[
             job._setState(state, arg0, arg1);
         };
     }
-
     // Helper which sets the priority of a job.
     //
     function changePriority(job, priority) {
         job._setPriority(priority);
     }
-
     // Created
     //
     state_created.enter = function (job) {
         addJobAtTailOfPriority(job, job.priority);
         job._setState(state_scheduled);
     };
-
     // Scheduled
     //
     state_scheduled.enter = function () {
@@ -3548,7 +3316,6 @@ define('WinJS/Scheduler',[
             job.resume();
         }
     };
-
     // Paused
     //
     state_paused.enter = function (job) {
@@ -3563,7 +3330,6 @@ define('WinJS/Scheduler',[
         job._setState(state_scheduled);
     };
     state_paused.setPriority = changePriority;
-
     // Canceled
     //
     state_canceled.enter = function (job) {
@@ -3578,7 +3344,6 @@ define('WinJS/Scheduler',[
     state_canceled.pause = _;
     state_canceled.resume = _;
     state_canceled.setPriority = _;
-
     // Running
     //
     state_running.enter = function (job, shouldYield) {
@@ -3586,18 +3351,14 @@ define('WinJS/Scheduler',[
         //  yield case we have to add it back.
         //
         job._removeJob();
-
         var priority = job.priority;
         var work = job._work;
         var context = job._context;
-
         // Null out the work and context so they aren't leaked if the job throws an exception.
         //
         job._work = null;
         job._context = null;
-
         var jobInfo = new JobInfo(shouldYield, job);
-
         _Trace._traceAsyncCallbackStarting(job._asyncOpID);
         try {
             MSApp.execAtPriority(function () {
@@ -3607,13 +3368,10 @@ define('WinJS/Scheduler',[
             _Trace._traceAsyncCallbackCompleted();
             jobInfo._disablePublicApi();
         }
-
         // Restore the context in case it is needed due to yielding or blocking.
         //
         job._context = context;
-
         var targetState = job._executeDone(jobInfo._yieldPolicy);
-
         job._setState(targetState, jobInfo._result, priority);
     };
     state_running.executeDone = function (job, yieldPolicy) {
@@ -3642,7 +3400,6 @@ define('WinJS/Scheduler',[
     };
     state_running.resume = _;
     state_running.setPriority = changePriority;
-
     // Running paused
     //
     state_running_paused.enter = _;
@@ -3660,7 +3417,6 @@ define('WinJS/Scheduler',[
     state_running_paused.pause = _;
     state_running_paused.resume = setState(state_running_resumed);
     state_running_paused.setPriority = changePriority;
-
     // Running resumed
     //
     state_running_resumed.enter = _;
@@ -3678,7 +3434,6 @@ define('WinJS/Scheduler',[
     state_running_resumed.pause = setState(state_running_paused);
     state_running_resumed.resume = _;
     state_running_resumed.setPriority = changePriority;
-
     // Running canceled
     //
     state_running_canceled.enter = _;
@@ -3695,14 +3450,12 @@ define('WinJS/Scheduler',[
     state_running_canceled.pause = _;
     state_running_canceled.resume = _;
     state_running_canceled.setPriority = _;
-
     // Running canceled -> blocked
     //
     state_running_canceled_blocked.enter = function (job, work) {
         work.cancel();
         job._setState(state_canceled);
     };
-
     // Cooperative yield
     //
     state_cooperative_yield.enter = function (job, work, initialPriority) {
@@ -3715,7 +3468,6 @@ define('WinJS/Scheduler',[
         job._work = work;
         job._setState(state_scheduled);
     };
-
     // Cooperative yield paused
     //
     state_cooperative_yield_paused.enter = function (job, work) {
@@ -3723,14 +3475,12 @@ define('WinJS/Scheduler',[
         job._work = work;
         job._setState(state_paused);
     };
-
     // Blocked
     //
     state_blocked.enter = function (job, work, initialPriority) {
         jobProfilerMark(job, "job-blocked", "StartTM");
         job._work = work;
         job._setState(state_blocked_waiting);
-
         // Sign up for a completion from the provided promise, after the completion occurs
         //  transition from the current state at the completion time to the target state
         //  depending on the completion value.
@@ -3751,7 +3501,6 @@ define('WinJS/Scheduler',[
             }
         );
     };
-
     // Blocked waiting
     //
     state_blocked_waiting.enter = _;
@@ -3766,14 +3515,12 @@ define('WinJS/Scheduler',[
     state_blocked_waiting.pause = setState(state_blocked_paused_waiting);
     state_blocked_waiting.resume = _;
     state_blocked_waiting.setPriority = changePriority;
-
     // Blocked paused
     //
     state_blocked_paused.enter = function (job, work, initialPriority) {
         jobProfilerMark(job, "job-blocked", "StartTM");
         job._work = work;
         job._setState(state_blocked_paused_waiting);
-
         // Sign up for a completion from the provided promise, after the completion occurs
         //  transition from the current state at the completion time to the target state
         //  depending on the completion value.
@@ -3794,7 +3541,6 @@ define('WinJS/Scheduler',[
             }
         );
     };
-
     // Blocked paused waiting
     //
     state_blocked_paused_waiting.enter = _;
@@ -3809,7 +3555,6 @@ define('WinJS/Scheduler',[
     state_blocked_paused_waiting.pause = _;
     state_blocked_paused_waiting.resume = setState(state_blocked_waiting);
     state_blocked_paused_waiting.setPriority = changePriority;
-
     // Blocked canceled
     //
     state_blocked_canceled.enter = function (job) {
@@ -3826,7 +3571,6 @@ define('WinJS/Scheduler',[
     state_blocked_canceled.pause = _;
     state_blocked_canceled.resume = _;
     state_blocked_canceled.setPriority = _;
-
     // Complete
     //
     state_complete.completed = true;
@@ -3841,7 +3585,6 @@ define('WinJS/Scheduler',[
     state_complete.pause = _;
     state_complete.resume = _;
     state_complete.setPriority = _;
-
     // Private Priority marker node in the Job list. The marker nodes are linked both into the job
     //  list and a separate marker list. This is used so that jobs can be easily added into a given
     //  priority level by simply traversing to the next marker in the list and inserting before it.
@@ -3856,32 +3599,25 @@ define('WinJS/Scheduler',[
         this.priority = priority;
         this.name = name;
     }, {
-
         // NYI
         //
         //dynamic: {
         //    get: function () { return !this.name; }
         //},
-
     });
     _Base.Class.mix(MarkerNode, linkedListMixin("Job"), linkedListMixin("Marker"));
-
     //
     // Scheduler state
     //
-
     // Unique ID per job.
     //
     var globalJobId = 0;
-
     // Unique ID per drain request.
     var globalDrainId = 0;
-
     // Priority is: -15 ... 0 ... 15 where that maps to: 'min' ... 'normal' ... 'max'
     //
     var MIN_PRIORITY = -15;
     var MAX_PRIORITY = 15;
-
     // Named priorities
     //
     var Priority = {
@@ -3893,7 +3629,6 @@ define('WinJS/Scheduler',[
         idle: -13,
         min: -15,
     };
-
     // Definition of the priorities, named have static markers.
     //
     var priorities = [
@@ -3930,7 +3665,6 @@ define('WinJS/Scheduler',[
         new MarkerNode(-15, "min"),         // Priority.min
         new MarkerNode(-16, "<TAIL>")
     ];
-
     function dumpList(type, reverse) {
         function dumpMarker(marker, pos) {
             _Log.log && _Log.log(pos + ": MARKER: " + marker.name, "winjs scheduler", "log");
@@ -3953,7 +3687,6 @@ define('WinJS/Scheduler',[
             current = reverse ? current["_prev" + type] : current["_next" + type];
         } while (current);
     }
-
     function retrieveState() {
         /// <signature helpKeyword="WinJS.Utilities.Scheduler.retrieveState">
         /// <summary locid="WinJS.Utilities.Scheduler.retrieveState">
@@ -3964,7 +3697,6 @@ define('WinJS/Scheduler',[
         /// </summary>
         /// </signature>
         var output = "";
-
         function logJob(job, isRunning) {
             output +=
                 "    " + (isRunning ? "*" : " ") +
@@ -3973,7 +3705,6 @@ define('WinJS/Scheduler',[
                 (job.name ? ", name: " + job.name : "") +
                 "\n";
         }
-
         output += "Jobs:\n";
         var current = markerFromPriority(highWaterMark);
         var jobCount = 0;
@@ -3991,7 +3722,6 @@ define('WinJS/Scheduler',[
         if (jobCount === 0) {
             output += "     None\n";
         }
-
         output += "Drain requests:\n";
         for (var i = 0, len = drainQueue.length; i < len; i++) {
             output +=
@@ -4003,10 +3733,8 @@ define('WinJS/Scheduler',[
         if (drainQueue.length === 0) {
             output += "     None\n";
         }
-
         return output;
     }
-
     function isEmpty() {
         var current = priorities[0];
         do {
@@ -4015,43 +3743,34 @@ define('WinJS/Scheduler',[
             }
             current = current._nextJob;
         } while (current);
-
         return true;
     }
-
     // The WWA priority at which the pump is currently scheduled on the WWA scheduler.
     //  null when the pump is not scheduled.
     //
     var scheduledWwaPriority = null;
-
     // Whether the scheduler pump is currently on the stack
     //
     var pumping;
     // What priority is currently being pumped
     //
     var pumpingPriority;
-
     // A reference to the job object that is currently running.
     //  null when no job is running.
     //
     var runningJob = null;
-
     // Whether we are using the WWA scheduler.
     //
     var usingWwaScheduler = !!(_Global.MSApp && _Global.MSApp.execAtPriority);
-
     // Queue of drain listeners
     //
     var drainQueue = [];
-
     // Bit indicating that we should yield immediately
     //
     var immediateYield;
-
     // time slice for scheduler
     //
     var TIME_SLICE = 30;
-
     // high-water-mark is maintained any time priorities are adjusted, new jobs are
     //  added or the scheduler pumps itself down through a priority marker. The goal
     //  of the high-water-mark is to be a fast check as to whether a job may exist
@@ -4060,11 +3779,9 @@ define('WinJS/Scheduler',[
     //  lower as that would cause the system to pump things out of order.
     //
     var highWaterMark = Priority.min;
-
     //
     // Initialize the scheduler
     //
-
     // Wire up the markers
     //
     priorities.reduce(function (prev, current) {
@@ -4074,7 +3791,6 @@ define('WinJS/Scheduler',[
         }
         return current;
     });
-
     //
     // Draining mechanism
     //
@@ -4082,13 +3798,11 @@ define('WinJS/Scheduler',[
     //  drainQueue. Requests are processed in FIFO order. The scheduler is in
     //  drain mode precisely when the drainQueue is non-empty.
     //
-
     // Returns priority of the current drain request
     //
     function currentDrainPriority() {
         return drainQueue.length === 0 ? null : drainQueue[0].priority;
     }
-
     function drainStarting(listener) {
         schedulerProfilerMark("drain", "StartTM", listener.name, markerFromPriority(listener.priority).name);
     }
@@ -4098,7 +3812,6 @@ define('WinJS/Scheduler',[
         }
         schedulerProfilerMark("drain", "StopTM", listener.name, markerFromPriority(listener.priority).name);
     }
-
     function addDrainListener(priority, complete, name) {
         drainQueue.push({ priority: priority, complete: complete, name: name });
         if (drainQueue.length === 1) {
@@ -4109,11 +3822,9 @@ define('WinJS/Scheduler',[
             }
         }
     }
-
     function removeDrainListener(complete, canceled) {
         var i,
             len = drainQueue.length;
-
         for (i = 0; i < len; i++) {
             if (drainQueue[i].complete === complete) {
                 if (i === 0) {
@@ -4125,19 +3836,16 @@ define('WinJS/Scheduler',[
             }
         }
     }
-
     // Notifies and removes the current drain listener
     //
     function notifyCurrentDrainListener() {
         var listener = drainQueue.shift();
-
         if (listener) {
             drainStopping(listener);
             drainQueue[0] && drainStarting(drainQueue[0]);
             listener.complete();
         }
     }
-
     // Notifies all drain listeners which are at a priority > highWaterMark.
     //  Returns whether or not any drain listeners were notified. This
     //  function sets pumpingPriority and reads highWaterMark. Note that
@@ -4158,11 +3866,9 @@ define('WinJS/Scheduler',[
         }
         return notifiedSomebody;
     }
-
     //
     // Interfacing with the WWA Scheduler
     //
-
     // The purpose of yielding to the host is to give the host the opportunity to do some work.
     // setImmediate has this guarantee built-in so we prefer that. Otherwise, we do setTimeout 16
     // which should give the host a decent amount of time to do work.
@@ -4170,7 +3876,6 @@ define('WinJS/Scheduler',[
     var scheduleWithHost = _Global.setImmediate ? _Global.setImmediate.bind(_Global) : function (callback) {
         _Global.setTimeout(callback, 16);
     };
-
     // Stubs for the parts of the WWA scheduler APIs that we use. These stubs are
     //  used in contexts where the WWA scheduler is not available.
     //
@@ -4185,45 +3890,35 @@ define('WinJS/Scheduler',[
             //
             scheduleWithHost(callback);
         },
-
         execAtPriority: function (callback) {
             return callback();
         },
-
         getCurrentPriority: function () {
             return MSAppStubs.NORMAL;
         },
-
         isTaskScheduledAtPriorityOrHigher: function () {
             return false;
         },
-
         HIGH: "high",
         NORMAL: "normal",
         IDLE: "idle"
     };
-
     var MSApp = (usingWwaScheduler ? _Global.MSApp : MSAppStubs);
-
     function toWwaPriority(winjsPriority) {
         if (winjsPriority >= Priority.aboveNormal + 1) { return MSApp.HIGH; }
         if (winjsPriority >= Priority.belowNormal) { return MSApp.NORMAL; }
         return MSApp.IDLE;
     }
-
     var wwaPriorityToInt = {};
     wwaPriorityToInt[MSApp.IDLE] = 1;
     wwaPriorityToInt[MSApp.NORMAL] = 2;
     wwaPriorityToInt[MSApp.HIGH] = 3;
-
     function isEqualOrHigherWwaPriority(priority1, priority2) {
         return wwaPriorityToInt[priority1] >= wwaPriorityToInt[priority2];
     }
-
     function isHigherWwaPriority(priority1, priority2) {
         return wwaPriorityToInt[priority1] > wwaPriorityToInt[priority2];
     }
-
     function wwaTaskScheduledAtPriorityHigherThan(wwaPriority) {
         switch (wwaPriority) {
             case MSApp.HIGH:
@@ -4234,11 +3929,9 @@ define('WinJS/Scheduler',[
                 return MSApp.isTaskScheduledAtPriorityOrHigher(MSApp.NORMAL);
         }
     }
-
     //
     // Mechanism for the scheduler
     //
-
     function addJobAtHeadOfPriority(node, priority) {
         var marker = markerFromPriority(priority);
         if (marker.priority > highWaterMark) {
@@ -4247,7 +3940,6 @@ define('WinJS/Scheduler',[
         }
         marker._insertJobAfter(node);
     }
-
     function addJobAtTailOfPriority(node, priority) {
         var marker = markerFromPriority(priority);
         if (marker.priority > highWaterMark) {
@@ -4256,26 +3948,21 @@ define('WinJS/Scheduler',[
         }
         marker._nextMarker._insertJobBefore(node);
     }
-
     function clampPriority(priority) {
         priority = priority | 0;
         priority = Math.max(priority, MIN_PRIORITY);
         priority = Math.min(priority, MAX_PRIORITY);
         return priority;
     }
-
     function markerFromPriority(priority) {
         priority = clampPriority(priority);
-
         // The priority skip list is from high -> idle, add the offset and then make it positive.
         //
         return priorities[-1 * (priority - MAX_PRIORITY)];
     }
-
     // Performance.now is not defined in web workers.
     //
     var now = (_Global.performance && _Global.performance.now && _Global.performance.now.bind(_Global.performance)) || Date.now.bind(Date);
-
     // Main scheduler pump.
     //
     function run(scheduled) {
@@ -4287,22 +3974,18 @@ define('WinJS/Scheduler',[
         var lastLoggedPriority;
         var timesliceExhausted = false;
         var yieldForPriorityBoundary = false;
-
         // Reset per-run state
         //
         immediateYield = false;
-
         try {
             var start = now();
             var end = start + TIME_SLICE;
-
             // Yielding policy
             //
             // @TODO, should we have a different scheduler policy when the debugger is attached. Today if you
             //  break in user code we will generally yield immediately after that job due to the fact that any
             //  breakpoint will take longer than TIME_SLICE to process.
             //
-
             var shouldYield = function () {
                 timesliceExhausted = false;
                 if (immediateYield) { return true; }
@@ -4314,18 +3997,15 @@ define('WinJS/Scheduler',[
                 }
                 return false;
             };
-
             // Run until we run out of jobs or decide it is time to yield
             //
             while (highWaterMark >= Priority.min && !shouldYield() && !yieldForPriorityBoundary) {
-
                 didWork = false;
                 current = markerFromPriority(highWaterMark)._nextJob;
                 do {
                     // Record the priority currently being pumped
                     //
                     pumpingPriority = current.priority;
-
                     if (current instanceof JobNode) {
                         if (lastLoggedPriority !== current.priority) {
                             if (+lastLoggedPriority === lastLoggedPriority) {
@@ -4334,7 +4014,6 @@ define('WinJS/Scheduler',[
                             schedulerProfilerMark("priority", "StartTM", markerFromPriority(current.priority).name);
                             lastLoggedPriority = current.priority;
                         }
-
                         // Important that we update this state before calling execute because the
                         //  job may throw an exception and we don't want to stall the queue.
                         //
@@ -4353,9 +4032,7 @@ define('WinJS/Scheduler',[
                         //
                         var wwaPrevHighWaterMark = toWwaPriority(highWaterMark);
                         highWaterMark = current.priority;
-
                         didWork = notifyDrain(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);();
-
                         var wwaHighWaterMark = toWwaPriority(highWaterMark);
                         if (isHigherWwaPriority(wwaPrevHighWaterMark, wwaHighWaterMark) &&
                                 (!usingWwaScheduler || MSApp.isTaskScheduledAtPriorityOrHigher(wwaHighWaterMark))) {
@@ -4365,25 +4042,19 @@ define('WinJS/Scheduler',[
                             yieldForPriorityBoundary = true;
                         }
                     }
-
                     current = current._nextJob;
-
                     // When didWork is true we exit the loop because:
                     //  - We've called into user code which may have modified the
                     //    scheduler's queue. We need to restart at the high water mark.
                     //  - We need to check if it's time for the scheduler to yield.
                     //
                 } while (current && !didWork && !yieldForPriorityBoundary && !wwaTaskScheduledAtPriorityHigherThan(toWwaPriority(highWaterMark)));
-
                 // Reset per-item state
                 //
                 immediateYield = false;
-
             }
-
         } finally {
             runningJob = null;
-
             // If a job was started and did not run to completion due to an exception
             //  we should transition it to a terminal state.
             //
@@ -4392,7 +4063,6 @@ define('WinJS/Scheduler',[
                 jobProfilerMark(current, "job-running", "StopTM", markerFromPriority(pumpingPriority).name);
                 current.cancel();
             }
-
             if (+lastLoggedPriority === lastLoggedPriority) {
                 schedulerProfilerMark("priority", "StopTM", markerFromPriority(lastLoggedPriority).name);
             }
@@ -4400,11 +4070,9 @@ define('WinJS/Scheduler',[
             //
             var foundAJob = false;
             while (highWaterMark >= Priority.min && !foundAJob) {
-
                 didWork = false;
                 current = markerFromPriority(highWaterMark)._nextJob;
                 do {
-
                     if (current instanceof JobNode) {
                         // We found a job. High water mark is now set to the priority
                         //  of this job.
@@ -4416,19 +4084,15 @@ define('WinJS/Scheduler',[
                         //  which will affect the highWaterMark.
                         //
                         highWaterMark = current.priority;
-
                         didWork = notifyDrain(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);();
                     }
-
                     current = current._nextJob;
-
                     // When didWork is true we exit the loop because:
                     //  - We've called into user code which may have modified the
                     //    scheduler's queue. We need to restart at the high water mark.
                     //
                 } while (current && !didWork && !foundAJob);
             }
-
             var reasonForYielding;
             if (!ranJobSuccessfully) {
                 reasonForYielding = "job error";
@@ -4441,14 +4105,12 @@ define('WinJS/Scheduler',[
             } else {
                 reasonForYielding = "WWA host work";
             }
-
             // If this was a scheduled call to the pump, then the pump is no longer
             //  scheduled to be called and we should clear its scheduled priority.
             //
             if (scheduled) {
                 scheduledWwaPriority = null;
             }
-
             // If the high water mark has not reached the end of the queue then
             //  we re-queue in order to see if there are more jobs to run.
             //
@@ -4460,26 +4122,22 @@ define('WinJS/Scheduler',[
             schedulerProfilerMark("timeslice", "StopTM");
         }
     }
-
     // When we schedule the pump we assign it a version. When we start executing one we check
     //  to see what the max executed version is. If we have superseded it then we skip the call.
     //
     var scheduledVersion = 0;
     var executedVersion = 0;
-
     function startRunning(priority) {
         if (+priority !== priority) {
             priority = highWaterMark;
         }
         var priorityWwa = toWwaPriority(priority);
-
         // Don't schedule the pump while pumping. The pump will be scheduled
         //  immediately before yielding if necessary.
         //
         if (pumping) {
             return;
         }
-
         // If the pump is already scheduled at priority or higher, then there
         //  is no need to schedule the pump again.
         // However, when we're not using the WWA scheduler, we fallback to immediate/timeout
@@ -4496,11 +4154,9 @@ define('WinJS/Scheduler',[
                 run(true);
             }
         };
-
         MSApp.execAsyncAtPriority(runner, priorityWwa);
         scheduledWwaPriority = priorityWwa;
     }
-
     function requestDrain(priority, name) {
         /// <signature helpKeyword="WinJS.Utilities.Scheduler.requestDrain">
         /// <summary locid="WinJS.Utilities.Scheduler.requestDrain">
@@ -4518,14 +4174,12 @@ define('WinJS/Scheduler',[
         /// promise cancels the drain request. This promise will never enter an error state.
         /// </returns>
         /// </signature>
-
         var id = globalDrainId++;
         if (name === undefined) {
             name = "Drain Request " + id;
         }
         priority = (+priority === priority) ? priority : Priority.min;
         priority = clampPriority(priority);
-
         var complete;
         var promise = new Promise(function (c) {
             complete = c;
@@ -4533,14 +4187,11 @@ define('WinJS/Scheduler',[
         }, function () {
             removeDrainListener(complete, true);
         });
-
         if (!pumping) {
             startRunning();
         }
-
         return promise;
     }
-
     function execHigh(callback) {
         /// <signature helpKeyword="WinJS.Utilities.Scheduler.execHigh">
         /// <summary locid="WinJS.Utilities.Scheduler.execHigh">
@@ -4553,10 +4204,8 @@ define('WinJS/Scheduler',[
         /// The return value of the callback.
         /// </returns>
         /// </signature>
-
         return MSApp.execAtPriority(callback, MSApp.HIGH);
     }
-
     function createOwnerToken() {
         /// <signature helpKeyword="WinJS.Utilities.Scheduler.createOwnerToken">
         /// <summary locid="WinJS.Utilities.Scheduler.createOwnerToken">
@@ -4567,10 +4216,8 @@ define('WinJS/Scheduler',[
         /// The new owner token. You can use this token to control jobs that it owns.
         /// </returns>
         /// </signature>
-
         return new OwnerToken();
     }
-
     function schedule(work, priority, thisArg, name) {
         /// <signature helpKeyword="WinJS.Utilities.Scheduler.schedule">
         /// <summary locid="WinJS.Utilities.Scheduler.schedule">
@@ -4595,7 +4242,6 @@ define('WinJS/Scheduler',[
         /// The Job instance which represents this work item.
         /// </returns>
         /// </signature>
-
         priority = priority || Priority.normal;
         thisArg = thisArg || null;
         var jobId = ++globalJobId;
@@ -4603,7 +4249,6 @@ define('WinJS/Scheduler',[
         name = name || "";
         return new JobNode(jobId, work, priority, thisArg, name, asyncOpID);
     }
-
     function getCurrentPriority() {
         if (pumping) {
             return pumpingPriority;
@@ -4615,7 +4260,6 @@ define('WinJS/Scheduler',[
             }
         }
     }
-
     function makeSchedulePromise(priority) {
         return function (promiseValue, jobName) {
             /// <signature helpKeyword="WinJS.Utilities.Scheduler.schedulePromise">
@@ -4651,26 +4295,18 @@ define('WinJS/Scheduler',[
             );
         };
     }
-
     _Base.Namespace._moduleDefine(exports, "WinJS.Utilities.Scheduler", {
-
         Priority: Priority,
-
         schedule: schedule,
-
         createOwnerToken: createOwnerToken,
-
         execHigh: execHigh,
-
         requestDrain: requestDrain,
-
         /// <field type="WinJS.Utilities.Scheduler.Priority" locid="WinJS.Utilities.Scheduler.currentPriority" helpKeyword="WinJS.Utilities.Scheduler.currentPriority">
         /// Gets the current priority at which the caller is executing.
         /// </field>
         currentPriority: {
             get: getCurrentPriority
         },
-
         // Promise helpers
         //
         schedulePromiseHigh: makeSchedulePromise(Priority.high),
@@ -4678,24 +4314,16 @@ define('WinJS/Scheduler',[
         schedulePromiseNormal: makeSchedulePromise(Priority.normal),
         schedulePromiseBelowNormal: makeSchedulePromise(Priority.belowNormal),
         schedulePromiseIdle: makeSchedulePromise(Priority.idle),
-
         retrieveState: retrieveState,
-
         _JobNode: JobNode,
-
         _JobInfo: JobInfo,
-
         _OwnerToken: OwnerToken,
-
         _dumpList: dumpList,
-
         _isEmpty: {
             get: isEmpty
         },
-
         // The properties below are used for testing.
         //
-
         _usingWwaScheduler: {
             get: function () {
                 return usingWwaScheduler;
@@ -4705,7 +4333,6 @@ define('WinJS/Scheduler',[
                 MSApp = (usingWwaScheduler ? _Global.MSApp : MSAppStubs);
             }
         },
-
         _MSApp: {
             get: function () {
                 return MSApp;
@@ -4714,13 +4341,9 @@ define('WinJS/Scheduler',[
                 MSApp = value;
             }
         },
-
         _TIME_SLICE: TIME_SLICE
-
     });
-
 });
-
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 define('WinJS/Core/_BaseUtils',[
     'exports',
@@ -4734,22 +4357,18 @@ define('WinJS/Core/_BaseUtils',[
     '../Scheduler'
     ], function baseUtilsInit(exports, _Global, _Base, _BaseCoreUtils, _ErrorFromName, _Resources, _Trace, Promise, Scheduler) {
     "use strict";
-
     var strings = {
         get notSupportedForProcessing() { return "Value is not supported within a declarative processing context, if you want it to be supported mark it using WinJS.Utilities.markSupportedForProcessing. The value was: '{0}'"; }
     };
-
     var requestAnimationWorker;
     var requestAnimationId = 0;
     var requestAnimationHandlers = {};
     var validation = false;
     var platform = _Global.navigator.platform;
     var isiOS = platform === "iPhone" || platform === "iPad" || platform === "iPod";
-
     function nop(v) {
         return v;
     }
-
     function getMemberFiltered(name, root, filter) {
         return name.split(".").reduce(function (currentNamespace, name) {
             if (currentNamespace) {
@@ -4758,7 +4377,6 @@ define('WinJS/Core/_BaseUtils',[
             return null;
         }, root);
     }
-
     function getMember(name, root) {
         /// <signature helpKeyword="WinJS.Utilities.getMember">
         /// <summary locid="WinJS.Utilities.getMember">
@@ -4779,7 +4397,6 @@ define('WinJS/Core/_BaseUtils',[
         }
         return getMemberFiltered(name, root || _Global, nop);
     }
-
     function getCamelCasedName(styleName) {
         // special case -moz prefixed styles because their JS property name starts with Moz
         if (styleName.length > 0 && styleName.indexOf("-moz") !== 0 && styleName.charAt(0) === "-") {
@@ -4787,25 +4404,20 @@ define('WinJS/Core/_BaseUtils',[
         }
         return styleName.replace(/\-[a-z]/g, function (x) { return x[1].toUpperCase(); });
     }
-
     function addPrefixToCamelCasedName(prefix, name) {
         if (prefix === "") {
             return name;
         }
-
         return prefix + name.charAt(0).toUpperCase() + name.slice(1);
     }
-
     function addPrefixToCSSName(prefix, name) {
         return (prefix !== "" ? "-" + prefix.toLowerCase() + "-" : "") + name;
     }
-
     function getBrowserStyleEquivalents() {
         // not supported in WebWorker
         if (!_Global.document) {
             return {};
         }
-
         var equivalents = {},
             docStyle = _Global.document.documentElement.style,
             stylePrefixesToTest = ["", "webkit", "ms", "Moz"],
@@ -4846,7 +4458,6 @@ define('WinJS/Core/_BaseUtils',[
                 "user-select" // used for Template Compiler test
             ],
             prefixesUsedOnStyles = {};
-
         for (var i = 0, len = styles.length; i < len; i++) {
             var originalName = styles[i],
                 styleToTest = getCamelCasedName(originalName);
@@ -4866,14 +4477,11 @@ define('WinJS/Core/_BaseUtils',[
                 }
             }
         }
-
         // Special cases:
         equivalents.animationPrefix = addPrefixToCSSName(prefixesUsedOnStyles["animation"], "");
         equivalents.keyframes = addPrefixToCSSName(prefixesUsedOnStyles["animation"], "keyframes");
-
         return equivalents;
     }
-
     function getBrowserEventEquivalents() {
         var equivalents = {};
         var animationEventPrefixes = ["", "WebKit"],
@@ -4887,7 +4495,6 @@ define('WinJS/Core/_BaseUtils',[
                     events: ["animationStart", "animationEnd"]
                 }
             ];
-
         for (var i = 0, len = animationEvents.length; i < len; i++) {
             var eventToTest = animationEvents[i],
                 chosenPrefix = "";
@@ -4910,12 +4517,10 @@ define('WinJS/Core/_BaseUtils',[
                 }
             }
         }
-
         // Non-standardized events
         equivalents["manipulationStateChanged"] = ("MSManipulationEvent" in _Global ? "ManipulationEvent" : null);
         return equivalents;
     }
-
     // Returns a function which, when called, will call *fn*. However,
     // if called multiple times, it will only call *fn* at most once every
     // *delay* milliseconds. Multiple calls during the throttling period
@@ -4937,13 +4542,11 @@ define('WinJS/Core/_BaseUtils',[
         var pendingCallPromise = null;
         var nextContext = null;
         var nextArgs = null;
-
         function makeThrottlePromise() {
             return Promise.timeout(delay).then(function () {
                 throttlePromise = null;
             });
         }
-
         return function () {
             if (pendingCallPromise) {
                 nextContext = this;
@@ -4966,7 +4569,6 @@ define('WinJS/Core/_BaseUtils',[
             }
         };
     }
-
     _Base.Namespace._moduleDefine(exports, "WinJS.Utilities", {
         // Used for mocking in tests
         _setHasWinRT: {
@@ -4977,14 +4579,12 @@ define('WinJS/Core/_BaseUtils',[
             writable: false,
             enumerable: false
         },
-
         /// <field type="Boolean" locid="WinJS.Utilities.hasWinRT" helpKeyword="WinJS.Utilities.hasWinRT">Determine if WinRT is accessible in this script context.</field>
         hasWinRT: {
             get: function () { return _BaseCoreUtils.hasWinRT; },
             configurable: false,
             enumerable: true
         },
-
         // Used for mocking in tests
         _setIsiOS: {
             value: function (value) {
@@ -4994,21 +4594,16 @@ define('WinJS/Core/_BaseUtils',[
             writable: false,
             enumerable: false
         },
-
         _isiOS: {
             get: function () { return isiOS; },
             configurable: false,
             enumerable: true
         },
-
         _getMemberFiltered: getMemberFiltered,
-
         getMember: getMember,
-
         _browserStyleEquivalents: getBrowserStyleEquivalents(),
         _browserEventEquivalents: getBrowserEventEquivalents(),
         _getCamelCasedName: getCamelCasedName,
-
         ready: function ready(callback, async) {
             /// <signature helpKeyword="WinJS.Utilities.ready">
             /// <summary locid="WinJS.Utilities.ready">
@@ -5037,7 +4632,6 @@ define('WinJS/Core/_BaseUtils',[
                         c();
                     }
                 }
-
                 var readyState = ready._testReadyState;
                 if (!readyState) {
                     if (_Global.document) {
@@ -5059,21 +4653,18 @@ define('WinJS/Core/_BaseUtils',[
                 }
             });
         },
-
         /// <field type="Boolean" locid="WinJS.Utilities.strictProcessing" helpKeyword="WinJS.Utilities.strictProcessing">Determines if strict declarative processing is enabled in this script context.</field>
         strictProcessing: {
             get: function () { return true; },
             configurable: false,
             enumerable: true,
         },
-
         markSupportedForProcessing: {
             value: _BaseCoreUtils.markSupportedForProcessing,
             configurable: false,
             writable: false,
             enumerable: true
         },
-
         requireSupportedForProcessing: {
             value: function (value) {
                 /// <signature helpKeyword="WinJS.Utilities.requireSupportedForProcessing">
@@ -5091,40 +4682,32 @@ define('WinJS/Core/_BaseUtils',[
                 /// </returns>
                 /// </signature>
                 var supportedForProcessing = true;
-
                 supportedForProcessing = supportedForProcessing && value !== _Global;
                 supportedForProcessing = supportedForProcessing && value !== _Global.location;
                 supportedForProcessing = supportedForProcessing && !(value instanceof _Global.HTMLIFrameElement);
                 supportedForProcessing = supportedForProcessing && !(typeof value === "function" && !value.supportedForProcessing);
-
                 switch (_Global.frames.length) {
                     case 0:
                         break;
-
                     case 1:
                         supportedForProcessing = supportedForProcessing && value !== _Global.frames[0];
                         break;
-
                     default:
                         for (var i = 0, len = _Global.frames.length; supportedForProcessing && i < len; i++) {
                             supportedForProcessing = supportedForProcessing && value !== _Global.frames[i];
                         }
                         break;
                 }
-
                 if (supportedForProcessing) {
                     return value;
                 }
-
                 throw new _ErrorFromName("WinJS.Utilities.requireSupportedForProcessing", _Resources._formatString(strings.notSupportedForProcessing, value));
             },
             configurable: false,
             writable: false,
             enumerable: true
         },
-
         _setImmediate: _BaseCoreUtils._setImmediate,
-
         _requestAnimationFrame: _Global.requestAnimationFrame ? _Global.requestAnimationFrame.bind(_Global) : function (handler) {
             var handle = ++requestAnimationId;
             requestAnimationHandlers[handle] = handler;
@@ -5139,34 +4722,27 @@ define('WinJS/Core/_BaseUtils',[
             }, 16);
             return handle;
         },
-
         _cancelAnimationFrame: _Global.cancelAnimationFrame ? _Global.cancelAnimationFrame.bind(_Global) : function (handle) {
             delete requestAnimationHandlers[handle];
         },
-
         // Allows the browser to finish dispatching its current set of events before running
         // the callback.
         _yieldForEvents: _Global.setImmediate ? _Global.setImmediate.bind(_Global) : function (handler) {
             _Global.setTimeout(handler, 0);
         },
-
         // Allows the browser to notice a DOM modification before running the callback.
         _yieldForDomModification: _Global.setImmediate ? _Global.setImmediate.bind(_Global) : function (handler) {
             _Global.setTimeout(handler, 0);
         },
-
         _throttledFunction: throttledFunction,
-
         _shallowCopy: function _shallowCopy(a) {
             // Shallow copy a single object.
             return this._mergeAll([a]);
         },
-
         _merge: function _merge(a, b) {
             // Merge 2 objects together into a new object
             return this._mergeAll([a, b]);
         },
-
         _mergeAll: function _mergeAll(list) {
             // Merge a list of objects together
             var o = {};
@@ -5177,7 +4753,6 @@ define('WinJS/Core/_BaseUtils',[
             });
             return o;
         },
-
         _getProfilerMarkIdentifier: function _getProfilerMarkIdentifier(element) {
             var profilerMarkIdentifier = "";
             if (element.id) {
@@ -5188,19 +4763,15 @@ define('WinJS/Core/_BaseUtils',[
             }
             return profilerMarkIdentifier;
         },
-
         _now: function _now() {
             return (_Global.performance && _Global.performance.now && _Global.performance.now()) || Date.now();
         },
-
         _traceAsyncOperationStarting: _Trace._traceAsyncOperationStarting,
         _traceAsyncOperationCompleted: _Trace._traceAsyncOperationCompleted,
         _traceAsyncCallbackStarting: _Trace._traceAsyncCallbackStarting,
         _traceAsyncCallbackCompleted: _Trace._traceAsyncCallbackCompleted,
-
         _version: "4.4.0"
     });
-
     _Base.Namespace._moduleDefine(exports, "WinJS", {
         validation: {
             get: function () {
@@ -5211,7 +4782,6 @@ define('WinJS/Core/_BaseUtils',[
             }
         }
     });
-
     // strictProcessing also exists as a module member
     _Base.Namespace.define("WinJS", {
         strictProcessing: {
@@ -5228,8 +4798,6 @@ define('WinJS/Core/_BaseUtils',[
         }
     });
 });
-
-
 define('WinJS/Core',[
     './Core/_Base',
     './Core/_BaseCoreUtils',
@@ -5251,7 +4819,6 @@ define('WinJS/_Signal',[
     './Promise/_StateMachine'
     ], function signalInit(_Base, _StateMachine) {
     "use strict";
-
     var SignalPromise = _Base.Class.derive(_StateMachine.PromiseStateMachine,
         function (cancel) {
             this._oncancel = cancel;
@@ -5264,7 +4831,6 @@ define('WinJS/_Signal',[
             supportedForProcessing: false
         }
     );
-
     var Signal = _Base.Class.define(
         function Signal_ctor(oncancel) {
             this._promise = new SignalPromise(oncancel);
@@ -5272,7 +4838,6 @@ define('WinJS/_Signal',[
             promise: {
                 get: function () { return this._promise; }
             },
-
             cancel: function Signal_cancel() {
                 this._promise.cancel();
             },
@@ -5289,11 +4854,9 @@ define('WinJS/_Signal',[
             supportedForProcessing: false,
         }
     );
-
     _Base.Namespace.define("WinJS", {
         _Signal: Signal
     });
-
     return Signal;
 });
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
@@ -5303,12 +4866,10 @@ define('WinJS/Utilities/_Control',[
     '../Core/_Base'
     ], function controlInit(exports, _Global, _Base) {
     "use strict";
-
     // not supported in WebWorker
     if (!_Global.document) {
         return;
     }
-
     function setOptions(control, options) {
         /// <signature helpKeyword="WinJS.UI.setOptions">
         /// <summary locid="WinJS.UI.setOptions">
@@ -5325,7 +4886,6 @@ define('WinJS/Utilities/_Control',[
         /// </signature>
         _setOptions(control, options);
     }
-
     function _setOptions(control, options, eventsOnly) {
         if (typeof options === "object") {
             var keys = Object.keys(options);
@@ -5344,19 +4904,16 @@ define('WinJS/Utilities/_Control',[
                         }
                     }
                 }
-
                 if (!eventsOnly) {
                     control[key] = value;
                 }
             }
         }
     }
-
     _Base.Namespace._moduleDefine(exports, "WinJS.UI", {
         DOMEventMixin: _Base.Namespace._lazy(function () {
             return {
                 _domElement: null,
-
                 addEventListener: function (type, listener, useCapture) {
                     /// <signature helpKeyword="WinJS.UI.DOMEventMixin.addEventListener">
                     /// <summary locid="WinJS.UI.DOMEventMixin.addEventListener">
@@ -5418,15 +4975,10 @@ define('WinJS/Utilities/_Control',[
                 }
             };
         }),
-
         setOptions: setOptions,
-
         _setOptions: _setOptions
     });
-
 });
-
-
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 define('WinJS/Utilities/_ElementUtilities',[
     'exports',
@@ -5438,14 +4990,11 @@ define('WinJS/Utilities/_ElementUtilities',[
     '../Scheduler'
 ], function elementUtilities(exports, _Global, _Base, _BaseUtils, _WinRT, Promise, Scheduler) {
     "use strict";
-
     // not supported in WebWorker
     if (!_Global.document) {
         return;
     }
-
     var _zoomToDuration = 167;
-
     // Firefox's implementation of getComputedStyle returns null when called within
     // an iframe that is display:none. This is a bug: https://bugzilla.mozilla.org/show_bug.cgi?id=548397
     // _getComputedStyle is a helper which is guaranteed to return an object whose keys
@@ -5465,7 +5014,6 @@ define('WinJS/Utilities/_ElementUtilities',[
         return _Global.getComputedStyle(element, pseudoElement) || getDefaultComputedStyle();
         // jscs:enable disallowDirectGetComputedStyle
     }
-
     function removeEmpties(arr) {
         var len = arr.length;
         for (var i = len - 1; i >= 0; i--) {
@@ -5476,7 +5024,6 @@ define('WinJS/Utilities/_ElementUtilities',[
         }
         return len;
     }
-
     function getClassName(e) {
         var name = e.className || "";
         if (typeof (name) === "string") {
@@ -5519,7 +5066,6 @@ define('WinJS/Utilities/_ElementUtilities',[
             } else {
                 var namesToAdd = name.split(" ");
                 removeEmpties(namesToAdd);
-
                 for (var i = 0, len = namesToAdd.length; i < len; i++) {
                     e.classList.add(namesToAdd[i]);
                 }
@@ -5530,7 +5076,6 @@ define('WinJS/Utilities/_ElementUtilities',[
             var names = className.split(" ");
             var l = removeEmpties(names);
             var toAdd;
-
             // we have a fast path for the common case of a single name in the class name
             //
             if (name.indexOf(" ") >= 0) {
@@ -5554,7 +5099,6 @@ define('WinJS/Utilities/_ElementUtilities',[
                     }
                 }
                 if (!saw) { toAdd = name; }
-
             }
             if (toAdd) {
                 if (l > 0 && names[0].length > 0) {
@@ -5582,14 +5126,12 @@ define('WinJS/Utilities/_ElementUtilities',[
         /// </returns>
         /// </signature>
         if (e.classList) {
-
             // Fastpath: Nothing to remove
             if (e.classList.length === 0) {
                 return e;
             }
             var namesToRemove = name.split(" ");
             removeEmpties(namesToRemove);
-
             for (var i = 0, len = namesToRemove.length; i < len; i++) {
                 e.classList.remove(namesToRemove[i]);
             }
@@ -5598,7 +5140,6 @@ define('WinJS/Utilities/_ElementUtilities',[
             var original = getClassName(e);
             var namesToRemove;
             var namesToRemoveLen;
-
             if (name.indexOf(" ") >= 0) {
                 namesToRemove = name.split(" ");
                 namesToRemoveLen = removeEmpties(namesToRemove);
@@ -5615,14 +5156,12 @@ define('WinJS/Utilities/_ElementUtilities',[
             var removed;
             var names = original.split(" ");
             var namesLen = removeEmpties(names);
-
             for (var i = namesLen - 1; i >= 0; i--) {
                 if (namesToRemove.indexOf(names[i]) >= 0) {
                     names.splice(i, 1);
                     removed = true;
                 }
             }
-
             if (removed) {
                 setClassName(e, names.join(" "));
             }
@@ -5678,14 +5217,12 @@ define('WinJS/Utilities/_ElementUtilities',[
             return e;
         }
     }
-
     // Only set the attribute if its value has changed
     function setAttribute(element, attribute, value) {
         if (element.getAttribute(attribute) !== "" + value) {
             element.setAttribute(attribute, value);
         }
     }
-
     function _clamp(value, lowerBound, upperBound, defaultValue) {
         var n = Math.max(lowerBound, Math.min(upperBound, +value));
         return n === 0 ? 0 : n || Math.max(lowerBound, Math.min(upperBound, defaultValue));
@@ -5709,22 +5246,17 @@ define('WinJS/Utilities/_ElementUtilities',[
         /// </signature>
         if (!_pixelsRE.test(value) && _numberRE.test(value)) {
             var previousValue = element.style.left;
-
             element.style.left = value;
             value = element.style.pixelLeft;
-
             element.style.left = previousValue;
-
             return value;
         } else {
             return Math.round(parseFloat(value)) || 0;
         }
     }
-
     function getDimension(element, property) {
         return convertToPixels(element, _getComputedStyle(element, null)[property]);
     }
-
     function _convertToPrecisePixels(value) {
         return parseFloat(value) || 0;
     }
@@ -5740,7 +5272,6 @@ define('WinJS/Utilities/_ElementUtilities',[
             left: _convertToPrecisePixels(style.marginLeft),
         };
     }
-
     var _MSGestureEvent = _Global.MSGestureEvent || {
         MSGESTURE_FLAG_BEGIN: 1,
         MSGESTURE_FLAG_CANCEL: 4,
@@ -5748,7 +5279,6 @@ define('WinJS/Utilities/_ElementUtilities',[
         MSGESTURE_FLAG_INERTIA: 8,
         MSGESTURE_FLAG_NONE: 0
     };
-
     var _MSManipulationEvent = _Global.MSManipulationEvent || {
         MS_MANIPULATION_STATE_ACTIVE: 1,
         MS_MANIPULATION_STATE_CANCELLED: 6,
@@ -5759,16 +5289,13 @@ define('WinJS/Utilities/_ElementUtilities',[
         MS_MANIPULATION_STATE_SELECTING: 4,
         MS_MANIPULATION_STATE_STOPPED: 0
     };
-
     var _MSPointerEvent = _Global.MSPointerEvent || {
         MSPOINTER_TYPE_TOUCH: "touch",
         MSPOINTER_TYPE_PEN: "pen",
         MSPOINTER_TYPE_MOUSE: "mouse",
     };
-
     // Helpers for managing element._eventsMap for custom events
     //
-
     function addListenerToEventMap(element, type, listener, useCapture, data) {
         var eventNameLowercase = type.toLowerCase();
         if (!element._eventsMap) {
@@ -5783,7 +5310,6 @@ define('WinJS/Utilities/_ElementUtilities',[
             data: data
         });
     }
-
     function removeListenerFromEventMap(element, type, listener, useCapture) {
         var eventNameLowercase = type.toLowerCase();
         var mappedEvents = element._eventsMap && element._eventsMap[eventNameLowercase];
@@ -5798,12 +5324,10 @@ define('WinJS/Utilities/_ElementUtilities',[
         }
         return null;
     }
-
     function lookup(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);(element, type) {
         var eventNameLowercase = type.toLowerCase();
         return element._eventsMap && element._eventsMap[eventNameLowercase] && element._eventsMap[eventNameLowercase].slice(0) || [];
     }
-
     // Custom focusin/focusout events
     // Generally, use these instead of using the browser's blur/focus/focusout/focusin events directly.
     // However, this doesn't support the window object. If you need to listen to focus events on the window,
@@ -5813,28 +5337,23 @@ define('WinJS/Utilities/_ElementUtilities',[
     // for native "focusin" and "focusout" since every browser that supports them will fire them synchronously.
     // Every browser in our support matrix, except for IE, also fires focus/blur synchronously, we fall back to
     // those events in browsers such as Firefox that do not have native support for focusin/focusout.
-
     function bubbleEvent(element, type, eventObject) {
         while (element) {
             var handlers = lookup(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);(element, type);
             for (var i = 0, len = handlers.length; i < len; i++) {
                 handlers[i].listener.call(element, eventObject);
             }
-
             element = element.parentNode;
         }
     }
-
     function prepareFocusEvent(eventObject) {
         // If an iframe is involved, then relatedTarget should be null.
         if (eventObject.relatedTarget && eventObject.relatedTarget.tagName === "IFRAME" ||
                 eventObject.target && eventObject.target.tagName === "IFRAME") {
             eventObject.relatedTarget = null;
         }
-
         return eventObject;
     }
-
     var nativeSupportForFocusIn = "onfocusin" in _Global.document.documentElement;
     var activeElement = null;
     _Global.addEventListener(nativeSupportForFocusIn ? "focusout" : "blur", function (eventObject) {
@@ -5851,7 +5370,6 @@ define('WinJS/Utilities/_ElementUtilities',[
             activeElement = null;
         }
     });
-
     _Global.document.documentElement.addEventListener(nativeSupportForFocusIn ? "focusin" : "focus", function (eventObject) {
         var previousActiveElement = activeElement;
         activeElement = eventObject.target;
@@ -5870,17 +5388,14 @@ define('WinJS/Utilities/_ElementUtilities',[
             }));
         }
     }, true);
-
     function registerBubbleListener(element, type, listener, useCapture) {
         if (useCapture) {
             throw "This custom WinJS event only supports bubbling";
         }
         addListenerToEventMap(element, type, listener, useCapture);
     }
-
     // Custom pointer events
     //
-
     // Sets the properties in *overrideProperties* on the object. Delegates all other
     // property accesses to *eventObject*.
     //
@@ -5896,7 +5411,6 @@ define('WinJS/Utilities/_ElementUtilities',[
             });
         });
     };
-
     // Define PointerEventProxy properties which should be delegated to the original eventObject.
     [
         "altKey", "AT_TARGET", "bubbles", "BUBBLING_PHASE", "button", "buttons",
@@ -5918,15 +5432,12 @@ define('WinJS/Utilities/_ElementUtilities',[
             configurable: true
         });
     });
-
     function touchEventTranslator(callback, eventObject) {
         var changedTouches = eventObject.changedTouches,
             retVal = null;
-
         if (!changedTouches) {
             return retVal;
         }
-
         for (var i = 0, len = changedTouches.length; i < len; i++) {
             var touchObject = changedTouches[i];
             var pointerEventObject = new PointerEventProxy(eventObject, {
@@ -5950,18 +5461,15 @@ define('WinJS/Utilities/_ElementUtilities',[
         }
         return retVal;
     }
-
     function mouseEventTranslator(callback, eventObject) {
         eventObject.pointerType = _MSPointerEvent.MSPOINTER_TYPE_MOUSE;
         eventObject.pointerId = -1;
         eventObject.isPrimary = true;
         return callback(eventObject);
     }
-
     function mspointerEventTranslator(callback, eventObject) {
         return callback(eventObject);
     }
-
     var eventTranslations = {
         pointerdown: {
             touch: "touchstart",
@@ -5999,18 +5507,14 @@ define('WinJS/Utilities/_ElementUtilities',[
             mouse: null
         }
     };
-
     function registerPointerEvent(element, type, callback, capture) {
         var eventNameLowercase = type.toLowerCase();
-
         var mouseWrapper,
             touchWrapper,
             mspointerWrapper;
         var translations = eventTranslations[eventNameLowercase];
-
         // Browsers fire a touch event and then a mouse event when the input is touch. touchHandled is used to prevent invoking the pointer callback twice.
         var touchHandled;
-
         // If we are in IE10, we should use MSPointer as it provides a better interface than touch events
         if (_Global.MSPointerEvent) {
             mspointerWrapper = function (eventObject) {
@@ -6040,17 +5544,14 @@ define('WinJS/Utilities/_ElementUtilities',[
                 element.addEventListener(translations.touch, touchWrapper, capture);
             }
         }
-
         addListenerToEventMap(element, type, callback, capture, {
             mouseWrapper: mouseWrapper,
             touchWrapper: touchWrapper,
             mspointerWrapper: mspointerWrapper
         });
     }
-
     function unregisterPointerEvent(element, type, callback, capture) {
         var eventNameLowercase = type.toLowerCase();
-
         var mapping = removeListenerFromEventMap(element, type, callback, capture);
         if (mapping) {
             var translations = eventTranslations[eventNameLowercase];
@@ -6065,10 +5566,8 @@ define('WinJS/Utilities/_ElementUtilities',[
             }
         }
     }
-
     // Custom events dispatch table. Event names should be lowercased.
     //
-
     var customEvents = {
         focusout: {
             register: registerBubbleListener,
@@ -6084,7 +5583,6 @@ define('WinJS/Utilities/_ElementUtilities',[
             register: registerPointerEvent,
             unregister: unregisterPointerEvent
         };
-
         customEvents.pointerdown = pointerEventEntry;
         customEvents.pointerup = pointerEventEntry;
         customEvents.pointermove = pointerEventEntry;
@@ -6093,7 +5591,6 @@ define('WinJS/Utilities/_ElementUtilities',[
         customEvents.pointerout = pointerEventEntry;
         customEvents.pointercancel = pointerEventEntry;
     }
-
     // The MutationObserverShim only supports the following configuration:
     //  attributes
     //  attributeFilter
@@ -6135,40 +5632,32 @@ define('WinJS/Utilities/_ElementUtilities',[
                 });
             },
             _handleCallback: function MutationObserverShim_handleCallback(evt) {
-
                 // prevent multiple events from firing when nesting observers
                 evt.stopPropagation();
-
                 var attrName = evt.attrName;
                 if (this._attributeFilter.length && this._attributeFilter.indexOf(attrName) === -1) {
                     return;
                 }
-
                 // subtree:true is not currently supported
                 if (this._targetElements.indexOf(evt.target) === -1) {
                     return;
                 }
-
                 var isAriaMutation = attrName.indexOf("aria") >= 0;
-
                 // DOM mutation events use different naming for this attribute
                 if (attrName === 'tabindex') {
                     attrName = 'tabIndex';
                 }
-
                 this._pendingChanges.push({
                     type: 'attributes',
                     target: evt.target,
                     attributeName: attrName
                 });
-
                 if (this._observerCount === 1 && !isAriaMutation) {
                     this._dispatchEvent();
                 } else if (this._scheduled === false) {
                     this._scheduled = true;
                     _BaseUtils._setImmediate(this._dispatchEvent.bind(this));
                 }
-
             },
             _dispatchEvent: function MutationObserverShim_dispatchEvent() {
                 try {
@@ -6184,12 +5673,9 @@ define('WinJS/Utilities/_ElementUtilities',[
             _isShim: true
         }
     );
-
     var _MutationObserver = _Global.MutationObserver || MutationObserverShim;
-
     // Lazily init singleton on first access.
     var _resizeNotifier = null;
-
     // Class to provide a global listener for window.onresize events.
     // This keeps individual elements from having to listen to window.onresize
     // and having to dispose themselves to avoid leaks.
@@ -6233,7 +5719,6 @@ define('WinJS/Utilities/_ElementUtilities',[
         function GenericListener_ctor(objectName, object, options) {
             options = options || {};
             this.registerThruWinJSCustomEvents = !!options.registerThruWinJSCustomEvents;
-
             this.objectName = objectName;
             this.object = object;
             this.capture = {};
@@ -6244,19 +5729,16 @@ define('WinJS/Utilities/_ElementUtilities',[
                 name = name.toLowerCase();
                 var handlers = this._getHandlers(capture);
                 var handler = handlers[name];
-
                 if (!handler) {
                     handler = this._getListener(name, capture);
                     handler.refCount = 0;
                     handlers[name] = handler;
-
                     if (this.registerThruWinJSCustomEvents) {
                         exports._addEventListener(this.object, name, handler, capture);
                     } else {
                         this.object.addEventListener(name, handler, capture);
                     }
                 }
-
                 handler.refCount++;
                 element.addEventListener(this._getEventName(name, capture), listener);
                 addClass(element, this._getClassName(name, capture));
@@ -6265,7 +5747,6 @@ define('WinJS/Utilities/_ElementUtilities',[
                 name = name.toLowerCase();
                 var handlers = this._getHandlers(capture);
                 var handler = handlers[name];
-
                 if (handler) {
                     handler.refCount--;
                     if (handler.refCount === 0) {
@@ -6277,11 +5758,9 @@ define('WinJS/Utilities/_ElementUtilities',[
                         delete handlers[name];
                     }
                 }
-
                 removeClass(element, this._getClassName(name, capture));
                 element.removeEventListener(this._getEventName(name, capture), listener);
             },
-
             _getHandlers: function GenericListener_getHandlers(capture) {
                 if (capture) {
                     return this.capture;
@@ -6289,20 +5768,16 @@ define('WinJS/Utilities/_ElementUtilities',[
                     return this.bubble;
                 }
             },
-
             _getClassName: function GenericListener_getClassName(name, capture) {
                 var captureSuffix = capture ? 'capture' : 'bubble';
                 return 'win-' + this.objectName.toLowerCase() + '-event-' + name + captureSuffix;
             },
-
             _getEventName: function GenericListener_getEventName(name, capture) {
                 var captureSuffix = capture ? 'capture' : 'bubble';
                 return 'WinJS' + this.objectName + 'Event-' + name + captureSuffix;
             },
-
             _getListener: function GenericListener_getListener(name, capture) {
                 var listener = function GenericListener_generatedListener(ev) {
-
                     var targets = _Global.document.querySelectorAll('.' + this._getClassName(name, capture));
                     var length = targets.length;
                     var handled = false;
@@ -6315,12 +5790,10 @@ define('WinJS/Utilities/_ElementUtilities',[
                     }
                     return handled;
                 };
-
                 return listener.bind(this);
             }
         }
     );
-
     var determinedRTLEnvironment = false,
         usingWebkitScrollCoordinates = false,
         usingFirefoxScrollCoordinates = false;
@@ -6343,7 +5816,6 @@ define('WinJS/Utilities/_ElementUtilities',[
         _Global.document.body.removeChild(element);
         determinedRTLEnvironment = true;
     }
-
     function getAdjustedScrollPosition(element) {
         var computedStyle = _getComputedStyle(element),
             scrollLeft = element.scrollLeft;
@@ -6356,13 +5828,11 @@ define('WinJS/Utilities/_ElementUtilities',[
             }
             scrollLeft = Math.abs(scrollLeft);
         }
-
         return {
             scrollLeft: scrollLeft,
             scrollTop: element.scrollTop
         };
     }
-
     function setAdjustedScrollPosition(element, scrollLeft, scrollTop) {
         if (scrollLeft !== undefined) {
             var computedStyle = _getComputedStyle(element);
@@ -6378,12 +5848,10 @@ define('WinJS/Utilities/_ElementUtilities',[
             }
             element.scrollLeft = scrollLeft;
         }
-
         if (scrollTop !== undefined) {
             element.scrollTop = scrollTop;
         }
     }
-
     function getScrollPosition(element) {
         /// <signature helpKeyword="WinJS.Utilities.getScrollPosition">
         /// <summary locid="WinJS.Utilities.getScrollPosition">
@@ -6398,7 +5866,6 @@ define('WinJS/Utilities/_ElementUtilities',[
         /// </signature>
         return getAdjustedScrollPosition(element);
     }
-
     function setScrollPosition(element, position) {
         /// <signature helpKeyword="WinJS.Utilities.setScrollPosition">
         /// <summary locid="WinJS.Utilities.setScrollPosition">
@@ -6414,42 +5881,33 @@ define('WinJS/Utilities/_ElementUtilities',[
         position = position || {};
         setAdjustedScrollPosition(element, position.scrollLeft, position.scrollTop);
     }
-
     // navigator.msManipulationViewsEnabled tells us whether snap points work or not regardless of whether the style properties exist, however,
     // on Phone WWAs, this check returns false even though snap points are supported. To work around this bug, we check for the presence of
     // 'MSAppHost' in the user agent string which indicates that we are in a WWA environment; all WWA environments support snap points.
     var supportsSnapPoints = _Global.navigator.msManipulationViewsEnabled || _Global.navigator.userAgent.indexOf("MSAppHost") >= 0;
     var supportsTouchDetection = !!(_Global.MSPointerEvent || _Global.TouchEvent);
-
     var uniqueElementIDCounter = 0;
-
     function uniqueID(e) {
         if (!(e.uniqueID || e._uniqueID)) {
             e._uniqueID = "element__" + (++uniqueElementIDCounter);
         }
-
         return e.uniqueID || e._uniqueID;
     }
-
     function ensureId(element) {
         if (!element.id) {
             element.id = uniqueID(element);
         }
     }
-
     function _getCursorPos(eventObject) {
         var docElement = _Global.document.documentElement;
         var docScrollPos = getScrollPosition(docElement);
-
         return {
             left: eventObject.clientX + (_Global.document.body.dir === "rtl" ? -docScrollPos.scrollLeft : docScrollPos.scrollLeft),
             top: eventObject.clientY + docElement.scrollTop
         };
     }
-
     function _getElementsByClasses(parent, classes) {
         var retVal = [];
-
         for (var i = 0, len = classes.length; i < len; i++) {
             var element = parent.querySelector("." + classes[i]);
             if (element) {
@@ -6458,39 +5916,29 @@ define('WinJS/Utilities/_ElementUtilities',[
         }
         return retVal;
     }
-
     var _selectionPartsSelector = ".win-selectionborder, .win-selectionbackground, .win-selectioncheckmark, .win-selectioncheckmarkbackground";
     var _dataKey = "_msDataKey";
     _Base.Namespace._moduleDefine(exports, "WinJS.Utilities", {
         _dataKey: _dataKey,
-
         _supportsSnapPoints: {
             get: function () {
                 return supportsSnapPoints;
             }
         },
-
         _supportsTouchDetection: {
             get: function () {
                 return supportsTouchDetection;
             }
         },
-
         _uniqueID: uniqueID,
-
         _ensureId: ensureId,
-
         _clamp: _clamp,
-
         _getCursorPos: _getCursorPos,
-
         _getElementsByClasses: _getElementsByClasses,
-
         _createGestureRecognizer: function () {
             if (_Global.MSGesture) {
                 return new _Global.MSGesture();
             }
-
             var doNothing = function () {
             };
             return {
@@ -6500,10 +5948,8 @@ define('WinJS/Utilities/_ElementUtilities',[
                 stop: doNothing
             };
         },
-
         _MSGestureEvent: _MSGestureEvent,
         _MSManipulationEvent: _MSManipulationEvent,
-
         _elementsFromPoint: function (x, y) {
             if (_Global.document.msElementsFromPoint) {
                 return _Global.document.msElementsFromPoint(x, y);
@@ -6512,7 +5958,6 @@ define('WinJS/Utilities/_ElementUtilities',[
                 return element ? [element] : null;
             }
         },
-
         _matchesSelector: function _matchesSelector(element, selectorString) {
             var matchesSelector = element.matches
                     || element.msMatchesSelector
@@ -6520,14 +5965,11 @@ define('WinJS/Utilities/_ElementUtilities',[
                     || element.webkitMatchesSelector;
             return matchesSelector.call(element, selectorString);
         },
-
         _selectionPartsSelector: _selectionPartsSelector,
-
         _isSelectionRendered: function _isSelectionRendered(itemBox) {
             // The tree is changed at pointerDown but _selectedClass is added only when the user drags an item below the selection threshold so checking for _selectedClass is not reliable.
             return itemBox.querySelectorAll(_selectionPartsSelector).length > 0;
         },
-
         _addEventListener: function _addEventListener(element, type, listener, useCapture) {
             var eventNameLower = type && type.toLowerCase();
             var entry = customEvents[eventNameLower];
@@ -6540,7 +5982,6 @@ define('WinJS/Utilities/_ElementUtilities',[
                 element.addEventListener(type, listener, useCapture);
             }
         },
-
         _removeEventListener: function _removeEventListener(element, type, listener, useCapture) {
             var eventNameLower = type && type.toLowerCase();
             var entry = customEvents[eventNameLower];
@@ -6553,7 +5994,6 @@ define('WinJS/Utilities/_ElementUtilities',[
                 element.removeEventListener(type, listener, useCapture);
             }
         },
-
         _initEventImpl: function (initType, event, eventType) {
             eventType = eventType.toLowerCase();
             var mapping = eventTranslations[eventType];
@@ -6564,7 +6004,6 @@ define('WinJS/Utilities/_ElementUtilities',[
                             arguments[2] = mapping.mspointer;
                         }
                         break;
-
                     default:
                         arguments[2] = mapping[initType.toLowerCase()];
                         break;
@@ -6572,37 +6011,27 @@ define('WinJS/Utilities/_ElementUtilities',[
             }
             event["init" + initType + "Event"].apply(event, Array.prototype.slice.call(arguments, 2));
         },
-
         _initMouseEvent: function (event) {
             this._initEventImpl.apply(this, ["Mouse", event].concat(Array.prototype.slice.call(arguments, 1)));
         },
-
         _initPointerEvent: function (event) {
             this._initEventImpl.apply(this, ["Pointer", event].concat(Array.prototype.slice.call(arguments, 1)));
         },
-
         _PointerEventProxy: PointerEventProxy,
-
         _bubbleEvent: bubbleEvent,
-
         _setPointerCapture: function (element, pointerId) {
             if (element.setPointerCapture) {
                 element.setPointerCapture(pointerId);
             }
         },
-
         _releasePointerCapture: function (element, pointerId) {
             if (element.releasePointerCapture) {
                 element.releasePointerCapture(pointerId);
             }
         },
-
         _MSPointerEvent: _MSPointerEvent,
-
         _getComputedStyle: _getComputedStyle,
-
         _zoomToDuration: _zoomToDuration,
-
         _zoomTo: function _zoomTo(element, args) {
             if (this._supportsSnapPoints && element.msZoomTo) {
                 element.msZoomTo(args);
@@ -6617,31 +6046,26 @@ define('WinJS/Utilities/_ElementUtilities',[
                     var cs = _getComputedStyle(element);
                     var scrollLimitX = element.scrollWidth - parseInt(cs.width, 10) - parseInt(cs.paddingLeft, 10) - parseInt(cs.paddingRight, 10);
                     var scrollLimitY = element.scrollHeight - parseInt(cs.height, 10) - parseInt(cs.paddingTop, 10) - parseInt(cs.paddingBottom, 10);
-
                     if (typeof args.contentX !== "number") {
                         args.contentX = effectiveScrollLeft;
                     }
                     if (typeof args.contentY !== "number") {
                         args.contentY = effectiveScrollTop;
                     }
-
                     var zoomToDestX = _clamp(args.contentX, 0, scrollLimitX);
                     var zoomToDestY = _clamp(args.contentY, 0, scrollLimitY);
                     if (zoomToDestX === effectiveScrollLeft && zoomToDestY === effectiveScrollTop) {
                         // Scroll position is already in the proper state. This zoomTo is a no-op.
                         return;
                     }
-
                     element._zoomToId = element._zoomToId || 0;
                     element._zoomToId++;
                     element._zoomToDestX = zoomToDestX;
                     element._zoomToDestY = zoomToDestY;
-
                     var thisZoomToId = element._zoomToId;
                     var start = _BaseUtils._now();
                     var xFactor = (element._zoomToDestX - initialPos.scrollLeft) / _zoomToDuration;
                     var yFactor = (element._zoomToDestY - initialPos.scrollTop) / _zoomToDuration;
-
                     var update = function () {
                         var t = _BaseUtils._now() - start;
                         if (element._zoomToId !== thisZoomToId) {
@@ -6655,12 +6079,10 @@ define('WinJS/Utilities/_ElementUtilities',[
                             _BaseUtils._requestAnimationFrame(update);
                         }
                     };
-
                     _BaseUtils._requestAnimationFrame(update);
                 }, Scheduler.Priority.high, null, "WinJS.Utilities._zoomTo");
             }
         },
-
         _setActive: function _setActive(element, scroller) {
             var success = true;
             try {
@@ -6673,10 +6095,8 @@ define('WinJS/Utilities/_ElementUtilities',[
                     // This _setActive polyfill does have limited support for preventing scrolling: via the scroller parameter, it
                     // can prevent one scroller from scrolling. This functionality is necessary in some scenarios. For example, when using
                     // _zoomTo and _setActive together.
-
                     var scrollLeft,
                         scrollTop;
-
                     if (scroller) {
                         scrollLeft = scroller.scrollLeft;
                         scrollTop = scroller.scrollTop;
@@ -6694,9 +6114,7 @@ define('WinJS/Utilities/_ElementUtilities',[
             }
             return success;
         },
-
         _MutationObserver: _MutationObserver,
-
         _resizeNotifier: {
             get: function () {
                 if (!_resizeNotifier) {
@@ -6705,14 +6123,12 @@ define('WinJS/Utilities/_ElementUtilities',[
                 return _resizeNotifier;
             }
         },
-
         _GenericListener: GenericListener,
         _globalListener: new GenericListener("Global", _Global, { registerThruWinJSCustomEvents: true }),
         _documentElementListener: new GenericListener("DocumentElement", _Global.document.documentElement, { registerThruWinJSCustomEvents: true }),
         _inputPaneListener: _WinRT.Windows.UI.ViewManagement.InputPane ?
             new GenericListener("InputPane", _WinRT.Windows.UI.ViewManagement.InputPane.getForCurrentView()) :
             { addEventListener: function () { }, removeEventListener: function () { } },
-
         // Appends a hidden child to the given element that will listen for being added
         // to the DOM. When the hidden element is added to the DOM, it will dispatch a
         // "WinJSNodeInserted" event on the provided element.
@@ -6722,7 +6138,6 @@ define('WinJS/Utilities/_ElementUtilities',[
             hiddenElement.style[_BaseUtils._browserStyleEquivalents["animation-duration"].scriptName] = "0.01s";
             hiddenElement.style["position"] = "absolute";
             element.appendChild(hiddenElement);
-
             exports._addEventListener(hiddenElement, "animationStart", function (e) {
                 if (e.animationName === "WinJS-node-inserted") {
                     var e = _Global.document.createEvent("Event");
@@ -6730,10 +6145,8 @@ define('WinJS/Utilities/_ElementUtilities',[
                     element.dispatchEvent(e);
                 }
             }, false);
-
             return hiddenElement;
         },
-
         // Returns a promise which completes when *element* is in the DOM.
         _inDom: function Utilities_inDom(element) {
             return new Promise(function (c) {
@@ -6749,7 +6162,6 @@ define('WinJS/Utilities/_ElementUtilities',[
                 }
             });
         },
-
         // Browser agnostic method to set element flex style
         // Param is an object in the form {grow: flex-grow, shrink: flex-shrink, basis: flex-basis}
         // All fields optional
@@ -6771,7 +6183,6 @@ define('WinJS/Utilities/_ElementUtilities',[
                 styleObject.flexBasis = flexParams.basis;
             }
         },
-
         /// <field locid="WinJS.Utilities.Key" helpKeyword="WinJS.Utilities.Key">
         /// Defines a set of keyboard values.
         /// </field>
@@ -6780,673 +6191,539 @@ define('WinJS/Utilities/_ElementUtilities',[
             /// BACKSPACE key.
             /// </field>
             backspace: 8,
-
             /// <field locid="WinJS.Utilities.Key.tab" helpKeyword="WinJS.Utilities.Key.tab">
             /// TAB key.
             /// </field>
             tab: 9,
-
             /// <field locid="WinJS.Utilities.Key.enter" helpKeyword="WinJS.Utilities.Key.enter">
             /// ENTER key.
             /// </field>
             enter: 13,
-
             /// <field locid="WinJS.Utilities.Key.shift" helpKeyword="WinJS.Utilities.Key.shift">
             /// Shift key.
             /// </field>
             shift: 16,
-
             /// <field locid="WinJS.Utilities.Key.ctrl" helpKeyword="WinJS.Utilities.Key.ctrl">
             /// CTRL key.
             /// </field>
             ctrl: 17,
-
             /// <field locid="WinJS.Utilities.Key.alt" helpKeyword="WinJS.Utilities.Key.alt">
             /// ALT key
             /// </field>
             alt: 18,
-
             /// <field locid="WinJS.Utilities.Key.pause" helpKeyword="WinJS.Utilities.Key.pause">
             /// Pause key.
             /// </field>
             pause: 19,
-
             /// <field locid="WinJS.Utilities.Key.capsLock" helpKeyword="WinJS.Utilities.Key.capsLock">
             /// CAPS LOCK key.
             /// </field>
             capsLock: 20,
-
             /// <field locid="WinJS.Utilities.Key.escape" helpKeyword="WinJS.Utilities.Key.escape">
             /// ESCAPE key.
             /// </field>
             escape: 27,
-
             /// <field locid="WinJS.Utilities.Key.space" helpKeyword="WinJS.Utilities.Key.space">
             /// SPACE key.
             /// </field>
             space: 32,
-
             /// <field locid="WinJS.Utilities.Key.pageUp" helpKeyword="WinJS.Utilities.Key.pageUp">
             /// PAGE UP key.
             /// </field>
             pageUp: 33,
-
             /// <field locid="WinJS.Utilities.Key.pageDown" helpKeyword="WinJS.Utilities.Key.pageDown">
             /// PAGE DOWN key.
             /// </field>
             pageDown: 34,
-
             /// <field locid="WinJS.Utilities.Key.end" helpKeyword="WinJS.Utilities.Key.end">
             /// END key.
             /// </field>
             end: 35,
-
             /// <field locid="WinJS.Utilities.Key.home" helpKeyword="WinJS.Utilities.Key.home">
             /// HOME key.
             /// </field>
             home: 36,
-
             /// <field locid="WinJS.Utilities.Key.leftArrow" helpKeyword="WinJS.Utilities.Key.leftArrow">
             /// Left arrow key.
             /// </field>
             leftArrow: 37,
-
             /// <field locid="WinJS.Utilities.Key.upArrow" helpKeyword="WinJS.Utilities.Key.upArrow">
             /// Up arrow key.
             /// </field>
             upArrow: 38,
-
             /// <field locid="WinJS.Utilities.Key.rightArrow" helpKeyword="WinJS.Utilities.Key.rightArrow">
             /// Right arrow key.
             /// </field>
             rightArrow: 39,
-
             /// <field locid="WinJS.Utilities.Key.downArrow" helpKeyword="WinJS.Utilities.Key.downArrow">
             /// Down arrow key.
             /// </field>
             downArrow: 40,
-
             /// <field locid="WinJS.Utilities.Key.insert" helpKeyword="WinJS.Utilities.Key.insert">
             /// INSERT key.
             /// </field>
             insert: 45,
-
             /// <field locid="WinJS.Utilities.Key.deleteKey" helpKeyword="WinJS.Utilities.Key.deleteKey">
             /// DELETE key.
             /// </field>
             deleteKey: 46,
-
             /// <field locid="WinJS.Utilities.Key.num0" helpKeyword="WinJS.Utilities.Key.num0">
             /// Number 0 key.
             /// </field>
             num0: 48,
-
             /// <field locid="WinJS.Utilities.Key.num1" helpKeyword="WinJS.Utilities.Key.num1">
             /// Number 1 key.
             /// </field>
             num1: 49,
-
             /// <field locid="WinJS.Utilities.Key.num2" helpKeyword="WinJS.Utilities.Key.num2">
             /// Number 2 key.
             /// </field>
             num2: 50,
-
             /// <field locid="WinJS.Utilities.Key.num3" helpKeyword="WinJS.Utilities.Key.num3">
             /// Number 3 key.
             /// </field>
             num3: 51,
-
             /// <field locid="WinJS.Utilities.Key.num4" helpKeyword="WinJS.Utilities.Key.num4">
             /// Number 4 key.
             /// </field>
             num4: 52,
-
             /// <field locid="WinJS.Utilities.Key.num5" helpKeyword="WinJS.Utilities.Key.num5">
             /// Number 5 key.
             /// </field>
             num5: 53,
-
             /// <field locid="WinJS.Utilities.Key.num6" helpKeyword="WinJS.Utilities.Key.num6">
             /// Number 6 key.
             /// </field>
             num6: 54,
-
             /// <field locid="WinJS.Utilities.Key.num7" helpKeyword="WinJS.Utilities.Key.num7">
             /// Number 7 key.
             /// </field>
             num7: 55,
-
             /// <field locid="WinJS.Utilities.Key.num8" helpKeyword="WinJS.Utilities.Key.num8">
             /// Number 8 key.
             /// </field>
             num8: 56,
-
             /// <field locid="WinJS.Utilities.Key.num9" helpKeyword="WinJS.Utilities.Key.num9">
             /// Number 9 key.
             /// </field>
             num9: 57,
-
             /// <field locid="WinJS.Utilities.Key.a" helpKeyword="WinJS.Utilities.Key.a">
             /// A key.
             /// </field>
             a: 65,
-
             /// <field locid="WinJS.Utilities.Key.b" helpKeyword="WinJS.Utilities.Key.b">
             /// B key.
             /// </field>
             b: 66,
-
             /// <field locid="WinJS.Utilities.Key.c" helpKeyword="WinJS.Utilities.Key.c">
             /// C key.
             /// </field>
             c: 67,
-
             /// <field locid="WinJS.Utilities.Key.d" helpKeyword="WinJS.Utilities.Key.d">
             /// D key.
             /// </field>
             d: 68,
-
             /// <field locid="WinJS.Utilities.Key.e" helpKeyword="WinJS.Utilities.Key.e">
             /// E key.
             /// </field>
             e: 69,
-
             /// <field locid="WinJS.Utilities.Key.f" helpKeyword="WinJS.Utilities.Key.f">
             /// F key.
             /// </field>
             f: 70,
-
             /// <field locid="WinJS.Utilities.Key.g" helpKeyword="WinJS.Utilities.Key.g">
             /// G key.
             /// </field>
             g: 71,
-
             /// <field locid="WinJS.Utilities.Key.h" helpKeyword="WinJS.Utilities.Key.h">
             /// H key.
             /// </field>
             h: 72,
-
             /// <field locid="WinJS.Utilities.Key.i" helpKeyword="WinJS.Utilities.Key.i">
             /// I key.
             /// </field>
             i: 73,
-
             /// <field locid="WinJS.Utilities.Key.j" helpKeyword="WinJS.Utilities.Key.j">
             /// J key.
             /// </field>
             j: 74,
-
             /// <field locid="WinJS.Utilities.Key.k" helpKeyword="WinJS.Utilities.Key.k">
             /// K key.
             /// </field>
             k: 75,
-
             /// <field locid="WinJS.Utilities.Key.l" helpKeyword="WinJS.Utilities.Key.l">
             /// L key.
             /// </field>
             l: 76,
-
             /// <field locid="WinJS.Utilities.Key.m" helpKeyword="WinJS.Utilities.Key.m">
             /// M key.
             /// </field>
             m: 77,
-
             /// <field locid="WinJS.Utilities.Key.n" helpKeyword="WinJS.Utilities.Key.n">
             /// N key.
             /// </field>
             n: 78,
-
             /// <field locid="WinJS.Utilities.Key.o" helpKeyword="WinJS.Utilities.Key.o">
             /// O key.
             /// </field>
             o: 79,
-
             /// <field locid="WinJS.Utilities.Key.p" helpKeyword="WinJS.Utilities.Key.p">
             /// P key.
             /// </field>
             p: 80,
-
             /// <field locid="WinJS.Utilities.Key.q" helpKeyword="WinJS.Utilities.Key.q">
             /// Q key.
             /// </field>
             q: 81,
-
             /// <field locid="WinJS.Utilities.Key.r" helpKeyword="WinJS.Utilities.Key.r">
             /// R key.
             /// </field>
             r: 82,
-
             /// <field locid="WinJS.Utilities.Key.s" helpKeyword="WinJS.Utilities.Key.s">
             /// S key.
             /// </field>
             s: 83,
-
             /// <field locid="WinJS.Utilities.Key.t" helpKeyword="WinJS.Utilities.Key.t">
             /// T key.
             /// </field>
             t: 84,
-
             /// <field locid="WinJS.Utilities.Key.u" helpKeyword="WinJS.Utilities.Key.u">
             /// U key.
             /// </field>
             u: 85,
-
             /// <field locid="WinJS.Utilities.Key.v" helpKeyword="WinJS.Utilities.Key.v">
             /// V key.
             /// </field>
             v: 86,
-
             /// <field locid="WinJS.Utilities.Key.w" helpKeyword="WinJS.Utilities.Key.w">
             /// W key.
             /// </field>
             w: 87,
-
             /// <field locid="WinJS.Utilities.Key.x" helpKeyword="WinJS.Utilities.Key.x">
             /// X key.
             /// </field>
             x: 88,
-
             /// <field locid="WinJS.Utilities.Key.y" helpKeyword="WinJS.Utilities.Key.y">
             /// Y key.
             /// </field>
             y: 89,
-
             /// <field locid="WinJS.Utilities.Key.z" helpKeyword="WinJS.Utilities.Key.z">
             /// Z key.
             /// </field>
             z: 90,
-
             /// <field locid="WinJS.Utilities.Key.leftWindows" helpKeyword="WinJS.Utilities.Key.leftWindows">
             /// Left Windows key.
             /// </field>
             leftWindows: 91,
-
             /// <field locid="WinJS.Utilities.Key.rightWindows" helpKeyword="WinJS.Utilities.Key.rightWindows">
             /// Right Windows key.
             /// </field>
             rightWindows: 92,
-
             /// <field locid="WinJS.Utilities.Key.menu" helpKeyword="WinJS.Utilities.Key.menu">
             /// Menu key.
             /// </field>
             menu: 93,
-
             /// <field locid="WinJS.Utilities.Key.numPad0" helpKeyword="WinJS.Utilities.Key.numPad0">
             /// Number pad 0 key.
             /// </field>
             numPad0: 96,
-
             /// <field locid="WinJS.Utilities.Key.numPad1" helpKeyword="WinJS.Utilities.Key.numPad1">
             /// Number pad 1 key.
             /// </field>
             numPad1: 97,
-
             /// <field locid="WinJS.Utilities.Key.numPad2" helpKeyword="WinJS.Utilities.Key.numPad2">
             /// Number pad 2 key.
             /// </field>
             numPad2: 98,
-
             /// <field locid="WinJS.Utilities.Key.numPad3" helpKeyword="WinJS.Utilities.Key.numPad3">
             /// Number pad 3 key.
             /// </field>
             numPad3: 99,
-
             /// <field locid="WinJS.Utilities.Key.numPad4" helpKeyword="WinJS.Utilities.Key.numPad4">
             /// Number pad 4 key.
             /// </field>
             numPad4: 100,
-
             /// <field locid="WinJS.Utilities.Key.numPad5" helpKeyword="WinJS.Utilities.Key.numPad5">
             /// Number pad 5 key.
             /// </field>
             numPad5: 101,
-
             /// <field locid="WinJS.Utilities.Key.numPad6" helpKeyword="WinJS.Utilities.Key.numPad6">
             /// Number pad 6 key.
             /// </field>
             numPad6: 102,
-
             /// <field locid="WinJS.Utilities.Key.numPad7" helpKeyword="WinJS.Utilities.Key.numPad7">
             /// Number pad 7 key.
             /// </field>
             numPad7: 103,
-
             /// <field locid="WinJS.Utilities.Key.numPad8" helpKeyword="WinJS.Utilities.Key.numPad8">
             /// Number pad 8 key.
             /// </field>
             numPad8: 104,
-
             /// <field locid="WinJS.Utilities.Key.numPad9" helpKeyword="WinJS.Utilities.Key.numPad9">
             /// Number pad 9 key.
             /// </field>
             numPad9: 105,
-
             /// <field locid="WinJS.Utilities.Key.multiply" helpKeyword="WinJS.Utilities.Key.multiply">
             /// Multiplication key.
             /// </field>
             multiply: 106,
-
             /// <field locid="WinJS.Utilities.Key.add" helpKeyword="WinJS.Utilities.Key.add">
             /// Addition key.
             /// </field>
             add: 107,
-
             /// <field locid="WinJS.Utilities.Key.subtract" helpKeyword="WinJS.Utilities.Key.subtract">
             /// Subtraction key.
             /// </field>
             subtract: 109,
-
             /// <field locid="WinJS.Utilities.Key.decimalPoint" helpKeyword="WinJS.Utilities.Key.decimalPoint">
             /// Decimal point key.
             /// </field>
             decimalPoint: 110,
-
             /// <field locid="WinJS.Utilities.Key.divide" helpKeyword="WinJS.Utilities.Key.divide">
             /// Division key.
             /// </field>
             divide: 111,
-
             /// <field locid="WinJS.Utilities.Key.F1" helpKeyword="WinJS.Utilities.Key.F1">
             /// F1 key.
             /// </field>
             F1: 112,
-
             /// <field locid="WinJS.Utilities.Key.F2" helpKeyword="WinJS.Utilities.Key.F2">
             /// F2 key.
             /// </field>
             F2: 113,
-
             /// <field locid="WinJS.Utilities.Key.F3" helpKeyword="WinJS.Utilities.Key.F3">
             /// F3 key.
             /// </field>
             F3: 114,
-
             /// <field locid="WinJS.Utilities.Key.F4" helpKeyword="WinJS.Utilities.Key.F4">
             /// F4 key.
             /// </field>
             F4: 115,
-
             /// <field locid="WinJS.Utilities.Key.F5" helpKeyword="WinJS.Utilities.Key.F5">
             /// F5 key.
             /// </field>
             F5: 116,
-
             /// <field locid="WinJS.Utilities.Key.F6" helpKeyword="WinJS.Utilities.Key.F6">
             /// F6 key.
             /// </field>
             F6: 117,
-
             /// <field locid="WinJS.Utilities.Key.F7" helpKeyword="WinJS.Utilities.Key.F7">
             /// F7 key.
             /// </field>
             F7: 118,
-
             /// <field locid="WinJS.Utilities.Key.F8" helpKeyword="WinJS.Utilities.Key.F8">
             /// F8 key.
             /// </field>
             F8: 119,
-
             /// <field locid="WinJS.Utilities.Key.F9" helpKeyword="WinJS.Utilities.Key.F9">
             /// F9 key.
             /// </field>
             F9: 120,
-
             /// <field locid="WinJS.Utilities.Key.F10" helpKeyword="WinJS.Utilities.Key.F10">
             /// F10 key.
             /// </field>
             F10: 121,
-
             /// <field locid="WinJS.Utilities.Key.F11" helpKeyword="WinJS.Utilities.Key.F11">
             /// F11 key.
             /// </field>
             F11: 122,
-
             /// <field locid="WinJS.Utilities.Key.F12" helpKeyword="WinJS.Utilities.Key.F12">
             /// F12 key.
             /// </field>
             F12: 123,
-
             /// <field locid="WinJS.Utilities.Key.NavigationView" helpKeyword="WinJS.Utilities.Key.NavigationView">
             /// XBox One Remote NavigationView key.
             /// </field>
             NavigationView: 136,
-
             /// <field locid="WinJS.Utilities.Key.NavigationMenu" helpKeyword="WinJS.Utilities.Key.NavigationMenu">
             /// XBox One Remote NavigationMenu key.
             /// </field>
             NavigationMenu: 137,
-
             /// <field locid="WinJS.Utilities.Key.NavigationUp" helpKeyword="WinJS.Utilities.Key.NavigationUp">
             /// XBox One Remote NavigationUp key.
             /// </field>
             NavigationUp: 138,
-
             /// <field locid="WinJS.Utilities.Key.NavigationDown" helpKeyword="WinJS.Utilities.Key.NavigationDown">
             /// XBox One Remote NavigationDown key.
             /// </field>
             NavigationDown: 139,
-
             /// <field locid="WinJS.Utilities.Key.NavigationLeft" helpKeyword="WinJS.Utilities.Key.NavigationLeft">
             /// XBox One Remote NavigationLeft key.
             /// </field>
             NavigationLeft: 140,
-
             /// <field locid="WinJS.Utilities.Key.NavigationRight" helpKeyword="WinJS.Utilities.Key.NavigationRight">
             /// XBox One Remote NavigationRight key.
             /// </field>
             NavigationRight: 141,
-
             /// <field locid="WinJS.Utilities.Key.NavigationAccept" helpKeyword="WinJS.Utilities.Key.NavigationAccept">
             /// XBox One Remote NavigationAccept key.
             /// </field>
             NavigationAccept: 142,
-
             /// <field locid="WinJS.Utilities.Key.NavigationCancel" helpKeyword="WinJS.Utilities.Key.NavigationCancel">
             /// XBox One Remote NavigationCancel key.
             /// </field>
             NavigationCancel: 143,
-
             /// <field locid="WinJS.Utilities.Key.numLock" helpKeyword="WinJS.Utilities.Key.numLock">
             /// NUMBER LOCK key.
             /// </field>
             numLock: 144,
-
             /// <field locid="WinJS.Utilities.Key.scrollLock" helpKeyword="WinJS.Utilities.Key.scrollLock">
             /// SCROLL LOCK key.
             /// </field>
             scrollLock: 145,
-
             /// <field locid="WinJS.Utilities.Key.browserBack" helpKeyword="WinJS.Utilities.Key.browserBack">
             /// Browser back key.
             /// </field>
             browserBack: 166,
-
             /// <field locid="WinJS.Utilities.Key.browserForward" helpKeyword="WinJS.Utilities.Key.browserForward">
             /// Browser forward key.
             /// </field>
             browserForward: 167,
-
             /// <field locid="WinJS.Utilities.Key.semicolon" helpKeyword="WinJS.Utilities.Key.semicolon">
             /// SEMICOLON key.
             /// </field>
             semicolon: 186,
-
             /// <field locid="WinJS.Utilities.Key.equal" helpKeyword="WinJS.Utilities.Key.equal">
             /// EQUAL key.
             /// </field>
             equal: 187,
-
             /// <field locid="WinJS.Utilities.Key.comma" helpKeyword="WinJS.Utilities.Key.comma">
             /// COMMA key.
             /// </field>
             comma: 188,
-
             /// <field locid="WinJS.Utilities.Key.dash" helpKeyword="WinJS.Utilities.Key.dash">
             /// DASH key.
             /// </field>
             dash: 189,
-
             /// <field locid="WinJS.Utilities.Key.period" helpKeyword="WinJS.Utilities.Key.period">
             /// PERIOD key.
             /// </field>
             period: 190,
-
             /// <field locid="WinJS.Utilities.Key.forwardSlash" helpKeyword="WinJS.Utilities.Key.forwardSlash">
             /// FORWARD SLASH key.
             /// </field>
             forwardSlash: 191,
-
             /// <field locid="WinJS.Utilities.Key.graveAccent" helpKeyword="WinJS.Utilities.Key.graveAccent">
             /// Accent grave key.
             /// </field>
             graveAccent: 192,
-
             /// <field locid="WinJS.Utilities.Key.GamepadA" helpKeyword="WinJS.Utilities.Key.GamepadA">
             /// XBox One GamepadA key.
             /// </field>
             GamepadA: 195,
-
             /// <field locid="WinJS.Utilities.Key.GamepadB" helpKeyword="WinJS.Utilities.Key.GamepadB">
             /// XBox One GamepadB key.
             /// </field>
             GamepadB: 196,
-
             /// <field locid="WinJS.Utilities.Key.GamepadX" helpKeyword="WinJS.Utilities.Key.GamepadX">
             /// XBox One GamepadX key.
             /// </field>
             GamepadX: 197,
-
             /// <field locid="WinJS.Utilities.Key.GamepadY" helpKeyword="WinJS.Utilities.Key.GamepadY">
             /// XBox One GamepadY key.
             /// </field>
             GamepadY: 198,
-
             /// <field locid="WinJS.Utilities.Key.GamepadRightShoulder" helpKeyword="WinJS.Utilities.Key.GamepadRightShoulder">
             /// XBox One GamepadRightShoulder key.
             /// </field>
             GamepadRightShoulder: 199,
-
             /// <field locid="WinJS.Utilities.Key.GamepadLeftShoulder" helpKeyword="WinJS.Utilities.Key.GamepadLeftShoulder">
             /// XBox One GamepadLeftShoulder key.
             /// </field>
             GamepadLeftShoulder: 200,
-
             /// <field locid="WinJS.Utilities.Key.GamepadLeftTrigger" helpKeyword="WinJS.Utilities.Key.GamepadLeftTrigger">
             /// XBox One GamepadLeftTrigger key.
             /// </field>
             GamepadLeftTrigger: 201,
-
             /// <field locid="WinJS.Utilities.Key.GamepadRightTrigger" helpKeyword="WinJS.Utilities.Key.GamepadRightTrigger">
             /// XBox One GamepadRightTrigger key.
             /// </field>
             GamepadRightTrigger: 202,
-
             /// <field locid="WinJS.Utilities.Key.GamepadDPadUp" helpKeyword="WinJS.Utilities.Key.GamepadDPadUp">
             /// XBox One GamepadDPadUp key.
             /// </field>
             GamepadDPadUp: 203,
-
             /// <field locid="WinJS.Utilities.Key.GamepadDPadDown" helpKeyword="WinJS.Utilities.Key.GamepadDPadDown">
             /// XBox One GamepadDPadDown key.
             /// </field>
             GamepadDPadDown: 204,
-
             /// <field locid="WinJS.Utilities.Key.GamepadDPadLeft" helpKeyword="WinJS.Utilities.Key.GamepadDPadLeft">
             /// XBox One GamepadDPadLeft key.
             /// </field>
             GamepadDPadLeft: 205,
-
             /// <field locid="WinJS.Utilities.Key.GamepadDPadRight" helpKeyword="WinJS.Utilities.Key.GamepadDPadRight">
             /// XBox One GamepadDPadRight key.
             /// </field>
             GamepadDPadRight: 206,
-
             /// <field locid="WinJS.Utilities.Key.GamepadMenu" helpKeyword="WinJS.Utilities.Key.GamepadMenu">
             /// XBox One GamepadMenu key.
             /// </field>
             GamepadMenu: 207,
-
             /// <field locid="WinJS.Utilities.Key.GamepadView" helpKeyword="WinJS.Utilities.Key.GamepadView">
             /// XBox One GamepadView key.
             /// </field>
             GamepadView: 208,
-
             /// <field locid="WinJS.Utilities.Key.GamepadLeftThumbstick" helpKeyword="WinJS.Utilities.Key.GamepadLeftThumbstick">
             /// XBox One GamepadLeftThumbstick key.
             /// </field>
             GamepadLeftThumbstick: 209,
-
             /// <field locid="WinJS.Utilities.Key.GamepadRightThumbstick" helpKeyword="WinJS.Utilities.Key.GamepadRightThumbstick">
             /// XBox One GamepadRightThumbstick key.
             /// </field>
             GamepadRightThumbstick: 210,
-
             /// <field locid="WinJS.Utilities.Key.GamepadLeftThumbstickUp" helpKeyword="WinJS.Utilities.Key.GamepadLeftThumbstickUp">
             /// XBox One GamepadLeftThumbstickUp key.
             /// </field>
             GamepadLeftThumbstickUp: 211,
-
             /// <field locid="WinJS.Utilities.Key.GamepadLeftThumbstickDown" helpKeyword="WinJS.Utilities.Key.GamepadLeftThumbstickDown">
             /// XBox One GamepadLeftThumbstickDown key.
             /// </field>
             GamepadLeftThumbstickDown: 212,
-
             /// <field locid="WinJS.Utilities.Key.GamepadLeftThumbstickRight" helpKeyword="WinJS.Utilities.Key.GamepadLeftThumbstickRight">
             /// XBox One GamepadLeftThumbstickRight key.
             /// </field>
             GamepadLeftThumbstickRight: 213,
-
             /// <field locid="WinJS.Utilities.Key.GamepadLeftThumbstickLeft" helpKeyword="WinJS.Utilities.Key.GamepadLeftThumbstickLeft">
             /// XBox One GamepadLeftThumbstickLeft key.
             /// </field>
             GamepadLeftThumbstickLeft: 214,
-
             /// <field locid="WinJS.Utilities.Key.GamepadRightThumbstickUp" helpKeyword="WinJS.Utilities.Key.GamepadRightThumbstickUp">
             /// XBox One GamepadRightThumbstickUp key.
             /// </field>
             GamepadRightThumbstickUp: 215,
-
             /// <field locid="WinJS.Utilities.Key.GamepadRightThumbstickDown" helpKeyword="WinJS.Utilities.Key.GamepadRightThumbstickDown">
             /// XBox One GamepadRightThumbstickDown key.
             /// </field>
             GamepadRightThumbstickDown: 216,
-
             /// <field locid="WinJS.Utilities.Key.GamepadRightThumbstickRight" helpKeyword="WinJS.Utilities.Key.GamepadRightThumbstickRight">
             /// XBox One GamepadRightThumbstickRight key.
             /// </field>
             GamepadRightThumbstickRight: 217,
-
             /// <field locid="WinJS.Utilities.Key.GamepadRightThumbstickLeft" helpKeyword="WinJS.Utilities.Key.GamepadRightThumbstickLeft">
             /// XBox One GamepadRightThumbstickLeft key.
             /// </field>
             GamepadRightThumbstickLeft: 218,
-
             /// <field locid="WinJS.Utilities.Key.openBracket" helpKeyword="WinJS.Utilities.Key.openBracket">
             /// OPEN BRACKET key.
             /// </field>
             openBracket: 219,
-
             /// <field locid="WinJS.Utilities.Key.backSlash" helpKeyword="WinJS.Utilities.Key.backSlash">
             /// BACKSLASH key.
             /// </field>
             backSlash: 220,
-
             /// <field locid="WinJS.Utilities.Key.closeBracket" helpKeyword="WinJS.Utilities.Key.closeBracket">
             /// CLOSE BRACKET key.
             /// </field>
             closeBracket: 221,
-
             /// <field locid="WinJS.Utilities.Key.singleQuote" helpKeyword="WinJS.Utilities.Key.singleQuote">
             /// SINGLE QUOTE key.
             /// </field>
             singleQuote: 222,
-
             /// <field locid="WinJS.Utilities.Key.IME" helpKeyword="WinJS.Utilities.Key.IME">
             /// Any IME input.
             /// </field>
             IME: 229
         },
-
         data: function (element) {
             /// <signature helpKeyword="WinJS.Utilities.data">
             /// <summary locid="WinJS.Utilities.data">
@@ -7464,7 +6741,6 @@ define('WinJS/Utilities/_ElementUtilities',[
             }
             return element[_dataKey];
         },
-
         hasClass: function (e, name) {
             /// <signature helpKeyword="WinJS.Utilities.hasClass">
             /// <summary locid="WinJS.Utilities.hasClass">
@@ -7480,7 +6756,6 @@ define('WinJS/Utilities/_ElementUtilities',[
             /// true if the specified element contains the specified class; otherwise, false.
             /// </returns>
             /// </signature>
-
             if (e.classList) {
                 return e.classList.contains(name);
             } else {
@@ -7495,15 +6770,10 @@ define('WinJS/Utilities/_ElementUtilities',[
                 return false;
             }
         },
-
         addClass: addClass,
-
         removeClass: removeClass,
-
         toggleClass: toggleClass,
-
         _setAttribute: setAttribute,
-
         getRelativeLeft: function (element, parent) {
             /// <signature helpKeyword="WinJS.Utilities.getRelativeLeft">
             /// <summary locid="WinJS.Utilities.getRelativeLeft">
@@ -7522,21 +6792,17 @@ define('WinJS/Utilities/_ElementUtilities',[
             if (!element) {
                 return 0;
             }
-
             var left = element.offsetLeft;
             var e = element.parentNode;
             while (e) {
                 left -= e.offsetLeft;
-
                 if (e === parent) {
                     break;
                 }
                 e = e.parentNode;
             }
-
             return left;
         },
-
         getRelativeTop: function (element, parent) {
             /// <signature helpKeyword="WinJS.Utilities.getRelativeTop">
             /// <summary locid="WinJS.Utilities.getRelativeTop">
@@ -7555,25 +6821,19 @@ define('WinJS/Utilities/_ElementUtilities',[
             if (!element) {
                 return 0;
             }
-
             var top = element.offsetTop;
             var e = element.parentNode;
             while (e) {
                 top -= e.offsetTop;
-
                 if (e === parent) {
                     break;
                 }
                 e = e.parentNode;
             }
-
             return top;
         },
-
         getScrollPosition: getScrollPosition,
-
         setScrollPosition: setScrollPosition,
-
         empty: function (element) {
             /// <signature helpKeyword="WinJS.Utilities.empty">
             /// <summary locid="WinJS.Utilities.empty">
@@ -7593,13 +6853,11 @@ define('WinJS/Utilities/_ElementUtilities',[
             }
             return element;
         },
-
         _isDOMElement: function (element) {
             return element &&
                 typeof element === "object" &&
                 typeof element.tagName === "string";
         },
-
         getContentWidth: function (element) {
             /// <signature helpKeyword="WinJS.Utilities.getContentWidth">
             /// <summary locid="WinJS.Utilities.getContentWidth">
@@ -7621,7 +6879,6 @@ define('WinJS/Utilities/_ElementUtilities',[
                 padding = _getPreciseDimension(element, "paddingLeft") + _getPreciseDimension(element, "paddingRight");
             return element.offsetWidth - border - padding;
         },
-
         getTotalWidth: function (element) {
             /// <signature helpKeyword="WinJS.Utilities.getTotalWidth">
             /// <summary locid="WinJS.Utilities.getTotalWidth">
@@ -7641,7 +6898,6 @@ define('WinJS/Utilities/_ElementUtilities',[
             var margin = _getPreciseDimension(element, "marginLeft") + _getPreciseDimension(element, "marginRight");
             return element.offsetWidth + margin;
         },
-
         getContentHeight: function (element) {
             /// <signature helpKeyword="WinJS.Utilities.getContentHeight">
             /// <summary locid="WinJS.Utilities.getContentHeight">
@@ -7663,7 +6919,6 @@ define('WinJS/Utilities/_ElementUtilities',[
                 padding = _getPreciseDimension(element, "paddingTop") + _getPreciseDimension(element, "paddingBottom");
             return element.offsetHeight - border - padding;
         },
-
         getTotalHeight: function (element) {
             /// <signature helpKeyword="WinJS.Utilities.getTotalHeight">
             /// <summary locid="WinJS.Utilities.getTotalHeight">
@@ -7683,7 +6938,6 @@ define('WinJS/Utilities/_ElementUtilities',[
             var margin = _getPreciseDimension(element, "marginTop") + _getPreciseDimension(element, "marginBottom");
             return element.offsetHeight + margin;
         },
-
         getPosition: function (element) {
             /// <signature helpKeyword="WinJS.Utilities.getPosition">
             /// <summary locid="WinJS.Utilities.getPosition">
@@ -7698,7 +6952,6 @@ define('WinJS/Utilities/_ElementUtilities',[
             /// </signature>
             return exports._getPositionRelativeTo(element, null);
         },
-
         getTabIndex: function (element) {
             /// <signature helpKeyword="WinJS.Utilities.getTabIndex">
             /// <summary locid="WinJS.Utilities.getTabIndex">
@@ -7729,12 +6982,9 @@ define('WinJS/Utilities/_ElementUtilities',[
             }
             return parseInt(tabIndex, 10);
         },
-
         convertToPixels: convertToPixels,
         _convertToPrecisePixels: _convertToPrecisePixels,
         _getPreciseMargins: _getPreciseMargins,
-
-
         eventWithinElement: function (element, event) {
             /// <signature helpKeyword="WinJS.Utilities.eventWithinElement">
             /// <summary locid="WinJS.Utilities.eventWithinElement">
@@ -7754,15 +7004,12 @@ define('WinJS/Utilities/_ElementUtilities',[
             if (related && related !== element) {
                 return element.contains(related);
             }
-
             return false;
         },
-
         //UI Utilities
         _deprecated: function (message) {
             _Global.console && _Global.console.warn(message);
         },
-
         // Take a renderer which may be a function (signature: (data) => element) or a WinJS.Binding.Template
         //  and return a function with a unified synchronous contract which is:
         //
@@ -7787,14 +7034,12 @@ define('WinJS/Utilities/_ElementUtilities',[
                     }
                 };
             }
-
             var template;
             if (typeof renderer.render === "function") {
                 template = renderer;
             } else if (renderer.winControl && typeof renderer.winControl.render === "function") {
                 template = renderer.winControl;
             }
-
             return function (data, container) {
                 var host = container || _Global.document.createElement(tagName);
                 template.render(data, host);
@@ -7805,7 +7050,6 @@ define('WinJS/Utilities/_ElementUtilities',[
                     //  and as such we steal the first child and make it the root element.
                     //
                     var element = host.firstElementChild;
-
                     // Because we have changed the "root" we may need to move the dispose method
                     //  created by the template to the child and do a little switcheroo on dispose.
                     //
@@ -7821,13 +7065,11 @@ define('WinJS/Utilities/_ElementUtilities',[
                 }
             };
         },
-
         _getPositionRelativeTo: function Utilities_getPositionRelativeTo(element, ancestor) {
             var fromElement = element,
                 offsetParent = element.offsetParent,
                 top = element.offsetTop,
                 left = element.offsetLeft;
-
             while ((element = element.parentNode) &&
                     element !== ancestor &&
                     element !== _Global.document.body &&
@@ -7835,14 +7077,12 @@ define('WinJS/Utilities/_ElementUtilities',[
                 top -= element.scrollTop;
                 var dir = _getComputedStyle(element, null).direction;
                 left -= dir !== "rtl" ? element.scrollLeft : -getAdjustedScrollPosition(element).scrollLeft;
-
                 if (element === offsetParent) {
                     top += element.offsetTop;
                     left += element.offsetLeft;
                     offsetParent = element.offsetParent;
                 }
             }
-
             return {
                 left: left,
                 top: top,
@@ -7850,7 +7090,6 @@ define('WinJS/Utilities/_ElementUtilities',[
                 height: fromElement.offsetHeight
             };
         },
-
         // *element* is not included in the tabIndex search
         _getHighAndLowTabIndices: function Utilities_getHighAndLowTabIndices(element) {
             var descendants = element.getElementsByTagName("*");
@@ -7878,13 +7117,11 @@ define('WinJS/Utilities/_ElementUtilities',[
                     }
                 }
             }
-
             return {
                 highest: highestTabIndex,
                 lowest: lowestTabIndex
             };
         },
-
         _getLowestTabIndexInList: function Utilities_getLowestTabIndexInList(elements) {
             // Returns the lowest positive tabIndex in a list of elements.
             // Returns 0 if there are no positive tabIndices.
@@ -7897,10 +7134,8 @@ define('WinJS/Utilities/_ElementUtilities',[
                     lowestTabIndex = elmTabIndex;
                 }
             }
-
             return lowestTabIndex;
         },
-
         _getHighestTabIndexInList: function Utilities_getHighestTabIndexInList(elements) {
             // Returns 0 if any element is explicitly set to 0. (0 is the highest tabIndex)
             // Returns the highest tabIndex in the list of elements.
@@ -7915,10 +7150,8 @@ define('WinJS/Utilities/_ElementUtilities',[
                     highestTabIndex = elmTabIndex;
                 }
             }
-
             return highestTabIndex;
         },
-
         _hasCursorKeysBehaviors: function Utilities_hasCursorKeysBehaviors(element) {
             if (element.tagName === "SELECT" ||
                 element.tagName === "TEXTAREA") {
@@ -7943,7 +7176,6 @@ define('WinJS/Utilities/_ElementUtilities',[
             }
             return false;
         },
-
         _reparentChildren: function (originalParent, destinationParent) {
             var child = originalParent.firstChild;
             while (child) {
@@ -7952,7 +7184,6 @@ define('WinJS/Utilities/_ElementUtilities',[
                 child = sibling;
             }
         },
-
         // Ensures that the same element has focus before and after *callback* is
         // called. Useful if moving focus is an unintentional side effect of *callback*.
         // For example, this could happen if *callback* removes and reinserts elements
@@ -7962,71 +7193,56 @@ define('WinJS/Utilities/_ElementUtilities',[
             callback();
             exports._trySetActiveOnAnyElement(focusedElement);
         },
-
         // Tries to give focus to an element (even if its tabIndex is -1) via setActive.
         _trySetActiveOnAnyElement: function Utilities_trySetActiveOnAnyElement(element, scroller) {
             return exports._tryFocusOnAnyElement(element, true, scroller);
         },
-
         // Tries to give focus to an element (even if its tabIndex is -1).
         _tryFocusOnAnyElement: function Utilities_tryFocusOnAnyElement(element, useSetActive, scroller) {
             var previousActiveElement = _Global.document.activeElement;
-
             if (element === previousActiveElement) {
                 return true;
             }
-
             if (useSetActive) {
                 exports._setActive(element, scroller);
             } else {
                 element.focus();
             }
-
             return previousActiveElement !== _Global.document.activeElement;
         },
-
         // Tries to give focus to an element which is a tabstop (i.e. tabIndex >= 0)
         // via setActive.
         _trySetActive: function Utilities_trySetActive(elem, scroller) {
             return this._tryFocus(elem, true, scroller);
         },
-
         // Tries to give focus to an element which is a tabstop (i.e. tabIndex >= 0).
         _tryFocus: function Utilities_tryFocus(elem, useSetActive, scroller) {
             var previousActiveElement = _Global.document.activeElement;
-
             if (elem === previousActiveElement) {
                 return true;
             }
-
             var simpleLogicForValidTabStop = (exports.getTabIndex(elem) >= 0);
             if (!simpleLogicForValidTabStop) {
                 return false;
             }
-
             if (useSetActive) {
                 exports._setActive(elem, scroller);
             } else {
                 elem.focus();
             }
-
             if (previousActiveElement !== _Global.document.activeElement) {
                 return true;
             }
             return false;
         },
-
         _setActiveFirstFocusableElement: function Utilities_setActiveFirstFocusableElement(rootEl, scroller) {
             return this._focusFirstFocusableElement(rootEl, true, scroller);
         },
-
         _focusFirstFocusableElement: function Utilities_focusFirstFocusableElement(rootEl, useSetActive, scroller) {
             var _elms = rootEl.getElementsByTagName("*");
-
             // Get the tabIndex set to the firstDiv (which is the lowest)
             var _lowestTabIndex = this._getLowestTabIndexInList(_elms);
             var _nextLowestTabIndex = 0;
-
             // If there are positive tabIndices, set focus to the element with the lowest tabIndex.
             // Keep trying with the next lowest tabIndex until all tabIndices have been exhausted.
             // Otherwise set focus to the first focusable element in DOM order.
@@ -8043,13 +7259,11 @@ define('WinJS/Utilities/_ElementUtilities',[
                         _nextLowestTabIndex = _elms[i].tabIndex;
                     }
                 }
-
                 // We weren't able to set focus to anything at that tabIndex
                 // If we found a higher valid tabIndex, try that now
                 _lowestTabIndex = _nextLowestTabIndex;
                 _nextLowestTabIndex = 0;
             }
-
             // Wasn't able to set focus to anything with a positive tabIndex, try everything now.
             // This is where things with tabIndex of 0 will be tried.
             for (i = 0; i < _elms.length; i++) {
@@ -8057,20 +7271,16 @@ define('WinJS/Utilities/_ElementUtilities',[
                     return true;
                 }
             }
-
             return false;
         },
-
         _setActiveLastFocusableElement: function Utilities_setActiveLastFocusableElement(rootEl, scroller) {
             return this._focusLastFocusableElement(rootEl, true, scroller);
         },
-
         _focusLastFocusableElement: function Utilities_focusLastFocusableElement(rootEl, useSetActive, scroller) {
             var _elms = rootEl.getElementsByTagName("*");
             // Get the tabIndex set to the finalDiv (which is the highest)
             var _highestTabIndex = this._getHighestTabIndexInList(_elms);
             var _nextHighestTabIndex = 0;
-
             // Try all tabIndex 0 first. After this conditional the _highestTabIndex
             // should be equal to the highest positive tabIndex.
             var i;
@@ -8084,11 +7294,9 @@ define('WinJS/Utilities/_ElementUtilities',[
                         _nextHighestTabIndex = _elms[i].tabIndex;
                     }
                 }
-
                 _highestTabIndex = _nextHighestTabIndex;
                 _nextHighestTabIndex = 0;
             }
-
             // If there are positive tabIndices, set focus to the element with the highest tabIndex.
             // Keep trying with the next highest tabIndex until all tabIndices have been exhausted.
             // Otherwise set focus to the last focusable element in DOM order.
@@ -8103,25 +7311,21 @@ define('WinJS/Utilities/_ElementUtilities',[
                         _nextHighestTabIndex = _elms[i].tabIndex;
                     }
                 }
-
                 // We weren't able to set focus to anything at that tabIndex
                 // If we found a lower valid tabIndex, try that now
                 _highestTabIndex = _nextHighestTabIndex;
                 _nextHighestTabIndex = 0;
             }
-
             // Wasn't able to set focus to anything with a tabIndex, try everything now
             for (i = _elms.length - 2; i > 0; i--) {
                 if (this._tryFocus(_elms[i], useSetActive, scroller)) {
                     return true;
                 }
             }
-
             return false;
         }
     });
 });
-
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 define('WinJS/Utilities/_Dispose',[
     'exports',
@@ -8130,7 +7334,6 @@ define('WinJS/Utilities/_Dispose',[
     './_ElementUtilities'
     ], function (exports, _Base, _WriteProfilerMark, _ElementUtilities) {
     "use strict";
-
     function markDisposable(element, disposeImpl) {
             /// <signature helpKeyword="WinJS.Utilities.markDisposable">
             /// <summary locid="WinJS.Utilities.markDisposable">
@@ -8145,13 +7348,11 @@ define('WinJS/Utilities/_Dispose',[
             /// </signature>
             var disposed = false;
             _ElementUtilities.addClass(element, "win-disposable");
-
             var disposable = element.winControl || element;
             disposable.dispose = function () {
                 if (disposed) {
                     return;
                 }
-
                 disposed = true;
                 disposeSubTree(element);
                 if (disposeImpl) {
@@ -8159,7 +7360,6 @@ define('WinJS/Utilities/_Dispose',[
                 }
             };
         }
-
     function disposeSubTree(element) {
         /// <signature helpKeyword="WinJS.Utilities.disposeSubTree">
         /// <summary locid="WinJS.Utilities.disposeSubTree">
@@ -8173,10 +7373,8 @@ define('WinJS/Utilities/_Dispose',[
         if (!element) {
             return;
         }
-
         _WriteProfilerMark("WinJS.Utilities.disposeSubTree,StartTM");
         var query = element.querySelectorAll(".win-disposable");
-
         var index = 0;
         var length = query.length;
         while (index < length) {
@@ -8187,13 +7385,11 @@ define('WinJS/Utilities/_Dispose',[
             if (disposable.dispose) {
                 disposable.dispose();
             }
-
             // Skip over disposable's descendants since they are this disposable's responsibility to clean up.
             index += disposable.querySelectorAll(".win-disposable").length + 1;
         }
         _WriteProfilerMark("WinJS.Utilities.disposeSubTree,StopTM");
     }
-
     function _disposeElement(element) {
         // This helper should only be used for supporting dispose scenarios predating the dispose pattern.
         // The specified element should be well enough defined so we don't have to check whether it
@@ -8203,7 +7399,6 @@ define('WinJS/Utilities/_Dispose',[
         if (!element) {
             return;
         }
-
         var disposed = false;
         if (element.winControl && element.winControl.dispose) {
             element.winControl.dispose();
@@ -8213,35 +7408,25 @@ define('WinJS/Utilities/_Dispose',[
             element.dispose();
             disposed = true;
         }
-
         if (!disposed) {
             disposeSubTree(element);
         }
     }
-
     _Base.Namespace._moduleDefine(exports, "WinJS.Utilities", {
-
         markDisposable: markDisposable,
-
         disposeSubTree: disposeSubTree,
-
         _disposeElement: _disposeElement
     });
 });
-
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 define('WinJS/ControlProcessor/_OptionsLexer',[
     'exports',
     '../Core/_Base'
     ], function optionsLexerInit(exports, _Base) {
     "use strict";
-
     /*
-
 Lexical grammar is defined in ECMA-262-5, section 7.
-
 Lexical productions used in this grammar defined in ECMA-262-5:
-
 Production          Section
 --------------------------------
 Identifier          7.6
@@ -8249,12 +7434,9 @@ NullLiteral         7.8.1
 BooleanLiteral      7.8.2
 NumberLiteral       7.8.3
 StringLiteral       7.8.4
-
 */
-
     _Base.Namespace._moduleDefine(exports, "WinJS.UI", {
         _optionsLexer: _Base.Namespace._lazy(function () {
-
             var tokenType = {
                 leftBrace: 1,           // {
                 rightBrace: 2,          // }
@@ -8300,7 +7482,6 @@ StringLiteral       7.8.4
                 rightParentheses: { type: tokenType.rightParentheses, length: 1 },
                 eof: { type: tokenType.eof, length: 0 }
             };
-
             function reservedWord(word) {
                 return { type: tokenType.reservedWord, value: word, length: word.length, keyword: true };
             }
@@ -8316,7 +7497,6 @@ StringLiteral       7.8.4
                                 return reservedWord(identifier);
                         }
                         break;
-
                     case /*c*/99:
                         switch (identifier) {
                             case 'case':
@@ -8327,7 +7507,6 @@ StringLiteral       7.8.4
                                 return reservedWord(identifier);
                         }
                         break;
-
                     case /*d*/100:
                         switch (identifier) {
                             case 'debugger':
@@ -8337,7 +7516,6 @@ StringLiteral       7.8.4
                                 return reservedWord(identifier);
                         }
                         break;
-
                     case /*e*/101:
                         switch (identifier) {
                             case 'else':
@@ -8347,18 +7525,15 @@ StringLiteral       7.8.4
                                 return reservedWord(identifier);
                         }
                         break;
-
                     case /*f*/102:
                         switch (identifier) {
                             case 'false':
                                 return tokens.falseLiteral;
-
                             case 'finally':
                             case 'for':
                             case 'function':
                                 return reservedWord(identifier);
                         }
-
                         break;
                     case /*i*/105:
                         switch (identifier) {
@@ -8369,24 +7544,20 @@ StringLiteral       7.8.4
                                 return reservedWord(identifier);
                         }
                         break;
-
                     case /*n*/110:
                         switch (identifier) {
                             case 'null':
                                 return tokens.nullLiteral;
-
                             case 'new':
                                 return reservedWord(identifier);
                         }
                         break;
-
                     case /*r*/114:
                         switch (identifier) {
                             case 'return':
                                 return reservedWord(identifier);
                         }
                         break;
-
                     case /*s*/115:
                         switch (identifier) {
                             case 'super':
@@ -8394,22 +7565,18 @@ StringLiteral       7.8.4
                                 return reservedWord(identifier);
                         }
                         break;
-
                     case /*t*/116:
                         switch (identifier) {
                             case 'true':
                                 return tokens.trueLiteral;
-
                             case 'this':
                                 return tokens.thisKeyword;
-
                             case 'throw':
                             case 'try':
                             case 'typeof':
                                 return reservedWord(identifier);
                         }
                         break;
-
                     case /*v*/118:
                         switch (identifier) {
                             case 'var':
@@ -8417,7 +7584,6 @@ StringLiteral       7.8.4
                                 return reservedWord(identifier);
                         }
                         break;
-
                     case /*w*/119:
                         switch (identifier) {
                             case 'while':
@@ -8428,7 +7594,6 @@ StringLiteral       7.8.4
                 }
                 return;
             }
-
             var lexer = (function () {
                 function isIdentifierStartCharacter(code, text, offset, limit) {
                     // The ES5 spec decalares that identifiers consist of a bunch of unicode classes, without
@@ -8450,14 +7615,11 @@ StringLiteral       7.8.4
                         case /*$*/36:
                         case /*_*/95:
                             return true;
-
                         case isWhitespace(code) && code:
                         case isLineTerminator(code) && code:
                             return false;
-
                         case (code > 0x7f) && code:
                             return true;
-
                         case /*\*/92:
                             if (offset + 4 < limit) {
                                 if (text.charCodeAt(offset) === /*u*/117 &&
@@ -8469,7 +7631,6 @@ StringLiteral       7.8.4
                                 }
                             }
                             return false;
-
                         default:
                             return false;
                     }
@@ -8486,7 +7647,6 @@ StringLiteral       7.8.4
         case isIdentifierStartCharacter(code) && code:
         case isDecimalDigit(code) && code:
         return true;
-
         default:
         return false;
         }
@@ -8503,18 +7663,14 @@ StringLiteral       7.8.4
                             case /*$*/36:
                             case /*_*/95:
                                 break;
-
                             case isWhitespace(code) && code:
                             case isLineTerminator(code) && code:
                                 return hasEscape ? -offset : offset;
-
                             case (code > 0x7f) && code:
                                 break;
-
                                 //case isDecimalDigit(code) && code:
                             case (code >= /*0*/48 && code <= /*9*/57) && code:
                                 break;
-
                             case /*\*/92:
                                 if (offset + 5 < limit) {
                                     if (text.charCodeAt(offset + 1) === /*u*/117 &&
@@ -8528,7 +7684,6 @@ StringLiteral       7.8.4
                                     }
                                 }
                                 return hasEscape ? -offset : offset;
-
                             default:
                                 return hasEscape ? -offset : offset;
                         }
@@ -8564,7 +7719,6 @@ StringLiteral       7.8.4
                         case (code >= /*a*/97 && code <= /*f*/102) && code:
                         case (code >= /*A*/65 && code <= /*F*/70) && code:
                             return true;
-
                         default:
                             return false;
                     }
@@ -8579,7 +7733,6 @@ StringLiteral       7.8.4
                     switch (code) {
                         case (code >= /*0*/48 && code <= /*9*/57) && code:
                             return true;
-
                         default:
                             return false;
                     }
@@ -8626,7 +7779,6 @@ StringLiteral       7.8.4
                         case 0x2028:    // line separator
                         case 0x2029:    // paragraph separator
                             return true;
-
                         default:
                             return false;
                     }
@@ -8639,7 +7791,6 @@ StringLiteral       7.8.4
                     while (offset < limit && !isLineTerminator(text.charCodeAt(offset))) {
                         if (offset + 1 < limit && text.charCodeAt(offset) === /*\*/92) {
                             hasEscape = true;
-
                             switch (text.charCodeAt(offset + 1)) {
                                 case quoteCharCode:
                                 case 0x005C:    // \
@@ -8648,7 +7799,6 @@ StringLiteral       7.8.4
                                 case 0x2029:    // paragraph separator
                                     offset += 2;
                                     continue;
-
                                 case 0x000D:    // carriage return
                                     if (offset + 2 < limit && text.charCodeAt(offset + 2) === 0x000A) {
                                         // Skip \r\n
@@ -8688,12 +7838,10 @@ StringLiteral       7.8.4
                         case 0x00A0:    // no-breaking space
                         case 0xFEFF:    // BOM
                             return true;
-
                             // There are no category Zs between 0x00A0 and 0x1680.
                             //
                         case (code < 0x1680) && code:
                             return false;
-
                             // Unicode category Zs
                             //
                         case 0x1680:
@@ -8703,7 +7851,6 @@ StringLiteral       7.8.4
                         case 0x205f:
                         case 0x3000:
                             return true;
-
                         default:
                             return false;
                     }
@@ -8720,12 +7867,10 @@ StringLiteral       7.8.4
                             case 0x00A0:    // no-breaking space
                             case 0xFEFF:    // BOM
                                 break;
-
                                 // There are no category Zs between 0x00A0 and 0x1680.
                                 //
                             case (code < 0x1680) && code:
                                 return offset;
-
                                 // Unicode category Zs
                                 //
                             case 0x1680:
@@ -8735,7 +7880,6 @@ StringLiteral       7.8.4
                             case 0x205f:
                             case 0x3000:
                                 break;
-
                             default:
                                 return offset;
                         }
@@ -8755,20 +7899,16 @@ StringLiteral       7.8.4
                                 token = { type: tokenType.separator, length: offset - startOffset };
                                 // don't include whitespace in the token stream.
                                 continue;
-
                             case /*"*/34:
                             case /*'*/39:
                                 token = readStringLiteralToken(text, offset - 1, limit);
                                 break;
-
                             case /*(*/40:
                                 token = tokens.leftParentheses;
                                 break;
-
                             case /*)*/41:
                                 token = tokens.rightParentheses;
                                 break;
-
                             case /*+*/43:
                             case /*-*/45:
                                 if (offset < limit) {
@@ -8786,18 +7926,15 @@ StringLiteral       7.8.4
                                 }
                                 token = { type: tokenType.error, length: offset - startOffset, value: text.substring(startOffset, offset) };
                                 break;
-
                             case /*,*/44:
                                 token = tokens.comma;
                                 break;
-
                             case /*.*/46:
                                 token = tokens.dot;
                                 if (offset < limit && isDecimalDigit(text.charCodeAt(offset))) {
                                     token = readDecimalLiteralToken(text, startOffset, offset, limit);
                                 }
                                 break;
-
                             case /*0*/48:
                                 var ch2 = (offset < limit ? text.charCodeAt(offset) : 0);
                                 if (ch2 === /*x*/120 || ch2 === /*X*/88) {
@@ -8811,35 +7948,27 @@ StringLiteral       7.8.4
                                     token = readDecimalLiteralToken(text, startOffset, offset, limit);
                                 }
                                 break;
-
                             case (code >= /*1*/49 && code <= /*9*/57) && code:
                                 token = readDecimalLiteralToken(text, startOffset, offset, limit);
                                 break;
-
                             case /*:*/58:
                                 token = tokens.colon;
                                 break;
-
                             case /*;*/59:
                                 token = tokens.semicolon;
                                 break;
-
                             case /*[*/91:
                                 token = tokens.leftBracket;
                                 break;
-
                             case /*]*/93:
                                 token = tokens.rightBracket;
                                 break;
-
                             case /*{*/123:
                                 token = tokens.leftBrace;
                                 break;
-
                             case /*}*/125:
                                 token = tokens.rightBrace;
                                 break;
-
                             default:
                                 if (isIdentifierStartCharacter(code, text, offset, limit)) {
                                     token = readIdentifierToken(text, offset - 1, limit);
@@ -8848,7 +7977,6 @@ StringLiteral       7.8.4
                                 token = { type: tokenType.error, length: offset - startOffset, value: text.substring(startOffset, offset) };
                                 break;
                         }
-
                         offset += (token.length - 1);
                         result.push(token);
                     }
@@ -8875,21 +8003,16 @@ define('WinJS/ControlProcessor/_OptionsParser',[
     './_OptionsLexer'
     ], function optionsParserInit(exports, _Base, _BaseUtils, _ErrorFromName, _Resources, _OptionsLexer) {
     "use strict";
-
     var strings = {
         get invalidOptionsRecord() { return "Invalid options record: '{0}', expected to be in the format of an object literal. {1}"; },
         get unexpectedTokenExpectedToken() { return "Unexpected token: {0}, expected token: {1}, at offset {2}"; },
         get unexpectedTokenExpectedTokens() { return "Unexpected token: {0}, expected one of: {1}, at offset {2}"; },
         get unexpectedTokenGeneric() { return "Unexpected token: {0}, at offset {1}"; },
     };
-
     /*
     Notation is described in ECMA-262-5 (ECMAScript Language Specification, 5th edition) section 5.
-
     Lexical grammar is defined in ECMA-262-5, section 7.
-
     Lexical productions used in this grammar defined in ECMA-262-5:
-
         Production          Section
         --------------------------------
         Identifier          7.6
@@ -8897,46 +8020,36 @@ define('WinJS/ControlProcessor/_OptionsParser',[
         BooleanLiteral      7.8.2
         NumberLiteral       7.8.3
         StringLiteral       7.8.4
-
     Syntactic grammar for the value of the data-win-options attribute.
-
         OptionsLiteral:
             ObjectLiteral
-
         ObjectLiteral:
             { }
             { ObjectProperties }
             { ObjectProperties , }
-
         ObjectProperties:
             ObjectProperty
             ObjectProperties, ObjectProperty
-
         ObjectProperty:
             PropertyName : Value
-
         PropertyName:                       (from ECMA-262-6, 11.1.5)
             StringLiteral
             NumberLiteral
             Identifier
-
         ArrayLiteral:
             [ ]
             [ Elision ]
             [ ArrayElements ]
             [ ArrayElements , ]
             [ ArrayElements , Elision ]
-
         ArrayElements:
             Value
             Elision Value
             ArrayElements , Value
             ArrayElements , Elision Value
-
         Elision:
             ,
             Elision ,
-
         Value:
             NullLiteral
             NumberLiteral
@@ -8946,53 +8059,39 @@ define('WinJS/ControlProcessor/_OptionsParser',[
             ObjectLiteral
             IdentifierExpression
             ObjectQueryExpression
-
         AccessExpression:
             [ Value ]
             . Identifier
-
         AccessExpressions:
             AccessExpression
             AccessExpressions AccessExpression
-
         IdentifierExpression:
             Identifier
             Identifier AccessExpressions
-
         ObjectQueryExpression:
             Identifier ( StringLiteral )
             Identifier ( StringLiteral ) AccessExpressions
-
-
     NOTE: We have factored the above grammar to allow the infrastructure to be used
           by the BindingInterpreter as well. The BaseInterpreter does NOT provide an
           implementation of _evaluateValue(), this is expected to be provided by the
           derived class since right now the two have different grammars for Value
-
         AccessExpression:
             [ Value ]
             . Identifier
-
         AccessExpressions:
             AccessExpression
             AccessExpressions AccessExpression
-
         Identifier:
             Identifier                      (from ECMA-262-6, 7.6)
-
         IdentifierExpression:
             Identifier
             Identifier AccessExpressions
-
         Value:
             *** Provided by concrete interpreter ***
-
 */
-
     function illegal() {
         throw "Illegal";
     }
-
     var imports = _Base.Namespace.defineWithParent(null, null, {
         lexer: _Base.Namespace._lazy(function () {
             return _OptionsLexer._optionsLexer;
@@ -9001,9 +8100,7 @@ define('WinJS/ControlProcessor/_OptionsParser',[
             return _OptionsLexer._optionsLexer.tokenType;
         }),
     });
-
     var requireSupportedForProcessing = _BaseUtils.requireSupportedForProcessing;
-
     function tokenTypeName(type) {
         var keys = Object.keys(imports.tokenType);
         for (var i = 0, len = keys.length; i < len; i++) {
@@ -9013,9 +8110,7 @@ define('WinJS/ControlProcessor/_OptionsParser',[
         }
         return "<unknown>";
     }
-
     var local = _Base.Namespace.defineWithParent(null, null, {
-
         BaseInterpreter: _Base.Namespace._lazy(function () {
             return _Base.Class.define(null, {
                 _error: function (message) {
@@ -9039,19 +8134,16 @@ define('WinJS/ControlProcessor/_OptionsParser',[
                                     var id = this._current.value;
                                     this._read();
                                     return value[id];
-
                                 default:
                                     this._unexpectedToken(imports.tokenType.identifier, imports.tokenType.reservedWord);
                                     break;
                             }
                             return;
-
                         case imports.tokenType.leftBracket:
                             this._read();
                             var index = this._evaluateValue();
                             this._read(imports.tokenType.rightBracket);
                             return value[index];
-
                             // default: is unreachable because all the callers are conditional on
                             // the next token being either a . or {
                             //
@@ -9064,7 +8156,6 @@ define('WinJS/ControlProcessor/_OptionsParser',[
                             case imports.tokenType.leftBracket:
                                 value = this._evaluateAccessExpression(value);
                                 break;
-
                             default:
                                 return value;
                         }
@@ -9077,7 +8168,6 @@ define('WinJS/ControlProcessor/_OptionsParser',[
                 },
                 _evaluateIdentifierExpression: function () {
                     var value = this._evaluateIdentifier(false);
-
                     switch (this._current.type) {
                         case imports.tokenType.dot:
                         case imports.tokenType.leftBracket:
@@ -9120,19 +8210,16 @@ define('WinJS/ControlProcessor/_OptionsParser',[
                                     parts.push(this._current.value);
                                     this._read();
                                     break;
-
                                 default:
                                     this._unexpectedToken(imports.tokenType.identifier, imports.tokenType.reservedWord);
                                     break;
                             }
                             return;
-
                         case imports.tokenType.leftBracket:
                             this._read();
                             parts.push(this._evaluateValue());
                             this._read(imports.tokenType.rightBracket);
                             return;
-
                             // default: is unreachable because all the callers are conditional on
                             // the next token being either a . or {
                             //
@@ -9145,7 +8232,6 @@ define('WinJS/ControlProcessor/_OptionsParser',[
                             case imports.tokenType.leftBracket:
                                 this._readAccessExpression(parts);
                                 break;
-
                             default:
                                 return;
                         }
@@ -9163,14 +8249,12 @@ define('WinJS/ControlProcessor/_OptionsParser',[
                     } else {
                         parts.push(this._readIdentifier());
                     }
-
                     switch (this._current.type) {
                         case imports.tokenType.dot:
                         case imports.tokenType.leftBracket:
                             this._readAccessExpressions(parts);
                             break;
                     }
-
                     return parts;
                 },
                 _unexpectedToken: function (expected) {
@@ -9195,7 +8279,6 @@ define('WinJS/ControlProcessor/_OptionsParser',[
                 supportedForProcessing: false,
             });
         }),
-
         OptionsInterpreter: _Base.Namespace._lazy(function () {
             return _Base.Class.derive(local.BaseInterpreter, function (tokens, originalSource, context, functionContext) {
                 this._initialize(tokens, originalSource, context, functionContext);
@@ -9250,19 +8333,15 @@ define('WinJS/ControlProcessor/_OptionsParser',[
                             var value = this._current.value;
                             this._read();
                             return value;
-
                         case imports.tokenType.leftBrace:
                             return this._evaluateObjectLiteral();
-
                         case imports.tokenType.leftBracket:
                             return this._evaluateArrayLiteral();
-
                         case imports.tokenType.identifier:
                             if (this._peek(imports.tokenType.identifier).type === imports.tokenType.leftParentheses) {
                                 return requireSupportedForProcessing(this._evaluateObjectQueryExpression());
                             }
                             return requireSupportedForProcessing(this._evaluateIdentifierExpression());
-
                         default:
                             this._unexpectedToken(imports.tokenType.falseLiteral, imports.tokenType.nullLiteral, imports.tokenType.stringLiteral,
                                 imports.tokenType.trueLiteral, imports.tokenType.numberLiteral, imports.tokenType.leftBrace, imports.tokenType.leftBracket,
@@ -9341,7 +8420,6 @@ define('WinJS/ControlProcessor/_OptionsParser',[
                             this._read(imports.tokenType.colon);
                             o[propertyName] = this._evaluateValue();
                             return true;
-
                         default:
                             return false;
                     }
@@ -9356,13 +8434,11 @@ define('WinJS/ControlProcessor/_OptionsParser',[
                     var queryExpression = this._current.value;
                     this._read(imports.tokenType.stringLiteral);
                     this._read(imports.tokenType.rightParentheses);
-
                     var value = requireSupportedForProcessing(this._functionContext[functionName])(queryExpression);
                     switch (this._current.type) {
                         case imports.tokenType.dot:
                         case imports.tokenType.leftBracket:
                             return this._evaluateAccessExpressions(value);
-
                         default:
                             return value;
                     }
@@ -9374,7 +8450,6 @@ define('WinJS/ControlProcessor/_OptionsParser',[
                 supportedForProcessing: false,
             });
         }),
-
         OptionsParser: _Base.Namespace._lazy(function () {
             return _Base.Class.derive(local.OptionsInterpreter, function (tokens, originalSource) {
                 this._initialize(tokens, originalSource);
@@ -9387,7 +8462,6 @@ define('WinJS/ControlProcessor/_OptionsParser',[
                 _evaluateIdentifier: illegal,
                 _evaluateIdentifierExpression: illegal,
                 _evaluateObjectQueryExpression: illegal,
-
                 _evaluateValue: function () {
                     switch (this._current.type) {
                         case imports.tokenType.falseLiteral:
@@ -9398,19 +8472,15 @@ define('WinJS/ControlProcessor/_OptionsParser',[
                             var value = this._current.value;
                             this._read();
                             return value;
-
                         case imports.tokenType.leftBrace:
                             return this._evaluateObjectLiteral();
-
                         case imports.tokenType.leftBracket:
                             return this._evaluateArrayLiteral();
-
                         case imports.tokenType.identifier:
                             if (this._peek(imports.tokenType.identifier).type === imports.tokenType.leftParentheses) {
                                 return this._readObjectQueryExpression();
                             }
                             return this._readIdentifierExpression();
-
                         default:
                             this._unexpectedToken(imports.tokenType.falseLiteral, imports.tokenType.nullLiteral, imports.tokenType.stringLiteral,
                                 imports.tokenType.trueLiteral, imports.tokenType.numberLiteral, imports.tokenType.leftBrace, imports.tokenType.leftBracket,
@@ -9418,7 +8488,6 @@ define('WinJS/ControlProcessor/_OptionsParser',[
                             break;
                     }
                 },
-
                 _readIdentifierExpression: function () {
                     var parts = local.BaseInterpreter.prototype._readIdentifierExpression.call(this);
                     return new IdentifierExpression(parts);
@@ -9430,7 +8499,6 @@ define('WinJS/ControlProcessor/_OptionsParser',[
                     var queryExpressionLiteral = this._current.value;
                     this._read(imports.tokenType.stringLiteral);
                     this._read(imports.tokenType.rightParentheses);
-
                     var call = new CallExpression(functionName, queryExpressionLiteral);
                     switch (this._current.type) {
                         case imports.tokenType.dot:
@@ -9438,7 +8506,6 @@ define('WinJS/ControlProcessor/_OptionsParser',[
                             var parts = [call];
                             this._readAccessExpressions(parts);
                             return new IdentifierExpression(parts);
-
                         default:
                             return call;
                     }
@@ -9447,22 +8514,18 @@ define('WinJS/ControlProcessor/_OptionsParser',[
                 supportedForProcessing: false,
             });
         })
-
     });
-
     var parser = function (text, context, functionContext) {
         var tokens = imports.lexer(text);
         var interpreter = new local.OptionsInterpreter(tokens, text, context || {}, functionContext || {});
         return interpreter.run();
     };
     Object.defineProperty(parser, "_BaseInterpreter", { get: function () { return local.BaseInterpreter; } });
-
     var parser2 = function (text) {
         var tokens = imports.lexer(text);
         var parser = new local.OptionsParser(tokens, text);
         return parser.run();
     };
-
     // Consumers of parser2 need to be able to see the AST for RHS expression in order to emit
     //  code representing these portions of the options record
     //
@@ -9471,29 +8534,21 @@ define('WinJS/ControlProcessor/_OptionsParser',[
         this.arg0Value = arg0Value;
     });
     CallExpression.supportedForProcessing = false;
-
     var IdentifierExpression = _Base.Class.define(function (parts) {
         this.parts = parts;
     });
     IdentifierExpression.supportedForProcessing = false;
-
     _Base.Namespace._moduleDefine(exports, "WinJS.UI", {
-
         // This is the mis-named interpreter version of the options record processor.
         //
         optionsParser: parser,
-
         // This is the actual parser version of the options record processor.
         //
         _optionsParser: parser2,
         _CallExpression: CallExpression,
         _IdentifierExpression: IdentifierExpression,
-
     });
-
 });
-
-
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 define('WinJS/ControlProcessor',[
     'exports',
@@ -9508,20 +8563,16 @@ define('WinJS/ControlProcessor',[
     './Utilities/_ElementUtilities'
     ], function declarativeControlsInit(exports, _Global, _Base, _BaseUtils, _Log, _Resources, _WriteProfilerMark, _OptionsParser, Promise, _ElementUtilities) {
     "use strict";
-
     // not supported in WebWorker
     if (!_Global.document) {
         return;
     }
-
     var strings = {
         get errorActivatingControl() { return "Error activating control: {0}"; },
     };
-
     var markSupportedForProcessing = _BaseUtils.markSupportedForProcessing;
     var requireSupportedForProcessing = _BaseUtils.requireSupportedForProcessing;
     var processedAllCalled = false;
-
     function createSelect(element) {
         var result = function select(selector) {
             /// <signature helpKeyword="WinJS.UI.select.createSelect">
@@ -9547,12 +8598,10 @@ define('WinJS/ControlProcessor',[
                 }
                 current = current.parentNode;
             }
-
             return selected || _Global.document.querySelector(selector);
         };
         return markSupportedForProcessing(result);
     }
-
     function activate(element, Handler) {
         return new Promise(function activate2(complete, error) {
             try {
@@ -9563,10 +8612,8 @@ define('WinJS/ControlProcessor',[
                         select: createSelect(element)
                     });
                 }
-
                 var ctl;
                 var count = 1;
-
                 // handler is required to call complete if it takes that parameter
                 //
                 if (Handler.length > 2) {
@@ -9579,7 +8626,6 @@ define('WinJS/ControlProcessor',[
                         complete(ctl);
                     }
                 };
-
                 // async exceptions from the handler get dropped on the floor...
                 //
                 ctl = new Handler(element, options, checkComplete);
@@ -9591,7 +8637,6 @@ define('WinJS/ControlProcessor',[
             }
         });
     }
-
     function processAllImpl(rootElement, skipRootElement) {
         return new Promise(function processAllImpl2(complete, error) {
             _WriteProfilerMark("WinJS.UI:processAll,StartTM");
@@ -9606,7 +8651,6 @@ define('WinJS/ControlProcessor',[
             for (var i = 0, len = allElements.length; i < len; i++) {
                 elements.push(allElements[i]);
             }
-
             // bail early if there is nothing to process
             //
             if (elements.length === 0) {
@@ -9614,7 +8658,6 @@ define('WinJS/ControlProcessor',[
                 complete(rootElement);
                 return;
             }
-
             var checkAllComplete = function () {
                 pending = pending - 1;
                 if (pending < 0) {
@@ -9622,7 +8665,6 @@ define('WinJS/ControlProcessor',[
                     complete(rootElement);
                 }
             };
-
             // First go through and determine which elements to activate
             //
             var controls = new Array(elements.length);
@@ -9640,7 +8682,6 @@ define('WinJS/ControlProcessor',[
                     i += element.querySelectorAll(selector).length;
                 }
             }
-
             // Now go through and activate those
             //
             _WriteProfilerMark("WinJS.UI:processAllActivateControls,StartTM");
@@ -9653,7 +8694,6 @@ define('WinJS/ControlProcessor',[
                         _WriteProfilerMark("WinJS.UI:processAll,StopTM");
                         error(e);
                     });
-
                     if (ctl.isDeclarativeControlContainer && typeof ctl.isDeclarativeControlContainer === "function") {
                         var idcc = requireSupportedForProcessing(ctl.isDeclarativeControlContainer);
                         idcc(element.winControl, processAll);
@@ -9661,11 +8701,9 @@ define('WinJS/ControlProcessor',[
                 }
             }
             _WriteProfilerMark("WinJS.UI:processAllActivateControls,StopTM");
-
             checkAllComplete();
         });
     }
-
     function getControlHandler(element) {
         if (element.getAttribute) {
             var evaluator = element.getAttribute("data-win-control");
@@ -9674,7 +8712,6 @@ define('WinJS/ControlProcessor',[
             }
         }
     }
-
     function scopedSelect(selector, element) {
         /// <signature helpKeyword="WinJS.UI.scopedSelect">
         /// <summary locid="WinJS.UI.scopedSelect">
@@ -9687,7 +8724,6 @@ define('WinJS/ControlProcessor',[
         /// </signature>
         return createSelect(element)(selector);
     }
-
     function processAll(rootElement, skipRoot) {
         /// <signature helpKeyword="WinJS.UI.processAll">
         /// <summary locid="WinJS.UI.processAll">
@@ -9712,7 +8748,6 @@ define('WinJS/ControlProcessor',[
             return processAllImpl(rootElement, skipRoot);
         }
     }
-
     function process(element) {
         /// <signature helpKeyword="WinJS.UI.process">
         /// <summary locid="WinJS.UI.process">
@@ -9726,7 +8761,6 @@ define('WinJS/ControlProcessor',[
         /// promise is the control that is attached to element.
         /// </returns>
         /// </signature>
-
         if (element && element.winControl) {
             return Promise.as(element.winControl);
         }
@@ -9737,7 +8771,6 @@ define('WinJS/ControlProcessor',[
             return activate(element, handler);
         }
     }
-
     _Base.Namespace._moduleDefine(exports, "WinJS.UI", {
         scopedSelect: scopedSelect,
         processAll: processAll,
@@ -9755,12 +8788,10 @@ define('WinJS/Utilities/_ElementListUtilities',[
     '../Utilities/_ElementUtilities'
     ], function elementListUtilities(exports, _Global, _Base, ControlProcessor, Promise, _Control, _ElementUtilities) {
     "use strict";
-
     // not supported in WebWorker
     if (!_Global.document) {
         return;
     }
-
     _Base.Namespace._moduleDefine(exports, "WinJS.Utilities", {
         QueryCollection: _Base.Class.derive(Array, function (items) {
             /// <signature helpKeyword="WinJS.Utilities.QueryCollection">
@@ -10063,7 +9094,6 @@ define('WinJS/Utilities/_ElementListUtilities',[
                 /// This QueryCollection object.
                 /// </returns>
                 /// </signature>
-
                 if (Ctor && typeof (Ctor) === "function") {
                     this.forEach(function (element) {
                         element.winControl = new Ctor(element, options);
@@ -10108,13 +9138,10 @@ define('WinJS/Utilities/_ElementListUtilities',[
                     templateElement = templateElement[0];
                 }
                 var template = templateElement.winControl;
-
                 if (data === null || data === undefined || !data.forEach) {
                     data = [data];
                 }
-
                 renderDonePromiseCallback = renderDonePromiseCallback || function () { };
-
                 var that = this;
                 var donePromises = [];
                 data.forEach(function (datum) {
@@ -10123,13 +9150,11 @@ define('WinJS/Utilities/_ElementListUtilities',[
                     });
                 });
                 renderDonePromiseCallback(Promise.join(donePromises));
-
                 return this;
             }
         }, {
             supportedForProcessing: false,
         }),
-
         query: function (query, element) {
             /// <signature helpKeyword="WinJS.Utilities.query">
             /// <summary locid="WinJS.Utilities.query">
@@ -10148,7 +9173,6 @@ define('WinJS/Utilities/_ElementListUtilities',[
             /// </signature>
             return new exports.QueryCollection((element || _Global.document).querySelectorAll(query));
         },
-
         id: function (id) {
             /// <signature helpKeyword="WinJS.Utilities.id">
             /// <summary locid="WinJS.Utilities.id">
@@ -10164,7 +9188,6 @@ define('WinJS/Utilities/_ElementListUtilities',[
             var e = _Global.document.getElementById(id);
             return new exports.QueryCollection(e ? [e] : []);
         },
-
         children: function (element) {
             /// <signature helpKeyword="WinJS.Utilities.children">
             /// <summary locid="WinJS.Utilities.children">
@@ -10181,22 +9204,18 @@ define('WinJS/Utilities/_ElementListUtilities',[
         }
     });
 });
-
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 define('WinJS/Utilities/_Hoverable',[
     'exports',
     '../Core/_Global'
 ], function hoverable(exports, _Global) {
     "use strict";
-
     // not supported in WebWorker
     if (!_Global.document) {
         return;
     }
-
     _Global.document.documentElement.classList.add("win-hoverable");
     exports.isHoverable = true;
-
     if (!_Global.MSPointerEvent) {
         var touchStartHandler = function () {
             _Global.document.removeEventListener("touchstart", touchStartHandler);
@@ -10205,11 +9224,9 @@ define('WinJS/Utilities/_Hoverable',[
             _Global.document.documentElement.classList.remove("win-hoverable");
             exports.isHoverable = false;
         };
-
         _Global.document.addEventListener("touchstart", touchStartHandler);
     }
 });
-
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 define('WinJS/Utilities/_ParallelWorkQueue',[
     'exports',
@@ -10218,14 +9235,12 @@ define('WinJS/Utilities/_ParallelWorkQueue',[
     '../Scheduler'
     ], function parallelWorkQueueInit(exports, _Base, Promise, Scheduler) {
     "use strict";
-
     _Base.Namespace._moduleDefine(exports, "WinJS.UI", {
         _ParallelWorkQueue : _Base.Namespace._lazy(function () {
             return _Base.Class.define(function ParallelWorkQueue_ctor(maxRunning) {
                 var workIndex = 0;
                 var workItems = {};
                 var workQueue = [];
-
                 maxRunning = maxRunning || 3;
                 var running = 0;
                 var processing = 0;
@@ -10250,7 +9265,6 @@ define('WinJS/Utilities/_ParallelWorkQueue',[
                             next = workQueue.shift();
                             nextWork = next && workItems[next];
                         } while (next && !nextWork);
-
                         if (nextWork) {
                             delete workItems[next];
                             try {
@@ -10295,7 +9309,6 @@ define('WinJS/Utilities/_ParallelWorkQueue',[
                         }
                     );
                 }
-
                 this.sort = function (f) {
                     workQueue.sort(function (a, b) {
                         a = workItems[a];
@@ -10311,10 +9324,7 @@ define('WinJS/Utilities/_ParallelWorkQueue',[
             });
         })
     });
-
 });
-
-
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 define('WinJS/Utilities/_VersionManager',[
     'exports',
@@ -10322,7 +9332,6 @@ define('WinJS/Utilities/_VersionManager',[
     '../_Signal'
     ], function versionManagerInit(exports, _Base, _Signal) {
     "use strict";
-
     _Base.Namespace._moduleDefine(exports, "WinJS.UI", {
         _VersionManager: _Base.Namespace._lazy(function () {
             return _Base.Class.define(function _VersionManager_ctor() {
@@ -10333,25 +9342,20 @@ define('WinJS/Utilities/_VersionManager',[
                 _notificationCount: 0,
                 _updateCount: 0,
                 _version: 0,
-
                 // This should be used generally for all logic that should be suspended while data changes are happening
                 //
                 locked: { get: function () { return this._notificationCount !== 0 || this._updateCount !== 0; } },
-
                 // this should only be accessed by the update logic in ListViewImpl.js
                 //
                 noOutstandingNotifications: { get: function () { return this._notificationCount === 0; } },
                 version: { get: function () { return this._version; } },
-
                 unlocked: { get: function () { return this._unlocked.promise; } },
-
                 _dispose: function () {
                     if (this._unlocked) {
                         this._unlocked.cancel();
                         this._unlocked = null;
                     }
                 },
-
                 beginUpdating: function () {
                     this._checkLocked();
                     this._updateCount++;
@@ -10405,13 +9409,9 @@ define('WinJS/Utilities/_VersionManager',[
             });
         })
     });
-
 });
-
-
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 // Items Manager
-
 define('WinJS/Utilities/_ItemsManager',[
     'exports',
     '../Core/_Global',
@@ -10428,10 +9428,8 @@ define('WinJS/Utilities/_ItemsManager',[
     './_VersionManager'
     ], function itemsManagerInit(exports, _Global, _Base, _BaseUtils, _ErrorFromName, _Resources, _WriteProfilerMark, Promise, _Signal, Scheduler, _ElementUtilities, _ParallelWorkQueue, _VersionManager) {
     "use strict";
-
     var markSupportedForProcessing = _BaseUtils.markSupportedForProcessing;
     var uniqueID = _ElementUtilities._uniqueID;
-
     function simpleItemRenderer(f) {
         return markSupportedForProcessing(function (itemPromise, element) {
             return itemPromise.then(function (item) {
@@ -10439,12 +9437,10 @@ define('WinJS/Utilities/_ItemsManager',[
             });
         });
     }
-
     var trivialHtmlRenderer = simpleItemRenderer(function (item) {
         if (_ElementUtilities._isDOMElement(item.data)) {
             return item.data;
         }
-
         var data = item.data;
         if (data === undefined) {
             data = "undefined";
@@ -10453,12 +9449,10 @@ define('WinJS/Utilities/_ItemsManager',[
         } else if (typeof data === "object") {
             data = JSON.stringify(data);
         }
-
         var element = _Global.document.createElement("span");
         element.textContent = data.toString();
         return element;
     });
-
     _Base.Namespace._moduleDefine(exports, "WinJS.UI", {
         _normalizeRendererReturn: function (v) {
             if (v) {
@@ -10476,19 +9470,15 @@ define('WinJS/Utilities/_ItemsManager',[
         simpleItemRenderer: simpleItemRenderer,
         _trivialHtmlRenderer: trivialHtmlRenderer
     });
-
     // Private statics
-
     var strings = {
         get listDataSourceIsInvalid() { return "Invalid argument: dataSource must be an object."; },
         get itemRendererIsInvalid() { return "Invalid argument: itemRenderer must be a function."; },
         get itemIsInvalid() { return "Invalid argument: item must be a DOM element that was returned by the Items Manager, and has not been replaced or released."; },
     };
-
     var imageLoader;
     var lastSort = new Date();
     var minDurationBetweenImageSort = 64;
-
     // This optimization is good for a couple of reasons:
     // - It is a global optimizer, which means that all on screen images take precedence over all off screen images.
     // - It avoids resorting too frequently by only resorting when a new image loads and it has been at least 64 ms since
@@ -10497,33 +9487,26 @@ define('WinJS/Utilities/_ItemsManager',[
     function compareImageLoadPriority(a, b) {
         var aon = false;
         var bon = false;
-
         // Currently isOnScreen is synchronous and fast for list view
         a.isOnScreen().then(function (v) { aon = v; });
         b.isOnScreen().then(function (v) { bon = v; });
-
         return (aon ? 0 : 1) - (bon ? 0 : 1);
     }
-
     var nextImageLoaderId = 0;
     var seenUrls = {};
     var seenUrlsMRU = [];
     var SEEN_URLS_MAXSIZE = 250;
     var SEEN_URLS_MRU_MAXSIZE = 1000;
-
     function seenUrl(srcUrl) {
         if ((/^blob:/i).test(srcUrl)) {
             return;
         }
-
         seenUrls[srcUrl] = true;
         seenUrlsMRU.push(srcUrl);
-
         if (seenUrlsMRU.length > SEEN_URLS_MRU_MAXSIZE) {
             var mru = seenUrlsMRU;
             seenUrls = {};
             seenUrlsMRU = [];
-
             for (var count = 0, i = mru.length - 1; i >= 0 && count < SEEN_URLS_MAXSIZE; i--) {
                 var url = mru[i];
                 if (!seenUrls[url]) {
@@ -10533,7 +9516,6 @@ define('WinJS/Utilities/_ItemsManager',[
             }
         }
     }
-
     // Exposing the seenUrl related members to use them in unit tests
     _Base.Namespace._moduleDefine(exports, "WinJS.UI", {
         _seenUrl: seenUrl,
@@ -10546,7 +9528,6 @@ define('WinJS/Utilities/_ItemsManager',[
         _seenUrlsMaxSize: SEEN_URLS_MAXSIZE,
         _seenUrlsMRUMaxSize: SEEN_URLS_MRU_MAXSIZE
     });
-
     function loadImage(srcUrl, image, data) {
         var imageId = nextImageLoaderId++;
         imageLoader = imageLoader || new _ParallelWorkQueue._ParallelWorkQueue(6);
@@ -10556,36 +9537,29 @@ define('WinJS/Utilities/_ItemsManager',[
                     if (!image) {
                         image = _Global.document.createElement("img");
                     }
-
                     var seen = seenUrls[srcUrl];
-
                     if (!seen) {
                         jobInfo.setPromise(new Promise(function (imageLoadComplete) {
                             var tempImage = _Global.document.createElement("img");
-
                             var cleanup = function () {
                                 tempImage.removeEventListener("load", loadComplete, false);
                                 tempImage.removeEventListener("error", loadError, false);
-
                                 // One time use blob images are cleaned up as soon as they are not referenced by images any longer.
                                 // We set the image src before clearing the tempImage src to make sure the blob image is always
                                 // referenced.
                                 image.src = srcUrl;
-
                                 var currentDate = new Date();
                                 if (currentDate - lastSort > minDurationBetweenImageSort) {
                                     lastSort = currentDate;
                                     imageLoader.sort(compareImageLoadPriority);
                                 }
                             };
-
                             var loadComplete = function () {
                                 imageLoadComplete(jobComplete);
                             };
                             var loadError = function () {
                                 imageLoadComplete(jobError);
                             };
-
                             var jobComplete = function () {
                                 seenUrl(srcUrl);
                                 cleanup();
@@ -10595,7 +9569,6 @@ define('WinJS/Utilities/_ItemsManager',[
                                 cleanup();
                                 e(image);
                             };
-
                             tempImage.addEventListener("load", loadComplete, false);
                             tempImage.addEventListener("error", loadError, false);
                             tempImage.src = srcUrl;
@@ -10609,73 +9582,57 @@ define('WinJS/Utilities/_ItemsManager',[
             });
         }, data);
     }
-
     function isImageCached(srcUrl) {
         return seenUrls[srcUrl];
     }
-
     function defaultRenderer() {
         return _Global.document.createElement("div");
     }
-
     // Public definitions
-
     _Base.Namespace._moduleDefine(exports, "WinJS.UI", {
         _createItemsManager: _Base.Namespace._lazy(function () {
             var ListNotificationHandler = _Base.Class.define(function ListNotificationHandler_ctor(itemsManager) {
                 // Constructor
-
                 this._itemsManager = itemsManager;
             }, {
                 // Public methods
-
                 beginNotifications: function () {
                     this._itemsManager._versionManager.beginNotifications();
                     this._itemsManager._beginNotifications();
                 },
-
                 // itemAvailable: not implemented
-
                 inserted: function (itemPromise, previousHandle, nextHandle) {
                     this._itemsManager._versionManager.receivedNotification();
                     this._itemsManager._inserted(itemPromise, previousHandle, nextHandle);
                 },
-
                 changed: function (newItem, oldItem) {
                     this._itemsManager._versionManager.receivedNotification();
                     this._itemsManager._changed(newItem, oldItem);
                 },
-
                 moved: function (itemPromise, previousHandle, nextHandle) {
                     this._itemsManager._versionManager.receivedNotification();
                     this._itemsManager._moved(itemPromise, previousHandle, nextHandle);
                 },
-
                 removed: function (handle, mirage) {
                     this._itemsManager._versionManager.receivedNotification();
                     this._itemsManager._removed(handle, mirage);
                 },
-
                 countChanged: function (newCount, oldCount) {
                     this._itemsManager._versionManager.receivedNotification();
                     this._itemsManager._countChanged(newCount, oldCount);
                 },
-
                 indexChanged: function (handle, newIndex, oldIndex) {
                     this._itemsManager._versionManager.receivedNotification();
                     this._itemsManager._indexChanged(handle, newIndex, oldIndex);
                 },
-
                 affectedRange: function (range) {
                     this._itemsManager._versionManager.receivedNotification();
                     this._itemsManager._affectedRange(range);
                 },
-
                 endNotifications: function () {
                     this._itemsManager._versionManager.endNotifications();
                     this._itemsManager._endNotifications();
                 },
-
                 reload: function () {
                     this._itemsManager._versionManager.receivedNotification();
                     this._itemsManager._reload();
@@ -10683,27 +9640,19 @@ define('WinJS/Utilities/_ItemsManager',[
             }, { // Static Members
                 supportedForProcessing: false,
             });
-
             var ItemsManager = _Base.Class.define(function ItemsManager_ctor(listDataSource, itemRenderer, elementNotificationHandler, options) {
                 // Constructor
-
                 if (!listDataSource) {
                     throw new _ErrorFromName("WinJS.UI.ItemsManager.ListDataSourceIsInvalid", strings.listDataSourceIsInvalid);
                 }
                 if (!itemRenderer) {
                     throw new _ErrorFromName("WinJS.UI.ItemsManager.ItemRendererIsInvalid", strings.itemRendererIsInvalid);
                 }
-
                 this.$pipeline_callbacksMap = {};
-
                 this._listDataSource = listDataSource;
-
                 this.dataSource = this._listDataSource;
-
                 this._elementNotificationHandler = elementNotificationHandler;
-
                 this._listBinding = this._listDataSource.createListBinding(new ListNotificationHandler(this));
-
                 if (options) {
                     if (options.ownerElement) {
                         this._ownerElement = options.ownerElement;
@@ -10711,23 +9660,17 @@ define('WinJS/Utilities/_ItemsManager',[
                     this._profilerId = options.profilerId;
                     this._versionManager = options.versionManager || new _VersionManager._VersionManager();
                 }
-
                 this._indexInView = options && options.indexInView;
                 this._itemRenderer = itemRenderer;
                 this._viewCallsReady = options && options.viewCallsReady;
-
                 // Map of (the uniqueIDs of) elements to records for items
                 this._elementMap = {};
-
                 // Map of handles to records for items
                 this._handleMap = {};
-
                 // Owner for use with jobs on the scheduler. Allows for easy cancellation of jobs during clean up.
                 this._jobOwner = Scheduler.createOwnerToken();
-
                 // Boolean to track whether endNotifications needs to be called on the ElementNotificationHandler
                 this._notificationsSent = false;
-
                 // Only enable the lastItem method if the data source implements the itemsFromEnd method
                 if (this._listBinding.last) {
                     this.lastItem = function () {
@@ -10800,11 +9743,9 @@ define('WinJS/Utilities/_ItemsManager',[
                 isPlaceholder: function (item) {
                     return !!this._recordFromElement(item).elementIsPlaceholder;
                 },
-
                 itemObject: function (element) {
                     return this._itemFromElement(element);
                 },
-
                 release: function () {
                     this._listBinding.release();
                     this._elementNotificationHandler = null;
@@ -10812,7 +9753,6 @@ define('WinJS/Utilities/_ItemsManager',[
                     this._jobOwner.cancelAll();
                     this._released = true;
                 },
-
                 releaseItemPromise: function (itemPromise) {
                     var handle = itemPromise.handle;
                     var record = this._handleMap[handle];
@@ -10823,15 +9763,12 @@ define('WinJS/Utilities/_ItemsManager',[
                         this._releaseRecord(record);
                     }
                 },
-
                 releaseItem: function (element) {
                     var record = this._elementMap[uniqueID(element)];
                     this._releaseRecord(record);
                 },
-
                 _releaseRecord: function (record) {
                     if (!record) { return; }
-
                     if (record.renderPromise) {
                         record.renderPromise.cancel();
                     }
@@ -10849,37 +9786,28 @@ define('WinJS/Utilities/_ItemsManager',[
                     if (record.renderComplete) {
                         record.renderComplete.cancel();
                     }
-
                     this._removeEntryFromElementMap(record.element);
                     this._removeEntryFromHandleMap(record.itemPromise.handle, record);
-
                     if (record.item) {
                         this._listBinding.releaseItem(record.item);
                     }
-
                 },
-
                 refresh: function () {
                     return this._listDataSource.invalidateAll();
                 },
-
                 // Private members
-
                 _handlerToNotifyCaresAboutItemAvailable: function () {
                     return !!(this._elementNotificationHandler && this._elementNotificationHandler.itemAvailable);
                 },
-
                 _handlerToNotify: function () {
                     if (!this._notificationsSent) {
                         this._notificationsSent = true;
-
                         if (this._elementNotificationHandler && this._elementNotificationHandler.beginNotifications) {
                             this._elementNotificationHandler.beginNotifications();
                         }
                     }
                     return this._elementNotificationHandler;
                 },
-
                 _defineIndexProperty: function (itemForRenderer, item, record) {
                     record.indexObserved = false;
                     Object.defineProperty(itemForRenderer, "index", {
@@ -10889,21 +9817,18 @@ define('WinJS/Utilities/_ItemsManager',[
                         }
                     });
                 },
-
                 _renderPlaceholder: function (record) {
                     var itemForRenderer = {};
                     var elementPlaceholder = defaultRenderer(itemForRenderer);
                     record.elementIsPlaceholder = true;
                     return elementPlaceholder;
                 },
-
                 _renderItem: function (itemPromise, record, callerThrottlesStage1) {
                     var that = this;
                     var indexInView = that._indexInView || function () { return true; };
                     var stage1Signal = new _Signal();
                     var readySignal = new _Signal();
                     var perfItemPromiseId = "_renderItem(" + record.item.index + "):itemPromise";
-
                     var stage0RunningSync = true;
                     var stage0Ran = false;
                     itemPromise.then(function (item) {
@@ -10913,7 +9838,6 @@ define('WinJS/Utilities/_ItemsManager',[
                         }
                     });
                     stage0RunningSync = false;
-
                     var itemForRendererPromise = stage1Signal.promise.then(function (item) {
                         if (item) {
                             var itemForRenderer = Object.create(item);
@@ -10938,7 +9862,6 @@ define('WinJS/Utilities/_ItemsManager',[
                             return Promise.cancel;
                         }
                     });
-
                     function queueAsyncStage1() {
                         itemPromise.then(function (item) {
                             that._writeProfilerMark(perfItemPromiseId + ",StartTM");
@@ -10957,18 +9880,15 @@ define('WinJS/Utilities/_ItemsManager',[
                             queueAsyncStage1();
                         }
                     }
-
                     itemForRendererPromise.handle = itemPromise.handle;
                     record.itemPromise = itemForRendererPromise;
                     record.itemReadyPromise = readySignal.promise;
                     record.readyComplete = false;
-
                     // perfRendererWorkId = stage 1 rendering (if itemPromise is async) or stage 1+2 (if itemPromise is sync and ran inline)
                     // perfItemPromiseId = stage 2 rendering only (should only be emitted if itemPromise was async)
                     // perfItemReadyId = stage 3 rendering
                     var perfRendererWorkId = "_renderItem(" + record.item.index + (stage0Ran ? "):syncItemPromise" : "):placeholder");
                     var perfItemReadyId = "_renderItem(" + record.item.index + "):itemReady";
-
                     this._writeProfilerMark(perfRendererWorkId + ",StartTM");
                     var rendererPromise = Promise.as(that._itemRenderer(itemForRendererPromise, record.element)).
                         then(exports._normalizeRendererReturn).
@@ -10976,7 +9896,6 @@ define('WinJS/Utilities/_ItemsManager',[
                             if (that._released) {
                                 return Promise.cancel;
                             }
-
                             itemForRendererPromise.then(function (item) {
                                 // Store pending ready callback off record so ScrollView can call it during realizePage. Otherwise
                                 // call it ourselves.
@@ -10997,29 +9916,23 @@ define('WinJS/Utilities/_ItemsManager',[
                             });
                             return v;
                         });
-
                     this._writeProfilerMark(perfRendererWorkId + ",StopTM");
                     return rendererPromise;
                 },
-
                 _replaceElement: function (record, elementNew) {
                     this._removeEntryFromElementMap(record.element);
                     record.element = elementNew;
                     this._addEntryToElementMap(elementNew, record);
                 },
-
                 _changeElement: function (record, elementNew, elementNewIsPlaceholder) {
                     record.renderPromise = null;
                     var elementOld = record.element,
                         itemOld = record.item;
-
                     if (record.newItem) {
                         record.item = record.newItem;
                         record.newItem = null;
                     }
-
                     this._replaceElement(record, elementNew);
-
                     if (record.item && record.elementIsPlaceholder && !elementNewIsPlaceholder) {
                         record.elementDelayed = null;
                         record.elementIsPlaceholder = false;
@@ -11031,16 +9944,13 @@ define('WinJS/Utilities/_ItemsManager',[
                         this._handlerToNotify().changed(elementNew, elementOld, itemOld);
                     }
                 },
-
                 _elementForItem: function (itemPromise, callerThrottlesStage1) {
                     var handle = itemPromise.handle,
                         record = this._recordFromHandle(handle, true),
                         element;
-
                     if (!handle) {
                         return null;
                     }
-
                     if (record) {
                         element = record.element;
                     } else {
@@ -11050,17 +9960,14 @@ define('WinJS/Utilities/_ItemsManager',[
                             itemPromise: itemPromise
                         };
                         this._addEntryToHandleMap(handle, record);
-
                         var that = this;
                         var mirage = false;
                         var synchronous = false;
-
                         var renderPromise =
                             that._renderItem(itemPromise, record, callerThrottlesStage1).
                             then(function (v) {
                                 var elementNew = v.element;
                                 record.renderComplete = v.renderComplete;
-
                                 itemPromise.then(function (item) {
                                     record.item = item;
                                     if (!item) {
@@ -11068,10 +9975,8 @@ define('WinJS/Utilities/_ItemsManager',[
                                         element = null;
                                     }
                                 });
-
                                 synchronous = true;
                                 record.renderPromise = null;
-
                                 if (elementNew) {
                                     if (element) {
                                         that._presentElements(record, elementNew);
@@ -11080,56 +9985,43 @@ define('WinJS/Utilities/_ItemsManager',[
                                     }
                                 }
                             });
-
                         if (!mirage) {
                             if (!synchronous) {
                                 record.renderPromise = renderPromise;
                             }
-
                             if (!element) {
                                 element = this._renderPlaceholder(record);
                             }
-
                             record.element = element;
                             this._addEntryToElementMap(element, record);
-
                             itemPromise.retain();
                         }
                     }
-
                     return element;
                 },
-
                 _addEntryToElementMap: function (element, record) {
                     this._elementMap[uniqueID(element)] = record;
                 },
-
                 _removeEntryFromElementMap: function (element) {
                     delete this._elementMap[uniqueID(element)];
                 },
-
                 _recordFromElement: function (element) {
                     var record = this._elementMap[uniqueID(element)];
                     if (!record) {
                         this._writeProfilerMark("_recordFromElement:ItemIsInvalidError,info");
                         throw new _ErrorFromName("WinJS.UI.ItemsManager.ItemIsInvalid", strings.itemIsInvalid);
                     }
-
                     return record;
                 },
-
                 _addEntryToHandleMap: function (handle, record) {
                     this._handleMap[handle] = record;
                 },
-
                 _removeEntryFromHandleMap: function (handle) {
                     delete this._handleMap[handle];
                 },
-
                 _handleInHandleMap: function (handle) {
                     return !!this._handleMap[handle];
                 },
-
                 _recordFromHandle: function (handle, ignoreFailure) {
                     var record = this._handleMap[handle];
                     if (!record && !ignoreFailure) {
@@ -11137,7 +10029,6 @@ define('WinJS/Utilities/_ItemsManager',[
                     }
                     return record;
                 },
-
                 _foreachRecord: function (callback) {
                     var records = this._handleMap;
                     for (var property in records) {
@@ -11145,32 +10036,24 @@ define('WinJS/Utilities/_ItemsManager',[
                         callback(record);
                     }
                 },
-
                 _itemFromElement: function (element) {
                     return this._recordFromElement(element).item;
                 },
-
                 _elementFromHandle: function (handle) {
                     if (handle) {
                         var record = this._recordFromHandle(handle, true);
-
                         if (record && record.element) {
                             return record.element;
                         }
                     }
-
                     return null;
                 },
-
                 _inserted: function (itemPromise, previousHandle, nextHandle) {
                     this._handlerToNotify().inserted(itemPromise, previousHandle, nextHandle);
                 },
-
                 _changed: function (newItem, oldItem) {
                     if (!this._handleInHandleMap(oldItem.handle)) { return; }
-
                     var record = this._recordFromHandle(oldItem.handle);
-
                     if (record.renderPromise) {
                         record.renderPromise.cancel();
                     }
@@ -11188,9 +10071,7 @@ define('WinJS/Utilities/_ItemsManager',[
                     if (record.renderComplete) {
                         record.renderComplete.cancel();
                     }
-
                     record.newItem = newItem;
-
                     var that = this;
                     var newItemPromise = Promise.as(newItem);
                     newItemPromise.handle = record.itemPromise.handle;
@@ -11201,7 +10082,6 @@ define('WinJS/Utilities/_ItemsManager',[
                             that._presentElements(record);
                         });
                 },
-
                 _moved: function (itemPromise, previousHandle, nextHandle) {
                     // no check for haveHandle, as we get move notification for items we
                     // are "next" to, so we handle the "null element" cases below
@@ -11209,15 +10089,12 @@ define('WinJS/Utilities/_ItemsManager',[
                     var element = this._elementFromHandle(itemPromise.handle);
                     var previous = this._elementFromHandle(previousHandle);
                     var next = this._elementFromHandle(nextHandle);
-
                     this._handlerToNotify().moved(element, previous, next, itemPromise);
                     this._presentAllElements();
                 },
-
                 _removed: function (handle, mirage) {
                     if (this._handleInHandleMap(handle)) {
                         var element = this._elementFromHandle(handle);
-
                         this._handlerToNotify().removed(element, mirage, handle);
                         this.releaseItem(element);
                         this._presentAllElements();
@@ -11225,13 +10102,11 @@ define('WinJS/Utilities/_ItemsManager',[
                         this._handlerToNotify().removed(null, mirage, handle);
                     }
                 },
-
                 _countChanged: function (newCount, oldCount) {
                     if (this._elementNotificationHandler && this._elementNotificationHandler.countChanged) {
                         this._handlerToNotify().countChanged(newCount, oldCount);
                     }
                 },
-
                 _indexChanged: function (handle, newIndex, oldIndex) {
                     var element;
                     if (this._handleInHandleMap(handle)) {
@@ -11245,13 +10120,10 @@ define('WinJS/Utilities/_ItemsManager',[
                                     if (record.renderComplete) {
                                         record.renderComplete.cancel();
                                     }
-
                                     var itemToRender = record.newItem || record.item;
                                     itemToRender.index = newIndex;
-
                                     var newItemPromise = Promise.as(itemToRender);
                                     newItemPromise.handle = record.itemPromise.handle;
-
                                     var that = this;
                                     record.renderPromise = this._renderItem(newItemPromise, record).
                                         then(function (v) {
@@ -11270,13 +10142,11 @@ define('WinJS/Utilities/_ItemsManager',[
                         this._handlerToNotify().indexChanged(element, newIndex, oldIndex);
                     }
                 },
-
                 _affectedRange: function (range) {
                     if (this._elementNotificationHandler && this._elementNotificationHandler.updateAffectedRange) {
                         this._handlerToNotify().updateAffectedRange(range);
                     }
                 },
-
                 _beginNotifications: function () {
                     // accessing _handlerToNotify will force the call to beginNotifications on the client
                     //
@@ -11287,19 +10157,16 @@ define('WinJS/Utilities/_ItemsManager',[
                     if (this._notificationsSent) {
                         this._notificationsSent = false;
                         this._externalBegin = false;
-
                         if (this._elementNotificationHandler && this._elementNotificationHandler.endNotifications) {
                             this._elementNotificationHandler.endNotifications();
                         }
                     }
                 },
-
                 _reload: function () {
                     if (this._elementNotificationHandler && this._elementNotificationHandler.reload) {
                         this._elementNotificationHandler.reload();
                     }
                 },
-
                 // Some functions may be called synchronously or asynchronously, so it's best to post _endNotifications to avoid
                 // calling it prematurely.
                 _postEndNotifications: function () {
@@ -11312,33 +10179,27 @@ define('WinJS/Utilities/_ItemsManager',[
                         }, Scheduler.Priority.high, null, "WinJS.UI._ItemsManager._postEndNotifications");
                     }
                 },
-
                 _presentElement: function (record) {
                     var elementOld = record.element;
                     // Finish modifying the slot before calling back into user code, in case there is a reentrant call
                     this._replaceElement(record, record.elementDelayed);
                     record.elementDelayed = null;
-
                     record.elementIsPlaceholder = false;
                     this._updateElement(record.element, elementOld);
                     if (this._handlerToNotifyCaresAboutItemAvailable()) {
                         this._handlerToNotify().itemAvailable(record.element, elementOld);
                     }
                 },
-
                 _presentElements: function (record, elementDelayed) {
                     if (elementDelayed) {
                         record.elementDelayed = elementDelayed;
                     }
-
                     this._listBinding.jumpToItem(record.item);
                     if (record.elementDelayed) {
                         this._presentElement(record);
                     }
-
                     this._postEndNotifications();
                 },
-
                 // Presents all delayed elements
                 _presentAllElements: function () {
                     var that = this;
@@ -11348,7 +10209,6 @@ define('WinJS/Utilities/_ItemsManager',[
                         }
                     });
                 },
-
                 _writeProfilerMark: function (text) {
                     var message = "WinJS.UI._ItemsManager:" + (this._profilerId ? (this._profilerId + ":") : ":") + text;
                     _WriteProfilerMark(message);
@@ -11356,16 +10216,12 @@ define('WinJS/Utilities/_ItemsManager',[
             }, { // Static Members
                 supportedForProcessing: false,
             });
-
             return function (dataSource, itemRenderer, elementNotificationHandler, options) {
                 return new ItemsManager(dataSource, itemRenderer, elementNotificationHandler, options);
             };
         })
     });
-
 });
-
-
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 define('WinJS/Utilities/_TabContainer',[
     'exports',
@@ -11375,20 +10231,16 @@ define('WinJS/Utilities/_TabContainer',[
     './_ElementUtilities'
     ], function tabManagerInit(exports, _Global, _Base, _BaseUtils, _ElementUtilities) {
     "use strict";
-
     // not supported in WebWorker
     if (!_Global.document) {
         return;
     }
-
     function fireEvent(element, name, forward, cancelable) {
         var event = _Global.document.createEvent('UIEvent');
         event.initUIEvent(name, false, !!cancelable, _Global, forward ? 1 : 0);
         return !element.dispatchEvent(event);
     }
-
     var getTabIndex = _ElementUtilities.getTabIndex;
-
     // tabbableElementsNodeFilter works with the TreeWalker to create a view of the DOM tree that is built up of what we want the focusable tree to look like.
     // When it runs into a tab contained area, it rejects anything except the childFocus element so that any potentially tabbable things that the TabContainer
     // doesn't want tabbed to get ignored.
@@ -11414,7 +10266,6 @@ define('WinJS/Utilities/_TabContainer',[
         }
         return _Global.NodeFilter.FILTER_SKIP;
     }
-
     // We've got to manually scrape the results the walker generated, since the walker will have generated a fairly good representation of the tabbable tree, but
     // won't have a perfect image. Trees like this cause a problem for the walker:
     //     [ tabContainer element ]
@@ -11427,11 +10278,9 @@ define('WinJS/Utilities/_TabContainer',[
         var tabManagedElement = walker.currentNode,
             childFocus = tabManagedElement._tabContainer.childFocus,
             elementsFound = [];
-
         if (!childFocus) {
             return [];
         }
-
         walker.currentNode = childFocus;
         function scrapeSubtree() {
             if (walker.currentNode._tabContainer) {
@@ -11451,10 +10300,8 @@ define('WinJS/Utilities/_TabContainer',[
         }
         scrapeSubtree();
         walker.currentNode = tabManagedElement;
-
         return elementsFound;
     }
-
     function TabHelperObject(element, tabIndex) {
         function createCatcher() {
             var fragment = _Global.document.createElement("DIV");
@@ -11462,24 +10309,19 @@ define('WinJS/Utilities/_TabContainer',[
             fragment.setAttribute("aria-hidden", true);
             return fragment;
         }
-
         var parent = element.parentNode;
-
         // Insert prefix focus catcher
         var catcherBegin = createCatcher();
         parent.insertBefore(catcherBegin, element);
-
         // Insert postfix focus catcher
         var catcherEnd = createCatcher();
         parent.insertBefore(catcherEnd, element.nextSibling);
-
         catcherBegin.addEventListener("focus", function () {
             fireEvent(element, "onTabEnter", true);
         }, true);
         catcherEnd.addEventListener("focus", function () {
             fireEvent(element, "onTabEnter", false);
         }, true);
-
         this._catcherBegin = catcherBegin;
         this._catcherEnd = catcherEnd;
         var refCount = 1;
@@ -11502,7 +10344,6 @@ define('WinJS/Utilities/_TabContainer',[
             catcherEnd.tabIndex = tabIndex;
         };
     }
-
     var TrackTabBehavior = {
         attach: function (element, tabIndex) {
             ///
@@ -11511,10 +10352,8 @@ define('WinJS/Utilities/_TabContainer',[
             } else {
                 element["win-trackTabHelperObject"].addRef();
             }
-
             return element["win-trackTabHelperObject"];
         },
-
         detach: function (element) {
             ///
             if (!element["win-trackTabHelperObject"].release()) {
@@ -11522,7 +10361,6 @@ define('WinJS/Utilities/_TabContainer',[
             }
         }
     };
-
     _Base.Namespace._moduleDefine(exports, "WinJS.UI", {
         TrackTabBehavior: TrackTabBehavior,
         TabContainer: _Base.Class.define(function TabContainer_ctor(element) {
@@ -11547,13 +10385,11 @@ define('WinJS/Utilities/_TabContainer',[
                 element.tabIndex = -1;
             }
             var that = this;
-
             element.addEventListener("onTabEnter", function (e) {
                 var skipDefaultBehavior = fireEvent(that._element, "onTabEntered", e.detail, true);
                 if (skipDefaultBehavior) {
                     return;
                 }
-
                 if (that.childFocus) {
                     that.childFocus.focus();
                 } else {
@@ -11575,7 +10411,6 @@ define('WinJS/Utilities/_TabContainer',[
                         var allTabbableElements = that._element.querySelectorAll("a[href],area[href],button,command,input,link,menuitem,object,select,textarea,th[sorted],[tabindex]"),
                             len = allTabbableElements.length,
                             originalTabIndices = [];
-
                         for (var i = 0; i < len; i++) {
                             var element = allTabbableElements[i];
                             originalTabIndices.push(element.tabIndex);
@@ -11585,7 +10420,6 @@ define('WinJS/Utilities/_TabContainer',[
                         // We'll disable the sentinel node that's directly in the path of the tab order (catcherEnd for forward tabs, and
                         // catcherBegin for shift+tabs), but leave the other sentinel node untouched so tab can wrap around back into the region.
                         that._elementTabHelper[forwardTab ? "_catcherEnd" : "_catcherBegin"].tabIndex = -1;
-
                         var restoreTabIndicesOnBlur = function () {
                             targetElement.removeEventListener("blur", restoreTabIndicesOnBlur, false);
                             for (var i = 0; i < len; i++) {
@@ -11605,14 +10439,11 @@ define('WinJS/Utilities/_TabContainer',[
                     }
                 }
             });
-
             this._elementTabHelper = TrackTabBehavior.attach(element, this._tabIndex);
             this._elementTabHelper._catcherBegin.tabIndex = 0;
             this._elementTabHelper._catcherEnd.tabIndex = 0;
         }, {
-
             // Public members
-
             /// <signature helpKeyword="WinJS.UI.TabContainer.dispose">
             /// <summary locid="WinJS.UI.TabContainer.dispose">
             /// Disposes the Tab Container.
@@ -11621,7 +10452,6 @@ define('WinJS/Utilities/_TabContainer',[
             dispose: function () {
                 TrackTabBehavior.detach(this._element, this._tabIndex);
             },
-
             /// <field type="HTMLElement" domElement="true" locid="WinJS.UI.TabContainer.childFocus" helpKeyword="WinJS.UI.TabContainer.childFocus">
             /// Gets or sets the child element that has focus.
             /// </field>
@@ -11639,7 +10469,6 @@ define('WinJS/Utilities/_TabContainer',[
                     return this._focusElement;
                 }
             },
-
             /// <field type="Number" integer="true" locid="WinJS.UI.TabContainer.tabIndex" helpKeyword="WinJS.UI.TabContainer.tabIndex">
             /// Gets or sets the tab order of the control within its container.
             /// </field>
@@ -11648,14 +10477,11 @@ define('WinJS/Utilities/_TabContainer',[
                     this._tabIndex = tabIndex;
                     this._elementTabHelper.updateTabIndex(tabIndex);
                 },
-
                 get: function () {
                     return this._tabIndex;
                 }
             },
-
             // Private members
-
             _element: null,
             _skipper: function (e) {
                 e.stopPropagation();
@@ -11675,12 +10501,10 @@ define('WinJS/Utilities/_TabContainer',[
                 return false;
             },
             _focusElement: null
-
         }, { // Static Members
             supportedForProcessing: false,
         })
     });
-
 });
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 define('WinJS/Utilities/_KeyboardBehavior',[
@@ -11692,7 +10516,6 @@ define('WinJS/Utilities/_KeyboardBehavior',[
     './_TabContainer'
 ], function KeyboardBehaviorInit(exports, _Global, _Base, _Control, _ElementUtilities, _TabContainer) {
     "use strict";
-
     // not supported in WebWorker
     if (!_Global.document) {
         return;
@@ -11718,15 +10541,12 @@ define('WinJS/Utilities/_KeyboardBehavior',[
         pen: InputTypes.pen,
         mouse: InputTypes.mouse
     };
-
     _ElementUtilities._addEventListener(_Global, "pointerdown", function (eventObject) {
         _lastInputType = pointerTypeToInputType[eventObject.pointerType] || InputTypes.mouse;
     }, true);
-
     _Global.addEventListener("keydown", function () {
         _lastInputType = InputTypes.keyboard;
     }, true);
-
     _Base.Namespace._moduleDefine(exports, "WinJS.UI", {
         _keyboardSeenLast: {
             get: function _keyboardSeenLast_get() {
@@ -11769,7 +10589,6 @@ define('WinJS/Utilities/_KeyboardBehavior',[
         },
         _KeyboardBehavior: _Base.Namespace._lazy(function () {
             var Key = _ElementUtilities.Key;
-
             var _KeyboardBehavior = _Base.Class.define(function KeyboardBehavior_ctor(element, options) {
                 // KeyboardBehavior allows you to easily convert a bunch of tabable elements into a single tab stop with
                 // navigation replaced by keyboard arrow (Up/Down/Left/Right) + Home + End + Custom keys.
@@ -11821,19 +10640,14 @@ define('WinJS/Utilities/_KeyboardBehavior',[
                 //
                 // It also allows an element to be represented as 2 arrow stops (commonly used for a split button) by calling
                 // the _getFocusInto API on the child element's winControl if it exists.
-
                 element = element || _Global.document.createElement("DIV");
                 options = options || {};
-
                 element._keyboardBehavior = this;
                 this._element = element;
-
                 this._fixedDirection = _KeyboardBehavior.FixedDirection.width;
                 this._fixedSize = 1;
                 this._currentIndex = 0;
-
                 _Control.setOptions(this, options);
-
                 // If there's a scroller, the TabContainer can't be inside of the scroller. Otherwise, tabbing into the
                 // TabContainer will cause the scroller to scroll.
                 this._tabContainer = new _TabContainer.TabContainer(this.scroller || this._element);
@@ -11841,7 +10655,6 @@ define('WinJS/Utilities/_KeyboardBehavior',[
                 if (this._element.children.length > 0) {
                     this._tabContainer.childFocus = this._getFocusInto(this._element.children[0]);
                 }
-
                 this._element.addEventListener('keydown', this._keyDownHandler.bind(this));
                 _ElementUtilities._addEventListener(this._element, 'pointerdown', this._MSPointerDownHandler.bind(this));
             }, {
@@ -11850,7 +10663,6 @@ define('WinJS/Utilities/_KeyboardBehavior',[
                         return this._element;
                     }
                 },
-
                 fixedDirection: {
                     get: function () {
                         return this._fixedDirection;
@@ -11859,7 +10671,6 @@ define('WinJS/Utilities/_KeyboardBehavior',[
                         this._fixedDirection = value;
                     }
                 },
-
                 fixedSize: {
                     get: function () {
                         return this._fixedSize;
@@ -11871,7 +10682,6 @@ define('WinJS/Utilities/_KeyboardBehavior',[
                         }
                     }
                 },
-
                 currentIndex: {
                     get: function () {
                         if (this._element.children.length > 0) {
@@ -11888,7 +10698,6 @@ define('WinJS/Utilities/_KeyboardBehavior',[
                         }
                     }
                 },
-
                 getAdjacent: {
                     get: function () {
                         return this._getAdjacent;
@@ -11897,7 +10706,6 @@ define('WinJS/Utilities/_KeyboardBehavior',[
                         this._getAdjacent = value;
                     }
                 },
-
                 // If set, KeyboardBehavior will prevent *scroller* from scrolling when moving focus
                 scroller: {
                     get: function () {
@@ -11907,7 +10715,6 @@ define('WinJS/Utilities/_KeyboardBehavior',[
                         this._scroller = value;
                     }
                 },
-
                 _keyDownHandler: function _KeyboardBehavior_keyDownHandler(ev) {
                     if (!ev.altKey) {
                         if (_ElementUtilities._matchesSelector(ev.target, ".win-interactive, .win-interactive *")) {
@@ -11915,17 +10722,14 @@ define('WinJS/Utilities/_KeyboardBehavior',[
                         }
                         var newIndex = this.currentIndex;
                         var maxIndex = this._element.children.length - 1;
-
                         var rtl = _ElementUtilities._getComputedStyle(this._element).direction === "rtl";
                         var leftStr = rtl ? Key.rightArrow : Key.leftArrow;
                         var rightStr = rtl ? Key.leftArrow : Key.rightArrow;
-
                         var targetIndex = this.getAdjacent && this.getAdjacent(newIndex, ev.keyCode);
                         if (+targetIndex === targetIndex) {
                             newIndex = targetIndex;
                         } else {
                             var modFixedSize = newIndex % this.fixedSize;
-
                             if (ev.keyCode === leftStr) {
                                 if (this.fixedDirection === _KeyboardBehavior.FixedDirection.width) {
                                     if (modFixedSize !== 0) {
@@ -11972,57 +10776,44 @@ define('WinJS/Utilities/_KeyboardBehavior',[
                                 newIndex = this._element.children.length - 1;
                             }
                         }
-
                         newIndex = Math.max(0, Math.min(this._element.children.length - 1, newIndex));
-
                         if (newIndex !== this.currentIndex) {
                             this._focus(newIndex, ev.keyCode);
-
                             // Allow KeyboardBehavior to be nested
                             if (ev.keyCode === leftStr || ev.keyCode === rightStr || ev.keyCode === Key.upArrow || ev.keyCode === Key.downArrow) {
                                 ev.stopPropagation();
                             }
-
                             ev.preventDefault();
                         }
                     }
                 },
-
                 _getFocusInto: function _KeyboardBehavior_getFocusInto(elementToFocus, keyCode) {
                     return elementToFocus && elementToFocus.winControl && elementToFocus.winControl._getFocusInto ?
                         elementToFocus.winControl._getFocusInto(keyCode) :
                         elementToFocus;
                 },
-
                 _focus: function _KeyboardBehavior_focus(index, keyCode) {
                     index = (+index === index) ? index : this.currentIndex;
-
                     var elementToFocus = this._element.children[index];
                     if (elementToFocus) {
                         elementToFocus = this._getFocusInto(elementToFocus, keyCode);
-
                         this.currentIndex = index;
-
                         _ElementUtilities._setActive(elementToFocus, this.scroller);
                     }
                 },
-
                 _MSPointerDownHandler: function _KeyboardBehavior_MSPointerDownHandler(ev) {
                     var srcElement = ev.target;
                     if (srcElement === this.element) {
                         return;
                     }
-
                     while (srcElement.parentNode !== this.element) {
                         srcElement = srcElement.parentNode;
                     }
-
                     var index = -1;
                     while (srcElement) {
                         index++;
                         srcElement = srcElement.previousElementSibling;
                     }
-
                     this.currentIndex = index;
                 }
             }, {
@@ -12031,11 +10822,9 @@ define('WinJS/Utilities/_KeyboardBehavior',[
                     width: "width"
                 }
             });
-
             return _KeyboardBehavior;
         })
     });
-
 });
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 define('WinJS/Utilities/_SafeHtml',[
@@ -12047,19 +10836,15 @@ define('WinJS/Utilities/_SafeHtml',[
     '../Core/_Resources'
     ], function safeHTMLInit(exports, _WinJS, _Global, _Base, _ErrorFromName, _Resources) {
     "use strict";
-
-
     var setInnerHTML,
         setInnerHTMLUnsafe,
         setOuterHTML,
         setOuterHTMLUnsafe,
         insertAdjacentHTML,
         insertAdjacentHTMLUnsafe;
-
     var strings = {
         get nonStaticHTML() { return "Unable to add dynamic content. A script attempted to inject dynamic content, or elements previously modified dynamically, that might be unsafe. For example, using the innerHTML property or the document.write method to add a script element will generate this exception. If the content is safe and from a trusted source, use a method to explicitly manipulate elements and attributes, such as createElement, or use setInnerHTMLUnsafe (or other unsafe method)."; },
     };
-
     setInnerHTML = setInnerHTMLUnsafe = function (element, text) {
         /// <signature helpKeyword="WinJS.Utilities.setInnerHTML">
         /// <summary locid="WinJS.Utilities.setInnerHTML">
@@ -12105,7 +10890,6 @@ define('WinJS/Utilities/_SafeHtml',[
         /// </signature>
         element.insertAdjacentHTML(position, text);
     };
-
     var msApp = _Global.MSApp;
     if (msApp && msApp.execUnsafeLocalFunction) {
         setInnerHTMLUnsafe = function (element, text) {
@@ -12237,7 +11021,6 @@ define('WinJS/Utilities/_SafeHtml',[
             element.insertAdjacentHTML(position, text);
         };
     }
-
     _Base.Namespace._moduleDefine(exports, "WinJS.Utilities", {
         setInnerHTML: setInnerHTML,
         setInnerHTMLUnsafe: setInnerHTMLUnsafe,
@@ -12246,9 +11029,7 @@ define('WinJS/Utilities/_SafeHtml',[
         insertAdjacentHTML: insertAdjacentHTML,
         insertAdjacentHTMLUnsafe: insertAdjacentHTMLUnsafe
     });
-
 });
-
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 define('WinJS/Utilities/_Select',[
     'exports',
@@ -12256,7 +11037,6 @@ define('WinJS/Utilities/_Select',[
     './_SafeHtml'
     ], function selectInit(exports, _Base, _SafeHtml) {
     "use strict";
-
     _Base.Namespace._moduleDefine(exports, "WinJS.UI", {
         _Select: _Base.Namespace._lazy(function () {
             var encodeHtmlRegEx = /[&<>'"]/g;
@@ -12288,54 +11068,44 @@ define('WinJS/Utilities/_Select',[
                 if (!dataSource.getValue) {
                     dataSource.getValue = stockGetValue;
                 }
-
                 if (!dataSource.getLength) {
                     dataSource.getLength = stockGetLength;
                 }
                 return dataSource;
             }
-
             return _Base.Class.define(function _Select_ctor(element, options) {
                 // This is an implementation detail of the TimePicker and DatePicker, designed
                 // to provide a primitive "data bound" select control. This is not designed to
                 // be used outside of the TimePicker and DatePicker controls.
                 //
-
                 this._dataSource = fixDataSource(options.dataSource);
                 this._index = options.index || 0;
-
                 this._domElement = element;
                 // Mark this as a tab stop
                 this._domElement.tabIndex = 0;
-
                 if (options.disabled) {
                     this.setDisabled(options.disabled);
                 }
-
                 var that = this;
                 this._domElement.addEventListener("change", function () {
                     //Should be set to _index to prevent events from firing twice
                     that._index = that._domElement.selectedIndex;
                 }, false);
-
                 //update runtime accessibility value after initialization
                 this._createSelectElement();
             }, {
                 _index: 0,
                 _dataSource: null,
-
                 dataSource: {
                     get: function () { return this._dataSource; },
                     set: function (value) {
                         this._dataSource = fixDataSource(value);
-
                         //Update layout as data source change
                         if (this._domElement) {
                             this._createSelectElement();
                         }
                     }
                 },
-
                 setDisabled: function (disabled) {
                     if (disabled) {
                         this._domElement.setAttribute("disabled", "disabled");
@@ -12343,7 +11113,6 @@ define('WinJS/Utilities/_Select',[
                         this._domElement.removeAttribute("disabled");
                     }
                 },
-
                 _createSelectElement: function () {
                     var dataSourceLength = this._dataSource.getLength();
                     var text = "";
@@ -12360,7 +11129,6 @@ define('WinJS/Utilities/_Select',[
                     _SafeHtml.setInnerHTMLUnsafe(this._domElement, text);
                     this._domElement.selectedIndex = this._index;
                 },
-
                 index: {
                     get: function () {
                         return Math.max(0, Math.min(this._index, this._dataSource.getLength() - 1));
@@ -12368,7 +11136,6 @@ define('WinJS/Utilities/_Select',[
                     set: function (value) {
                         if (this._index !== value) {
                             this._index = value;
-
                             var d = this._domElement;
                             if (d && d.selectedIndex !== value) {
                                 d.selectedIndex = value;
@@ -12376,7 +11143,6 @@ define('WinJS/Utilities/_Select',[
                         }
                     }
                 },
-
                 value: {
                     get: function () {
                         return this._dataSource.getValue(this.index);
@@ -12386,16 +11152,13 @@ define('WinJS/Utilities/_Select',[
         })
     });
 });
-
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 define('WinJS/Utilities/_Telemetry',[
     'exports'
     ], function telemetryInit(exports) {
     "use strict";
-
     /// NOTE: This file should be included when NOT building
     /// Microsoft WinJS Framework Package which will be available in Windows Store.
-
     exports.send = function (name, params) {
     /// <signature helpKeyword="WinJS._Telemetry.send">
     /// <summary locid="WinJS._Telemetry.send">
@@ -12410,7 +11173,6 @@ define('WinJS/Utilities/_Telemetry',[
         /* empty */
     };
 });
-
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 define('WinJS/Utilities/_UI',[
     'exports',
@@ -12418,7 +11180,6 @@ define('WinJS/Utilities/_UI',[
     '../Core/_Base'
     ], function uiInit(exports, _BaseCoreUtils, _Base) {
     "use strict";
-
     _Base.Namespace._moduleDefine(exports, "WinJS.UI", {
         eventHandler: function (handler) {
             /// <signature helpKeyword="WinJS.UI.eventHandler">
@@ -12447,33 +11208,27 @@ define('WinJS/Utilities/_UI',[
             /// </field>
             vertical: "vertical"
         },
-
         CountResult: {
             unknown: "unknown"
         },
-
         CountError: {
             noResponse: "noResponse"
         },
-
         DataSourceStatus: {
             ready: "ready",
             waiting: "waiting",
             failure: "failure"
         },
-
         FetchError: {
             noResponse: "noResponse",
             doesNotExist: "doesNotExist"
         },
-
         EditError: {
             noResponse: "noResponse",
             canceled: "canceled",
             notPermitted: "notPermitted",
             noLongerMeaningful: "noLongerMeaningful"
         },
-
         /// <field locid="WinJS.UI.ListView.ObjectType" helpKeyword="WinJS.UI.ObjectType">
         /// Specifies the type of an IListViewEntity.
         /// </field>
@@ -12495,7 +11250,6 @@ define('WinJS/Utilities/_UI',[
             /// </field>
             footer: "footer",
         },
-
         /// <field locid="WinJS.UI.ListView.SelectionMode" helpKeyword="WinJS.UI.SelectionMode">
         /// Specifies the selection mode for a ListView.
         /// </field>
@@ -12514,7 +11268,6 @@ define('WinJS/Utilities/_UI',[
             /// </field>
             multi: "multi"
         },
-
         /// <field locid="WinJS.UI.TapBehavior" helpKeyword="WinJS.UI.TapBehavior">
         /// Specifies how an ItemContainer or items in a ListView respond to the tap interaction.
         /// </field>
@@ -12540,7 +11293,6 @@ define('WinJS/Utilities/_UI',[
             /// </field>
             none: "none"
         },
-
         /// <field locid="WinJS.UI.SwipeBehavior" helpKeyword="WinJS.UI.SwipeBehavior">
         /// Specifies whether items are selected when the user performs a swipe interaction.
         /// <compatibleWith platform="Windows" minVersion="8.0"/>
@@ -12555,7 +11307,6 @@ define('WinJS/Utilities/_UI',[
             /// </field>
             none: "none"
         },
-
         /// <field locid="WinJS.UI.GroupHeaderTapBehavior" helpKeyword="WinJS.UI.GroupHeaderTapBehavior">
         /// Specifies how group headers in a ListView respond to the tap interaction.
         /// </field>
@@ -12569,11 +11320,8 @@ define('WinJS/Utilities/_UI',[
             /// </field>
             none: "none"
         }
-
     });
-
 });
-
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 define('WinJS/Utilities/_Xhr',[
     '../Core/_Global',
@@ -12582,18 +11330,14 @@ define('WinJS/Utilities/_Xhr',[
     '../Scheduler'
     ], function xhrInit(_Global, _Base, Promise, Scheduler) {
     "use strict";
-
     function schedule(f, arg, priority) {
         Scheduler.schedule(function xhr_callback() {
             f(arg);
         }, priority, null, "WinJS.xhr");
     }
-
     function noop() {
     }
-
     var schemeRegex = /^(\w+)\:\/\//;
-
     function xhr(options) {
         /// <signature helpKeyword="WinJS.xhr">
         /// <summary locid="WinJS.xhr">
@@ -12613,7 +11357,6 @@ define('WinJS/Utilities/_Xhr',[
                 /// <returns value="c(new XMLHttpRequest())" locid="WinJS.xhr.constructor._returnValue" />
                 var priority = Scheduler.currentPriority;
                 req = new _Global.XMLHttpRequest();
-
                 var isLocalRequest = false;
                 var schemeMatch = schemeRegex.exec(options.url.toLowerCase());
                 if (schemeMatch) {
@@ -12623,14 +11366,11 @@ define('WinJS/Utilities/_Xhr',[
                 } else if (_Global.location.protocol === 'file:'){
                     isLocalRequest = true;
                 }
-
-
                 req.onreadystatechange = function () {
                     if (req._canceled) {
                         req.onreadystatechange = noop;
                         return;
                     }
-
                     if (req.readyState === 4) {
                         if ((req.status >= 200 && req.status < 300) || (isLocalRequest && req.status === 0)) {
                             schedule(c, req, priority);
@@ -12642,7 +11382,6 @@ define('WinJS/Utilities/_Xhr',[
                         schedule(p, req, priority);
                     }
                 };
-
                 req.open(
                     options.type || "GET",
                     options.url,
@@ -12653,15 +11392,12 @@ define('WinJS/Utilities/_Xhr',[
                     options.password
                 );
                 req.responseType = options.responseType || "";
-
                 Object.keys(options.headers || {}).forEach(function (k) {
                     req.setRequestHeader(k, options.headers[k]);
                 });
-
                 if (options.customRequestInitializer) {
                     options.customRequestInitializer(req);
                 }
-
                 if (options.data === undefined) {
                     req.send();
                 } else {
@@ -12675,15 +11411,11 @@ define('WinJS/Utilities/_Xhr',[
             }
         );
     }
-
     _Base.Namespace.define("WinJS", {
         xhr: xhr
     });
-
     return xhr;
-
 });
-
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 define('WinJS/Utilities',[
     './Utilities/_Control',
@@ -12701,7 +11433,6 @@ define('WinJS/Utilities',[
     './Utilities/_UI',
     './Utilities/_VersionManager',
     './Utilities/_Xhr' ], function () {
-
     //wrapper module
 });
 define('WinJS/XYFocus',["require", "exports", "./Core/_Global", "./Core/_Base", "./Core/_BaseUtils", "./Utilities/_ElementUtilities", "./Core/_Events", "./ControlProcessor/_OptionsParser"], function (require, exports, _Global, _Base, _BaseUtils, _ElementUtilities, _Events, _OptionsParser) {
@@ -13473,7 +12204,6 @@ define('WinJS/XYFocus',["require", "exports", "./Core/_Global", "./Core/_Base", 
         _Base.Namespace.define("WinJS.UI.XYFocus", toPublish);
     }
 });
-
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 define('WinJS/Fragments',[
     'exports',
@@ -13490,12 +12220,10 @@ define('WinJS/Fragments',[
     './Utilities/_Xhr'
 ], function fragmentLoaderInit(exports, _Global, _WinRT, _Base, _BaseUtils, _ErrorFromName, _Resources, _WriteProfilerMark, Promise, _ElementUtilities, _SafeHtml, _Xhr) {
     "use strict";
-
     // not supported in WebWorker
     if (!_Global.document) {
         return;
     }
-
     var forEach = function (arrayLikeValue, action) {
         for (var i = 0, l = arrayLikeValue.length; i < l; i++) {
             action(arrayLikeValue[i], i);
@@ -13508,7 +12236,6 @@ define('WinJS/Fragments',[
     var initialized = false;
     var cacheStore = {};
     var uniqueId = 1;
-
     function addScript(scriptTag, fragmentHref, position, lastNonInlineScriptPromise) {
         // We synthesize a name for inline scripts because today we put the
         // inline scripts in the same processing pipeline as src scripts. If
@@ -13521,10 +12248,8 @@ define('WinJS/Fragments',[
             src = fragmentHref + "script[" + position + "]";
         }
         src = src.toLowerCase();
-
         if (!(src in scripts)) {
             var promise = null;
-
             scripts[src] = true;
             var n = _Global.document.createElement("script");
             if (scriptTag.language) {
@@ -13547,20 +12272,17 @@ define('WinJS/Fragments',[
                     n.onload = n.onerror = function () {
                         c();
                     };
-
                     // Using scriptTag.src to maintain the original casing
                     n.setAttribute("src", scriptTag.src);
                 });
             }
             head.appendChild(n);
-
             return {
                 promise: promise,
                 inline: inline,
             };
         }
     }
-
     function addStyle(styleTag, fragmentHref, position) {
         var src = (fragmentHref + "script[" + position + "]").toLowerCase();
         if (!(src in styles)) {
@@ -13568,19 +12290,16 @@ define('WinJS/Fragments',[
             head.appendChild(styleTag.cloneNode(true));
         }
     }
-
     function addLink(styleTag) {
         var src = styleTag.href.toLowerCase();
         if (!(src in links)) {
             links[src] = true;
             var n = styleTag.cloneNode(false);
-
             // Using scriptTag.href  to maintain the original casing
             n.href = styleTag.href;
             head.appendChild(n);
         }
     }
-
     function getStateRecord(href, removeFromCache) {
         if (typeof href === "string") {
             return loadFromCache(href, removeFromCache);
@@ -13618,11 +12337,9 @@ define('WinJS/Fragments',[
                 return state;
             });
     }
-
     function loadFromCache(href, removeFromCache) {
         var fragmentId = href.toLowerCase();
         var state = cacheStore[fragmentId];
-
         if (state) {
             if (removeFromCache) {
                 delete cacheStore[fragmentId];
@@ -13642,19 +12359,15 @@ define('WinJS/Fragments',[
             return result;
         }
     }
-
     function processDocument(href, state) {
         // Once the control's static state has been loaded in the temporary iframe,
         // this method spelunks the iframe's document to retrieve all relevant information. Also,
         // this performs any needed fixups on the DOM (like adjusting relative URLs).
-
         var cd = state.document;
         var b = cd.body;
         var sp = [];
-
         forEach(cd.querySelectorAll('link[rel="stylesheet"], link[type="text/css"]'), addLink);
         forEach(cd.getElementsByTagName('style'), function (e, i) { addStyle(e, href, i); });
-
         // In DOCMODE 11 IE moved to the standards based script loading behavior of
         // having out-of-line script elements which are dynamically added to the DOM
         // asynchronously load. This raises two problems for our fragment loader,
@@ -13686,7 +12399,6 @@ define('WinJS/Fragments',[
                 sp.push(result.promise);
             }
         });
-
         forEach(b.getElementsByTagName('img'), function (e) { e.src = e.src; });
         forEach(b.getElementsByTagName('a'), function (e) {
             // for # only anchor tags, we don't update the href
@@ -13698,7 +12410,6 @@ define('WinJS/Fragments',[
                 }
             }
         });
-
         // strip inline scripts from the body, they got copied to the
         // host document with the rest of the scripts above...
         //
@@ -13707,7 +12418,6 @@ define('WinJS/Fragments',[
             var s = localScripts[0];
             s.parentNode.removeChild(s);
         }
-
         return Promise.join(sp).then(function () {
             // Create the docfrag which is just the body children
             //
@@ -13717,26 +12427,19 @@ define('WinJS/Fragments',[
                 fragment.appendChild(imported.childNodes[0]);
             }
             state.docfrag = fragment;
-
             return state;
         });
     }
-
     function initialize() {
         if (initialized) { return; }
-
         initialized = true;
-
         forEach(head.querySelectorAll("script"), function (e) {
             scripts[e.src.toLowerCase()] = true;
         });
-
-
         forEach(head.querySelectorAll('link[rel="stylesheet"], link[type="text/css"]'), function (e) {
             links[e.href.toLowerCase()] = true;
         });
     }
-
     function renderCopy(href, target) {
         /// <signature helpKeyword="WinJS.UI.Fragments.renderCopy">
         /// <summary locid="WinJS.UI.Fragments.renderCopy">
@@ -13754,21 +12457,17 @@ define('WinJS/Fragments',[
         /// completed value.
         /// </returns>
         /// </signature>
-
         return renderImpl(href, target, true);
     }
-
     function renderImpl(href, target, copy) {
         var profilerMarkIdentifier = (href instanceof _Global.HTMLElement ? _BaseUtils._getProfilerMarkIdentifier(href) : " href='" + href + "'") + "[" + (++uniqueId) + "]";
         writeProfilerMark("WinJS.UI.Fragments:render" + profilerMarkIdentifier + ",StartTM");
-
         initialize();
         return getStateRecord(href, !copy).then(function (state) {
             var frag = state.docfrag;
             if (copy) {
                 frag = frag.cloneNode(true);
             }
-
             var child = frag.firstChild;
             while (child) {
                 if (child.nodeType === 1 /*Element node*/) {
@@ -13776,7 +12475,6 @@ define('WinJS/Fragments',[
                 }
                 child = child.nextSibling;
             }
-
             var retVal;
             if (target) {
                 target.appendChild(frag);
@@ -13788,7 +12486,6 @@ define('WinJS/Fragments',[
             return retVal;
         });
     }
-
     function render(href, target) {
         /// <signature helpKeyword="WinJS.UI.Fragments.render">
         /// <summary locid="WinJS.UI.Fragments.render">
@@ -13806,10 +12503,8 @@ define('WinJS/Fragments',[
         /// completed value.
         /// </returns>
         /// </signature>
-
         return renderImpl(href, target, false);
     }
-
     function cache(href) {
         /// <signature helpKeyword="WinJS.UI.Fragments.cache">
         /// <summary locid="WinJS.UI.Fragments.cache">
@@ -13826,7 +12521,6 @@ define('WinJS/Fragments',[
         initialize();
         return getStateRecord(href).then(function (state) { return state.docfrag; });
     }
-
     function clearCache(href) {
         /// <signature helpKeyword="WinJS.UI.Fragments.clearCache">
         /// <summary locid="WinJS.UI.Fragments.clearCache">
@@ -13837,7 +12531,6 @@ define('WinJS/Fragments',[
         /// The URI that contains the fragment to be cleared. If no URI is provided, the entire contents of the cache are cleared.
         /// </param>
         /// </signature>
-
         if (!href) {
             cacheStore = {};
         } else if (typeof (href) === "string") {
@@ -13847,9 +12540,7 @@ define('WinJS/Fragments',[
             href.removeAttribute("data-win-hasfragment");
         }
     }
-
     function populateDocument(state, href) {
-
         var htmlDoc = _Global.document.implementation.createHTMLDocument("frag");
         var base = htmlDoc.createElement("base");
         htmlDoc.head.appendChild(base);
@@ -13865,16 +12556,13 @@ define('WinJS/Fragments',[
             htmlDoc.head.appendChild(base);
         });
     }
-
     var writeProfilerMark = _WriteProfilerMark;
-
     var getFragmentContents = getFragmentContentsXHR;
     function getFragmentContentsXHR(href) {
         return _Xhr({ url: href }).then(function (req) {
             return req.responseText;
         });
     }
-
     _Base.Namespace._moduleDefine(exports, "WinJS.UI.Fragments", {
         renderCopy: renderCopy,
         render: render,
@@ -13909,10 +12597,8 @@ define('WinJS/Application/_State',[
     '../Promise'
     ], function stateInit(exports, _Global, _WinRT, _Base, _BaseUtils, Promise) {
     "use strict";
-
     function initWithWinRT() {
         var local, temp, roaming;
-
         var IOHelper = _Base.Class.define(
         function IOHelper_ctor(folder) {
             this.folder = folder;
@@ -13924,7 +12610,6 @@ define('WinJS/Application/_State',[
             _tryGetItemAsync: function (fileName) {
                 return this.folder.getFileAsync(fileName).then(null, function () { return false; });
             },
-
             exists: function (fileName) {
                 /// <signature helpKeyword="WinJS.Application.IOHelper.exists">
                 /// <summary locid="WinJS.Application.IOHelper.exists">
@@ -13979,7 +12664,6 @@ define('WinJS/Application/_State',[
                         return sto.FileIO.writeTextAsync(fileItem, str);
                     });
             },
-
             readText: function (fileName, def) {
                 /// <signature helpKeyword="WinJS.Application.IOHelper.readText">
                 /// <summary locid="WinJS.Application.IOHelper.readText">
@@ -14001,11 +12685,9 @@ define('WinJS/Application/_State',[
                     return fileItem ? sto.FileIO.readTextAsync(fileItem) : def;
                 }).then(null, function () { return def; });
             }
-
         }, {
             supportedForProcessing: false,
         });
-
         _Base.Namespace._moduleDefine(exports, "WinJS.Application", {
             /// <field type="Object" helpKeyword="WinJS.Application.local" locid="WinJS.Application.local">
             /// Allows access to create files in the application local storage, which is preserved across runs
@@ -14045,7 +12727,6 @@ define('WinJS/Application/_State',[
             }
         });
     }
-
     function initWithStub() {
         var InMemoryHelper = _Base.Class.define(
             function InMemoryHelper_ctor() {
@@ -14123,7 +12804,6 @@ define('WinJS/Application/_State',[
                 supportedForProcessing: false,
             }
         );
-
         _Base.Namespace._moduleDefine(exports, "WinJS.Application", {
             /// <field type="Object" helpKeyword="WinJS.Application.local" locid="WinJS.Application.local">
             /// Allows access to create files in the application local storage, which is preserved across runs
@@ -14142,15 +12822,12 @@ define('WinJS/Application/_State',[
             roaming: new InMemoryHelper()
         });
     }
-
     if (_WinRT.Windows.Storage.FileIO && _WinRT.Windows.Storage.ApplicationData && _WinRT.Windows.Storage.CreationCollisionOption) {
         initWithWinRT();
     } else {
         initWithStub();
     }
-
     var sessionState = {};
-
     _Base.Namespace._moduleDefine(exports, "WinJS.Application", {
         sessionState: {
             get: function () {
@@ -14203,7 +12880,6 @@ define('WinJS/Application/_State',[
         }
     });
 });
-
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 define('WinJS/Navigation',[
     'exports',
@@ -14213,7 +12889,6 @@ define('WinJS/Navigation',[
     './Promise'
     ], function navigationInit(exports, _Base, _Events, _WriteProfilerMark, Promise) {
     "use strict";
-
     var navigatedEventName = "navigated";
     var navigatingEventName = "navigating";
     var beforenavigateEventName = "beforenavigate";
@@ -14225,7 +12900,6 @@ define('WinJS/Navigation',[
         forwardStack: []
     };
     var createEvent = _Events._createEventProperty;
-
     var raiseBeforeNavigate = function (proposed) {
         _WriteProfilerMark("WinJS.Navigation:navigation,StartTM");
         return Promise.as().
@@ -14242,7 +12916,6 @@ define('WinJS/Navigation',[
                         /// The promise to wait for.
                         /// </param>
                         /// </signature>
-
                         waitForPromise = waitForPromise.then(function () { return promise; });
                     },
                     location: proposed.location,
@@ -14268,7 +12941,6 @@ define('WinJS/Navigation',[
                         /// The promise to wait for.
                         /// </param>
                         /// </signature>
-
                         waitForPromise = waitForPromise.then(function () { return promise; });
                     },
                     location: history.current.location,
@@ -14295,7 +12967,6 @@ define('WinJS/Navigation',[
                 /// The promise to wait for.
                 /// </param>
                 /// </signature>
-
                 waitForPromise = waitForPromise.then(function () { return promise; });
             }
         };
@@ -14305,7 +12976,6 @@ define('WinJS/Navigation',[
         listeners.dispatchEvent(navigatedEventName, detail);
         return waitForPromise;
     };
-
     var go = function (distance, fromStack, toStack, delta) {
         distance = Math.min(distance, fromStack.length);
         if (distance > 0) {
@@ -14331,7 +13001,6 @@ define('WinJS/Navigation',[
         }
         return Promise.wrap(false);
     };
-
     _Base.Namespace._moduleDefine(exports, "WinJS.Navigation", {
         /// <field name="canGoForward" type="Boolean" locid="WinJS.Navigation.canGoForward" helpKeyword="WinJS.Navigation.canGoForward">
         /// Determines whether it is possible to navigate forwards.
@@ -14377,7 +13046,6 @@ define('WinJS/Navigation',[
             },
             set: function (value) {
                 history = value;
-
                 // ensure the require fields are present
                 //
                 history.backStack = history.backStack || [];
@@ -14444,7 +13112,6 @@ define('WinJS/Navigation',[
                         }
                         history.forwardStack = [];
                         history.current = proposed;
-
                         // error or no, we go from navigating -> navigated
                         // cancelation should be handled with "beforenavigate"
                         //
@@ -14524,9 +13191,7 @@ define('WinJS/Application',[
     './Utilities/_ElementUtilities'
 ], function applicationInit(exports, _Global, _WinRT, _Base, _Events, _Log, _WriteProfilerMark, _State, Navigation, Promise, _Signal, Scheduler, _ElementUtilities) {
     "use strict";
-
     _Global.Debug && (_Global.Debug.setNonUserCodeExceptions = true);
-
     var checkpointET = "checkpoint",
         unloadET = "unload",
         activatedET = "activated",
@@ -14540,17 +13205,14 @@ define('WinJS/Application',[
         edgyStartingET = "edgystarting",
         edgyCompletedET = "edgycompleted",
         edgyCanceledET = "edgycanceled";
-
     var outstandingPromiseErrors;
     var eventQueue = [];
     var eventQueueJob = null;
     var eventQueuedSignal = null;
     var running = false;
     var registered = false;
-
     var Symbol = _Global.Symbol;
     var isModern = !!Symbol && typeof Symbol.iterator === "symbol"; // jshint ignore:line
-
     var ListenerType = _Base.Class.mix(_Base.Class.define(null, { /* empty */ }, { supportedForProcessing: false }), _Events.eventMixin);
     var listeners = new ListenerType();
     var createEvent = _Events._createEventProperty;
@@ -14558,7 +13220,6 @@ define('WinJS/Application',[
     var pendingDeferralID = 0;
     var TypeToSearch = {
         _registered: false,
-
         updateRegistration: function Application_TypeToSearch_updateRegistration() {
             var ls = listeners._listeners && listeners._listeners[requestingFocusOnKeyboardInputET] || [];
             if (!TypeToSearch._registered && ls.length > 0) {
@@ -14570,26 +13231,22 @@ define('WinJS/Application',[
                 TypeToSearch._registered = false;
             }
         },
-
         _keydownCaptureHandler: function Application_TypeToSearch_keydownCaptureHandler(event) {
             if (TypeToSearch._registered && TypeToSearch._shouldKeyTriggerTypeToSearch(event)) {
                 requestingFocusOnKeyboardInput();
             }
         },
-
         _frameLoadCaptureHandler: function Application_TypeToSearch_frameLoadCaptureHandler(event) {
             if (TypeToSearch._registered) {
                 TypeToSearch._updateKeydownCapture(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);(event.target.contentWindow, true /*add*/);
             }
         },
-
         _updateKeydownCapture(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);: function Application_TypeToSearch_updateKeydownCapture(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);(win, add) {
             if (!win) {
                 // This occurs when this handler gets called from an IFrame event that is no longer in the DOM
                 // and therefore does not have a valid contentWindow object.
                 return;
             }
-
             // Register for child frame keydown events in order to support FocusOnKeyboardInput
             // when focus is in a child frame.  Also register for child frame load events so
             // it still works after frame navigations.
@@ -14603,12 +13260,10 @@ define('WinJS/Application',[
                 }
             } catch (e) { // if the IFrame crosses domains, we'll get a permission denied error
             }
-
             if (win.frames) {
                 for (var i = 0, l = win.frames.length; i < l; i++) {
                     var childWin = win.frames[i];
                     TypeToSearch._updateKeydownCapture(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);(childWin, add);
-
                     try {
                         if (add) {
                             if (childWin.frameElement) {
@@ -14624,7 +13279,6 @@ define('WinJS/Application',[
                 }
             }
         },
-
         _shouldKeyTriggerTypeToSearch: function Application_TypeToSearch_shouldKeyTriggerTypeToSearch(event) {
             var shouldTrigger = false;
             // First, check if a metaKey is pressed (only applies to MacOS). If so, do nothing here.
@@ -14644,7 +13298,6 @@ define('WinJS/Application',[
                         case 0x37:  //0x37 7 key
                         case 0x38:  //0x38 8 key
                         case 0x39:  //0x39 9 key
-
                         case 0x41:  //0x41 A key
                         case 0x42:  //0x42 B key
                         case 0x43:  //0x43 C key
@@ -14671,7 +13324,6 @@ define('WinJS/Application',[
                         case 0x58:  //0x58 X key
                         case 0x59:  //0x59 Y key
                         case 0x5A:  //0x5A Z key
-
                         case 0x60:  // VK_NUMPAD0,             //0x60 Numeric keypad 0 key
                         case 0x61:  // VK_NUMPAD1,             //0x61 Numeric keypad 1 key
                         case 0x62:  // VK_NUMPAD2,             //0x62 Numeric keypad 2 key
@@ -14688,7 +13340,6 @@ define('WinJS/Application',[
                         case 0x6D:  // VK_SUBTRACT,            //0x6D Subtract key
                         case 0x6E:  // VK_DECIMAL,             //0x6E Decimal key
                         case 0x6F:  // VK_DIVIDE,              //0x6F Divide key
-
                         case 0xBA:  // VK_OEM_1,               //0xBA Used for miscellaneous characters; it can vary by keyboard. For the US standard keyboard, the ';:' key
                         case 0xBB:  // VK_OEM_PLUS,            //0xBB For any country/region, the '+' key
                         case 0xBC:  // VK_OEM_COMMA,           //0xBC For any country/region, the ',' key
@@ -14696,17 +13347,13 @@ define('WinJS/Application',[
                         case 0xBE:  // VK_OEM_PERIOD,          //0xBE For any country/region, the '.' key
                         case 0xBF:  // VK_OEM_2,               //0xBF Used for miscellaneous characters; it can vary by keyboard. For the US standard keyboard, the '/?' key
                         case 0xC0:  // VK_OEM_3,               //0xC0 Used for miscellaneous characters; it can vary by keyboard. For the US standard keyboard, the '`~' key
-
                         case 0xDB:  // VK_OEM_4,               //0xDB Used for miscellaneous characters; it can vary by keyboard. For the US standard keyboard, the '[{' key
                         case 0xDC:  // VK_OEM_5,               //0xDC Used for miscellaneous characters; it can vary by keyboard. For the US standard keyboard, the '\|' key
                         case 0xDD:  // VK_OEM_6,               //0xDD Used for miscellaneous characters; it can vary by keyboard. For the US standard keyboard, the ']}' key
                         case 0xDE:  // VK_OEM_7,               //0xDE Used for miscellaneous characters; it can vary by keyboard. For the US standard keyboard, the 'single-quote/double-quote' key
                         case 0xDF:  // VK_OEM_8,               //0xDF Used for miscellaneous characters; it can vary by keyboard.
-
                         case 0xE2:  // VK_OEM_102,             //0xE2 Either the angle bracket key or the backslash key on the RT 102-key keyboard
-
                         case 0xE5:  // VK_PROCESSKEY,          //0xE5 IME PROCESS key
-
                         case 0xE7:  // VK_PACKET,              //0xE7 Used to pass Unicode characters as if they were keystrokes. The VK_PACKET key is the low word of a 32-bit Virtual Key value used for non-keyboard input methods. For more information, see Remark in KEYBDINPUT, SendInput, WM_KEYDOWN, and WM_KEYUP
                             shouldTrigger = true;
                             break;
@@ -14716,7 +13363,6 @@ define('WinJS/Application',[
             return shouldTrigger;
         }
     };
-
     function safeSerialize(obj) {
         var str;
         try {
@@ -14740,7 +13386,6 @@ define('WinJS/Application',[
                 } else {
                     return value;
                 }
-
             });
         }
         catch (err) {
@@ -14755,10 +13400,8 @@ define('WinJS/Application',[
         }
         return str;
     }
-
     function fatalErrorHandler(e) {
         _Log.log && _Log.log(safeSerialize(e), "winjs", "error");
-
         if (_Global.document && exports._terminateApp) {
             var data = e.detail;
             var number = data && (data.number || (data.exception && (data.exception.number || data.exception.code)) || (data.error && data.error.number) || data.errorCode || 0);
@@ -14772,7 +13415,6 @@ define('WinJS/Application',[
             exports._terminateApp(terminateData, e);
         }
     }
-
     function defaultTerminateAppHandler(data, e) {
         /*jshint unused: false*/
         // This is the unhandled exception handler in WinJS. This handler is invoked whenever a promise
@@ -14780,15 +13422,12 @@ define('WinJS/Application',[
         //
         // To see the original exception stack, look at data.stack.
         // For more information on debugging and exception handling go to http://go.microsoft.com/fwlink/p/?LinkId=253583.
-
         debugger; // jshint ignore:line
         if (_Global.MSApp) {
             _Global.MSApp.terminateApp(data);
         }
     }
-
     var terminateAppHandler = defaultTerminateAppHandler;
-
     function captureDeferral(obj) {
         var id = "def" + (pendingDeferralID++);
         return { deferral: pendingDeferrals[id] = obj.getDeferral(), id: id };
@@ -14816,10 +13455,8 @@ define('WinJS/Application',[
             pendingDeferrals = {};
         }
     }
-
     function dispatchEvent(eventRecord) {
         _WriteProfilerMark("WinJS.Application:Event_" + eventRecord.type + ",StartTM");
-
         var waitForPromise = Promise.as();
         eventRecord.setPromise = function (promise) {
             /// <signature helpKeyword="WinJS.Application.eventRecord.setPromise">
@@ -14841,7 +13478,6 @@ define('WinJS/Application',[
         if (typeof (eventRecord.detail) === "object") {
             eventRecord.detail.setPromise = eventRecord.setPromise;
         }
-
         try {
             if (listeners._listeners) {
                 var handled = false;
@@ -14852,7 +13488,6 @@ define('WinJS/Application',[
                     }
                 }
             }
-
             // Fire built in listeners last, for checkpoint this is important
             // as it lets our built in serialization see any mutations to
             // app.sessionState
@@ -14869,17 +13504,13 @@ define('WinJS/Application',[
                 queueEvent({ type: errorET, detail: err });
             }
         }
-
-
         function cleanup(r) {
             _WriteProfilerMark("WinJS.Application:Event_" + eventRecord.type + ",StopTM");
-
             if (eventRecord._deferral) {
                 completeDeferral(eventRecord._deferral, eventRecord._deferralID);
             }
             return r;
         }
-
         return waitForPromise.then(cleanup, function (r) {
             r = cleanup(r);
             if (r && r.name === "Canceled") {
@@ -14888,7 +13519,6 @@ define('WinJS/Application',[
             return Promise.wrapError(r);
         });
     }
-
     function createEventQueuedSignal() {
         if (!eventQueuedSignal) {
             eventQueuedSignal = new _Signal();
@@ -14900,56 +13530,45 @@ define('WinJS/Application',[
         }
         return eventQueuedSignal;
     }
-
     function drainOneEvent(queue) {
         function drainError(err) {
             queueEvent({ type: errorET, detail: err });
         }
-
         if (queue.length === 0) {
             return createEventQueuedSignal().promise;
         } else {
             return dispatchEvent(queue.shift()).then(null, drainError);
         }
     }
-
     // Drains the event queue via the scheduler
     //
     function drainQueue(jobInfo) {
         function drainNext() {
             return drainQueue;
         }
-
         var queue = jobInfo.job._queue;
-
         if (queue.length === 0 && eventQueue.length > 0) {
             queue = jobInfo.job._queue = copyAndClearQueue();
         }
-
         jobInfo.setPromise(drainOneEvent(queue).then(drainNext, drainNext));
     }
-
     function startEventQueue() {
         function markSync() {
             sync = true;
         }
-
         var queue = [];
         var sync = true;
         var promise;
-
         // Drain the queue as long as there are events and they complete synchronously
         //
         while (sync) {
             if (queue.length === 0 && eventQueue.length > 0) {
                 queue = copyAndClearQueue();
             }
-
             sync = false;
             promise = drainOneEvent(queue);
             promise.done(markSync, markSync);
         }
-
         // Schedule a job which will be responsible for draining events for the
         //  lifetime of the application.
         //
@@ -14961,7 +13580,6 @@ define('WinJS/Application',[
         }, Scheduler.Priority.high, null, "WinJS.Application._pumpEventQueue");
         eventQueueJob._queue = queue;
     }
-
     function queueEvent(eventRecord) {
         /// <signature helpKeyword="WinJS.Application.queueEvent">
         /// <summary locid="WinJS.Application.queueEvent">
@@ -14980,13 +13598,11 @@ define('WinJS/Application',[
             eventQueuedSignal.complete(drainQueue);
         }
     }
-
     function copyAndClearQueue() {
         var queue = eventQueue;
         eventQueue = [];
         return queue;
     }
-
     var builtIn(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera); = {
         activated: [
             function Application_activatedHandler() {
@@ -15024,7 +13640,6 @@ define('WinJS/Application',[
             }
         ]
     };
-
     // loaded == DOMContentLoaded
     // activated == after WinRT Activated
     // ready == after all of the above
@@ -15093,7 +13708,6 @@ define('WinJS/Application',[
         //
         var details = e.detail;
         var id = details.id;
-
         // If the error has a parent promise then this is not the origination of the
         //  error so we check if it has a handler, and if so we mark that the error
         //  was handled by removing it from outstandingPromiseErrors
@@ -15104,7 +13718,6 @@ define('WinJS/Application',[
             }
             return;
         }
-
         // Work around browsers that don't serialize exceptions
         if (details.exception instanceof Error) {
             var error = {
@@ -15113,18 +13726,15 @@ define('WinJS/Application',[
             };
             details.exception = error;
         }
-
         // If this is the first promise error to occur in this period we need to schedule
         //  a helper to come along after a setImmediate that propagates any remaining
         //  errors to the application's queue.
         //
         var shouldScheduleErrors = !outstandingPromiseErrors;
-
         // Indicate that this error was orignated and needs to be handled
         //
         outstandingPromiseErrors = outstandingPromiseErrors || [];
         outstandingPromiseErrors[id] = details;
-
         if (shouldScheduleErrors) {
             Scheduler.schedule(function Application_async_promiseErrorHandler() {
                 var errors = outstandingPromiseErrors;
@@ -15135,18 +13745,15 @@ define('WinJS/Application',[
             }, Scheduler.Priority.high, null, "WinJS.Application._queuePromiseErrors");
         }
     }
-
     // capture this early
     //
     if (_Global.document) {
         _Global.document.addEventListener("DOMContentLoaded", domContentLoadedHandler, false);
     }
-
     function commandsRequested(e) {
         var event = { e: e, applicationcommands: undefined };
         listeners.dispatchEvent(settingsET, event);
     }
-
     function hardwareButtonBackPressed(winRTBackPressedEvent) {
         // Fire WinJS.Application 'backclick' event. If the winRTBackPressedEvent is not handled, the app will get suspended.
         var eventRecord = { type: backClickET };
@@ -15156,52 +13763,42 @@ define('WinJS/Application',[
         });
         dispatchEvent(eventRecord);
     }
-
     function requestingFocusOnKeyboardInput() {
         // Built in listener for beforeRequestingFocusOnKeyboardInputET will trigger
         // requestingFocusOnKeyboardInputET if it wasn't handled.
         dispatchEvent({ type: beforeRequestingFocusOnKeyboardInputET });
     }
-
     function edgyStarting(eventObject) {
         dispatchEvent({ type: edgyStartingET, kind: eventObject.kind });
     }
-
     function edgyCompleted(eventObject) {
         dispatchEvent({ type: edgyCompletedET, kind: eventObject.kind });
     }
-
     function edgyCanceled(eventObject) {
         dispatchEvent({ type: edgyCanceledET, kind: eventObject.kind });
     }
-
     function getNavManager() {
         // Use environment inference to avoid a critical error
         // in `getForCurrentView` when running in Windows 8 compat mode.
         var manager = _WinRT.Windows.UI.Core.SystemNavigationManager;
         return (isModern && manager) ? manager.getForCurrentView() : null;
     }
-
     function register() {
         if (!registered) {
             registered = true;
             _Global.addEventListener("beforeunload", beforeUnloadHandler, false);
-
             // None of these are enabled in web worker
             if (_Global.document) {
                 _Global.addEventListener("error", errorHandler, false);
                 if (_WinRT.Windows.UI.WebUI.WebUIApplication) {
-
                     var wui = _WinRT.Windows.UI.WebUI.WebUIApplication;
                     wui.addEventListener("activated", activatedHandler, false);
                     wui.addEventListener("suspending", suspendingHandler, false);
                 }
-
                 if (_WinRT.Windows.UI.ApplicationSettings.SettingsPane) {
                     var settingsPane = _WinRT.Windows.UI.ApplicationSettings.SettingsPane.getForCurrentView();
                     settingsPane.addEventListener("commandsrequested", commandsRequested);
                 }
-
                 // This integrates WinJS.Application into the hardware or OS-provided back button.
                 var navManager = getNavManager();
                 if (navManager) {
@@ -15212,7 +13809,6 @@ define('WinJS/Application',[
                     // For WP 8.1
                     _WinRT.Windows.Phone.UI.Input.HardwareButtons.addEventListener("backpressed", hardwareButtonBackPressed);
                 }
-
                 if (_WinRT.Windows.UI.Input.EdgeGesture) {
                     var edgy = _WinRT.Windows.UI.Input.EdgeGesture.getForCurrentView();
                     edgy.addEventListener("starting", edgyStarting);
@@ -15220,7 +13816,6 @@ define('WinJS/Application',[
                     edgy.addEventListener("canceled", edgyCanceled);
                 }
             }
-
             Promise.addEventListener("error", promiseErrorHandler);
         }
     }
@@ -15228,29 +13823,24 @@ define('WinJS/Application',[
         if (registered) {
             registered = false;
             _Global.removeEventListener("beforeunload", beforeUnloadHandler, false);
-
             // None of these are enabled in web worker
             if (_Global.document) {
                 if (_WinRT.Windows.UI.WebUI.WebUIApplication) {
                     _Global.removeEventListener("error", errorHandler, false);
-
                     var wui = _WinRT.Windows.UI.WebUI.WebUIApplication;
                     wui.removeEventListener("activated", activatedHandler, false);
                     wui.removeEventListener("suspending", suspendingHandler, false);
                 }
-
                 if (_WinRT.Windows.UI.ApplicationSettings.SettingsPane) {
                     var settingsPane = _WinRT.Windows.UI.ApplicationSettings.SettingsPane.getForCurrentView();
                     settingsPane.removeEventListener("commandsrequested", commandsRequested);
                 }
-
                 var navManager = getNavManager();
                 if (navManager) {
                     navManager.removeEventListener("backrequested", hardwareButtonBackPressed);
                 } else if (_WinRT.Windows.Phone.UI.Input.HardwareButtons) {
                     _WinRT.Windows.Phone.UI.Input.HardwareButtons.removeEventListener("backpressed", hardwareButtonBackPressed);
                 }
-
                 if (_WinRT.Windows.UI.Input.EdgeGesture) {
                     var edgy = _WinRT.Windows.UI.Input.EdgeGesture.getForCurrentView();
                     edgy.removeEventListener("starting", edgyStarting);
@@ -15258,11 +13848,9 @@ define('WinJS/Application',[
                     edgy.removeEventListener("canceled", edgyCanceled);
                 }
             }
-
             Promise.removeEventListener("error", promiseErrorHandler);
         }
     }
-
     var publicNS = _Base.Namespace._moduleDefine(exports, "WinJS.Application", {
         stop: function Application_stop() {
             /// <signature helpKeyword="WinJS.Application.stop">
@@ -15271,7 +13859,6 @@ define('WinJS/Application',[
             /// to its initial state.
             /// </summary>
             /// </signature>
-
             // Need to clear out the event properties explicitly to clear their backing
             //  state.
             //
@@ -15294,7 +13881,6 @@ define('WinJS/Application',[
             TypeToSearch.updateRegistration();
             cleanupAllPendingDeferrals();
         },
-
         addEventListener: function Application_addEventListener(eventType, listener, capture) {
             /// <signature helpKeyword="WinJS.Application.addEventListener">
             /// <summary locid="WinJS.Application.addEventListener">
@@ -15335,7 +13921,6 @@ define('WinJS/Application',[
                 TypeToSearch.updateRegistration();
             }
         },
-
         checkpoint: function Application_checkpoint() {
             /// <signature helpKeyword="WinJS.Application.checkpoint">
             /// <summary locid="WinJS.Application.checkpoint">
@@ -15344,7 +13929,6 @@ define('WinJS/Application',[
             /// </signature>
             queueEvent({ type: checkpointET });
         },
-
         start: function Application_start() {
             /// <signature helpKeyword="WinJS.Application.start">
             /// <summary locid="WinJS.Application.start">
@@ -15355,12 +13939,9 @@ define('WinJS/Application',[
             running = true;
             startEventQueue();
         },
-
         queueEvent: queueEvent,
-
         // Like queueEvent but fires the event synchronously. Useful in tests.
         _dispatchEvent: dispatchEvent,
-
         _terminateApp: {
             get: function Application_terminateApp_get() {
                 return terminateAppHandler;
@@ -15369,12 +13950,10 @@ define('WinJS/Application',[
                 terminateAppHandler = value;
             }
         },
-
         _applicationListener: _Base.Namespace._lazy(function () {
             // Use _lazy because publicNS can't be referenced in its own definition
             return new _ElementUtilities._GenericListener("Application", publicNS);
         }),
-
         /// <field type="Function" locid="WinJS.Application.oncheckpoint" helpKeyword="WinJS.Application.oncheckpoint">
         /// Occurs when receiving Process Lifetime Management (PLM) notification or when the checkpoint function is called.
         /// </field>
@@ -15410,8 +13989,6 @@ define('WinJS/Application',[
         /// Raised when the users clicks the hardware back button.
         /// </field>
         onbackclick: createEvent(backClickET)
-
-
     });
 });
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
@@ -15420,7 +13997,6 @@ define('WinJS/Animations/_Constants',[
     '../Core/_Base'
     ], function animationsConstantsInit(exports, _Base) {
     "use strict";
-
     _Base.Namespace._moduleDefine(exports, "WinJS.UI", {
         /// <field locid="WinJS.UI.PageNavigationAnimation" helpKeyword="WinJS.UI.PageNavigationAnimation">
         /// Specifies what animation type should be returned by WinJS.UI.Animation.createPageNavigationAnimations.
@@ -15444,7 +14020,6 @@ define('WinJS/Animations/_Constants',[
             continuum: "continuum"
         }
     });
-
 });
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 define('WinJS/Animations/_TransitionAnimation',[
@@ -15458,14 +14033,11 @@ define('WinJS/Animations/_TransitionAnimation',[
     '../Utilities/_ElementUtilities'
     ], function transitionAnimationInit(exports, _Global, _WinRT, _Base, _BaseUtils, Promise, Scheduler, _ElementUtilities) {
     "use strict";
-
     // not supported in WebWorker
     if (!_Global.document) {
         return;
     }
-
     var browserStyleEquivalents = _BaseUtils._browserStyleEquivalents;
-
     function makeArray(elements) {
         if (Array.isArray(elements) || elements instanceof _Global.NodeList || elements instanceof _Global.HTMLCollection) {
             return elements;
@@ -15475,7 +14047,6 @@ define('WinJS/Animations/_TransitionAnimation',[
             return [];
         }
     }
-
     var keyframeCounter = 0;
     function getUniqueKeyframeName() {
         ++keyframeCounter;
@@ -15484,11 +14055,9 @@ define('WinJS/Animations/_TransitionAnimation',[
     function isUniqueKeyframeName(s) {
         return "WinJSUIAnimation" === s.substring(0, 16);
     }
-
     function resolveStyles(elem) {
         _ElementUtilities._getComputedStyle(elem, null).opacity;
     }
-
     function copyWithEvaluation(iElem, elem) {
         return function (obj) {
             var newObj = {};
@@ -15505,12 +14074,9 @@ define('WinJS/Animations/_TransitionAnimation',[
             return newObj;
         };
     }
-
     var activeActions = [];
-
     var reason_interrupted = 1;
     var reason_canceled = 2;
-
     function stopExistingAction(id, prop) {
         var key = id + "|" + prop;
         var finish = activeActions[key];
@@ -15518,15 +14084,12 @@ define('WinJS/Animations/_TransitionAnimation',[
             finish(reason_interrupted);
         }
     }
-
     function registerAction(id, prop, finish) {
         activeActions[id + "|" + prop] = finish;
     }
-
     function unregisterAction(id, prop) {
         delete activeActions[id + "|" + prop];
     }
-
     var StyleCache = _Base.Class.define(
         // Constructor
         function StyleCache_ctor(id, desc, style) {
@@ -15579,16 +14142,13 @@ define('WinJS/Animations/_TransitionAnimation',[
                 }
             }
         });
-
     function setTemporaryStyles(elem, id, style, actions, desc) {
         var styleCache = desc.styleCaches[id] ||
                          new StyleCache(id, desc, style);
         styleCache.cref += actions.length;
-
         actions.forEach(function (action) {
             stopExistingAction(id, action.property);
         });
-
         if (desc.isTransition ||
             actions.some(function (action) {
                 return styleCache.removed[action[desc.nameField]];
@@ -15596,14 +14156,12 @@ define('WinJS/Animations/_TransitionAnimation',[
             resolveStyles(elem);
             styleCache.removed = {};
         }
-
         var newShorthand = actions.map(function (action) {
             return action[desc.nameField] + " " +
                 desc.props.map(function (p) {
                     return (p[1] ? action[p[1]] : "") + p[2];
                 }).join(" ");
         }).join(", ");
-
         var newNames = actions.map(function (action) {
             return action[desc.nameField];
         }).join(", ");
@@ -15611,12 +14169,10 @@ define('WinJS/Animations/_TransitionAnimation',[
             newShorthand = styleCache.names + ", " + newShorthand;
             newNames = styleCache.names + ", " + newNames;
         }
-
         style[desc.shorthandProp] = newShorthand;
         styleCache.names = newNames;
         return styleCache;
     }
-
     var elementTransitionProperties = {
         shorthandProp: browserStyleEquivalents["transition"].scriptName,
         nameProp: browserStyleEquivalents["transition-property"].scriptName,
@@ -15629,7 +14185,6 @@ define('WinJS/Animations/_TransitionAnimation',[
         isTransition: true,
         styleCaches: []
     };
-
     function completePromise(c, synchronous) {
         if (synchronous) {
             c();
@@ -15639,7 +14194,6 @@ define('WinJS/Animations/_TransitionAnimation',[
             }, Scheduler.Priority.normal, null, "WinJS.UI._Animation._completeAnimationPromise");
         }
     }
-
     var uniformizeStyle;
     function executeElementTransition(elem, index, transitions, promises, animate) {
         if (transitions.length > 0) {
@@ -15658,11 +14212,9 @@ define('WinJS/Animations/_TransitionAnimation',[
                 transition.to = uniformizeStyle[scriptNameOfProperty];
                 transition.propertyScriptName = scriptNameOfProperty;
             });
-
             if (animate) {
                 var styleCache = setTemporaryStyles(elem, id, style, transitions, elementTransitionProperties);
                 var listener = elem.disabled ? _Global.document : elem;
-
                 transitions.forEach(function (transition) {
                     var finish;
                     promises.push(new Promise(function (c) {
@@ -15676,16 +14228,13 @@ define('WinJS/Animations/_TransitionAnimation',[
                             }
                             completePromise(c, reason === reason_canceled);
                         };
-
                         var onTransitionEnd = function (event) {
                             if (event.target === elem && event.propertyName === transition.property) {
                                 finish();
                             }
                         };
-
                         registerAction(id, transition.property, finish);
                         listener.addEventListener(_BaseUtils._browserEventEquivalents["transitionEnd"], onTransitionEnd, false);
-
                         var padding = 0;
                         if (style[transition.propertyScriptName] !== transition.to) {
                             style[transition.propertyScriptName] = transition.to;
@@ -15703,7 +14252,6 @@ define('WinJS/Animations/_TransitionAnimation',[
             }
         }
     }
-
     var elementAnimationProperties = {
         shorthandProp: browserStyleEquivalents["animation"].scriptName,
         nameProp: browserStyleEquivalents["animation-name"].scriptName,
@@ -15719,7 +14267,6 @@ define('WinJS/Animations/_TransitionAnimation',[
         isTransition: false,
         styleCaches: []
     };
-
     function executeElementAnimation(elem, index, anims, promises, animate) {
         if (animate && anims.length > 0) {
             var style = elem.style;
@@ -15754,13 +14301,11 @@ define('WinJS/Animations/_TransitionAnimation',[
                         }
                         completePromise(c, reason === reason_canceled);
                     };
-
                     var onAnimationEnd = function (event) {
                         if (event.target === elem && event.animationName === anim.keyframe) {
                             finish();
                         }
                     };
-
                     registerAction(id, anim.property, finish);
                     // Firefox will stop all animations if we clean up that animation's properties when there're other CSS animations still running
                     // on an element. To work around this, we delay animation style cleanup until all parts of an animation finish.
@@ -15784,7 +14329,6 @@ define('WinJS/Animations/_TransitionAnimation',[
                     }
                 }, 50);
             }
-
             var cleanupAnimations = function () {
                 for (var i = 0; i < animationsToCleanUp.length; i++) {
                     var anim = animationsToCleanUp[i];
@@ -15795,7 +14339,6 @@ define('WinJS/Animations/_TransitionAnimation',[
             promises.push(Promise.join(animationPromises).then(cleanupAnimations, cleanupAnimations));
         }
     }
-
     var enableCount = 0;
     var animationSettings;
     function initAnimations() {
@@ -15807,7 +14350,6 @@ define('WinJS/Animations/_TransitionAnimation',[
             }
         }
     }
-
     var isAnimationEnabled = function isAnimationEnabledImpl() {
         /// <signature helpKeyword="WinJS.UI.isAnimationEnabled">
         /// <summary locid="WinJS.UI.isAnimationEnabled">
@@ -15821,15 +14363,12 @@ define('WinJS/Animations/_TransitionAnimation',[
         initAnimations();
         return enableCount + animationSettings.animationsEnabled > 0;
     };
-
     function applyAction(element, action, execAction) {
         try {
             var animate = exports.isAnimationEnabled();
             var elems = makeArray(element);
             var actions = makeArray(action);
-
             var promises = [];
-
             for (var i = 0; i < elems.length; i++) {
                 if (Array.isArray(elems[i])) {
                     for (var j = 0; j < elems[i].length; j++) {
@@ -15839,7 +14378,6 @@ define('WinJS/Animations/_TransitionAnimation',[
                     execAction(elems[i], i, actions, promises, animate);
                 }
             }
-
             if (promises.length) {
                 return Promise.join(promises);
             } else {
@@ -15851,7 +14389,6 @@ define('WinJS/Animations/_TransitionAnimation',[
             return Promise.wrapError(e);
         }
     }
-
     function adjustAnimationTime(animation) {
         if (Array.isArray(animation)) {
             return animation.map(function (animation) {
@@ -15865,7 +14402,6 @@ define('WinJS/Animations/_TransitionAnimation',[
             return;
         }
     }
-
     function animationAdjustment(animation) {
         if (animationFactor === 1) {
             return animation;
@@ -15873,14 +14409,11 @@ define('WinJS/Animations/_TransitionAnimation',[
             return adjustAnimationTime(animation);
         }
     }
-
     var animationTimeAdjustment = function _animationTimeAdjustmentImpl(v) {
         return v * animationFactor;
     };
-
     var animationFactor = 1;
     var libraryDelay = 0;
-
     _Base.Namespace._moduleDefine(exports, "WinJS.UI", {
         disableAnimations: function () {
             /// <signature helpKeyword="WinJS.UI.disableAnimations">
@@ -15891,7 +14424,6 @@ define('WinJS/Animations/_TransitionAnimation',[
             /// </signature>
             enableCount--;
         },
-
         enableAnimations: function () {
             /// <signature helpKeyword="WinJS.UI.enableAnimations">
             /// <summary locid="WinJS.UI.enableAnimations">
@@ -15901,7 +14433,6 @@ define('WinJS/Animations/_TransitionAnimation',[
             /// </signature>
             enableCount++;
         },
-
         isAnimationEnabled: {
             get: function () {
                 return isAnimationEnabled;
@@ -15910,7 +14441,6 @@ define('WinJS/Animations/_TransitionAnimation',[
                 isAnimationEnabled = value;
             }
         },
-
         _libraryDelay: {
             get: function () {
                 return libraryDelay;
@@ -15919,7 +14449,6 @@ define('WinJS/Animations/_TransitionAnimation',[
                 libraryDelay = value;
             }
         },
-
         executeAnimation: function (element, animation) {
             /// <signature helpKeyword="WinJS.UI.executeAnimation">
             /// <summary locid="WinJS.UI.executeAnimation">
@@ -15941,7 +14470,6 @@ define('WinJS/Animations/_TransitionAnimation',[
             /// </signature>
             return applyAction(element, animationAdjustment(animation), executeElementAnimation);
         },
-
         executeTransition: function (element, transition) {
             /// <signature helpKeyword="WinJS.UI.executeTransition">
             /// <summary locid="WinJS.UI.executeTransition">
@@ -15963,7 +14491,6 @@ define('WinJS/Animations/_TransitionAnimation',[
             /// </signature>
             return applyAction(element, animationAdjustment(transition), executeElementTransition);
         },
-
         _animationTimeAdjustment: {
             get: function () {
                 return animationTimeAdjustment;
@@ -15972,9 +14499,7 @@ define('WinJS/Animations/_TransitionAnimation',[
                 animationTimeAdjustment = value;
             }
         }
-
     });
-
     _Base.Namespace._moduleDefine(exports, "WinJS.Utilities", {
         _fastAnimations: {
             get: function () {
@@ -16001,9 +14526,7 @@ define('WinJS/Animations/_TransitionAnimation',[
             }
         },
     });
-
 });
-
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 define('WinJS/Animations',[
     'exports',
@@ -16017,12 +14540,9 @@ define('WinJS/Animations',[
     './Promise'
 ], function animationsInit(exports, _Global, _Base, _BaseUtils, _WriteProfilerMark, _ElementUtilities, _Constants, _TransitionAnimation, Promise) {
     "use strict";
-
     var transformNames = _BaseUtils._browserStyleEquivalents["transform"];
-
     // Default to 11 pixel from the left (or right if RTL)
     var defaultOffset = [{ top: "0px", left: "11px", rtlflip: true }];
-
     var OffsetArray = _Base.Class.define(function OffsetArray_ctor(offset, keyframe, defOffset) {
         // Constructor
         defOffset = defOffset || defaultOffset;
@@ -16048,41 +14568,33 @@ define('WinJS/Animations',[
     }, { // Static Members
         supportedForProcessing: false,
     });
-
     function checkKeyframe(offset, defOffset, keyframe) {
         if (offset.keyframe) {
             return offset.keyframe;
         }
-
         if (!keyframe ||
             offset.left !== defOffset.left ||
             offset.top !== defOffset.top ||
             (offset.rtlflip && !defOffset.rtlflip)) {
             return null;
         }
-
         if (!offset.rtlflip) {
             return keyframe;
         }
-
         return keyframeCallback(keyframe);
     }
-
     function chooseKeyframe(defOffset, keyframe) {
         if (!keyframe || !defOffset.rtlflip) {
             return keyframe;
         }
-
         return keyframeCallback(keyframe);
     }
-
     function keyframeCallback(keyframe) {
         var keyframeRtl = keyframe + "-rtl";
         return function (i, elem) {
             return _ElementUtilities._getComputedStyle(elem).direction === "ltr" ? keyframe : keyframeRtl;
         };
     }
-
     function makeArray(elements) {
         if (Array.isArray(elements) || elements instanceof _Global.NodeList || elements instanceof _Global.HTMLCollection) {
             return elements;
@@ -16092,7 +14604,6 @@ define('WinJS/Animations',[
             return [];
         }
     }
-
     function collectOffsetArray(elemArray) {
         var offsetArray = [];
         for (var i = 0; i < elemArray.length; i++) {
@@ -16109,7 +14620,6 @@ define('WinJS/Animations',[
         }
         return offsetArray;
     }
-
     function staggerDelay(initialDelay, extraDelay, delayFactor, delayCap) {
         return function (i) {
             var ret = initialDelay;
@@ -16123,14 +14633,12 @@ define('WinJS/Animations',[
             return ret;
         };
     }
-
     function makeOffsetsRelative(elemArray, offsetArray) {
         for (var i = 0; i < offsetArray.length; i++) {
             offsetArray[i].top -= elemArray[i].offsetTop;
             offsetArray[i].left -= elemArray[i].offsetLeft;
         }
     }
-
     function animTranslate2DTransform(elemArray, offsetArray, transition) {
         makeOffsetsRelative(elemArray, offsetArray);
         for (var i = 0; i < elemArray.length; i++) {
@@ -16140,7 +14648,6 @@ define('WinJS/Animations',[
         }
         return _TransitionAnimation.executeTransition(elemArray, transition);
     }
-
     function animStaggeredSlide(curve, start, end, fadeIn, page, first, second, third) {
         var elementArray = [],
             startOffsetArray = [],
@@ -16197,7 +14704,6 @@ define('WinJS/Animations',[
                 to: fadeIn ? 1 : 0
             }]);
     }
-
     function animRotationTransform(elemArray, origins, transition) {
         elemArray = makeArray(elemArray);
         origins = makeArray(origins);
@@ -16210,7 +14716,6 @@ define('WinJS/Animations',[
         }
         return _TransitionAnimation.executeTransition(elemArray, transition).then(onComplete, onComplete);
     }
-
     function clearAnimRotationTransform(elemArray) {
         for (var i = 0, len = elemArray.length; i < len; i++) {
             elemArray[i].style[_BaseUtils._browserStyleEquivalents["transform-origin"].scriptName] = "";
@@ -16218,7 +14723,6 @@ define('WinJS/Animations',[
             elemArray[i].style.opacity = "";
         }
     }
-
     function translateCallback(offsetArray, prefix) {
         prefix = prefix || "";
         return function (i, elem) {
@@ -16235,7 +14739,6 @@ define('WinJS/Animations',[
             return prefix + "translate(" + left + ", " + offset.top + ")";
         };
     }
-
     function translateCallbackAnimate(offsetArray, suffix) {
         suffix = suffix || "";
         return function (i) {
@@ -16243,21 +14746,18 @@ define('WinJS/Animations',[
             return "translate(" + offset.left + "px, " + offset.top + "px) " + suffix;
         };
     }
-
     function keyframeCallbackAnimate(offsetArray, keyframe) {
         return function (i) {
             var offset = offsetArray[i];
             return (offset.left === 0 && offset.top === 0) ? keyframe : null;
         };
     }
-
     function layoutTransition(LayoutTransition, target, affected, extra) {
         var targetArray = makeArray(target);
         var affectedArray = makeArray(affected);
         var offsetArray = collectOffsetArray(affectedArray);
         return new LayoutTransition(targetArray, affectedArray, offsetArray, extra);
     }
-
     function collectTurnstileTransformOrigins(elements) {
         var origins = [];
         for (var i = 0, len = elements.length; i < len; i++) {
@@ -16272,14 +14772,11 @@ define('WinJS/Animations',[
                 }
             );
         }
-
         return origins;
     }
-
     function writeAnimationProfilerMark(text) {
         _WriteProfilerMark("WinJS.UI.Animation:" + text);
     }
-
     var ExpandAnimation = _Base.Class.define(function ExpandAnimation_ctor(revealedArray, affectedArray, offsetArray) {
         // Constructor
         this.revealedArray = revealedArray;
@@ -16315,7 +14812,6 @@ define('WinJS/Animations',[
     }, { // Static Members
         supportedForProcessing: false,
     });
-
     var CollapseAnimation = _Base.Class.define(function CollapseAnimation_ctor(hiddenArray, affectedArray, offsetArray) {
         // Constructor
         this.hiddenArray = hiddenArray;
@@ -16351,7 +14847,6 @@ define('WinJS/Animations',[
     }, { // Static Members
         supportedForProcessing: false,
     });
-
     var RepositionAnimation = _Base.Class.define(function RepositionAnimation_ctor(target, elementArray, offsetArray) {
         // Constructor
         this.elementArray = elementArray;
@@ -16374,7 +14869,6 @@ define('WinJS/Animations',[
     }, { // Static Members
         supportedForProcessing: false,
     });
-
     var AddToListAnimation = _Base.Class.define(function AddToListAnimation_ctor(addedArray, affectedArray, offsetArray) {
         // Constructor
         this.addedArray = addedArray;
@@ -16421,7 +14915,6 @@ define('WinJS/Animations',[
     }, { // Static Members
         supportedForProcessing: false,
     });
-
     var DeleteFromListAnimation = _Base.Class.define(function DeleteFromListAnimation_ctor(deletedArray, remainingArray, offsetArray) {
         // Constructor
         this.deletedArray = deletedArray;
@@ -16466,7 +14959,6 @@ define('WinJS/Animations',[
     }, { // Static Members
         supportedForProcessing: false,
     });
-
     var _UpdateListAnimation = _Base.Class.define(function _UpdateListAnimation_ctor(addedArray, affectedArray, offsetArray, deleted) {
         // Constructor
         this.addedArray = addedArray;
@@ -16479,7 +14971,6 @@ define('WinJS/Animations',[
         execute: function () {
             writeAnimationProfilerMark("_updateListAnimation,StartTM");
             makeOffsetsRelative(this.deletedArray, this.deletedOffsetArray);
-
             var delay = 0;
             var promise1 = _TransitionAnimation.executeAnimation(
                 this.deletedArray,
@@ -16501,11 +14992,9 @@ define('WinJS/Animations',[
                     from: 1,
                     to: 0
                 }]);
-
             if (this.deletedArray.length > 0) {
                 delay += 60;
             }
-
             var promise2 = animTranslate2DTransform(
                 this.affectedArray,
                 this.offsetArray,
@@ -16516,13 +15005,11 @@ define('WinJS/Animations',[
                     timing: "cubic-bezier(0.1, 0.9, 0.2, 1)",
                     to: ""
                 });
-
             if (this.affectedArray.length > 0) {
                 delay += 240;
             } else if (delay) {
                 delay += 60;
             }
-
             var promise3 = _TransitionAnimation.executeAnimation(
                 this.addedArray,
                 [{
@@ -16550,8 +15037,6 @@ define('WinJS/Animations',[
     }, { // Static Members
         supportedForProcessing: false,
     });
-
-
     var AddToSearchListAnimation = _Base.Class.define(function AddToSearchListAnimation_ctor(addedArray, affectedArray, offsetArray) {
         // Constructor
         this.addedArray = addedArray;
@@ -16587,7 +15072,6 @@ define('WinJS/Animations',[
     }, { // Static Members
         supportedForProcessing: false,
     });
-
     var DeleteFromSearchListAnimation = _Base.Class.define(function DeleteFromSearchListAnimation_ctor(deletedArray, remainingArray, offsetArray) {
         // Constructor
         this.deletedArray = deletedArray;
@@ -16623,7 +15107,6 @@ define('WinJS/Animations',[
     }, { // Static Members
         supportedForProcessing: false,
     });
-
     var PeekAnimation = _Base.Class.define(function PeekAnimation_ctor(target, elementArray, offsetArray) {
         // Constructor
         this.elementArray = elementArray;
@@ -16646,7 +15129,6 @@ define('WinJS/Animations',[
     }, { // Static Members
         supportedForProcessing: false,
     });
-
     //
     // Resize animation
     //  The resize animation requires 2 animations to run simultaneously in sync with each other. It's implemented
@@ -16661,7 +15143,6 @@ define('WinJS/Animations',[
         var transitionProperty = _BaseUtils._browserStyleEquivalents["transition"].scriptName;
         element.style[transitionProperty] = duration + "ms " + transformNames.cssName + " " + transition.timing;
         element.style[transformNames.scriptName] = transition.to;
-
         var finish;
         return new Promise(function (c) {
             var onTransitionEnd = function (eventObject) {
@@ -16669,7 +15150,6 @@ define('WinJS/Animations',[
                     finish();
                 }
             };
-
             var didFinish = false;
             finish = function () {
                 if (!didFinish) {
@@ -16680,32 +15160,27 @@ define('WinJS/Animations',[
                 }
                 c();
             };
-
             // Watch dog timeout
             var timeoutId = _Global.setTimeout(function () {
                 timeoutId = _Global.setTimeout(finish, duration);
             }, 50);
-
             element.addEventListener(_BaseUtils._browserEventEquivalents["transitionEnd"], onTransitionEnd);
         }, function () {
             finish(); // On cancelation, complete the promise successfully to match PVL
         });
     }
-
     function getResizeDefaultTransitions() {
         return {
             defaultResizeGrowTransition: {
                 duration: 350,
                 timing: "cubic-bezier(0.1, 0.9, 0.2, 1)"
             },
-
             defaultResizeShrinkTransition: {
                 duration: 120,
                 timing: "cubic-bezier(0.1, 0.9, 0.2, 1)"
             }
         };
     }
-
     // See _resizeTransition's comment for documentation on *args*.
     function resizeTransition(elementClipper, element, args) {
         var defaultTransition = getResizeDefaultTransitions()[(args.to > args.from ? "defaultResizeGrowTransition" : "defaultResizeShrinkTransition")];
@@ -16713,7 +15188,6 @@ define('WinJS/Animations',[
             duration: args.duration === undefined ? defaultTransition.duration : args.duration,
             timing: args.timing === undefined ? defaultTransition.timing : args.timing
         });
-
         var start = args.actualSize - args.from;
         var end = args.actualSize - args.to;
         if (!args.anchorTrailingEdge) {
@@ -16725,28 +15199,22 @@ define('WinJS/Animations',[
             duration: args.duration,
             timing: args.timing
         };
-
         // Set up
         elementClipper.style[transformNames.scriptName] = translate + "(" + start + "px)";
         element.style[transformNames.scriptName] = translate + "(" + -start + "px)";
-
         // Resolve styles
         _ElementUtilities._getComputedStyle(elementClipper).opacity;
         _ElementUtilities._getComputedStyle(element).opacity;
-
         // Merge the transitions, but don't animate yet
         var clipperTransition = _BaseUtils._merge(transition, { to: translate + "(" + end + "px)" });
         var elementTransition = _BaseUtils._merge(transition, { to: translate + "(" + -end + "px)" });
-
         // Return an array so that we can prepare any other animations before beginning everything (used by commanding surface open/close animations)
         return [
             { element: elementClipper, transition: clipperTransition },
             { element: element, transition: elementTransition }
         ];
     }
-
     _Base.Namespace._moduleDefine(exports, "WinJS.UI.Animation", {
-
         createExpandAnimation: function (revealed, affected) {
             /// <signature helpKeyword="WinJS.UI.Animation.createExpandAnimation">
             /// <summary locid="WinJS.UI.Animation.createExpandAnimation">
@@ -16769,7 +15237,6 @@ define('WinJS/Animations',[
             /// </signature>
             return layoutTransition(ExpandAnimation, revealed, affected);
         },
-
         createCollapseAnimation: function (hidden, affected) {
             /// <signature helpKeyword="WinJS.UI.Animation.createCollapseAnimation">
             /// <summary locid="WinJS.UI.Animation.createCollapseAnimation">
@@ -16794,7 +15261,6 @@ define('WinJS/Animations',[
             /// </signature>
             return layoutTransition(CollapseAnimation, hidden, affected);
         },
-
         createRepositionAnimation: function (element) {
             /// <signature helpKeyword="WinJS.UI.Animation.createRepositionAnimation">
             /// <summary locid="WinJS.UI.Animation.createRepositionAnimation">
@@ -16813,7 +15279,6 @@ define('WinJS/Animations',[
             /// </signature>
             return layoutTransition(RepositionAnimation, null, element);
         },
-
         fadeIn: function (shown) {
             /// <signature helpKeyword="WinJS.UI.Animation.fadeIn">
             /// <summary locid="WinJS.UI.Animation.fadeIn">
@@ -16828,7 +15293,6 @@ define('WinJS/Animations',[
             /// </returns>
             /// </signature>
             writeAnimationProfilerMark("fadeIn,StartTM");
-
             return _TransitionAnimation.executeTransition(
                 shown,
                 {
@@ -16841,7 +15305,6 @@ define('WinJS/Animations',[
                 })
                 .then(function () { writeAnimationProfilerMark("fadeIn,StopTM"); });
         },
-
         fadeOut: function (hidden) {
             /// <signature helpKeyword="WinJS.UI.Animation.fadeOut">
             /// <summary locid="WinJS.UI.Animation.fadeOut">
@@ -16856,7 +15319,6 @@ define('WinJS/Animations',[
             /// </returns>
             /// </signature>
             writeAnimationProfilerMark("fadeOut,StartTM");
-
             return _TransitionAnimation.executeTransition(
                 hidden,
                 {
@@ -16868,7 +15330,6 @@ define('WinJS/Animations',[
                 })
                 .then(function () { writeAnimationProfilerMark("fadeOut,StopTM"); });
         },
-
         createAddToListAnimation: function (added, affected) {
             /// <signature helpKeyword="WinJS.UI.Animation.createAddToListAnimation" >
             /// <summary locid="WinJS.UI.Animation.createAddToListAnimation">
@@ -16891,7 +15352,6 @@ define('WinJS/Animations',[
             /// </signature>
             return layoutTransition(AddToListAnimation, added, affected);
         },
-
         createDeleteFromListAnimation: function (deleted, remaining) {
             /// <signature helpKeyword="WinJS.UI.Animation.createDeleteFromListAnimation">
             /// <summary locid="WinJS.UI.Animation.createDeleteFromListAnimation">
@@ -16916,11 +15376,9 @@ define('WinJS/Animations',[
             /// </signature>
             return layoutTransition(DeleteFromListAnimation, deleted, remaining);
         },
-
         _createUpdateListAnimation: function (added, deleted, affected) {
             return layoutTransition(_UpdateListAnimation, added, affected, deleted);
         },
-
         createAddToSearchListAnimation: function (added, affected) {
             /// <signature helpKeyword="WinJS.UI.Animation.createAddToSearchListAnimation">
             /// <summary locid="WinJS.UI.Animation.createAddToSearchListAnimation">
@@ -16944,7 +15402,6 @@ define('WinJS/Animations',[
             /// </signature>
             return layoutTransition(AddToSearchListAnimation, added, affected);
         },
-
         createDeleteFromSearchListAnimation: function (deleted, remaining) {
             /// <signature helpKeyword="WinJS.UI.Animation.createDeleteFromSearchListAnimation">
             /// <summary locid="WinJS.UI.Animation.createDeleteFromSearchListAnimation">
@@ -16970,8 +15427,6 @@ define('WinJS/Animations',[
             /// </signature>
             return layoutTransition(DeleteFromSearchListAnimation, deleted, remaining);
         },
-
-
         showEdgeUI: function (element, offset, options) {
             /// <signature helpKeyword="WinJS.UI.Animation.showEdgeUI">
             /// <summary locid="WinJS.UI.Animation.showEdgeUI">
@@ -17000,7 +15455,6 @@ define('WinJS/Animations',[
             /// </returns>
             /// </signature>
             writeAnimationProfilerMark("showEdgeUI,StartTM");
-
             var isTransition = options && options.mechanism === "transition";
             var offsetArray = new OffsetArray(offset, "WinJS-showEdgeUI", [{ top: "-70px", left: "0px" }]);
             return _TransitionAnimation[(isTransition ? "executeTransition" : "executeAnimation")](
@@ -17016,7 +15470,6 @@ define('WinJS/Animations',[
                 })
                 .then(function () { writeAnimationProfilerMark("showEdgeUI,StopTM"); });
         },
-
         showPanel: function (element, offset) {
             /// <signature helpKeyword="WinJS.UI.Animation.showPanel">
             /// <summary locid="WinJS.UI.Animation.showPanel">
@@ -17041,7 +15494,6 @@ define('WinJS/Animations',[
             /// </returns>
             /// </signature>
             writeAnimationProfilerMark("showPanel,StartTM");
-
             var offsetArray = new OffsetArray(offset, "WinJS-showPanel", [{ top: "0px", left: "364px", rtlflip: true }]);
             return _TransitionAnimation.executeAnimation(
                 element,
@@ -17056,7 +15508,6 @@ define('WinJS/Animations',[
                 })
                 .then(function () { writeAnimationProfilerMark("showPanel,StopTM"); });
         },
-
         hideEdgeUI: function (element, offset, options) {
             /// <signature helpKeyword="WinJS.UI.Animation.hideEdgeUI">
             /// <summary locid="WinJS.UI.Animation.hideEdgeUI">
@@ -17085,7 +15536,6 @@ define('WinJS/Animations',[
             /// </returns>
             /// </signature>
             writeAnimationProfilerMark("hideEdgeUI,StartTM");
-
             var isTransition = options && options.mechanism === "transition";
             var offsetArray = new OffsetArray(offset, "WinJS-hideEdgeUI", [{ top: "-70px", left: "0px" }]);
             return _TransitionAnimation[(isTransition ? "executeTransition" : "executeAnimation")](
@@ -17101,7 +15551,6 @@ define('WinJS/Animations',[
                 })
                 .then(function () { writeAnimationProfilerMark("hideEdgeUI,StopTM"); });
         },
-
         hidePanel: function (element, offset) {
             /// <signature helpKeyword="WinJS.UI.Animation.hidePanel">
             /// <summary locid="WinJS.UI.Animation.hidePanel">
@@ -17126,7 +15575,6 @@ define('WinJS/Animations',[
             /// </returns>
             /// </signature>
             writeAnimationProfilerMark("hidePanel,StartTM");
-
             var offsetArray = new OffsetArray(offset, "WinJS-hidePanel", [{ top: "0px", left: "364px", rtlflip: true }]);
             return _TransitionAnimation.executeAnimation(
                 element,
@@ -17141,7 +15589,6 @@ define('WinJS/Animations',[
                 })
                 .then(function () { writeAnimationProfilerMark("hidePanel,StopTM"); });
         },
-
         showPopup: function (element, offset) {
             /// <signature helpKeyword="WinJS.UI.Animation.showPopup">
             /// <summary locid="WinJS.UI.Animation.showPopup">
@@ -17163,7 +15610,6 @@ define('WinJS/Animations',[
             /// </returns>
             /// </signature>
             writeAnimationProfilerMark("showPopup,StartTM");
-
             var offsetArray = new OffsetArray(offset, "WinJS-showPopup", [{ top: "50px", left: "0px" }]);
             return _TransitionAnimation.executeAnimation(
                 element,
@@ -17187,7 +15633,6 @@ define('WinJS/Animations',[
                 }])
                 .then(function () { writeAnimationProfilerMark("showPopup,StopTM"); });
         },
-
         hidePopup: function (element) {
             /// <signature helpKeyword="WinJS.UI.Animation.hidePopup" >
             /// <summary locid="WinJS.UI.Animation.hidePopup">
@@ -17203,7 +15648,6 @@ define('WinJS/Animations',[
             /// </returns>
             /// </signature>
             writeAnimationProfilerMark("hidePopup,StartTM");
-
             return _TransitionAnimation.executeAnimation(
                 element,
                 {
@@ -17217,7 +15661,6 @@ define('WinJS/Animations',[
                 })
                 .then(function () { writeAnimationProfilerMark("hidePopup,StopTM"); });
         },
-
         pointerDown: function (element) {
             /// <signature helpKeyword="WinJS.UI.Animation.pointerDown">
             /// <summary locid="WinJS.UI.Animation.pointerDown">
@@ -17235,7 +15678,6 @@ define('WinJS/Animations',[
             /// </returns>
             /// </signature>
             writeAnimationProfilerMark("pointerDown,StartTM");
-
             return _TransitionAnimation.executeTransition(
                  element,
                  {
@@ -17247,7 +15689,6 @@ define('WinJS/Animations',[
                  })
                 .then(function () { writeAnimationProfilerMark("pointerDown,StopTM"); });
         },
-
         pointerUp: function (element) {
             /// <signature helpKeyword="WinJS.UI.Animation.pointerUp">
             /// <summary locid="WinJS.UI.Animation.pointerUp">
@@ -17265,7 +15706,6 @@ define('WinJS/Animations',[
             /// </returns>
             /// </signature>
             writeAnimationProfilerMark("pointerUp,StartTM");
-
             return _TransitionAnimation.executeTransition(
                  element,
                  {
@@ -17277,7 +15717,6 @@ define('WinJS/Animations',[
                  })
                 .then(function () { writeAnimationProfilerMark("pointerUp,StopTM"); });
         },
-
         dragSourceStart: function (dragSource, affected) {
             /// <signature helpKeyword="WinJS.UI.Animation.dragSourceStart" >
             /// <summary locid="WinJS.UI.Animation.dragSourceStart">
@@ -17300,7 +15739,6 @@ define('WinJS/Animations',[
             /// </returns>
             /// </signature>
             writeAnimationProfilerMark("dragSourceStart,StartTM");
-
             var promise1 = _TransitionAnimation.executeTransition(
                 dragSource,
                 [{
@@ -17329,7 +15767,6 @@ define('WinJS/Animations',[
             return Promise.join([promise1, promise2])
                 .then(function () { writeAnimationProfilerMark("dragSourceStart,StopTM"); });
         },
-
         dragSourceEnd: function (dragSource, offset, affected) {
             /// <signature helpKeyword="WinJS.UI.Animation.dragSourceEnd">
             /// <summary locid="WinJS.UI.Animation.dragSourceEnd">
@@ -17360,7 +15797,6 @@ define('WinJS/Animations',[
             /// </returns>
             /// </signature>
             writeAnimationProfilerMark("dragSourceEnd,StartTM");
-
             var offsetArray = new OffsetArray(offset, "WinJS-dragSourceEnd");
             var promise1 = _TransitionAnimation.executeTransition(
                 dragSource,
@@ -17378,7 +15814,6 @@ define('WinJS/Animations',[
                     timing: "cubic-bezier(0.1, 0.9, 0.2, 1)",
                     to: 1
                 }]);
-
             var promise2 = _TransitionAnimation.executeAnimation(
                 dragSource,
                 {
@@ -17390,7 +15825,6 @@ define('WinJS/Animations',[
                     from: offsetArray.keyframe || translateCallback(offsetArray, "scale(1.05) "),
                     to: "none"
                 });
-
             var promise3 = _TransitionAnimation.executeTransition(
                  affected,
                  {
@@ -17403,8 +15837,6 @@ define('WinJS/Animations',[
             return Promise.join([promise1, promise2, promise3])
                 .then(function () { writeAnimationProfilerMark("dragSourceEnd,StopTM"); });
         },
-
-
         enterContent: function (incoming, offset, options) {
             /// <signature helpKeyword="WinJS.UI.Animation.enterContent">
             /// <summary locid="WinJS.UI.Animation.enterContent">
@@ -17432,7 +15864,6 @@ define('WinJS/Animations',[
             /// </returns>
             /// </signature>
             writeAnimationProfilerMark("enterContent,StartTM");
-
             var animationPromise;
             var offsetArray = new OffsetArray(offset, "WinJS-enterContent", [{ top: "28px", left: "0px", rtlflip: false }]);
             if (options && options.mechanism === "transition") {
@@ -17480,7 +15911,6 @@ define('WinJS/Animations',[
             }
             return animationPromise.then(function () { writeAnimationProfilerMark("enterContent,StopTM"); });
         },
-
         exitContent: function (outgoing, offset) {
             /// <signature helpKeyword="WinJS.UI.Animation.exitContent">
             /// <summary locid="WinJS.UI.Animation.exitContent">
@@ -17504,7 +15934,6 @@ define('WinJS/Animations',[
             /// </returns>
             /// </signature>
             writeAnimationProfilerMark("exitContent,StartTM");
-
             var offsetArray = new OffsetArray(offset, "WinJS-exit", [{ top: "0px", left: "0px" }]);
             var promise1 = _TransitionAnimation.executeAnimation(
                 outgoing,
@@ -17517,7 +15946,6 @@ define('WinJS/Animations',[
                     from: "none",
                     to: offsetArray.keyframe || translateCallback(offsetArray)
                 });
-
             var promise2 = _TransitionAnimation.executeTransition(
                 outgoing,
                 {
@@ -17530,7 +15958,6 @@ define('WinJS/Animations',[
             return Promise.join([promise1, promise2])
                 .then(function () { writeAnimationProfilerMark("exitContent,StopTM"); });
         },
-
         dragBetweenEnter: function (target, offset) {
             /// <signature helpKeyword="WinJS.UI.Animation.dragBetweenEnter">
             /// <summary locid="WinJS.UI.Animation.dragBetweenEnter">
@@ -17557,7 +15984,6 @@ define('WinJS/Animations',[
             /// </returns>
             /// </signature>
             writeAnimationProfilerMark("dragBetweenEnter,StartTM");
-
             var offsetArray = new OffsetArray(offset, null, [{ top: "-40px", left: "0px" }, { top: "40px", left: "0px" }]);
             return _TransitionAnimation.executeTransition(
                 target,
@@ -17570,7 +15996,6 @@ define('WinJS/Animations',[
                 })
                 .then(function () { writeAnimationProfilerMark("dragBetweenEnter,StopTM"); });
         },
-
         dragBetweenLeave: function (target) {
             /// <signature helpKeyword="WinJS.UI.Animation.dragBetweenLeave">
             /// <summary locid="WinJS.UI.Animation.dragBetweenLeave">
@@ -17589,7 +16014,6 @@ define('WinJS/Animations',[
             /// </returns>
             /// </signature>
             writeAnimationProfilerMark("dragBetweenLeave,StartTM");
-
             return _TransitionAnimation.executeTransition(
                 target,
                 {
@@ -17601,7 +16025,6 @@ define('WinJS/Animations',[
                 })
                 .then(function () { writeAnimationProfilerMark("dragBetweenLeave,StopTM"); });
         },
-
         swipeSelect: function (selected, selection) {
             /// <signature helpKeyword="WinJS.UI.Animation.swipeSelect">
             /// <summary locid="WinJS.UI.Animation.swipeSelect">
@@ -17621,7 +16044,6 @@ define('WinJS/Animations',[
             /// </returns>
             /// </signature>
             writeAnimationProfilerMark("swipeSelect,StartTM");
-
             var promise1 = _TransitionAnimation.executeTransition(
                 selected,
                 {
@@ -17631,7 +16053,6 @@ define('WinJS/Animations',[
                     timing: "cubic-bezier(0.1, 0.9, 0.2, 1)",
                     to: ""
                 });
-
             var promise2 = _TransitionAnimation.executeAnimation(
                 selection,
                 {
@@ -17646,7 +16067,6 @@ define('WinJS/Animations',[
             return Promise.join([promise1, promise2])
                 .then(function () { writeAnimationProfilerMark("swipeSelect,StopTM"); });
         },
-
         swipeDeselect: function (deselected, selection) {
             /// <signature helpKeyword="WinJS.UI.Animation.swipeDeselect">
             /// <summary locid="WinJS.UI.Animation.swipeDeselect">
@@ -17666,7 +16086,6 @@ define('WinJS/Animations',[
             /// </returns>
             /// </signature>
             writeAnimationProfilerMark("swipeDeselect,StartTM");
-
             var promise1 = _TransitionAnimation.executeTransition(
                 deselected,
                 {
@@ -17676,7 +16095,6 @@ define('WinJS/Animations',[
                     timing: "cubic-bezier(0.1, 0.9, 0.2, 1)",
                     to: ""
                 });
-
             var promise2 = _TransitionAnimation.executeAnimation(
                 selection,
                 {
@@ -17691,7 +16109,6 @@ define('WinJS/Animations',[
             return Promise.join([promise1, promise2])
                 .then(function () { writeAnimationProfilerMark("swipeDeselect,StopTM"); });
         },
-
         swipeReveal: function (target, offset) {
             /// <signature helpKeyword="WinJS.UI.Animation.swipeReveal">
             /// <summary locid="WinJS.UI.Animation.swipeReveal">
@@ -17719,7 +16136,6 @@ define('WinJS/Animations',[
             /// </returns>
             /// </signature>
             writeAnimationProfilerMark("swipeReveal,StartTM");
-
             var offsetArray = new OffsetArray(offset, null, [{ top: "25px", left: "0px" }]);
             return _TransitionAnimation.executeTransition(
                 target,
@@ -17732,7 +16148,6 @@ define('WinJS/Animations',[
                 })
                 .then(function () { writeAnimationProfilerMark("swipeReveal,StopTM"); });
         },
-
         enterPage: function (element, offset) {
             /// <signature helpKeyword="WinJS.UI.Animation.enterPage">
             /// <summary locid="WinJS.UI.Animation.enterPage">
@@ -17756,7 +16171,6 @@ define('WinJS/Animations',[
             /// </returns>
             /// </signature>
             writeAnimationProfilerMark("enterPage,StartTM");
-
             var offsetArray = new OffsetArray(offset, "WinJS-enterPage", [{ top: "28px", left: "0px", rtlflip: false }]);
             var promise1 = _TransitionAnimation.executeAnimation(
                 element,
@@ -17782,7 +16196,6 @@ define('WinJS/Animations',[
             return Promise.join([promise1, promise2])
                 .then(function () { writeAnimationProfilerMark("enterPage,StopTM"); });
         },
-
         exitPage: function (outgoing, offset) {
             /// <signature helpKeyword="WinJS.UI.Animation.exitPage">
             /// <summary locid="WinJS.UI.Animation.exitPage">
@@ -17806,7 +16219,6 @@ define('WinJS/Animations',[
             /// </returns>
             /// </signature>
             writeAnimationProfilerMark("exitPage,StartTM");
-
             var offsetArray = new OffsetArray(offset, "WinJS-exit", [{ top: "0px", left: "0px" }]);
             var promise1 = _TransitionAnimation.executeAnimation(
                 outgoing,
@@ -17819,7 +16231,6 @@ define('WinJS/Animations',[
                     from: "none",
                     to: offsetArray.keyframe || translateCallback(offsetArray)
                 });
-
             var promise2 = _TransitionAnimation.executeTransition(
                 outgoing,
                 {
@@ -17832,7 +16243,6 @@ define('WinJS/Animations',[
             return Promise.join([promise1, promise2])
                 .then(function () { writeAnimationProfilerMark("exitPage,StopTM"); });
         },
-
         crossFade: function (incoming, outgoing) {
             /// <signature helpKeyword="WinJS.UI.Animation.crossFade">
             /// <summary locid="WinJS.UI.Animation.crossFade">
@@ -17851,7 +16261,6 @@ define('WinJS/Animations',[
             /// </returns>
             /// </signature>
             writeAnimationProfilerMark("crossFade,StartTM");
-
             var promise1 = _TransitionAnimation.executeTransition(
                 incoming,
                 {
@@ -17861,7 +16270,6 @@ define('WinJS/Animations',[
                     timing: "linear",
                     to: 1
                 });
-
             var promise2 = _TransitionAnimation.executeTransition(
                 outgoing,
                 {
@@ -17874,7 +16282,6 @@ define('WinJS/Animations',[
             return Promise.join([promise1, promise2])
                 .then(function () { writeAnimationProfilerMark("crossFade,StopTM"); });
         },
-
         createPeekAnimation: function (element) {
             /// <signature helpKeyword="WinJS.UI.Animation.createPeekAnimation">
             /// <summary locid="WinJS.UI.Animation.createPeekAnimation">
@@ -17893,7 +16300,6 @@ define('WinJS/Animations',[
             /// </signature>
             return layoutTransition(PeekAnimation, null, element);
         },
-
         updateBadge: function (incoming, offset) {
             /// <signature helpKeyword="WinJS.UI.Animation.updateBadge">
             /// <summary locid="WinJS.UI.Animation.updateBadge">
@@ -17916,7 +16322,6 @@ define('WinJS/Animations',[
             /// </returns>
             /// </signature>
             writeAnimationProfilerMark("updateBadge,StartTM");
-
             var offsetArray = new OffsetArray(offset, "WinJS-updateBadge", [{ top: "24px", left: "0px" }]);
             return _TransitionAnimation.executeAnimation(
                 incoming,
@@ -17940,7 +16345,6 @@ define('WinJS/Animations',[
                 }])
                 .then(function () { writeAnimationProfilerMark("updateBadge,StopTM"); });
         },
-
         turnstileForwardIn: function (incomingElements) {
             /// <signature helpKeyword="WinJS.UI.Animation.turnstileForwardIn">
             /// <summary locid="WinJS.UI.Animation.turnstileForwardIn">
@@ -17954,7 +16358,6 @@ define('WinJS/Animations',[
             /// </returns>
             /// </signature>
             writeAnimationProfilerMark("turnstileForwardIn,StartTM");
-
             incomingElements = makeArray(incomingElements);
             var origins = collectTurnstileTransformOrigins(incomingElements);
             return animRotationTransform(
@@ -17978,7 +16381,6 @@ define('WinJS/Animations',[
                 }])
                 .then(function () { writeAnimationProfilerMark("turnstileForwardIn,StopTM"); });
         },
-
         turnstileForwardOut: function (outgoingElements) {
             /// <signature helpKeyword="WinJS.UI.Animation.turnstileForwardOut">
             /// <summary locid="WinJS.UI.Animation.turnstileForwardOut">
@@ -17992,7 +16394,6 @@ define('WinJS/Animations',[
             /// </returns>
             /// </signature>
             writeAnimationProfilerMark("turnstileForwardOut,StartTM");
-
             outgoingElements = makeArray(outgoingElements);
             var origins = collectTurnstileTransformOrigins(outgoingElements);
             return animRotationTransform(
@@ -18016,7 +16417,6 @@ define('WinJS/Animations',[
                 }])
                 .then(function () { writeAnimationProfilerMark("turnstileForwardOut,StopTM"); });
         },
-
         turnstileBackwardIn: function (incomingElements) {
             /// <signature helpKeyword="WinJS.UI.Animation.turnstileBackwardIn">
             /// <summary locid="WinJS.UI.Animation.turnstileBackwardIn">
@@ -18030,7 +16430,6 @@ define('WinJS/Animations',[
             /// </returns>
             /// </signature>
             writeAnimationProfilerMark("turnstileBackwardIn,StartTM");
-
             incomingElements = makeArray(incomingElements);
             var origins = collectTurnstileTransformOrigins(incomingElements);
             return animRotationTransform(
@@ -18054,7 +16453,6 @@ define('WinJS/Animations',[
                 }])
                 .then(function () { writeAnimationProfilerMark("turnstileBackwardIn,StopTM"); });
         },
-
         turnstileBackwardOut: function (outgoingElements) {
             /// <signature helpKeyword="WinJS.UI.Animation.turnstileBackwardOut">
             /// <summary locid="WinJS.UI.Animation.turnstileBackwardOut">
@@ -18068,7 +16466,6 @@ define('WinJS/Animations',[
             /// </returns>
             /// </signature>
             writeAnimationProfilerMark("turnstileBackwardOut,StartTM");
-
             outgoingElements = makeArray(outgoingElements);
             var origins = collectTurnstileTransformOrigins(outgoingElements);
             return animRotationTransform(
@@ -18092,7 +16489,6 @@ define('WinJS/Animations',[
                 }])
                 .then(function () { writeAnimationProfilerMark("turnstileBackwardOut,StopTM"); });
         },
-
         slideDown: function (outgoingElements) {
             /// <signature helpKeyword="WinJS.UI.Animation.slideDown">
             /// <summary locid="WinJS.UI.Animation.slideDown">
@@ -18106,7 +16502,6 @@ define('WinJS/Animations',[
             /// </returns>
             /// </signature>
             writeAnimationProfilerMark("slideDown,StartTM");
-
             return animRotationTransform(
                 outgoingElements,
                 { ltr: "", rtl: "" },
@@ -18128,7 +16523,6 @@ define('WinJS/Animations',[
                 }])
                 .then(function () { writeAnimationProfilerMark("slideDown,StopTM"); });
         },
-
         slideUp: function (incomingElements) {
             /// <signature helpKeyword="WinJS.UI.Animation.slideUp">
             /// <summary locid="WinJS.UI.Animation.slideUp">
@@ -18142,7 +16536,6 @@ define('WinJS/Animations',[
             /// </returns>
             /// </signature>
             writeAnimationProfilerMark("slideUp,StartTM");
-
             return animRotationTransform(
                 incomingElements,
                 { ltr: "", rtl: "" },
@@ -18164,7 +16557,6 @@ define('WinJS/Animations',[
                 }])
                 .then(function () { writeAnimationProfilerMark("slideUp,StopTM"); });
         },
-
         slideRightIn: function (page, firstIncomingElements, secondIncomingElements, thirdIncomingElements) {
             /// <signature helpKeyword="WinJS.UI.Animation.slideRightIn">
             /// <summary locid="WinJS.UI.Animation.slideRightIn">
@@ -18187,11 +16579,9 @@ define('WinJS/Animations',[
             /// </returns>
             /// </signature>
             writeAnimationProfilerMark("slideRightIn,StartTM");
-
             return animStaggeredSlide("cubic-bezier(0.17,0.79,0.215,1.0025)", -_Global.innerWidth, 0, true, page, firstIncomingElements, secondIncomingElements, thirdIncomingElements)
                 .then(function () { writeAnimationProfilerMark("slideRightIn,StopTM"); });
         },
-
         slideRightOut: function (page, firstOutgoingElements, secondOutgoingElements, thirdOutgoingElements) {
             /// <signature helpKeyword="WinJS.UI.Animation.slideRightOut">
             /// <summary locid="WinJS.UI.Animation.slideRightOut">
@@ -18214,11 +16604,9 @@ define('WinJS/Animations',[
             /// </returns>
             /// </signature>
             writeAnimationProfilerMark("slideRightOut,StartTM");
-
             return animStaggeredSlide("cubic-bezier(0.3825,0.0025,0.8775,-0.1075)", 0, _Global.innerWidth, false, page, firstOutgoingElements, secondOutgoingElements, thirdOutgoingElements)
                 .then(function () { writeAnimationProfilerMark("slideRightOut,StopTM"); });
         },
-
         slideLeftIn: function (page, firstIncomingElements, secondIncomingElements, thirdIncomingElements) {
             /// <signature helpKeyword="WinJS.UI.Animation.slideLeftIn">
             /// <summary locid="WinJS.UI.Animation.slideLeftIn">
@@ -18241,11 +16629,9 @@ define('WinJS/Animations',[
             /// </returns>
             /// </signature>
             writeAnimationProfilerMark("slideLeftIn,StartTM");
-
             return animStaggeredSlide("cubic-bezier(0.17,0.79,0.215,1.0025)", _Global.innerWidth, 0, true, page, firstIncomingElements, secondIncomingElements, thirdIncomingElements)
                 .then(function () { writeAnimationProfilerMark("slideLeftIn,StopTM"); });
         },
-
         slideLeftOut: function (page, firstOutgoingElements, secondOutgoingElements, thirdOutgoingElements) {
             /// <signature helpKeyword="WinJS.UI.Animation.slideLeftOut">
             /// <summary locid="WinJS.UI.Animation.slideLeftOut">
@@ -18268,11 +16654,9 @@ define('WinJS/Animations',[
             /// </returns>
             /// </signature>
             writeAnimationProfilerMark("slideLeftOut,StartTM");
-
             return animStaggeredSlide("cubic-bezier(0.3825,0.0025,0.8775,-0.1075)", 0, -_Global.innerWidth, false, page, firstOutgoingElements, secondOutgoingElements, thirdOutgoingElements)
                 .then(function () { writeAnimationProfilerMark("slideLeftOut,StopTM"); });
         },
-
         continuumForwardIn: function (incomingPage, incomingItemRoot, incomingItemContent) {
             /// <signature helpKeyword="WinJS.UI.Animation.continuumForwardIn">
             /// <summary locid="WinJS.UI.Animation.continuumForwardIn">
@@ -18292,7 +16676,6 @@ define('WinJS/Animations',[
             /// </returns>
             /// </signature>
             writeAnimationProfilerMark("continuumForwardIn,StartTM");
-
             return Promise.join([
                 _TransitionAnimation.executeTransition(incomingPage,
                 [{
@@ -18348,7 +16731,6 @@ define('WinJS/Animations',[
             ])
             .then(function () { writeAnimationProfilerMark("continuumForwardIn,StopTM"); });
         },
-
         continuumForwardOut: function (outgoingPage, outgoingItem) {
             /// <signature helpKeyword="WinJS.UI.Animation.continuumForwardOut">
             /// <summary locid="WinJS.UI.Animation.continuumForwardOut">
@@ -18365,7 +16747,6 @@ define('WinJS/Animations',[
             /// </returns>
             /// </signature>
             writeAnimationProfilerMark("continuumForwardOut,StartTM");
-
             return Promise.join([
                 _TransitionAnimation.executeTransition(outgoingPage,
                 [{
@@ -18404,7 +16785,6 @@ define('WinJS/Animations',[
             ])
             .then(function () { writeAnimationProfilerMark("continuumForwardOut,StopTM"); });
         },
-
         continuumBackwardIn: function (incomingPage, incomingItem) {
             /// <signature helpKeyword="WinJS.UI.Animation.continuumBackwardIn">
             /// <summary locid="WinJS.UI.Animation.continuumBackwardIn">
@@ -18421,7 +16801,6 @@ define('WinJS/Animations',[
             /// </returns>
             /// </signature>
             writeAnimationProfilerMark("continuumBackwardIn,StartTM");
-
             return Promise.join([
                 _TransitionAnimation.executeTransition(incomingPage,
                 [{
@@ -18460,7 +16839,6 @@ define('WinJS/Animations',[
             ])
             .then(function () { writeAnimationProfilerMark("continuumBackwardIn,StopTM"); });
         },
-
         continuumBackwardOut: function (outgoingPage) {
             /// <signature helpKeyword="WinJS.UI.Animation.continuumBackwardOut">
             /// <summary locid="WinJS.UI.Animation.continuumBackwardOut">
@@ -18474,7 +16852,6 @@ define('WinJS/Animations',[
             /// </returns>
             /// </signature>
             writeAnimationProfilerMark("continuumBackwardOut,StartTM");
-
             return _TransitionAnimation.executeTransition(outgoingPage,
             [{
                 property: transformNames.cssName,
@@ -18494,7 +16871,6 @@ define('WinJS/Animations',[
             }])
             .then(function () { writeAnimationProfilerMark("continuumBackwardOut,StopTM"); });
         },
-
         drillInIncoming: function (incomingPage) {
             /// <signature helpKeyword="WinJS.UI.Animation.drillInIncoming">
             /// <summary locid="WinJS.UI.Animation.drillInIncoming">
@@ -18508,7 +16884,6 @@ define('WinJS/Animations',[
             /// </returns>
             /// </signature>
             writeAnimationProfilerMark("drillInIncoming,StartTM");
-
             return _TransitionAnimation.executeTransition(
                 incomingPage,
                 [{
@@ -18529,7 +16904,6 @@ define('WinJS/Animations',[
                 }])
                 .then(function () { writeAnimationProfilerMark("drillInIncoming,StopTM"); });
         },
-
         drillInOutgoing: function (outgoingPage) {
             /// <signature helpKeyword="WinJS.UI.Animation.drillInOutgoing">
             /// <summary locid="WinJS.UI.Animation.drillInOutgoing">
@@ -18543,7 +16917,6 @@ define('WinJS/Animations',[
             /// </returns>
             /// </signature>
             writeAnimationProfilerMark("drillInOutgoing,StartTM");
-
             return _TransitionAnimation.executeTransition(
                 outgoingPage,
                 [{
@@ -18564,7 +16937,6 @@ define('WinJS/Animations',[
                 }])
                 .then(function () { writeAnimationProfilerMark("drillInOutgoing,StopTM"); });
         },
-
         drillOutIncoming: function (incomingPage) {
             /// <signature helpKeyword="WinJS.UI.Animation.drillOutIncoming">
             /// <summary locid="WinJS.UI.Animation.drillOutIncoming">
@@ -18578,7 +16950,6 @@ define('WinJS/Animations',[
             /// </returns>
             /// </signature>
             writeAnimationProfilerMark("drillOutIncoming,StartTM");
-
             return _TransitionAnimation.executeTransition(
                 incomingPage,
                 [{
@@ -18599,7 +16970,6 @@ define('WinJS/Animations',[
                 }])
                 .then(function () { writeAnimationProfilerMark("drillOutIncoming,StopTM"); });
         },
-
         drillOutOutgoing: function (outgoingPage) {
             /// <signature helpKeyword="WinJS.UI.Animation.drillOutOutgoing">
             /// <summary locid="WinJS.UI.Animation.drillOutOutgoing">
@@ -18613,7 +16983,6 @@ define('WinJS/Animations',[
             /// </returns>
             /// </signature>
             writeAnimationProfilerMark("drillOutOutgoing,StartTM");
-
             return _TransitionAnimation.executeTransition(
                 outgoingPage,
                 [{
@@ -18634,7 +17003,6 @@ define('WinJS/Animations',[
                 }])
                 .then(function () { writeAnimationProfilerMark("drillOutOutgoing,StopTM"); });
         },
-
         createPageNavigationAnimations: function (currentPreferredAnimation, nextPreferredAnimation, movingBackwards) {
             /// <signature helpKeyword="WinJS.UI.Animation.createPageNavigationAnimations" >
             /// <summary locid="WinJS.UI.Animation.createPageNavigationAnimations">
@@ -18657,13 +17025,11 @@ define('WinJS/Animations',[
             function emptyAnimationFunction() {
                 return Promise.wrap();
             }
-
             return {
                 exit: emptyAnimationFunction,
                 entrance: exports.enterPage
             };
         },
-
         // Plays an animation which makes an element look like it is resizing in 1 dimension. Arguments:
         // - elementClipper: The parent of *element*. It shouldn't have any margin, border, or padding and its
         //   size should match element's size. Its purpose is to clip *element* during the animation to give
@@ -18693,12 +17059,10 @@ define('WinJS/Animations',[
                 return Promise.join(animationPromises);
             }
         },
-
         _commandingSurfaceOpenAnimation: function Utilities_commandingSurfaceOpenAnimation(args) {
             if (!_TransitionAnimation.isAnimationEnabled()) {
                 return Promise.as();
             }
-
             var actionAreaClipper = args.actionAreaClipper,
                 actionArea = args.actionArea,
                 overflowAreaClipper = args.overflowAreaClipper,
@@ -18710,7 +17074,6 @@ define('WinJS/Animations',[
             var deltaHeight = openedHeight - closedHeight;
             var actionAreaAnimations = [];
             var transitionToUse = getResizeDefaultTransitions().defaultResizeGrowTransition;
-
             // The commanding surface open animation is a combination of animations. We need to animate the actionArea and overflowArea
             // elements expanding and appearing. The first animation we prepare is the animation on the actionArea. This animation changes depending
             // on whether the overflow menu will appear above or below the commanding surface.
@@ -18734,7 +17097,6 @@ define('WinJS/Animations',[
                     anchorTrailingEdge: false
                 });
             }
-
             // Now we set up the overflowArea animations. The overflowArea animation has two parts:
             // The first animation is played on the overflowAreaClipper. This animation is a translation animation that we play that makes it look like the
             // overflow menu is moving up along with the actionArea as it expands.
@@ -18744,11 +17106,9 @@ define('WinJS/Animations',[
             // to move them both to where they would have been just before the surface opened, then animate them going to translateY(0).
             overflowAreaClipper.style[transformNames.scriptName] = "translateY(" + (menuPositionedAbove ? deltaHeight : -deltaHeight) + "px)";
             overflowArea.style[transformNames.scriptName] = "translateY(" + (menuPositionedAbove ? overflowAreaHeight : -overflowAreaHeight) + "px)";
-
             // Resolve styles on the overflowArea and overflowAreaClipper to prepare them for animation
             _ElementUtilities._getComputedStyle(overflowAreaClipper).opacity;
             _ElementUtilities._getComputedStyle(overflowArea).opacity;
-
             var animationPromises = [];
             for (var i = 0, len = actionAreaAnimations.length; i < len; i++) {
                 animationPromises.push(transformWithTransition(actionAreaAnimations[i].element, actionAreaAnimations[i].transition));
@@ -18758,12 +17118,10 @@ define('WinJS/Animations',[
             animationPromises.push(transformWithTransition(overflowArea, overflowAreaTransition));
             return Promise.join(animationPromises);
         },
-
         _commandingSurfaceCloseAnimation: function Utilities_commandingSurfaceCloseAnimation(args) {
             if (!_TransitionAnimation.isAnimationEnabled()) {
                 return Promise.as();
             }
-
             var actionAreaClipper = args.actionAreaClipper,
                 actionArea = args.actionArea,
                 overflowAreaClipper = args.overflowAreaClipper,
@@ -18792,11 +17150,9 @@ define('WinJS/Animations',[
             // Set up
             overflowAreaClipper.style[transformNames.scriptName] = "translateY(0px)";
             overflowArea.style[transformNames.scriptName] = "translateY(0px)";
-
             // Resolve styles on the overflowArea and overflowAreaClipper to prepare them for animation
             _ElementUtilities._getComputedStyle(overflowAreaClipper).opacity;
             _ElementUtilities._getComputedStyle(overflowArea).opacity;
-
             // Now that everything's set up, we can kick off all the animations in unision
             var animationPromises = [];
             for (var i = 0, len = actionAreaAnimations.length; i < len; i++) {
@@ -18809,7 +17165,6 @@ define('WinJS/Animations',[
             return Promise.join(animationPromises);
         }
     });
-
 });
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 define('WinJS/Binding/_BindingParser',[
@@ -18824,51 +17179,37 @@ define('WinJS/Binding/_BindingParser',[
     '../ControlProcessor/_OptionsParser'
     ], function bindingParserInit(exports, _Base, _BaseUtils, _ErrorFromName, _Log, _Resources, _WriteProfilerMark, _OptionsLexer, _OptionsParser) {
     "use strict";
-
-
     var strings = {
         get invalidBinding() { return "Invalid binding:'{0}'. Expected to be '<destProp>:<sourceProp>;'. {1}"; },
         get bindingInitializerNotFound() { return "Initializer not found:'{0}'"; },
     };
-
 /*
     See comment for data-win-options attribute grammar for context.
-
     Syntactic grammar for the value of the data-win-bind attribute.
-
         BindDeclarations:
             BindDeclaration
             BindDeclarations ; BindDeclaration
-
         BindDeclaration:
             DestinationPropertyName : SourcePropertyName
             DestinationPropertyName : SourcePropertyName InitializerName
-
         DestinationPropertyName:
             IdentifierExpression
-
         SourcePropertyName:
             IdentifierExpression
-
         InitializerName:
             IdentifierExpression
-
         Value:
             NumberLiteral
             StringLiteral
-
         AccessExpression:
             [ Value ]
             . Identifier
-
         AccessExpressions:
             AccessExpression
             AccessExpressions AccessExpression
-
         IdentifierExpression:
             Identifier
             Identifier AccessExpressions
-
 */
     var imports = _Base.Namespace.defineWithParent(null, null, {
         lexer: _Base.Namespace._lazy(function () {
@@ -18878,11 +17219,8 @@ define('WinJS/Binding/_BindingParser',[
             return _OptionsLexer._optionsLexer.tokenType;
         }),
     });
-
     var requireSupportedForProcessing = _BaseUtils.requireSupportedForProcessing;
-
     var local = _Base.Namespace.defineWithParent(null, null, {
-
         BindingInterpreter: _Base.Namespace._lazy(function () {
             return _Base.Class.derive(_OptionsParser.optionsParser._BaseInterpreter, function (tokens, originalSource, context) {
                 this._initialize(tokens, originalSource, context);
@@ -18907,7 +17245,6 @@ define('WinJS/Binding/_BindingParser',[
                             var value = this._current.value;
                             this._read();
                             return value;
-
                         default:
                             this._unexpectedToken(imports.tokenType.stringLiteral, imports.tokenType.numberLiteral);
                             return;
@@ -18921,14 +17258,11 @@ define('WinJS/Binding/_BindingParser',[
                             case imports.tokenType.thisKeyword:
                                 bindings.push(this._readBindDeclaration());
                                 break;
-
                             case imports.tokenType.semicolon:
                                 this._read();
                                 break;
-
                             case imports.tokenType.eof:
                                 return bindings;
-
                             default:
                                 this._unexpectedToken(imports.tokenType.identifier, imports.tokenType.semicolon, imports.tokenType.eof);
                                 return;
@@ -18959,7 +17293,6 @@ define('WinJS/Binding/_BindingParser',[
                 supportedForProcessing: false,
             });
         }),
-
         BindingParser: _Base.Namespace._lazy(function () {
             return _Base.Class.derive(local.BindingInterpreter, function (tokens, originalSource) {
                 this._initialize(tokens, originalSource, {});
@@ -18985,9 +17318,7 @@ define('WinJS/Binding/_BindingParser',[
                 supportedForProcessing: false,
             });
         })
-
     });
-
     function parser(text, context) {
         _WriteProfilerMark("WinJS.Binding:bindingParser,StartTM");
         var tokens = imports.lexer(text);
@@ -18996,7 +17327,6 @@ define('WinJS/Binding/_BindingParser',[
         _WriteProfilerMark("WinJS.Binding:bindingParser,StopTM");
         return res;
     }
-
     function parser2(text) {
         _WriteProfilerMark("WinJS.Binding:bindingParser,StartTM");
         var tokens = imports.lexer(text);
@@ -19005,14 +17335,11 @@ define('WinJS/Binding/_BindingParser',[
         _WriteProfilerMark("WinJS.Binding:bindingParser,StopTM");
         return res;
     }
-
     _Base.Namespace._moduleDefine(exports, "WinJS.Binding", {
         _bindingParser: parser,
         _bindingParser2: parser2,
     });
-
 });
-
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 define('WinJS/Binding/_DomWeakRefTable',[
     'exports',
@@ -19023,28 +17350,19 @@ define('WinJS/Binding/_DomWeakRefTable',[
     '../Scheduler'
     ], function DOMWeakRefTableInit(exports, _Global, _WinRT, _Base, _BaseUtils, Scheduler) {
     "use strict";
-
     if (_WinRT.Windows.Foundation.Uri && _WinRT.msSetWeakWinRTProperty && _WinRT.msGetWeakWinRTProperty) {
-
         var host = new _WinRT.Windows.Foundation.Uri("about://blank");
-
         _Base.Namespace._moduleDefine(exports, "WinJS.Utilities", {
-
             _createWeakRef: function (element, id) {
                 _WinRT.msSetWeakWinRTProperty(host, id, element);
                 return id;
             },
-
             _getWeakRefElement: function (id) {
                 return _WinRT.msGetWeakWinRTProperty(host, id);
             }
-
         });
-
         return;
-
     }
-
     // Defaults
     var SWEEP_PERIOD = 500;
     var TIMEOUT = 1000;
@@ -19052,7 +17370,6 @@ define('WinJS/Binding/_DomWeakRefTable',[
     var cleanupToken;
     var noTimeoutUnderDebugger = true;
     var fastLoadPath = false;
-
     function cleanup() {
         if (SWEEP_PERIOD === 0) {     // If we're using post
             cleanupToken = 0;          // indicate that cleanup has run
@@ -19068,7 +17385,6 @@ define('WinJS/Binding/_DomWeakRefTable',[
         }
         unscheduleCleanupIfNeeded();
     }
-
     function scheduleCleanupIfNeeded() {
         if ((_Global.Debug && _Global.Debug.debuggerEnabled && noTimeoutUnderDebugger) || cleanupToken) {
             return;
@@ -19080,7 +17396,6 @@ define('WinJS/Binding/_DomWeakRefTable',[
             cleanupToken = _Global.setInterval(cleanup, SWEEP_PERIOD);
         }
     }
-
     function unscheduleCleanupIfNeeded() {
         if (_Global.Debug && _Global.Debug.debuggerEnabled && noTimeoutUnderDebugger) {
             return;
@@ -19103,13 +17418,11 @@ define('WinJS/Binding/_DomWeakRefTable',[
             }
         }
     }
-
     function createWeakRef(element, id) {
         table[id] = { element: element, time: Date.now() };
         scheduleCleanupIfNeeded();
         return id;
     }
-
     function getWeakRefElement(id) {
         if (fastLoadPath) {
             var entry = table[id];
@@ -19133,7 +17446,6 @@ define('WinJS/Binding/_DomWeakRefTable',[
             return element;
         }
     }
-
     _Base.Namespace._moduleDefine(exports, "WinJS.Utilities",  {
         _DOMWeakRefTable_noTimeoutUnderDebugger: {
             get: function () {
@@ -19170,9 +17482,7 @@ define('WinJS/Binding/_DomWeakRefTable',[
         },
         _createWeakRef: createWeakRef,
         _getWeakRefElement: getWeakRefElement
-
     });
-
 });
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 define('WinJS/Binding/_Data',[
@@ -19188,23 +17498,18 @@ define('WinJS/Binding/_Data',[
     './_DomWeakRefTable'
     ], function dataInit(exports, _WinRT, _Base, _BaseUtils, _ErrorFromName, _Log, _Resources, Promise, Scheduler, _DomWeakRefTable) {
     "use strict";
-
-
     var strings = {
         get exceptionFromBindingInitializer() { return "Exception thrown from binding initializer: {0}"; },
         get propertyIsUndefined() { return "{0} is undefined"; },
         get unsupportedDataTypeForBinding() { return "Unsupported data type"; },
     };
-
     var observableMixin = {
         _listeners: null,
         _pendingNotifications: null,
         _notifyId: 0,
-
         _getObservable: function () {
             return this;
         },
-
         _cancel: function (name) {
             var v = this._pendingNotifications;
             var hit = false;
@@ -19224,7 +17529,6 @@ define('WinJS/Binding/_Data',[
             }
             return hit;
         },
-
         notify: function (name, newValue, oldValue) {
             /// <signature helpKeyword="WinJS.Binding.observableMixin.notify">
             /// <summary locid="WinJS.Binding.observableMixin.notify">
@@ -19238,21 +17542,17 @@ define('WinJS/Binding/_Data',[
             var listeners = this._listeners && this._listeners[name];
             if (listeners) {
                 var that = this;
-
                 // Handle the case where we are updating a value that is currently updating
                 //
                 that._cancel(name);
-
                 // Starting new work, we cache the work description and queue up to do the notifications
                 //
                 that._pendingNotifications = that._pendingNotifications || {};
                 var x = that._notifyId++;
                 var cap = that._pendingNotifications[x] = { target: name };
-
                 var cleanup = function () {
                     delete that._pendingNotifications[x];
                 };
-
                 // Binding guarantees async notification, so we do timeout()
                 //
                 cap.promise = Scheduler.schedulePromiseNormal(null, "WinJS.Binding.observableMixin.notify").
@@ -19271,13 +17571,10 @@ define('WinJS/Binding/_Data',[
                         cleanup();
                         return newValue;
                     });
-
                 return cap.promise;
             }
-
             return Promise.as();
         },
-
         bind: function (name, action) {
             /// <signature helpKeyword="WinJS.Binding.observableMixin.bind">
             /// <summary locid="WinJS.Binding.observableMixin.bind">
@@ -19298,10 +17595,8 @@ define('WinJS/Binding/_Data',[
             /// This object is returned.
             /// </returns>
             /// </signature>
-
             this._listeners = this._listeners || {};
             var listeners = this._listeners[name] = this._listeners[name] || [];
-
             // duplicate detection, multiple binds with the same action should have no effect
             //
             var found = false;
@@ -19311,10 +17606,8 @@ define('WinJS/Binding/_Data',[
                     break;
                 }
             }
-
             if (!found) {
                 listeners.push(action);
-
                 // out of band notification, we want to avoid a broadcast to all listeners
                 // so we can't just call notify.
                 //
@@ -19322,7 +17615,6 @@ define('WinJS/Binding/_Data',[
             }
             return this;
         },
-
         unbind: function (name, action) {
             /// <signature helpKeyword="WinJS.Binding.observableMixin.unbind">
             /// <summary locid="WinJS.Binding.observableMixin.unbind">
@@ -19340,9 +17632,7 @@ define('WinJS/Binding/_Data',[
             /// This object is returned.
             /// </returns>
             /// </signature>
-
             this._listeners = this._listeners || {};
-
             if (name && action) {
                 // this assumes we rarely have more than one
                 // listener, so we optimize to not do a lot of
@@ -19359,7 +17649,6 @@ define('WinJS/Binding/_Data',[
                     }
                     this._listeners[name] = nl;
                 }
-
                 // we allow any pending notification sweep to complete,
                 // which means that "unbind" inside of a notification
                 // will not prevent that notification from occuring.
@@ -19382,14 +17671,11 @@ define('WinJS/Binding/_Data',[
             return this;
         }
     };
-
     var dynamicObservableMixin = {
         _backingData: null,
-
         _initObservable: function (data) {
             this._backingData = data || {};
         },
-
         getProperty: function (name) {
             /// <signature helpKeyword="WinJS.Binding.dynamicObservableMixin.getProperty">
             /// <summary locid="WinJS.Binding.dynamicObservableMixin.getProperty">
@@ -19408,7 +17694,6 @@ define('WinJS/Binding/_Data',[
             }
             return as(data);
         },
-
         setProperty: function (name, value) {
             /// <signature helpKeyword="WinJS.Binding.dynamicObservableMixin.setProperty">
             /// <summary locid="WinJS.Binding.dynamicObservableMixin.setProperty">
@@ -19424,11 +17709,9 @@ define('WinJS/Binding/_Data',[
             /// This object is returned.
             /// </returns>
             /// </signature>
-
             this.updateProperty(name, value);
             return this;
         },
-
         addProperty: function (name, value) {
             /// <signature helpKeyword="WinJS.Binding.dynamicObservableMixin.addProperty">
             /// <summary locid="WinJS.Binding.dynamicObservableMixin.addProperty">
@@ -19444,7 +17727,6 @@ define('WinJS/Binding/_Data',[
             /// This object is returned.
             /// </returns>
             /// </signature>
-
             // we could walk Object.keys to more deterministically determine this,
             // however in the normal case this avoids a bunch of string compares
             //
@@ -19460,7 +17742,6 @@ define('WinJS/Binding/_Data',[
             }
             return this.setProperty(name, value);
         },
-
         updateProperty: function (name, value) {
             /// <signature helpKeyword="WinJS.Binding.dynamicObservableMixin.updateProperty">
             /// <summary locid="WinJS.Binding.dynamicObservableMixin.updateProperty">
@@ -19480,12 +17761,10 @@ define('WinJS/Binding/_Data',[
             /// which the notifications have been completed.
             /// </returns>
             /// </signature>
-
             var oldValue = this._backingData[name];
             var newValue = unwrap(value);
             if (oldValue !== newValue) {
                 this._backingData[name] = newValue;
-
                 // This will complete when the listeners are notified, even
                 // if a new value is used. The only time this promise will fail
                 // (cancel) will be if we start notifying and then have to
@@ -19502,7 +17781,6 @@ define('WinJS/Binding/_Data',[
             }
             return Promise.as();
         },
-
         removeProperty: function (name) {
             /// <signature helpKeyword="WinJS.Binding.dynamicObservableMixin.removeProperty">
             /// <summary locid="WinJS.Binding.dynamicObservableMixin.removeProperty">
@@ -19515,7 +17793,6 @@ define('WinJS/Binding/_Data',[
             /// This object is returned.
             /// </returns>
             /// </signature>
-
             var oldValue = this._backingData[name];
             var value; // capture "undefined"
             // in strict mode these may throw
@@ -19529,14 +17806,11 @@ define('WinJS/Binding/_Data',[
             return this;
         }
     };
-
     // Merge "obsevable" into "dynamicObservable"
     //
     Object.keys(observableMixin).forEach(function (k) {
         dynamicObservableMixin[k] = observableMixin[k];
     });
-
-
     var bind = function (observable, bindingDescriptor) {
         /// <signature helpKeyword="WinJS.Binding.bind">
         /// <summary locid="WinJS.Binding.bind">
@@ -19569,7 +17843,6 @@ define('WinJS/Binding/_Data',[
         if (!_WinRT.msGetWeakWinRTProperty) {
             return func;
         }
-
         var id = createBindRefId();
         _DomWeakRefTable._getWeakRefElement(bindStateRef)[id] = func;
         return function (n, o) {
@@ -19584,17 +17857,14 @@ define('WinJS/Binding/_Data',[
         if (!observable) {
             return { cancel: function () { }, empty: true };
         }
-
         var bindState;
         if (!bindStateRef) {
             bindStateRef = createBindRefId();
             bindState = {};
             _DomWeakRefTable._createWeakRef(bindState, bindStateRef);
         }
-
         var complexLast = {};
         var simpleLast = null;
-
         function cancelSimple() {
             if (simpleLast) {
                 simpleLast.forEach(function (e) {
@@ -19603,14 +17873,12 @@ define('WinJS/Binding/_Data',[
             }
             simpleLast = null;
         }
-
         function cancelComplex(k) {
             if (complexLast[k]) {
                 complexLast[k].complexBind.cancel();
                 delete complexLast[k];
             }
         }
-
         Object.keys(bindingDescriptor).forEach(function (k) {
             var listener = bindingDescriptor[k];
             if (listener instanceof Function) {
@@ -19626,7 +17894,6 @@ define('WinJS/Binding/_Data',[
                 var propChanged = function (v) {
                     cancelComplex(k);
                     var complexBind = bindImpl(as(v), listener, bindStateRef);
-
                     // In the case that we hit an "undefined" in the chain, we prop the change
                     // notification to all listeners, basically saying that x.y.z where "y"
                     // is undefined resolves to undefined.
@@ -19646,7 +17913,6 @@ define('WinJS/Binding/_Data',[
                     }
                     complexLast[k] = { source: v, complexBind: complexBind };
                 };
-
                 // Create a proxy for the listener which indirects weakly through the bind
                 // state, if this is the root object tack the bind state onto the listener
                 //
@@ -19657,7 +17923,6 @@ define('WinJS/Binding/_Data',[
                 observable.bind(k, propChanged);
             }
         });
-
         return {
             cancel: function () {
                 cancelSimple();
@@ -19665,13 +17930,10 @@ define('WinJS/Binding/_Data',[
             }
         };
     };
-
-
     var ObservableProxy = _Base.Class.mix(function (data) {
         this._initObservable(data);
         Object.defineProperties(this, expandProperties(data));
     }, dynamicObservableMixin);
-
     var expandProperties = function (shape) {
         /// <signature helpKeyword="WinJS.Binding.expandProperties">
         /// <summary locid="WinJS.Binding.expandProperties">
@@ -19701,7 +17963,6 @@ define('WinJS/Binding/_Data',[
         }
         return props;
     };
-
     var define = function (data) {
         /// <signature helpKeyword="WinJS.Binding.define">
         /// <summary locid="WinJS.Binding.define">
@@ -19717,7 +17978,6 @@ define('WinJS/Binding/_Data',[
         /// the properties.
         /// </returns>
         /// </signature>
-
         // Common unsupported types, we just coerce to be an empty record
         //
         if (!data || typeof (data) !== "object" || (data instanceof Date) || Array.isArray(data)) {
@@ -19727,7 +17987,6 @@ define('WinJS/Binding/_Data',[
                 return;
             }
         }
-
         return _Base.Class.mix(
             function (init) {
                 /// <signature helpKeyword="WinJS.Binding.define.return">
@@ -19738,14 +17997,12 @@ define('WinJS/Binding/_Data',[
                 /// The initial values for the properties.
                 /// </param>
                 /// </signature>
-
                 this._initObservable(init || Object.create(data));
             },
             dynamicObservableMixin,
             expandProperties(data)
         );
     };
-
     var as = function (data) {
         /// <signature helpKeyword="WinJS.Binding.as">
         /// <summary locid="WinJS.Binding.as">
@@ -19759,11 +18016,9 @@ define('WinJS/Binding/_Data',[
         /// The observable object.
         /// </returns>
         /// </signature>
-
         if (!data) {
             return data;
         }
-
         var type = typeof data;
         if (type === "object"
             && !(data instanceof Date)
@@ -19771,7 +18026,6 @@ define('WinJS/Binding/_Data',[
                 if (data._getObservable) {
                     return data._getObservable();
                 }
-
                 var observable = new ObservableProxy(data);
                 observable.backingData = data;
                 Object.defineProperty(
@@ -19788,7 +18042,6 @@ define('WinJS/Binding/_Data',[
             return data;
         }
     };
-
     var unwrap = function (data) {
         /// <signature helpKeyword="WinJS.Binding.unwrap">
         /// <summary locid="WinJS.Binding.unwrap">
@@ -19807,7 +18060,6 @@ define('WinJS/Binding/_Data',[
             return data;
         }
     };
-
     _Base.Namespace._moduleDefine(exports, "WinJS.Binding", {
         // must use long form because mixin has "get" and "set" as members, so the define
         // method thinks it's a property
@@ -19821,7 +18073,6 @@ define('WinJS/Binding/_Data',[
         bind: bind
     });
 });
-
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 define('WinJS/Binding/_Declarative',[
     'exports',
@@ -19840,13 +18091,10 @@ define('WinJS/Binding/_Declarative',[
     './_DomWeakRefTable'
     ], function declarativeInit(exports, _Global, _WinRT, _Base, _BaseUtils, _ErrorFromName, _Log, _Resources, _WriteProfilerMark, Promise, _ElementUtilities, _BindingParser, _Data, _DomWeakRefTable) {
     "use strict";
-
     var uid = (Math.random() * 1000) >> 0;
-
     // If we have proper weak references then we can move away from using the element's ID property
     //
     var optimizeBindingReferences = _WinRT.msSetWeakWinRTProperty && _WinRT.msGetWeakWinRTProperty;
-
     var strings = {
         get attributeBindingSingleProperty() { return "Attribute binding requires a single destination attribute name, often in the form \"this['aria-label']\" or \"width\"."; },
         get cannotBindToThis() { return "Can't bind to 'this'."; },
@@ -19858,10 +18106,8 @@ define('WinJS/Binding/_Declarative',[
         get idBindingNotSupported() { return "Declarative binding to ID field is not supported. Initializer: {0}"; },
         get nestedDOMElementBindingNotSupported() { return "Binding through a property {0} of type HTMLElement is not supported, Full path:{1}."; }
     };
-
     var markSupportedForProcessing = _BaseUtils.markSupportedForProcessing;
     var requireSupportedForProcessing = _BaseUtils.requireSupportedForProcessing;
-
     function registerAutoDispose(bindable, callback) {
         var d = bindable._autoDispose;
         d && d.push(callback);
@@ -19869,7 +18115,6 @@ define('WinJS/Binding/_Declarative',[
     function autoDispose(bindable) {
         bindable._autoDispose = (bindable._autoDispose || []).filter(function (callback) { return callback(); });
     }
-
     function checkBindingToken(element, bindingId) {
         if (element) {
             if (element.winBindingToken === bindingId) {
@@ -19881,17 +18126,14 @@ define('WinJS/Binding/_Declarative',[
             return element;
         }
     }
-
     function setBindingToken(element) {
         if (element.winBindingToken) {
             return element.winBindingToken;
         }
-
         var bindingToken = "_win_bind" + (uid++);
         Object.defineProperty(element, "winBindingToken", { configurable: false, writable: false, enumerable: false, value: bindingToken });
         return bindingToken;
     }
-
     function initializerOneBinding(bind, ref, bindingId, source, e, pend, cacheEntry) {
         var initializer = bind.initializer;
         if (initializer) {
@@ -19899,7 +18141,6 @@ define('WinJS/Binding/_Declarative',[
         }
         if (initializer instanceof Function) {
             var result = initializer(source, bind.source, e, bind.destination);
-
             if (cacheEntry) {
                 if (result && result.cancel) {
                     cacheEntry.bindings.push(function () { result.cancel(); });
@@ -19912,30 +18153,24 @@ define('WinJS/Binding/_Declarative',[
             return result;
         } else if (initializer && initializer.render) {
             pend.count++;
-
             // notify the cache that we encountered an uncancellable thing
             //
             if (cacheEntry) {
                 cacheEntry.nocache = true;
             }
-
             requireSupportedForProcessing(initializer.render).call(initializer, getValue(source, bind.source), e).
                 then(function () {
                     pend.checkComplete();
                 });
         }
     }
-
     function makeBinding(ref, bindingId, pend, bindable, bind, cacheEntry) {
         var first = true;
         var bindResult;
         var canceled = false;
-
         autoDispose(bindable);
-
         var resolveWeakRef = function () {
             if (canceled) { return; }
-
             var found = checkBindingToken(_DomWeakRefTable._getWeakRefElement(ref), bindingId);
             if (!found) {
                 _Log.log && _Log.log(_Resources._formatString(strings.elementNotFound, ref), "winjs binding", "info");
@@ -19956,7 +18191,6 @@ define('WinJS/Binding/_Declarative',[
             }
         };
         registerAutoDispose(bindable, resolveWeakRef);
-
         bindResult = bindWorker(bindable, bind.source, bindingAction);
         if (bindResult) {
             var cancel = bindResult.cancel;
@@ -19968,10 +18202,8 @@ define('WinJS/Binding/_Declarative',[
                 cacheEntry.bindings.push(function () { bindResult.cancel(); });
             }
         }
-
         return bindResult;
     }
-
     function sourceOneBinding(bind, ref, bindingId, source, e, pend, cacheEntry) {
         var bindable;
         if (source !== _Global) {
@@ -19989,7 +18221,6 @@ define('WinJS/Binding/_Declarative',[
             nestedSet(e, bind.destination, getValue(source, bind.source));
         }
     }
-
     function filterIdBinding(declBind, bindingStr) {
         for (var bindIndex = declBind.length - 1; bindIndex >= 0; bindIndex--) {
             var bind = declBind[bindIndex];
@@ -20004,7 +18235,6 @@ define('WinJS/Binding/_Declarative',[
         }
         return declBind;
     }
-
     function calcBinding(bindingStr, bindingCache) {
         if (bindingCache) {
             var declBindCache = bindingCache.expressions[bindingStr];
@@ -20021,10 +18251,8 @@ define('WinJS/Binding/_Declarative',[
             return filterIdBinding(_BindingParser._bindingParser(bindingStr, _Global), bindingStr);
         }
     }
-
     function declarativeBindImpl(rootElement, dataContext, skipRoot, bindingCache, defaultInitializer, c) {
         _WriteProfilerMark("WinJS.Binding:processAll,StartTM");
-
         var pend = {
             count: 0,
             checkComplete: function checkComplete() {
@@ -20042,24 +18270,19 @@ define('WinJS/Binding/_Declarative',[
         if (!skipRoot && (baseElement.getAttribute("data-win-bind") || baseElement.winControl)) {
             neg = baseElement;
         }
-
         pend.count++;
         var source = dataContext || _Global;
-
         _DomWeakRefTable._DOMWeakRefTable_fastLoadPath = true;
         try {
             var baseElementData = _ElementUtilities.data(baseElement);
             baseElementData.winBindings = baseElementData.winBindings || [];
-
             for (var i = (neg ? -1 : 0), l = elements.length; i < l; i++) {
                 var element = i < 0 ? neg : elements[i];
-
                 // If we run into a declarative control container (e.g. Binding.Template) we don't process its
                 //  children, but we do give it an opportunity to process them later using this data context.
                 //
                 if (element.winControl && element.winControl.constructor && element.winControl.constructor.isDeclarativeControlContainer) {
                     i += element.querySelectorAll(selector).length;
-
                     var idcc = element.winControl.constructor.isDeclarativeControlContainer;
                     if (typeof idcc === "function") {
                         idcc = requireSupportedForProcessing(idcc);
@@ -20068,16 +18291,13 @@ define('WinJS/Binding/_Declarative',[
                         });
                     }
                 }
-
                 // In order to catch controls above we may have elements which don't have bindings, skip them
                 //
                 if (!element.hasAttribute("data-win-bind")) {
                     continue;
                 }
-
                 var original = element.getAttribute("data-win-bind");
                 var declBind = calcBinding(original, bindingCache);
-
                 if (!declBind.implemented) {
                     for (var bindIndex = 0, bindLen = declBind.length; bindIndex < bindLen; bindIndex++) {
                         var bind = declBind[bindIndex];
@@ -20090,12 +18310,9 @@ define('WinJS/Binding/_Declarative',[
                     }
                     declBind.implemented = true;
                 }
-
                 pend.count++;
-
                 var bindingId = setBindingToken(element);
                 var ref = optimizeBindingReferences ? bindingId : element.id;
-
                 if (!ref) {
                     // We use our own counter here, as the IE "uniqueId" is only
                     // global to a document, which means that binding against
@@ -20106,7 +18323,6 @@ define('WinJS/Binding/_Declarative',[
                     //
                     element.id = ref = bindingId;
                 }
-
                 _DomWeakRefTable._createWeakRef(element, ref);
                 var elementData = _ElementUtilities.data(element);
                 elementData.winBindings = null;
@@ -20117,7 +18333,6 @@ define('WinJS/Binding/_Declarative',[
                         bindingCache.elements[ref] = cacheEntry = { bindings: [] };
                     }
                 }
-
                 for (var bindIndex2 = 0, bindLen2 = declBind.length; bindIndex2 < bindLen2; bindIndex2++) {
                     var bind2 = declBind[bindIndex2];
                     var cancel2 = bind2.implementation(bind2, ref, bindingId, source, element, pend, cacheEntry);
@@ -20135,7 +18350,6 @@ define('WinJS/Binding/_Declarative',[
         }
         pend.checkComplete();
     }
-
     function declarativeBind(rootElement, dataContext, skipRoot, bindingCache, defaultInitializer) {
         /// <signature helpKeyword="WinJS.Binding.declarativeBind">
         /// <summary locid="WinJS.Binding.declarativeBind">
@@ -20164,7 +18378,6 @@ define('WinJS/Binding/_Declarative',[
         /// been processed and the update has started.
         /// </returns>
         /// </signature>
-
         return new Promise(function (c, e, p) {
             declarativeBindImpl(rootElement, dataContext, skipRoot, bindingCache, defaultInitializer, c, e, p);
         }).then(null, function (e) {
@@ -20172,7 +18385,6 @@ define('WinJS/Binding/_Declarative',[
             return Promise.wrapError(e);
         });
     }
-
     function converter(convert) {
         /// <signature helpKeyword="WinJS.Binding.converter">
         /// <summary locid="WinJS.Binding.converter">
@@ -20191,13 +18403,10 @@ define('WinJS/Binding/_Declarative',[
         var userConverter = function (source, sourceProperties, dest, destProperties, initialValue) {
             var bindingId = setBindingToken(dest);
             var ref = optimizeBindingReferences ? bindingId : dest.id;
-
             if (!ref) {
                 dest.id = ref = bindingId;
             }
-
             _DomWeakRefTable._createWeakRef(dest, ref);
-
             var bindable;
             if (source !== _Global) {
                 source = _Data.as(source);
@@ -20225,7 +18434,6 @@ define('WinJS/Binding/_Declarative',[
         };
         return markSupportedForProcessing(userConverter);
     }
-
     function getValue(obj, path) {
         if (obj !== _Global) {
             obj = requireSupportedForProcessing(obj);
@@ -20237,7 +18445,6 @@ define('WinJS/Binding/_Declarative',[
         }
         return obj;
     }
-
     function nestedSet(dest, destProperties, v) {
         requireSupportedForProcessing(v);
         dest = requireSupportedForProcessing(dest);
@@ -20263,7 +18470,6 @@ define('WinJS/Binding/_Declarative',[
         }
         dest[prop] = v;
     }
-
     function attributeSet(dest, destProperties, v) {
         dest = requireSupportedForProcessing(dest);
         if (!destProperties || destProperties.length !== 1 || !destProperties[0]) {
@@ -20272,7 +18478,6 @@ define('WinJS/Binding/_Declarative',[
         }
         dest.setAttribute(destProperties[0], v);
     }
-
     function setAttribute(source, sourceProperties, dest, destProperties, initialValue) {
         /// <signature helpKeyword="WinJS.Binding.setAttribute">
         /// <summary locid="WinJS.Binding.setAttribute">
@@ -20299,16 +18504,12 @@ define('WinJS/Binding/_Declarative',[
         /// An object with a cancel method that is used to coalesce bindings.
         /// </returns>
         /// </signature>
-
         var bindingId = setBindingToken(dest);
         var ref = optimizeBindingReferences ? bindingId : dest.id;
-
         if (!ref) {
             dest.id = ref = bindingId;
         }
-
         _DomWeakRefTable._createWeakRef(dest, ref);
-
         var bindable;
         if (source !== _Global) {
             source = _Data.as(source);
@@ -20360,7 +18561,6 @@ define('WinJS/Binding/_Declarative',[
         /// </signature>
         return attributeSet(dest, destProperties, getValue(source, sourceProperties));
     }
-
     function addClassOneTime(source, sourceProperties, dest) {
         /// <signature helpKeyword="WinJS.Binding.addClassOneTime">
         /// <summary locid="WinJS.Binding.addClassOneTime">
@@ -20386,9 +18586,7 @@ define('WinJS/Binding/_Declarative',[
             _ElementUtilities.addClass(dest, value);
         }
     }
-
     var defaultBindImpl = converter(function defaultBind_passthrough(v) { return v; });
-
     function defaultBind(source, sourceProperties, dest, destProperties, initialValue) {
         /// <signature helpKeyword="WinJS.Binding.defaultBind">
         /// <summary locid="WinJS.Binding.defaultBind">
@@ -20415,7 +18613,6 @@ define('WinJS/Binding/_Declarative',[
         /// An object with a cancel method that is used to coalesce bindings.
         /// </returns>
         /// </signature>
-
         return defaultBindImpl(source, sourceProperties, dest, destProperties, initialValue);
     }
     function bindWorker(bindable, sourceProperties, func) {
@@ -20426,7 +18623,6 @@ define('WinJS/Binding/_Declarative',[
                 current = current[sourceProperties[i]] = {};
             }
             current[sourceProperties[sourceProperties.length - 1]] = func;
-
             return _Data.bind(bindable, root, true);
         } else if (sourceProperties.length === 1) {
             bindable.bind(sourceProperties[0], func, true);
@@ -20467,7 +18663,6 @@ define('WinJS/Binding/_Declarative',[
         nestedSet(dest, destProperties, getValue(source, sourceProperties));
         return { cancel: noop };
     }
-
     function initializer(customInitializer) {
         /// <signature helpKeyword="WinJS.Binding.initializer">
         /// <summary locid="WinJS.Binding.initializer">
@@ -20482,7 +18677,6 @@ define('WinJS/Binding/_Declarative',[
         /// </signature>
         return markSupportedForProcessing(customInitializer);
     }
-
     _Base.Namespace._moduleDefine(exports, "WinJS.Binding", {
         processAll: declarativeBind,
         oneTime: initializer(oneTime),
@@ -20494,9 +18688,7 @@ define('WinJS/Binding/_Declarative',[
         setAttributeOneTime: initializer(setAttributeOneTime),
         addClassOneTime: initializer(addClassOneTime),
     });
-
 });
-
 define('WinJS/Binding',[
     './Binding/_BindingParser',
     './Binding/_Data',
@@ -20526,23 +18718,18 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
     '../Utilities/_ElementUtilities'
     ], function templateCompilerInit(exports, _Global, _Base, _BaseUtils, _ErrorFromName, _Log, _Resources, _WriteProfilerMark, _BindingParser, _Declarative, ControlProcessor, _OptionsParser, Fragments, Promise, _Signal, _Dispose, _SafeHtml, _ElementUtilities) {
     "use strict";
-
     // not supported in WebWorker
     if (!_Global.document) {
         return;
     }
-
     var strings = {
         get attributeBindingSingleProperty() { return "Attribute binding requires a single destination attribute name, often in the form \"this['aria-label']\" or \"width\"."; },
         get cannotBindToThis() { return "Can't bind to 'this'."; },
         get idBindingNotSupported() { return "Declarative binding to ID field is not supported. Initializer: {0}"; },
     };
-
     _Base.Namespace._moduleDefine(exports, "WinJS.Binding", {
         _TemplateCompiler: _Base.Namespace._lazy(function () {
-
             var cancelBlocker = Promise._cancelBlocker;
-
             // Eagerly bind to stuff that will be needed by the compiler
             //
             var init_defaultBind = _Declarative.defaultBind;
@@ -20563,7 +18750,6 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
             var binding_parser = _BindingParser._bindingParser2;
             var scopedSelect = ControlProcessor.scopedSelect;
             var writeProfilerMark = _WriteProfilerMark;
-
             // Runtime helper functions
             //
             function disposeInstance(container, workPromise, renderCompletePromise) {
@@ -20587,12 +18773,10 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                     return _Declarative.processAll(element, data, false, null, defaultInitializer);
                 };
             }
-
             function targetSecurityCheck(value) {
                 value = requireSupportedForProcessing(value);
                 return value instanceof _Global.Node ? null : value;
             }
-
             // Compiler formatting functions
             //
             var identifierRegEx = /^[A-Za-z]\w*$/;
@@ -20608,7 +18792,6 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
             var formatRegEx = /({{)|(}})|{(\w+)}|({)|(})/g;
             var semiColonOnlyLineRegEx = /^\s*;\s*$/;
             var capitalRegEx = /[A-Z]/g;
-
             function format(string, parts) {
                 var multiline = string.indexOf("\n") !== -1;
                 var args = arguments;
@@ -20744,7 +18927,6 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
             function multiline(str) {
                 return str.replace(/\\n/g, "\\n\\\n");
             }
-
             // Compiler helper functions
             //
             function keys(object) {
@@ -20795,11 +18977,9 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                     (key && post) && post(node, key, 0);
                 }
             }
-
             // Compiler helper types
             //
             var TreeCSE = _Base.Class.define(function (compiler, name, kind, accessExpression, filter) {
-
                 var that = this;
                 this.compiler = compiler;
                 this.kind = kind;
@@ -20811,11 +18991,8 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                 };
                 this.accessExpression = accessExpression;
                 this.filter = filter || "";
-
             }, {
-
                 createPathExpression: function (path, name) {
-
                     if (path.length) {
                         var that = this;
                         var tail = path.reduce(
@@ -20843,11 +19020,8 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                     } else {
                         return this.base;
                     }
-
                 },
-
                 lower: function () {
-
                     var that = this;
                     var aggregatedName = [];
                     var reference = function (node, name, last) {
@@ -20859,14 +19033,12 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                             /*last*/last
                         );
                     };
-
                     // Ensure that all shared internal nodes have names and that all nodes
                     //  know who they reference
                     //
                     visit(this.tree, "",
                         function pre(node, key, childCount) {
                             aggregatedName.push(key);
-
                             if (childCount > 1) {
                                 node.name = node.name || that.compiler.defineInstance(
                                     that.kind,
@@ -20882,11 +19054,8 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                             aggregatedName.pop();
                         }
                     );
-
                 },
-
                 deadNodeElimination: function () {
-
                     // Kill all dead nodes from the tree
                     //
                     visit(this.tree, "", null, function post(node, key, childCount) {
@@ -20898,13 +19067,9 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                             }
                         }
                     });
-
                 },
-
                 definitions: function () {
-
                     var nodes = [];
-
                     // Gather the nodes in a depth first ordering, any node which has a name
                     //  needs to have a definition generated
                     //
@@ -20913,13 +19078,9 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                             nodes.push(node);
                         }
                     });
-
                     return nodes.map(function (n) { return n.name.definition(); });
-
                 },
-
             });
-
             var InstanceKind = {
                 "capture": "capture",
                 "temporary": "temporary",
@@ -20934,7 +19095,6 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                 "data": "d",
                 "global": "g",
             };
-
             var StaticKind = {
                 "imported": "import",
                 "variable": "variable",
@@ -20943,7 +19103,6 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                 "imported": "i",
                 "variable": "sv",
             };
-
             var BindingKind = {
                 "tree": "tree",
                 "text": "text",
@@ -20951,18 +19110,15 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                 "template": "template",
                 "error": "error",
             };
-
             var TextBindingKind = {
                 "attribute": "attribute",
                 "booleanAttribute": "booleanAttribute",
                 "inlineStyle": "inlineStyle",
                 "textContent": "textContent",
             };
-
             // Constants
             //
             var IMPORTS_ARG_NAME = "imports";
-
             var Stage = {
                 initial: 0,
                 analyze: 1,
@@ -20972,7 +19128,6 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                 link: 5,
                 done: 6,
             };
-
             // Compiler
             //
             var TemplateCompiler = _Base.Class.define(function (templateElement, options) {
@@ -20998,10 +19153,8 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                 this._captureCSE = new TreeCSE(this, "container", InstanceKind.capture, this.generateElementCaptureAccess.bind(this));
                 this._dataCSE = new TreeCSE(this, "data", InstanceKind.data, this.generateNormalAccess.bind(this), this.importFunctionSafe("dataSecurityCheck", requireSupportedForProcessing));
                 this._globalCSE = new TreeCSE(this, this.importFunctionSafe("global", _Global), InstanceKind.global, this.generateNormalAccess.bind(this), this.importFunctionSafe("globalSecurityCheck", requireSupportedForProcessing));
-
                 // Clone the template content and import it into its own HTML document for further processing
                 Fragments.renderCopy(this._templateElement, this._templateContent);
-
                 // If we are extracting the first child we only bother compiling the one child
                 if (this._extractChild) {
                     while (this._templateContent.childElementCount > 1) {
@@ -21009,7 +19162,6 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                     }
                 }
             }, {
-
                 addClassOneTimeTextBinding: function (binding) {
                     var that = this;
                     var id = this.createTextBindingHole(binding.elementCapture.element.tagName, "class", ++this._textBindingId);
@@ -21024,9 +19176,7 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                         });
                     };
                 },
-
                 addClassOneTimeTreeBinding: function (binding) {
-
                     var that = this;
                     binding.pathExpression = this.bindingExpression(binding);
                     binding.value = function () {
@@ -21039,51 +19189,36 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                             value: binding.value(),
                         });
                     };
-
                 },
-
                 analyze: function () {
-
                     if (this._stage > Stage.analyze) {
                         throw "Illegal: once we have moved past analyze we cannot revist it";
                     }
                     this._stage = Stage.analyze;
-
                     // find activatable and bound elements
                     this._controls = this.gatherControls();
                     this._bindings = this.gatherBindings();
                     this._children = this.gatherChildren();
-
                     // remove attributes which are no longer needed since we will inline bindings and controls
                     this.cleanControlAndBindingAttributes();
-
                     if (this.async) {
                         this.createAsyncParts();
                     }
-
                     this.nullableIdentifierAccessTemporary = this.defineInstance(InstanceKind.temporary);
-
                     // snapshot html
                     var html = this._templateContent.innerHTML;
                     this._html = function () { return multiline(literal(html)); };
                     this._html.text = html;
-
                 },
-
                 bindingExpression: function (binding) {
-
                     return this._dataCSE.createPathExpression(binding.source, binding.source.join("_"));
-
                 },
-
                 capture: function (element) {
-
                     var capture = element._capture;
                     if (capture) {
                         capture.refCount++;
                         return capture;
                     }
-
                     // Find the path to the captured element
                     //
                     var path = [element];
@@ -21108,9 +19243,7 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                     capture.element._capture = capture;
                     capture.refCount = 1;
                     return capture;
-
                 },
-
                 cleanControlAndBindingAttributes: function () {
                     var selector = "[data-win-bind],[data-win-control]";
                     var elements = this._templateContent.querySelectorAll(selector);
@@ -21124,18 +19257,13 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                         element.removeAttribute("data-win-options");
                     }
                 },
-
                 compile: function (bodyTemplate, replacements, supportDelayBindings) {
-
                     if (this._stage > Stage.compile) {
                         throw "Illegal: once we have moved past compile we cannot revist it";
                     }
                     this._stage = Stage.compile;
-
                     var that = this;
-
                     this._returnedElement = this._extractChild ? "container.firstElementChild" : "container";
-
                     var control_processing = this._controls.map(function (control) {
                         var constructionFormatString;
                         if (control.async) {
@@ -21175,7 +19303,6 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                             return construction;
                         }
                     });
-
                     var all_binding_processing = this._bindings.map(function (binding) {
                         switch (binding.kind) {
                             case BindingKind.template:
@@ -21189,7 +19316,6 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                                         dest: binding.elementCapture,
                                     }
                                 );
-
                             case BindingKind.initializer:
                                 var formatString;
                                 if (binding.initialValue) {
@@ -21209,18 +19335,14 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                                         initialValue: binding.initialValue,
                                     }
                                 );
-
                             case BindingKind.tree:
                                 return binding.definition();
-
                             case BindingKind.text:
                                 // do nothing, text bindings are taken care of seperately
                                 break;
-
                             case BindingKind.error:
                                 // do nothing, errors are reported and ignored
                                 break;
-
                             default:
                                 throw "NYI";
                         }
@@ -21237,24 +19359,19 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                         binding_processing = all_binding_processing;
                         delayed_binding_processing = [];
                     }
-
                     var instances = values(this._instanceVariables);
-
                     var instanceDefinitions = instances
                         .filter(function (instance) { return instance.kind === InstanceKind.variable; })
                         .map(function (variable) { return variable.definition(); });
-
                     var captures = this._captureCSE.definitions();
                     var globals = this._globalCSE.definitions();
                     var data = this._dataCSE.definitions();
-
                     var set_msParentSelectorScope = this._children.map(function (child) {
                         return that.formatCodeN("{0}.msParentSelectorScope = true", child);
                     });
                     var suffix = this._suffix.map(function (statement) {
                         return statement();
                     });
-
                     var renderComplete = "";
                     if (supportDelayBindings && delayed_binding_processing.length) {
                         renderComplete = that.formatCode(
@@ -21264,7 +19381,6 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                             }
                         );
                     }
-
                     var result = that.formatCode(
                         bodyTemplate,
                         mergeAll([
@@ -21292,27 +19408,20 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                             },
                         ])
                     );
-
                     return this.prettify(result);
-
                 },
-
                 createAsyncParts: function () {
-
                     this._nestedTemplates = this._nestedTemplates || this.defineInstance(
                         InstanceKind.variable,
                         "nestedTemplates",
                         function () { return newArray(0); }
                     );
-
                     this._controlCounter = this._controlCounter || this.defineInstance(
                         InstanceKind.variable,
                         "controlCounter",
                         function () { return literal(1); }
                     );
-
                 },
-
                 createTextBindingHole: function (tagName, attribute, id) {
                     if (!this._textBindingPrefix) {
                         var c = "";
@@ -21325,7 +19434,6 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                         //  are introduced by the switch below.
                         this._textBindingRegex = new RegExp("(#?" + this._textBindingPrefix + "_\\d+)");
                     }
-
                     // Sometimes text bindings need to be of a particular form to suppress warnings from
                     //  the host, specifically there is a case with IMG/src attribute where if you assign
                     //  a naked textbinding_X to it you get a warning in the console of an unresolved image
@@ -21335,13 +19443,10 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                     if (tagName === "IMG" && attribute === "src") {
                         result = "#" + result;
                     }
-
                     return result;
                 },
-
                 deadCodeElimination: function () {
                     var that = this;
-
                     // Eliminate all captured elements which are no longer in the tree, this can happen if
                     //  these captured elements are children of a node which had a text binding to 'innerText'
                     //  or 'textContent' as those kill the subtree.
@@ -21364,27 +19469,20 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                             }
                         }
                     });
-
                     // Eliminate all control activations which target elements which are no longer in the tree
                     //
                     this._controls = this._controls.filter(function (c) { return !c.elementCapture.dead; });
-
                     // Eliminate all bindings which target elements which are no longer in the tree
                     //
                     this._bindings = this._bindings.filter(function (b) { return !b.elementCapture.dead; });
-
                     // Cleanup the capture CSE tree now that we know dead nodes are marked as such.
                     //
                     this._captureCSE.deadNodeElimination();
-
                 },
-
                 defineInstance: function (kind, name, definition) {
-
                     if (this._stage >= Stage.compile) {
                         throw "Illegal: define instance variable after compilation stage has started";
                     }
-
                     var variableCount = this._instanceVariablesCount[kind] || 0;
                     var suffix = name ? name.replace(identifierCharacterRegEx, "_") : "";
                     var identifier = createIdentifier(InstanceKindPrefixes[kind], variableCount, suffix);
@@ -21393,15 +19491,11 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                     this._instanceVariables[identifier] = identifier;
                     this._instanceVariablesCount[kind] = variableCount + 1;
                     return identifier;
-
                 },
-
                 defineStatic: function (kind, name, definition) {
-
                     if (this._stage >= Stage.link) {
                         throw "Illegal: define static variable after link stage has started";
                     }
-
                     if (name) {
                         var known = this._staticVariables[name];
                         if (known) {
@@ -21415,18 +19509,13 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                     this._staticVariables[name || identifier] = identifier;
                     this._staticVariablesCount++;
                     return identifier;
-
                 },
-
                 done: function () {
-
                     if (this._stage > Stage.done) {
                         throw "Illegal: once we have moved past done we cannot revist it";
                     }
                     this._stage = Stage.done;
-
                 },
-
                 emitScopedSelect: function (selector, elementCapture) {
                     return this.formatCode(
                         "{scopedSelect}({selector}, {element})",
@@ -21437,9 +19526,7 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                         }
                     );
                 },
-
                 emitOptionsNode: function (node, parts, elementCapture) {
-
                     var that = this;
                     if (node) {
                         switch (typeof node) {
@@ -21468,17 +19555,14 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                                 } else {
                                     parts.push("{");
                                     Object.keys(node).forEach(function (key) {
-
                                         parts.push(propertyName(key));
                                         parts.push(":");
                                         that.emitOptionsNode(node[key], parts, elementCapture);
                                         parts.push(",");
-
                                     });
                                     parts.push("}");
                                 }
                                 break;
-
                             default:
                                 parts.push(literal(node));
                                 break;
@@ -21486,11 +19570,8 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                     } else {
                         parts.push(literal(null));
                     }
-
                 },
-
                 findGlobalIdentifierExpressions: function (obj, results) {
-
                     results = results || [];
                     var that = this;
                     Object.keys(obj).forEach(function (key) {
@@ -21506,29 +19587,20 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                         }
                     });
                     return results;
-
                 },
-
                 formatCodeN: function () {
-
                     if (this._stage < Stage.compile) {
                         throw "Illegal: format code at before compilation stage has started";
                     }
                     return format.apply(null, arguments);
-
                 },
-
                 formatCode: function (string, parts) {
-
                     if (this._stage < Stage.compile) {
                         throw "Illegal: format code at before compilation stage has started";
                     }
                     return format(string, parts);
-
                 },
-
                 gatherBindings: function () {
-
                     var bindTokens = -1;
                     var that = this;
                     var nestedTemplates = -1;
@@ -21537,20 +19609,17 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                     var elements = this._templateContent.querySelectorAll(selector);
                     for (var i = 0, len = elements.length; i < len; i++) {
                         var element = elements[i];
-
                         // If we run into a declarative control container (e.g. Binding.Template) we don't
                         //  bind its children, but we will give it an opportunity to process later using the
                         //  same data context.
                         if (element.isDeclarativeControlContainer) {
                             i += element.querySelectorAll(selector).length;
                         }
-
                         // Since we had to look for controls as well as bindings in order to skip controls
                         //  which are declarative control containers we have to check if this element is bound
                         if (!element.hasAttribute("data-win-bind")) {
                             continue;
                         }
-
                         var bindingText = element.getAttribute("data-win-bind");
                         var elementBindings = binding_parser(bindingText, _Global);
                         elementBindings.forEach(function (binding) {
@@ -21590,7 +19659,6 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                         });
                         bindings.push.apply(bindings, elementBindings);
                     }
-
                     var nestedTemplateCount = nestedTemplates + 1;
                     if (nestedTemplateCount > 0) {
                         this.async = true;
@@ -21600,7 +19668,6 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                             function () { return newArray(nestedTemplateCount); }
                         );
                     }
-
                     var bindTokenCount = bindTokens + 1;
                     if (bindTokenCount > 0) {
                         this._bindTokens = this.defineInstance(
@@ -21620,20 +19687,13 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                             );
                         });
                     }
-
                     return bindings;
-
                 },
-
                 gatherChildren: function () {
-
                     var that = this;
                     return Array.prototype.map.call(this._templateContent.children, function (child) { return that.capture(child); });
-
                 },
-
                 gatherControls: function () {
-
                     var that = this;
                     var asyncCount = 0;
                     var controls = [];
@@ -21648,24 +19708,20 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                         if (!ControlConstructor) {
                             continue;
                         }
-
                         var optionsText = element.getAttribute("data-win-options") || literal({});
                         var async = ControlConstructor.length > 2;
                         if (async) {
                             asyncCount++;
                             this.async = true;
                         }
-
                         var isDeclarativeControlContainer = ControlConstructor.isDeclarativeControlContainer;
                         if (isDeclarativeControlContainer) {
                             if (typeof isDeclarativeControlContainer === "function") {
                                 isDeclarativeControlContainer = this.importFunction(name + "_isDeclarativeControlContainer", isDeclarativeControlContainer);
                             }
-
                             element.isDeclarativeControlContainer = isDeclarativeControlContainer;
                             i += element.querySelectorAll(selector).length;
                         }
-
                         var control = {
                             elementCapture: this.capture(element),
                             name: name,
@@ -21677,13 +19733,11 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                             isDeclarativeControlContainer: isDeclarativeControlContainer,
                         };
                         controls.push(control);
-
                         var globalReferences = this.findGlobalIdentifierExpressions(control.optionsParsed);
                         globalReferences.forEach(function (identifierExpression) {
                             identifierExpression.pathExpression = that.globalExpression(identifierExpression.parts);
                         });
                     }
-
                     if (asyncCount > 0) {
                         this._controlCounter = this.defineInstance(
                             InstanceKind.variable,
@@ -21692,28 +19746,19 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                             function () { return literal(asyncCount + 1); }
                         );
                     }
-
                     return controls;
-
                 },
-
                 generateElementCaptureAccess: function (l, r, root) {
-
                     if (root) {
                         // Clean up the right hand side so we don't end up with "startIndex + 0"
                         var right = ("" + r === "0" ? "" : " + " + r);
-
                         return this.formatCodeN("{0}.children[startIndex{1}]", l, right);
                     }
                     return this.formatCodeN("{0}.children[{1}]", l, r);
-
                 },
-
                 generateNormalAccess: function (left, right, root, filter, last) {
-
                     // The 'last' parameter indicates that this path access is the last part of a greater
                     // access expression and therefore does not need to be further assigned to the temp.
-
                     if (left.indexOf(this.nullableIdentifierAccessTemporary) >= 0) {
                         // If the nullableIdentifierAccessTemporary is on the LHS then the
                         // LHS is already an access expression and does not need to be null-checked again
@@ -21742,19 +19787,13 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                         right: identifierAccessExpression([right]),
                         filter: filter
                     });
-
                 },
-
                 generateOptionsLiteral: function (optionsParsed, elementCapture) {
-
                     var parts = [];
                     this.emitOptionsNode(optionsParsed, parts, elementCapture);
                     return parts.join(" ");
-
                 },
-
                 generateDebugBreak: function () {
-
                     if (this._debugBreak) {
                         var counter = this.defineStatic(
                             StaticKind.variable,
@@ -21764,28 +19803,19 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                         return this.formatCodeN("if (++{0} === 1) {{ debugger; }}", counter);
                     }
                     return "";
-
                 },
-
                 globalExpression: function (path) {
-
                     return this._globalCSE.createPathExpression(path, path.join("_"));
-
                 },
-
                 importFunction: function (name, i) {
-
                     // Used for functions which are gathered from user code (e.g. binding initializers and
                     //  control constructors). For these functions we need to assert that they are safe for
                     //  use in a declarative context, however since the values are known at compile time we
                     //  can do that check once.
                     //
                     return this.importFunctionSafe(name, requireSupportedForProcessing(i));
-
                 },
-
                 importFunctionSafe: function (name, i) {
-
                     // Used for functions and objects which are intrinsic to the template compiler and are safe
                     //  for their intended usages and don't need to be marked requireSupportedForProcessing.
                     //
@@ -21800,18 +19830,14 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                     }
                     identifier.imported = i;
                     return identifier;
-
                 },
-
                 importAll: function (imports) {
                     Object.keys(imports).forEach(function (key) {
                         requireSupportedForProcessing(imports[key]);
                     });
                     return this.importAllSafe(imports);
                 },
-
                 importAllSafe: function (imports) {
-
                     var that = this;
                     var result = Object.keys(imports).reduce(
                         function (o, key) {
@@ -21821,18 +19847,13 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                         {}
                     );
                     return result;
-
                 },
-
                 link: function (body) {
-
                     if (this._stage > Stage.link) {
                         throw "Illegal: once we have moved past link we cannot revist it";
                     }
                     this._stage = Stage.link;
-
                     var that = this;
-
                     // Gather the set of imported instances (functions mostly). All of these are runtime values which
                     //  are already safety checked for things like requireSupportedForProcessing.
                     //
@@ -21845,9 +19866,7 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                             },
                             {}
                         );
-
                     var statics = values(this._staticVariables);
-
                     return new Function(IMPORTS_ARG_NAME, // jshint ignore:line
                         this.formatCode(
                             linkerCodeTemplate,
@@ -21858,31 +19877,23 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                             }
                         )
                     )(imports);
-
                 },
-
                 lower: function () {
-
                     if (this._stage > Stage.lower) {
                         throw "Illegal: once we have moved past lower we cannot revist it";
                     }
                     this._stage = Stage.lower;
-
                     this._captureCSE.lower();
                     this._dataCSE.lower();
                     this._globalCSE.lower();
-
                 },
-
                 markBindingAsError: function (binding) {
                     if (binding) {
                         binding.kind = BindingKind.error;
                         this.markBindingAsError(binding.original);
                     }
                 },
-
                 oneTimeTextBinding: function (binding) {
-
                     var that = this;
                     var result = this.oneTimeTextBindingAnalyze(binding);
                     if (result) {
@@ -21910,12 +19921,10 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                                 }
                             );
                         };
-
                         switch (result.kind) {
                             case TextBindingKind.attribute:
                                 binding.elementCapture.element.setAttribute(result.attribute, id);
                                 break;
-
                             case TextBindingKind.booleanAttribute:
                                 // Boolean attributes work differently, the presence of the attribute in any
                                 //  form means true and its absence means false. This means that we need to
@@ -21923,7 +19932,6 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                                 //  expression at runtime add it back.
                                 //
                                 binding.elementCapture.element.setAttribute(result.attribute, id);
-
                                 // Wrap the definition in a ternary expression which yields either the attribute
                                 //  name or an empty string.
                                 //
@@ -21943,7 +19951,6 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                                         }
                                     );
                                 };
-
                                 // Arrange for the attribute in the HTML with the 'id' as a value to be wholy
                                 //  replaced by the ID.
                                 //
@@ -21951,11 +19958,9 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                                     return html.replace(new RegExp(result.attribute + "=\"" + id + "\"", "i"), id);
                                 });
                                 break;
-
                             case TextBindingKind.textContent:
                                 binding.elementCapture.element.textContent = id;
                                 break;
-
                             case TextBindingKind.inlineStyle:
                                 var element = binding.elementCapture.element;
                                 // Inline styles require a little finesseing, their form always needs to be
@@ -21980,19 +19985,15 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                                 }
                                 element.msReplaceStyle = element.msReplaceStyle + result.property + ":" + id + ";";
                                 break;
-
                             default:
                                 throw "NYI";
                         }
                     }
-
                 },
-
                 oneTimeTextBindingAnalyze: function (binding) {
                     var element = binding.elementCapture.element;
                     var elementType = element.tagName;
                     var targetProperty = binding.destination[0];
-
                     // Properties which can only be optimized for a given element types
                     //
                     switch (elementType) {
@@ -22002,7 +20003,6 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                                     return { kind: TextBindingKind.attribute, attribute: targetProperty };
                             }
                             break;
-
                         case "IMG":
                             switch (targetProperty) {
                                 case "alt":
@@ -22012,31 +20012,26 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                                     return { kind: TextBindingKind.attribute, attribute: targetProperty };
                             }
                             break;
-
                         case "SELECT":
                             switch (targetProperty) {
                                 case "disabled":
                                 case "multiple":
                                 case "required":
                                     return { kind: TextBindingKind.booleanAttribute, attribute: targetProperty };
-
                                 case "size":
                                     return { kind: TextBindingKind.attribute, attribute: targetProperty };
                             }
                             break;
-
                         case "OPTION":
                             switch (targetProperty) {
                                 case "label":
                                 case "value":
                                     return { kind: TextBindingKind.attribute, attribute: targetProperty };
-
                                 case "disabled":
                                 case "selected":
                                     return { kind: TextBindingKind.booleanAttribute, attribute: targetProperty };
                             }
                             break;
-
                         case "INPUT":
                             switch (targetProperty) {
                                 case "checked":
@@ -22046,17 +20041,14 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                                             return { kind: TextBindingKind.booleanAttribute, attribute: targetProperty };
                                     }
                                     break;
-
                                 case "disabled":
                                     return { kind: TextBindingKind.booleanAttribute, attribute: targetProperty };
-
                                 case "max":
                                 case "maxLength":
                                 case "min":
                                 case "step":
                                 case "value":
                                     return { kind: TextBindingKind.attribute, attribute: targetProperty };
-
                                 case "size":
                                     switch (element.type) {
                                         case "text":
@@ -22068,7 +20060,6 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                                             return { kind: TextBindingKind.attribute, attribute: targetProperty };
                                     }
                                     break;
-
                                 case "readOnly":
                                     switch (element.type) {
                                         case "hidden":
@@ -22080,31 +20071,26 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                                         case "button":
                                             // not supported:
                                             break;
-
                                         default:
                                             return { kind: TextBindingKind.booleanAttribute, attribute: targetProperty };
                                     }
                                     break;
                             }
                             break;
-
                         case "BUTTON":
                             switch (targetProperty) {
                                 case "disabled":
                                     return { kind: TextBindingKind.booleanAttribute, attribute: targetProperty };
-
                                 case "value":
                                     return { kind: TextBindingKind.attribute, attribute: targetProperty };
                             }
                             break;
-
                         case "TEXTAREA":
                             switch (targetProperty) {
                                 case "disabled":
                                 case "readOnly":
                                 case "required":
                                     return { kind: TextBindingKind.booleanAttribute, attribute: targetProperty };
-
                                 case "cols":
                                 case "maxLength":
                                 case "placeholder":
@@ -22114,20 +20100,17 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                             }
                             break;
                     }
-
                     // Properties which can be optimized for all element types
                     //
                     switch (targetProperty) {
                         case "className":
                             return { kind: TextBindingKind.attribute, attribute: "class" };
-
                         case "dir":
                         case "lang":
                         case "name":
                         case "title":
                         case "tabIndex":
                             return { kind: TextBindingKind.attribute, attribute: targetProperty };
-
                         case "style":
                             if (binding.destination.length > 1) {
                                 var targetCssProperty = binding.destination[1];
@@ -22164,15 +20147,12 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                                 }
                             }
                             break;
-
                         case "innerText":
                         case "textContent":
                             return { kind: TextBindingKind.textContent, attribute: "textContent" };
                     }
                 },
-
                 oneTimeTreeBinding: function (binding) {
-
                     if (binding.destination.length === 1 && binding.destination[0] === "id") {
                         if (_BaseUtils.validation) {
                             throw new _ErrorFromName("WinJS.Binding.IdBindingNotSupported", _Resources._formatString(strings.idBindingNotSupported, binding.bindingText));
@@ -22181,13 +20161,11 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                         this.markBindingAsError(binding);
                         return;
                     }
-
                     if (binding.destination.length === 0) {
                         _Log.log && _Log.log(strings.cannotBindToThis, "winjs binding", "error");
                         this.markBindingAsError(binding);
                         return;
                     }
-
                     var that = this;
                     var initialValue;
                     binding.pathExpression = this.bindingExpression(binding);
@@ -22221,16 +20199,12 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                             }
                         );
                     };
-
                 },
-
                 optimize: function () {
-
                     if (this._stage > Stage.optimze) {
                         throw "Illegal: once we have moved past link we cannot revist it";
                     }
                     this._stage = Stage.optimze;
-
                     // Identify all bindings which can be turned into tree bindings, in some cases this consists
                     //  of simply changing their type and providing a definition, in other cases it involves
                     //  adding a new tree binding to complement the other binding
@@ -22240,7 +20214,6 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                         if (binding.template) {
                             continue;
                         }
-
                         switch (binding.initializer.imported) {
                             case init_defaultBind:
                                 // Add a new tree binding for one-time binding and mark the defaultBind as delayable
@@ -22255,7 +20228,6 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                                 binding.delayable = true;
                                 i++;
                                 break;
-
                             case init_setAttribute:
                                 // Add a new tree binding for one-time setAttribute and mark the setAttribute as delayable
                                 var newBinding = merge(binding, {
@@ -22269,19 +20241,15 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                                 binding.delayable = true;
                                 i++;
                                 break;
-
                             case init_oneTime:
                                 this.oneTimeTreeBinding(binding);
                                 break;
-
                             case init_setAttributeOneTime:
                                 this.setAttributeOneTimeTreeBinding(binding);
                                 break;
-
                             case init_addClassOneTime:
                                 this.addClassOneTimeTreeBinding(binding);
                                 break;
-
                             default:
                                 if (binding.initializer) {
                                     binding.delayable = !!binding.initializer.imported.delayable;
@@ -22289,9 +20257,7 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                                 break;
                         }
                     }
-
                     if (this._optimizeTextBindings) {
-
                         // Identifiy all potential text bindings and generate text replacement expressions
                         //
                         var textBindings = {};
@@ -22303,20 +20269,16 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                             if (binding.kind === BindingKind.error) {
                                 continue;
                             }
-
                             switch (binding.initializer.imported) {
                                 case init_oneTime:
                                     this.oneTimeTextBinding(binding);
                                     break;
-
                                 case init_setAttributeOneTime:
                                     this.setAttributeOneTimeTextBinding(binding);
                                     break;
-
                                 case init_addClassOneTime:
                                     this.addClassOneTimeTextBinding(binding);
                                     break;
-
                                 default:
                                     break;
                             }
@@ -22324,10 +20286,8 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                                 textBindings[binding.textBindingId] = binding;
                             }
                         }
-
                         if (Object.keys(textBindings).length) {
                             var newHtml = this._templateContent.innerHTML;
-
                             // Perform any adjustments to the HTML that are needed for things like styles and
                             //  boolean attributes
                             //
@@ -22337,7 +20297,6 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                                 },
                                 newHtml
                             );
-
                             // All the even indexes are content and all the odds are replacements
                             //
                             // NOTE: this regular expression is
@@ -22346,7 +20305,6 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                                 var binding = textBindings[parts[i]];
                                 parts[i] = binding.definition;
                             }
-
                             // Generate the function which will code-gen the HTML replacements.
                             //
                             this._html = function () {
@@ -22358,21 +20316,14 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                                 return multiline(result);
                             };
                         }
-
                     }
-
                 },
-
                 prettify: function (result) {
-
                     // remove all lines which contain nothing but a semi-colon
                     var lines = result.split("\n");
                     return lines.filter(function (line) { return !semiColonOnlyLineRegEx.test(line); }).join("\n");
-
                 },
-
                 setAttributeOneTimeTextBinding: function (binding) {
-
                     var that = this;
                     var attribute = binding.destination[0];
                     var id = this.createTextBindingHole(binding.elementCapture.element.tagName, attribute, ++this._textBindingId);
@@ -22400,11 +20351,8 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                             }
                         );
                     };
-
                 },
-
                 setAttributeOneTimeTreeBinding: function (binding) {
-
                     if (binding.destination.length === 1 && binding.destination[0] === "id") {
                         if (_BaseUtils.validation) {
                             throw new _ErrorFromName("WinJS.Binding.IdBindingNotSupported", _Resources._formatString(strings.idBindingNotSupported, binding.bindingText));
@@ -22413,13 +20361,11 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                         this.markBindingAsError(binding);
                         return;
                     }
-
                     if (binding.destination.length !== 1 || !binding.destination[0]) {
                         _Log.log && _Log.log(strings.attributeBindingSingleProperty, "winjs binding", "error");
                         this.markBindingAsError(binding);
                         return;
                     }
-
                     var that = this;
                     var initialValue;
                     binding.pathExpression = this.bindingExpression(binding);
@@ -22448,24 +20394,16 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                             }
                         );
                     };
-
                 },
-
             }, {
                 _TreeCSE: TreeCSE,
-
                 compile: function TemplateCompiler_compile(template, templateElement, options) {
-
                     if (!(templateElement instanceof _Global.HTMLElement)) {
                         throw "Illegal";
                     }
-
                     writeProfilerMark("WinJS.Binding.Template:compile" + options.profilerMarkIdentifier + ",StartTM");
-
                     var compiler = new TemplateCompiler(templateElement, options);
-
                     compiler.analyze();
-
                     var importAliases = compiler.importAllSafe({
                         Signal: _Signal,
                         global: _Global,
@@ -22485,13 +20423,9 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                         delayedBindingProcessing: delayedBindingProcessing,
                         writeProfilerMark: writeProfilerMark
                     });
-
                     compiler.optimize();
-
                     compiler.deadCodeElimination();
-
                     compiler.lower();
-
                     var codeTemplate;
                     var delayBindings;
                     switch (options.target) {
@@ -22499,28 +20433,21 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                             codeTemplate = compiler.async ? renderImplCodeAsyncTemplate : renderImplCodeTemplate;
                             delayBindings = false;
                             break;
-
                         case "renderItem":
                             codeTemplate = compiler.async ? renderItemImplCodeAsyncTemplate : renderItemImplCodeTemplate;
                             delayBindings = true;
                             break;
                     }
-
                     var body = compiler.compile(codeTemplate, importAliases, delayBindings);
                     var render = compiler.link(body);
-
                     compiler.done();
-
                     writeProfilerMark("WinJS.Binding.Template:compile" + options.profilerMarkIdentifier + ",StopTM");
-
                     return render;
                 }
             });
-
             //
             // Templates
             //
-
             function trimLinesRight(string) {
                 // Replace all empty lines with just a newline
                 // Remove all trailing spaces
@@ -22528,8 +20455,6 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
                     return content;
                 });
             }
-
-
             var renderImplMainCodePrefixTemplate = trimLinesRight(
 "container.classList.add(\"win-template\");                                                              \n" +
 "var html = {html};                                                                                      \n" +
@@ -22541,7 +20466,6 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
 "{set_msParentSelectorScope};                                                                            \n" +
 "                                                                                                        \n"
 );
-
             var renderImplControlAndBindingProcessing = trimLinesRight(
 "// Control Processing                                                                                   \n" +
 "{control_processing};                                                                                   \n" +
@@ -22551,7 +20475,6 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
 "                                                                                                        \n" +
 "var result = {promise_as}(returnedElement);                                                             \n"
 );
-
             var renderImplAsyncControlAndBindingProcessing = trimLinesRight(
 "var controlSignal = new {Signal}();                                                                     \n" +
 "var controlDone = function () {{ if (--{control_counter} === 0) {{ controlSignal.complete(); }} }};     \n" +
@@ -22571,13 +20494,10 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
 "    return {promise}.wrapError(e);                                                                      \n" +
 "}});                                                                                                    \n"
 );
-
-
             var renderImplMainCodeSuffixTemplate = trimLinesRight(
 "{markDisposable}(returnedElement, function () {{ {disposeInstance}(returnedElement, result); }});       \n" +
 "{suffix_statements};                                                                                    \n"
 );
-
             var renderImplCodeTemplate = trimLinesRight(
 "function render(data, container) {{                                                                     \n" +
 "    {debug_break}                                                                                       \n" +
@@ -22619,7 +20539,6 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
 "    return result;                                                                                      \n" +
 "}}                                                                                                      \n"
 );
-
             var renderImplCodeAsyncTemplate = trimLinesRight(
 "function render(data, container) {{                                                                     \n" +
 "    {debug_break}                                                                                       \n" +
@@ -22661,12 +20580,10 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
 "    return result;                                                                                      \n" +
 "}}                                                                                                      \n"
 );
-
             var renderItemImplMainCodeSuffixTemplate = trimLinesRight(
 "{markDisposable}(returnedElement, function () {{ {disposeInstance}(returnedElement, result, renderComplete); }});\n" +
 "{suffix_statements};                                                                                    \n"
 );
-
             var renderItemImplCodeTemplate = trimLinesRight(
 "function renderItem(itemPromise) {{                                                                     \n" +
 "    {debug_break}                                                                                       \n" +
@@ -22711,7 +20628,6 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
 "    }};                                                                                                 \n" +
 "}}                                                                                                      \n"
 );
-
             var renderItemImplRenderCompleteTemplate = trimLinesRight(
 "renderComplete = element.then(function () {{                                                            \n" +
 "    return itemPromise;                                                                                 \n" +
@@ -22722,7 +20638,6 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
 "    return element;                                                                                     \n" +
 "}});                                                                                                    \n"
 );
-
             var renderItemImplCodeAsyncTemplate = trimLinesRight(
 "function renderItem(itemPromise) {{                                                                     \n" +
 "    {debug_break}                                                                                       \n" +
@@ -22767,7 +20682,6 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
 "    }};                                                                                                 \n" +
 "}}                                                                                                      \n"
 );
-
             var linkerCodeTemplate = trimLinesRight(
 "\"use strict\";                                                                                         \n" +
 "                                                                                                        \n" +
@@ -22778,17 +20692,13 @@ define('WinJS/BindingTemplate/_DataTemplateCompiler',[
 "// generated template rendering function                                                                \n" +
 "return {body};                                                                                          \n"
 );
-
             //
             // End Templates
             //
-
             return TemplateCompiler;
         })
     });
-
 });
-
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 define('WinJS/BindingTemplate',[
     'exports',
@@ -22807,16 +20717,12 @@ define('WinJS/BindingTemplate',[
     './Utilities/_ElementUtilities'
     ], function dataTemplateInit(exports, _Global, _WinRT, _Base, _BaseUtils, _Log, _WriteProfilerMark, _Declarative, _DataTemplateCompiler, ControlProcessor, Fragments, Promise, _Dispose, _ElementUtilities) {
     "use strict";
-
     // not supported in WebWorker
     if (!_Global.document) {
         return;
     }
-
     var cancelBlocker = Promise._cancelBlocker;
-
     _Base.Namespace._moduleDefine(exports, "WinJS.Binding", {
-
         /// <field>
         /// <summary locid="WinJS.Binding.Template">
         /// Provides a reusable declarative binding element.
@@ -22831,14 +20737,11 @@ define('WinJS/BindingTemplate',[
         Template: _Base.Namespace._lazy(function () {
             function interpretedRender(template, dataContext, container) {
                 _WriteProfilerMark("WinJS.Binding:templateRender" + template._profilerMarkIdentifier + ",StartTM");
-
                 if (++template._counter === 1 && (template.debugBreakOnRender || Template._debugBreakOnRender)) {
                     debugger; // jshint ignore:line
                 }
-
                 var workPromise = Promise.wrap();
                 var d = container || _Global.document.createElement(template.element.tagName);
-
                 _ElementUtilities.addClass(d, "win-template");
                 _ElementUtilities.addClass(d, "win-loading");
                 var that = template;
@@ -22904,13 +20807,11 @@ define('WinJS/BindingTemplate',[
                                 };
                             }
                         }
-
                         var child = d.firstElementChild;
                         while (child) {
                             child.msParentSelectorScope = true;
                             child = child.nextElementSibling;
                         }
-
                         // This allows "0" to mean no timeout (at all) and negative values
                         // mean setImmediate (no setTimeout). Since Promise.timeout uses
                         // zero to mean setImmediate, we have to coerce.
@@ -22940,10 +20841,8 @@ define('WinJS/BindingTemplate',[
                             return workPromise;
                         }
                     }).then(done, function (err) { done(); return Promise.wrapError(err); });
-
                 return { element: element, renderComplete: renderComplete };
             }
-
             var Template = _Base.Class.define(function Template_ctor(element, options) {
                 /// <signature helpKeyword="WinJS.Binding.Template.Template">
                 /// <summary locid="WinJS.Binding.Template.constructor">
@@ -22957,16 +20856,12 @@ define('WinJS/BindingTemplate',[
                 /// the content of the element parameter is ignored.
                 /// </param>
                 /// </signature>
-
                 this._element = element || _Global.document.createElement("div");
                 this._element.winControl = this;
-
                 this._profilerMarkIdentifier = _BaseUtils._getProfilerMarkIdentifier(this._element);
                 _WriteProfilerMark("WinJS.Binding:newTemplate" + this._profilerMarkIdentifier + ",StartTM");
-
                 var that = this;
                 this._element.renderItem = function (itemPromise, recycled) { return that._renderItemImpl(itemPromise, recycled); };
-
                 options = options || {};
                 this.href = options.href;
                 this.enableRecycling = !!options.enableRecycling;
@@ -22976,16 +20871,13 @@ define('WinJS/BindingTemplate',[
                 this.disableOptimizedProcessing = options.disableOptimizedProcessing;
                 this.extractChild = options.extractChild;
                 this._counter = 0;
-
                 // This will eventually change name and reverse polarity, starting opt-in.
                 //
                 this._compile = !!options._compile;
-
                 if (!this.href) {
                     this.element.style.display = "none";
                 }
                 this.bindingCache = { expressions: {} };
-
                 _WriteProfilerMark("WinJS.Binding:newTemplate" + this._profilerMarkIdentifier + ",StopTM");
             }, {
                 _shouldCompile: {
@@ -22996,20 +20888,16 @@ define('WinJS/BindingTemplate',[
                         var shouldCompile = true;
                         shouldCompile = shouldCompile && !Template._interpretAll;
                         shouldCompile = shouldCompile && !this.disableOptimizedProcessing;
-
                         if (shouldCompile) {
                             shouldCompile = shouldCompile && this.processTimeout === 0;
                             shouldCompile = shouldCompile && (!this.href || this.href instanceof _Global.HTMLElement);
-
                             if (!shouldCompile) {
                                 _Log.log && _Log.log("Cannot compile templates which use processTimeout or href properties", "winjs binding", "warn");
                             }
                         }
-
                         return shouldCompile;
                     }
                 },
-
                 /// <field type="Function" locid="WinJS.Binding.Template.bindingInitializer" helpKeyword="WinJS.Binding.Template.bindingInitializer">
                 /// If specified this function is used as the default initializer for any data bindings which do not explicitly specify one. The
                 /// provided function must be marked as supported for processing.
@@ -23021,7 +20909,6 @@ define('WinJS/BindingTemplate',[
                         this._reset();
                     }
                 },
-
                 /// <field type="Boolean" locid="WinJS.Binding.Template.debugBreakOnRender" helpKeyword="WinJS.Binding.Template.debugBreakOnRender">
                 /// Indicates whether a templates should break in the debugger on first render
                 /// </field>
@@ -23032,7 +20919,6 @@ define('WinJS/BindingTemplate',[
                         this._reset();
                     }
                 },
-
                 /// <field type="Boolean" locid="WinJS.Binding.Template.disableOptimizedProcessing" helpKeyword="WinJS.Binding.Template.disableOptimizedProcessing">
                 /// Set this property to true to resotre classic template processing and data binding and disable template compilation.
                 /// </field>
@@ -23043,14 +20929,12 @@ define('WinJS/BindingTemplate',[
                         this._reset();
                     }
                 },
-
                 /// <field type="HTMLElement" domElement="true" hidden="true" locid="WinJS.Binding.Template.element" helpKeyword="WinJS.Binding.Template.element">
                 /// Gets the DOM element that is used as the template.
                 /// </field>
                 element: {
                     get: function () { return this._element; },
                 },
-
                 /// <field type="Boolean" locid="WinJS.Binding.Template.extractChild" helpKeyword="WinJS.Binding.Template.extractChild">
                 /// Return the first element child of the template instead of a wrapper element hosting all the template content.
                 /// </field>
@@ -23061,7 +20945,6 @@ define('WinJS/BindingTemplate',[
                         this._reset();
                     }
                 },
-
                 /// <field type="Number" integer="true" locid="WinJS.Binding.Template.processTimeout" helpKeyword="WinJS.Binding.Template.processTimeout">
                 /// Number of milliseconds to delay instantiating declarative controls. Zero (0) will result in no delay, any negative number
                 /// will result in a setImmediate delay, any positive number will be treated as the number of milliseconds.
@@ -23073,7 +20956,6 @@ define('WinJS/BindingTemplate',[
                         this._reset();
                     }
                 },
-
                 render: _BaseUtils.markSupportedForProcessing(function (dataContext, container) {
                     /// <signature helpKeyword="WinJS.Binding.Template.render">
                     /// <summary locid="WinJS.Binding.Template.render">
@@ -23091,10 +20973,8 @@ define('WinJS/BindingTemplate',[
                     /// either the element specified in the container parameter or the created DIV.
                     /// </returns>
                     /// </signature>
-
                     return this._renderImpl(dataContext, container);
                 }),
-
                 // Hook point for compiled template
                 //
                 _renderImpl: function (dataContext, container) {
@@ -23106,15 +20986,12 @@ define('WinJS/BindingTemplate',[
                             return Promise.wrapError(e);
                         }
                     }
-
                     var render = interpretedRender(this, dataContext, container);
                     return render.element.then(function () { return render.renderComplete; });
                 },
-
                 _renderInterpreted: function (dataContext, container) {
                     return interpretedRender(this, dataContext, container);
                 },
-
                 renderItem: function (item, recycled) {
                     /// <signature helpKeyword="WinJS.Binding.Template.renderItem">
                     /// <summary locid="WinJS.Binding.Template.renderItem">
@@ -23134,7 +21011,6 @@ define('WinJS/BindingTemplate',[
                     /// </signature>
                     return this._renderItemImpl(item, recycled);
                 },
-
                 // Hook point for compiled template
                 //
                 _renderItemImpl: function (item, recycled) {
@@ -23149,9 +21025,7 @@ define('WinJS/BindingTemplate',[
                             };
                         }
                     }
-
                     var that = this;
-
                     // we only enable element cache when we are trying
                     // to recycle. Otherwise our element cache would
                     // grow unbounded.
@@ -23159,11 +21033,9 @@ define('WinJS/BindingTemplate',[
                     if (this.enableRecycling && !this.bindingCache.elements) {
                         this.bindingCache.elements = {};
                     }
-
                     if (this.enableRecycling
                         && recycled
                         && recycled.msOriginalTemplate === this) {
-
                         // If we are asked to recycle, we cleanup any old work no matter what
                         //
                         var cacheEntry = this.bindingCache.elements[recycled.id];
@@ -23173,7 +21045,6 @@ define('WinJS/BindingTemplate',[
                             cacheEntry.bindings = [];
                             okToReuse = !cacheEntry.nocache;
                         }
-
                         // If our cache indicates that we hit a non-cancelable thing, then we are
                         // in an unknown state, so we actually can't recycle the tree. We have
                         // cleaned up what we can, but at this point we need to reset and create
@@ -23191,16 +21062,12 @@ define('WinJS/BindingTemplate',[
                             };
                         }
                     }
-
                     var render = interpretedRender(this, item.then(function (item) { return item.data; }));
                     render.element = render.element.then(function (e) { e.msOriginalTemplate = that; return e; });
                     return render;
                 },
-
                 _compileTemplate: function (options) {
-
                     var that = this;
-
                     var result = _DataTemplateCompiler._TemplateCompiler.compile(this, this.href || this.element, {
                         debugBreakOnRender: this.debugBreakOnRender || Template._debugBreakOnRender,
                         defaultInitializer: this.bindingInitializer || options.defaultInitializer,
@@ -23209,7 +21076,6 @@ define('WinJS/BindingTemplate',[
                         extractChild: this.extractChild,
                         profilerMarkIdentifier: this._profilerMarkIdentifier
                     });
-
                     var resetOnFragmentChange = options.resetOnFragmentChange || _WinRT.Windows.ApplicationModel.DesignMode.designModeEnabled;
                     if (resetOnFragmentChange) {
                         // For platforms that don't support MutationObserver the shim
@@ -23227,18 +21093,14 @@ define('WinJS/BindingTemplate',[
                             subtree: true,
                         });
                     }
-
                     return result;
-
                 },
-
                 _reset: function () {
                     // Reset the template to being not compiled. In design mode this triggers on a mutation
                     //  of the original document fragment.
                     delete this._renderImpl;
                     delete this._renderItemImpl;
                 },
-
             }, {
                 isDeclarativeControlContainer: { value: true, writable: false, configurable: false },
                 render: {
@@ -23265,11 +21127,9 @@ define('WinJS/BindingTemplate',[
                     }
                 }
             });
-
             return Template;
         })
     });
-
 });
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 // WinJS.Binding.ListDataSource
@@ -23285,13 +21145,11 @@ define('WinJS/BindingList/_BindingListDataSource',[
     '../Utilities/_UI'
     ], function bindingListDataSourceInit(exports, _WinRT, _Base, _ErrorFromName, _DomWeakRefTable, Promise, Scheduler, _UI) {
     "use strict";
-
     _Base.Namespace._moduleDefine(exports, "WinJS.Binding", {
         _BindingListDataSource: _Base.Namespace._lazy(function () {
             var errors = {
                 get noLongerMeaningful() { return Promise.wrapError(new _ErrorFromName(_UI.EditError.noLongerMeaningful)); }
             };
-
             function findNextKey(list, index) {
                 var len = list.length;
                 while (index < len - 1) {
@@ -23302,7 +21160,6 @@ define('WinJS/BindingList/_BindingListDataSource',[
                 }
                 return null;
             }
-
             function findPreviousKey(list, index) {
                 while (index > 0) {
                     var item = list.getItem(--index);
@@ -23312,21 +21169,17 @@ define('WinJS/BindingList/_BindingListDataSource',[
                 }
                 return null;
             }
-
             function subscribe(target, handlers) {
                 Object.keys(handlers).forEach(function (handler) {
                     target.addEventListener(handler, handlers[handler]);
                 });
             }
-
             function unsubscribe(target, handlers) {
                 Object.keys(handlers).forEach(function (handler) {
                     target.removeEventListener(handler, handlers[handler]);
                 });
             }
-
             var CompletePromise = Promise.wrap().constructor;
-
             var NullWrappedItem = _Base.Class.derive(CompletePromise,
                 function () {
                     this._value = null;
@@ -23337,7 +21190,6 @@ define('WinJS/BindingList/_BindingListDataSource',[
                     supportedForProcessing: false,
                 }
             );
-
             var WrappedItem = _Base.Class.derive(CompletePromise,
                 function (listBinding, item) {
                     this._value = item;
@@ -23360,7 +21212,6 @@ define('WinJS/BindingList/_BindingListDataSource',[
                     supportedForProcessing: false,
                 }
             );
-
             var AsyncWrappedItem = _Base.Class.derive(Promise,
                 function (listBinding, item, name) {
                     var that = this;
@@ -23393,19 +21244,15 @@ define('WinJS/BindingList/_BindingListDataSource',[
                     supportedForProcessing: false,
                 }
             );
-
             function wrap(listBinding, item) {
                 return item ? new WrappedItem(listBinding, item) : new NullWrappedItem();
             }
-
             function wrapAsync(listBinding, item, name) {
                 return item ? new AsyncWrappedItem(listBinding, item, name) : new NullWrappedItem();
             }
-
             function cloneWithIndex(list, item, index) {
                 return item && list._annotateWithIndex(item, index);
             }
-
             var ListBinding = _Base.Class.define(function ListBinding_ctor(dataSource, list, notificationHandler, id) {
                 this._dataSource = dataSource;
                 this._list = list;
@@ -23431,7 +21278,6 @@ define('WinJS/BindingList/_BindingListDataSource',[
                         }
                         return false;
                     };
-
                     this._handlers = {
                         itemchanged: function handler(event) {
                             if (!handleEvent("itemchanged", event)) {
@@ -23481,7 +21327,6 @@ define('WinJS/BindingList/_BindingListDataSource',[
                         newItem._retainedCount = oldItem._retainedCount;
                         this._retained[index] = newItem;
                         this._retainedKeys[key] = newItem;
-
                         this._beginEdits(this._list.length);
                         if (handler && handler.changed) {
                             handler.changed(
@@ -23496,7 +21341,6 @@ define('WinJS/BindingList/_BindingListDataSource',[
                         this._endEdits();
                     }
                 },
-
                 _iteminserted: function (event) {
                     var index = event.detail.index;
                     this._updateAffectedRange(index, "inserted");
@@ -23520,7 +21364,6 @@ define('WinJS/BindingList/_BindingListDataSource',[
                     }
                     this._endEdits();
                 },
-
                 _itemmoved: function (event) {
                     var oldIndex = event.detail.oldIndex;
                     var newIndex = event.detail.newIndex;
@@ -23545,7 +21388,6 @@ define('WinJS/BindingList/_BindingListDataSource',[
                     this._addRef(item, newIndex);
                     this._endEdits();
                 },
-
                 _itemremoved: function (event) {
                     var key = event.detail.key;
                     var index = event.detail.index;
@@ -23565,7 +21407,6 @@ define('WinJS/BindingList/_BindingListDataSource',[
                     }
                     this._endEdits();
                 },
-
                 _reload: function () {
                     this._retained = [];
                     this._retainedKeys = {};
@@ -23574,7 +21415,6 @@ define('WinJS/BindingList/_BindingListDataSource',[
                         handler.reload();
                     }
                 },
-
                 _addRef: function (item, index) {
                     if (index in this._retained) {
                         this._retained[index]._retainedCount++;
@@ -23599,21 +21439,17 @@ define('WinJS/BindingList/_BindingListDataSource',[
                     var retained = this._retained;
                     return index in retained || index + 1 in retained || index - 1 in retained;
                 },
-
                 _updateAffectedRange: function ListBinding_updateAffectedRange(index, operation) {
                     // Creates a range of affected indices [start, end).
                     // Definition of _affectedRange.start: All items in the set of data with indices < _affectedRange.start have not been directly modified.
                     // Definition of _affectedRange.end: All items in the set of data with indices >= _affectedRange.end have not been directly modified.
-
                     if (!this._notificationHandler.affectedRange) {
                         return;
                     }
-
                     //[newStart, newEnd)
                     var newStart = index;
                     var newEnd = (operation !== "removed") ?
                         index + 1 : index;
-
                     if (this._affectedRange) {
                         switch (operation) {
                             case "inserted":
@@ -23637,7 +21473,6 @@ define('WinJS/BindingList/_BindingListDataSource',[
                         this._affectedRange = { start: newStart, end: newEnd };
                     }
                 },
-
                 _notifyAffectedRange: function ListBinding_notifyAffectedRange() {
                     if (this._affectedRange) {
                         if (this._notificationHandler && this._notificationHandler.affectedRange) {
@@ -23692,7 +21527,6 @@ define('WinJS/BindingList/_BindingListDataSource',[
                         }
                     }
                 },
-
                 _beginEdits: function (length, explicit) {
                     this._editsCount++;
                     var handler = this._notificationHandler;
@@ -23728,7 +21562,6 @@ define('WinJS/BindingList/_BindingListDataSource',[
                         }
                     }
                 },
-
                 jumpToItem: function (item) {
                     var index = this._list.indexOfKey(item.handle);
                     if (index === -1) {
@@ -23795,7 +21628,6 @@ define('WinJS/BindingList/_BindingListDataSource',[
             }, {
                 supportedForProcessing: false,
             });
-
             function insertAtStart(unused, data) {
                 /*jshint validthis: true */
                 // List ignores the key because its key management is internal
@@ -23889,13 +21721,11 @@ define('WinJS/BindingList/_BindingListDataSource',[
                 this._list.splice(index, 1);
                 return Promise.wrap();
             }
-
             var bindingId = 0;
             var DataSource = _Base.Class.define(function DataSource_ctor(list) {
                 this._usingWeakRef = _WinRT.msSetWeakWinRTProperty && _WinRT.msGetWeakWinRTProperty;
                 this._bindings = {};
                 this._list = list;
-
                 if (list.unshift) {
                     this.insertAtStart = insertAtStart;
                 }
@@ -23920,38 +21750,31 @@ define('WinJS/BindingList/_BindingListDataSource',[
                 _releaseBinding: function (binding) {
                     delete this._bindings[binding._id];
                 },
-
                 addEventListener: function () {
                     // nop, we don't send statusChanged
                 },
                 removeEventListener: function () {
                     // nop, we don't send statusChanged
                 },
-
                 createListBinding: function (notificationHandler) {
                     var id = "ds_" + (++bindingId);
                     var binding = new ListBinding(this, this._list, notificationHandler, id);
                     binding._id = id;
-
                     if (this._usingWeakRef) {
                         _DomWeakRefTable._createWeakRef(binding, id);
                         this._bindings[id] = id;
                     } else {
                         this._bindings[id] = binding;
                     }
-
                     return binding;
                 },
-
                 getCount: function () {
                     return Promise.wrap(this._list.length);
                 },
-
                 itemFromKey: function (key) {
                     // Clone with a dummy index
                     var list = this._list,
                         item = cloneWithIndex(list, list.getItemFromKey(key), -1);
-
                     // Override the index property with a getter
                     Object.defineProperty(item, "index", {
                         get: function () {
@@ -23960,17 +21783,14 @@ define('WinJS/BindingList/_BindingListDataSource',[
                         enumerable: false,
                         configurable: true
                     });
-
                     return Promise.wrap(item);
                 },
                 itemFromIndex: function (index) {
                     return Promise.wrap(cloneWithIndex(this._list, this._list.getItem(index), index));
                 },
-
                 list: {
                     get: function () { return this._list; }
                 },
-
                 beginEdits: function () {
                     var length = this._list.length;
                     this._forEachBinding(function (binding) {
@@ -24003,11 +21823,9 @@ define('WinJS/BindingList/_BindingListDataSource',[
                         });
                     }
                 },
-
                 invalidateAll: function () {
                     return Promise.wrap();
                 },
-
                 //
                 // insert* and change are not implemented as I don't understand how they are
                 //  used by the controls since it is hard to fathom how they would be able
@@ -24021,18 +21839,14 @@ define('WinJS/BindingList/_BindingListDataSource',[
                 moveBefore: undefined,
                 moveToEnd: undefined,
                 moveToStart: undefined
-
             }, {
                 supportedForProcessing: false,
             });
             return DataSource;
         })
     });
-
 });
-
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
-
 // WinJS.Binding.List
 //
 define('WinJS/BindingList',[
@@ -24046,16 +21860,13 @@ define('WinJS/BindingList',[
     './BindingList/_BindingListDataSource'
     ], function listInit(exports, _Base, _BaseUtils, _ErrorFromName, _Events, _Resources, _Data, _BindingListDataSource) {
     "use strict";
-
     var strings = {
         get sparseArrayNotSupported() { return "Sparse arrays are not supported with proxy: true"; },
         get illegalListLength() { return "List length must be assigned a finite positive number"; },
     };
-
     function copyargs(args) {
         return Array.prototype.slice.call(args, 0);
     }
-
     function cloneItem(item) {
         return {
             handle: item.handle,
@@ -24067,28 +21878,22 @@ define('WinJS/BindingList',[
             firstItemIndexHint: item.firstItemIndexHint
         };
     }
-
     function asNumber(n) {
         return n === undefined ? undefined : +n;
     }
-
     var createEvent = _Events._createEventProperty;
-
     var emptyOptions = {};
-
     // We need a stable sort in order to implement SortedListProjection because we want to be able to
     // perform insertions in a predictable location s.t. if we were to apply another sorted projection
     // over the same list (now containing the inserted data) the resulting order would be the same.
     //
     function mergeSort(arr, sorter) {
         var temp = new Array(arr.length);
-
         function copyBack(start, end) {
             for (; start < end; start++) {
                 arr[start] = temp[start];
             }
         }
-
         function sort(start, end) {
             if ((end - start) < 2) {
                 return;
@@ -24099,7 +21904,6 @@ define('WinJS/BindingList',[
             merge(start, middle, end);
             copyBack(start, end);
         }
-
         function merge(start, middle, end) {
             for (var left = start, right = middle, i = start; i < end; i++) {
                 if (left < middle && (right >= end || sorter(arr[left], arr[right]) <= 0)) {
@@ -24111,12 +21915,9 @@ define('WinJS/BindingList',[
                 }
             }
         }
-
         sort(0, arr.length);
-
         return arr;
     }
-
     // Private namespace used for local lazily init'd classes
     var ns = _Base.Namespace.defineWithParent(null, null, {
         ListBase: _Base.Namespace._lazy(function () {
@@ -24126,37 +21927,30 @@ define('WinJS/BindingList',[
                     result.index = index;
                     return result;
                 },
-
                 /// <field type="Function" locid="WinJS.Binding.ListBase.onitemchanged" helpKeyword="WinJS.Binding.ListBase.onitemchanged">
                 /// The value identified by the specified key has been replaced with a different value.
                 /// </field>
                 onitemchanged: createEvent("itemchanged"),
-
                 /// <field type="Function" locid="WinJS.Binding.ListBase.oniteminserted" helpKeyword="WinJS.Binding.ListBase.oniteminserted">
                 /// A new value has been inserted into the list.
                 /// </field>
                 oniteminserted: createEvent("iteminserted"),
-
                 /// <field type="Function" locid="WinJS.Binding.ListBase.onitemmoved" helpKeyword="WinJS.Binding.ListBase.onitemmoved">
                 /// The value identified by the specified key has been moved from one index in the list to another index.
                 /// </field>
                 onitemmoved: createEvent("itemmoved"),
-
                 /// <field type="Function" locid="WinJS.Binding.ListBase.onitemmutated" helpKeyword="WinJS.Binding.ListBase.onitemmutated">
                 /// The value identified by the specified key has been mutated.
                 /// </field>
                 onitemmutated: createEvent("itemmutated"),
-
                 /// <field type="Function" locid="WinJS.Binding.ListBase.onitemremoved" helpKeyword="WinJS.Binding.ListBase.onitemremoved">
                 /// The value identified by the specified key has been removed from the list.
                 /// </field>
                 onitemremoved: createEvent("itemremoved"),
-
                 /// <field type="Function" locid="WinJS.Binding.ListBase.onreload" helpKeyword="WinJS.Binding.ListBase.onreload">
                 /// The list has been refreshed. Any references to items in the list may be incorrect.
                 /// </field>
                 onreload: createEvent("reload"),
-
                 _notifyItemChanged: function (key, index, oldValue, newValue, oldItem, newItem) {
                     if (this._listeners && this._listeners.itemchanged) {
                         this.dispatchEvent("itemchanged", { key: key, index: index, oldValue: oldValue, newValue: newValue, oldItem: oldItem, newItem: newItem });
@@ -24202,14 +21996,11 @@ define('WinJS/BindingList',[
                         this._lastNotifyLength = len;
                     }
                 },
-
                 _normalizeIndex: function (index) {
                     index = asNumber(index);
                     return index < 0 ? this.length + index : index;
                 },
-
                 // ABSTRACT: length
-
                 // Notifications:
                 //
                 // ABSTRACT: notifyMutated: function (index)
@@ -24225,7 +22016,6 @@ define('WinJS/BindingList',[
                     /// </signature>
                     this._notifyReload();
                 },
-
                 // NOTE: performance can be improved in a number of the projections by overriding getAt/_getArray/_getFromKey/_getKey
                 //
                 getAt: function (index) {
@@ -24264,7 +22054,6 @@ define('WinJS/BindingList',[
                     var item = this.getItem(index);
                     return item && item.key;
                 },
-
                 // Normal list non-modifiying operations
                 //
                 concat: function () {
@@ -24340,11 +22129,9 @@ define('WinJS/BindingList',[
                     }
                     return -1;
                 },
-
                 //
                 // Normal list projection operations
                 //
-
                 every: function (callback, thisArg) {
                     /// <signature helpKeyword="WinJS.Binding.ListBase.every">
                     /// <summary locid="WinJS.Binding.ListBase.every">
@@ -24427,13 +22214,11 @@ define('WinJS/BindingList',[
                     }
                     return this._getArray().reduceRight(callback);
                 },
-
                 //
                 // Live Projections - if you want the lifetime of the returned projections to
                 //  be shorter than that of the list object on which they are based you have
                 //  to remember to call .dispose() on them when done.
                 //
-
                 createFiltered: function (predicate) {
                     /// <signature helpKeyword="WinJS.Binding.ListBase.createFiltered">
                     /// <summary locid="WinJS.Binding.ListBase.createFiltered">
@@ -24466,13 +22251,11 @@ define('WinJS/BindingList',[
                     /// </signature>
                     return new ns.SortedListProjection(this, sorter);
                 },
-
                 dataSource: {
                     get: function () {
                         return (this._dataSource = this._dataSource || new _BindingListDataSource._BindingListDataSource(this));
                     }
                 },
-
             }, {
                 supportedForProcessing: false,
             });
@@ -24480,11 +22263,9 @@ define('WinJS/BindingList',[
             _Base.Class.mix(ListBase, _Events.eventMixin);
             return ListBase;
         }),
-
         ListBaseWithMutators: _Base.Namespace._lazy(function () {
             return _Base.Class.derive(ns.ListBase, null, {
                 // ABSTRACT: setAt(index, value)
-
                 // Normal list modifying operations
                 //
                 // returns data from tail of list
@@ -24543,28 +22324,23 @@ define('WinJS/BindingList',[
                     }
                     return this.length;
                 }
-
                 // ABSTRACT: splice(index, howMany, values...)
                 // ABSTRACT: _spliceFromKey(key, howMany, values...)
             }, {
                 supportedForProcessing: false,
             });
         }),
-
         ListProjection: _Base.Namespace._lazy(function () {
             return _Base.Class.derive(ns.ListBaseWithMutators, null, {
                 _list: null,
                 _my(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);: null,
-
                 _addListListener: function (name, func) {
                     var l = { name: name, handler: func.bind(this) };
                     this._my(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera); = this._my(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera); || [];
                     this._my(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);.push(l);
                     this._list.addEventListener(name, l.handler);
                 },
-
                 // ABSTRACT: _listReload()
-
                 dispose: function () {
                     /// <signature helpKeyword="WinJS.Binding.ListProjection.dispose">
                     /// <summary locid="WinJS.Binding.ListProjection.dispose">
@@ -24572,21 +22348,17 @@ define('WinJS/BindingList',[
                     /// </summary>
                     /// </signature>
                     var list = this._list;
-
                     var listeners = this._my(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera);;
                     this._my(earlyDeviceType=c)})(document.getElementsByTagName("html")[0]||"","mobile","desktop",navigator.userAgent||navigator.vendor||window.opera); = [];
-
                     for (var i = 0, len = listeners.length; i < len; i++) {
                         var l = listeners[i];
                         list.removeEventListener(l.name, l.handler);
                     }
-
                     // Set this to an empty list and tell everyone that they need to reload to avoid
                     //  consumers null-refing on an empty list.
                     this._list = new exports.List();
                     this._listReload();
                 },
-
                 getItemFromKey: function (key) {
                     /// <signature helpKeyword="WinJS.Binding.ListProjection.getItemFromKey">
                     /// <summary locid="WinJS.Binding.ListProjection.getItemFromKey">
@@ -24597,7 +22369,6 @@ define('WinJS/BindingList',[
                     /// </signature>
                     return this._list.getItemFromKey(key);
                 },
-
                 move: function (index, newIndex) {
                     /// <signature helpKeyword="WinJS.Binding.ListProjection.move">
                     /// <summary locid="WinJS.Binding.ListProjection.move">
@@ -24615,11 +22386,9 @@ define('WinJS/BindingList',[
                     newIndex = this._list.indexOfKey(this._getKey(newIndex));
                     this._list.move(index, newIndex);
                 },
-
                 _notifyMutatedFromKey: function (key) {
                     this._list._notifyMutatedFromKey(key);
                 },
-
                 splice: function (index, howMany, item) {
                     /// <signature helpKeyword="WinJS.Binding.ListProjection.splice">
                     /// <summary locid="WinJS.Binding.ListProjection.splice">
@@ -24642,16 +22411,13 @@ define('WinJS/BindingList',[
                         return this._spliceFromKey.apply(this, args);
                     }
                 },
-
                 _setAtKey: function (key, value) {
                     this._list._setAtKey(key, value);
                 },
-
             }, {
                 supportedForProcessing: false,
             });
         }),
-
         FilteredListProjection: _Base.Namespace._lazy(function () {
             return _Base.Class.derive(ns.ListProjection, function (list, filter) {
                 this._list = list;
@@ -24678,7 +22444,6 @@ define('WinJS/BindingList',[
                     }
                     this._filteredKeys = keys;
                 },
-
                 _findInsertionPosition: function (key, index) {
                     // find the spot to insert this by identifing the previous element in the list
                     var filter = this._filter;
@@ -24694,7 +22459,6 @@ define('WinJS/BindingList',[
                     var filteredIndex = previousKey ? (filteredKeys.indexOf(previousKey) + 1) : 0;
                     return filteredIndex;
                 },
-
                 _listItemChanged: function (event) {
                     var key = event.detail.key;
                     var index = event.detail.index;
@@ -24773,7 +22537,6 @@ define('WinJS/BindingList',[
                     this._initFilteredKeys();
                     this._notifyReload();
                 },
-
                 /// <field type="Number" integer="true" locid="WinJS.Binding.FilteredListProjection.length" helpKeyword="WinJS.Binding.FilteredListProjection.length">Returns an integer value one higher than the highest element defined in an list.</field>
                 length: {
                     get: function () { return this._filteredKeys.length; },
@@ -24788,7 +22551,6 @@ define('WinJS/BindingList',[
                         }
                     }
                 },
-
                 getItem: function (index) {
                     /// <signature helpKeyword="WinJS.Binding.FilteredListProjection.getItem">
                     /// <summary locid="WinJS.Binding.FilteredListProjection.getItem">
@@ -24800,7 +22562,6 @@ define('WinJS/BindingList',[
                     index = asNumber(index);
                     return this.getItemFromKey(this._filteredKeys[index]);
                 },
-
                 indexOfKey: function (key) {
                     /// <signature helpKeyword="WinJS.Binding.FilteredListProjection.indexOfKey">
                     /// <summary locid="WinJS.Binding.FilteredListProjection.indexOfKey">
@@ -24811,7 +22572,6 @@ define('WinJS/BindingList',[
                     /// </signature>
                     return this._filteredKeys.indexOf(key);
                 },
-
                 notifyMutated: function (index) {
                     /// <signature helpKeyword="WinJS.Binding.FilteredListProjection.notifyMutated">
                     /// <summary locid="WinJS.Binding.FilteredListProjection.notifyMutated">
@@ -24822,7 +22582,6 @@ define('WinJS/BindingList',[
                     index = asNumber(index);
                     return this._notifyMutatedFromKey(this._filteredKeys[index]);
                 },
-
                 setAt: function (index, value) {
                     /// <signature helpKeyword="WinJS.Binding.FilteredListProjection.setAt">
                     /// <summary locid="WinJS.Binding.FilteredListProjection.setAt">
@@ -24834,7 +22593,6 @@ define('WinJS/BindingList',[
                     index = asNumber(index);
                     this._setAtKey(this._filteredKeys[index], value);
                 },
-
                 // returns [ data* ] of removed items
                 _spliceFromKey: function (key, howMany) {
                     // first add in all the new items if we have any, this should serve to push key to the right
@@ -24865,7 +22623,6 @@ define('WinJS/BindingList',[
                 supportedForProcessing: false,
             });
         }),
-
         SortedListProjection: _Base.Namespace._lazy(function () {
             return _Base.Class.derive(ns.ListProjection, function (list, sortFunction) {
                 this._list = list;
@@ -24897,7 +22654,6 @@ define('WinJS/BindingList',[
                     });
                     this._sortedKeys = sorted;
                 },
-
                 _findInsertionPos: function (key, index, value, startingMin, startingMax) {
                     var sorter = this._sortFunction;
                     var sortedKeys = this._sortedKeys;
@@ -24998,7 +22754,6 @@ define('WinJS/BindingList',[
                         return this._findEndOfGroup(mid, sorter, list, sortedKeys, value);
                     }
                 },
-
                 _listItemChanged: function (event) {
                     var key = event.detail.key;
                     var newValue = event.detail.newValue;
@@ -25067,7 +22822,6 @@ define('WinJS/BindingList',[
                     this._initSortedKeys();
                     this._notifyReload();
                 },
-
                 /// <field type="Number" integer="true" locid="WinJS.Binding.SortedListProjection.length" helpKeyword="WinJS.Binding.SortedListProjection.length">Gets or sets the length of the list. Returns an integer value one higher than the highest element defined in a list.</field>
                 length: {
                     get: function () { return this._sortedKeys.length; },
@@ -25082,7 +22836,6 @@ define('WinJS/BindingList',[
                         }
                     }
                 },
-
                 getItem: function (index) {
                     /// <signature helpKeyword="WinJS.Binding.SortedListProjection.getItem">
                     /// <summary locid="WinJS.Binding.SortedListProjection.getItem">
@@ -25094,7 +22847,6 @@ define('WinJS/BindingList',[
                     index = asNumber(index);
                     return this.getItemFromKey(this._sortedKeys[index]);
                 },
-
                 indexOfKey: function (key) {
                     /// <signature helpKeyword="WinJS.Binding.SortedListProjection.getItem">
                     /// <summary locid="WinJS.Binding.SortedListProjection.getItem">
@@ -25105,7 +22857,6 @@ define('WinJS/BindingList',[
                     /// </signature>
                     return this._sortedKeys.indexOf(key);
                 },
-
                 notifyMutated: function (index) {
                     /// <signature helpKeyword="WinJS.Binding.SortedListProjection.notifyMutated">
                     /// <summary locid="WinJS.Binding.SortedListProjection.notifyMutated">
@@ -25116,7 +22867,6 @@ define('WinJS/BindingList',[
                     index = asNumber(index);
                     this._notifyMutatedFromKey(this._sortedKeys[index]);
                 },
-
                 setAt: function (index, value) {
                     /// <signature helpKeyword="WinJS.Binding.SortedListProjection.setAt">
                     /// <summary locid="WinJS.Binding.SortedListProjection.setAt">
@@ -25128,7 +22878,6 @@ define('WinJS/BindingList',[
                     index = asNumber(index);
                     this._setAtKey(this._sortedKeys[index], value);
                 },
-
                 // returns [ data* ] of removed items
                 _spliceFromKey: function (key, howMany) {
                     // first add in all the new items if we have any, this should serve to push key to the right
@@ -25158,7 +22907,6 @@ define('WinJS/BindingList',[
                 supportedForProcessing: false,
             });
         }),
-
         // This projection sorts the underlying list by group key and within a group
         //  respects the position of the item in the underlying list. It is built on top
         //  of the SortedListProjection and has an intimate contract with
@@ -25189,7 +22937,6 @@ define('WinJS/BindingList',[
             }, {
                 _groupKeyOf: null,
                 _groupDataOf: null,
-
                 _groupedItems: null,
                 _initGroupedItems: function () {
                     var groupedItems = {};
@@ -25202,9 +22949,7 @@ define('WinJS/BindingList',[
                     }
                     this._groupedItems = groupedItems;
                 },
-
                 _groupsProjection: null,
-
                 _listGroupedItemChanged: function (event) {
                     var key = event.detail.key;
                     var oldValue = event.detail.oldValue;
@@ -25286,13 +23031,11 @@ define('WinJS/BindingList',[
                     }
                     this._listItemRemoved({ detail: { key: key, index: index, value: value, item: groupedItem } }, groupMin, groupMax);
                 },
-
                 // override _listReload
                 _listReload: function () {
                     this._initGroupedItems();
                     ns.SortedListProjection.prototype._listReload.call(this);
                 },
-
                 /// <field type="WinJS.Binding.List" locid="WinJS.Binding.GroupedSortedListProjection.groups" helpKeyword="WinJS.Binding.GroupedSortedListProjection.groups">Gets a WinJS.Binding.List, which is a projection of the groups that were identified in this list.</field>
                 groups: {
                     get: function () {
@@ -25302,7 +23045,6 @@ define('WinJS/BindingList',[
                         return this._groupsProjection;
                     }
                 },
-
                 // We have to implement this because we keep our own set of items so that we can
                 //  tag them with groupKey.
                 //
@@ -25320,7 +23062,6 @@ define('WinJS/BindingList',[
                 supportedForProcessing: false,
             });
         }),
-
         // This is really an implementation detail of GroupedSortedListProjection and takes a
         // dependency on its internals and implementation details.
         //
@@ -25339,19 +23080,16 @@ define('WinJS/BindingList',[
                 this._initGroupKeysAndItems();
             }, {
                 _list: null,
-
                 _addListListener: function (name, func) {
                     // interestingly, since GroupsListProjection has the same lifetime as the GroupedSortedListProjection
                     // we don't have to worry about cleaning up the cycle here.
                     this._list.addEventListener(name, func.bind(this));
                 },
-
                 _groupDataOf: null,
                 _groupKeyOf: null,
                 _groupOf: function (item) {
                     return this.getItemFromKey(this._groupKeyOf(item.data));
                 },
-
                 _groupKeys: null,
                 _groupItems: null,
                 _initGroupKeysAndItems: function () {
@@ -25392,7 +23130,6 @@ define('WinJS/BindingList',[
                     this._groupKeys = groupKeys;
                     this._groupItems = groupItems;
                 },
-
                 _listItemChanged: function (event) {
                     // itemchanged is only interesting if the item that changed is the first item
                     //  of a group at which point we need to regenerate the group item.
@@ -25427,7 +23164,6 @@ define('WinJS/BindingList',[
                     var groupItem = groupItems[groupKey];
                     var groupIndex;
                     var oldGroupItem, newGroupItem;
-
                     var i, len;
                     if (!groupItem) {
                         // we have a new group, add it
@@ -25509,7 +23245,6 @@ define('WinJS/BindingList',[
                     var groupItem = groupItems[groupKey];
                     var groupIndex = groupKeys.indexOf(groupKey);
                     var oldGroupItem, newGroupItem;
-
                     if (groupItem.groupSize === 1) {
                         groupKeys.splice(groupIndex, 1);
                         delete groupItems[groupKey];
@@ -25543,12 +23278,10 @@ define('WinJS/BindingList',[
                     this._initGroupKeysAndItems();
                     this._notifyReload();
                 },
-
                 /// <field type="Number" integer="true" locid="WinJS.Binding.GroupsListProjection.length" helpKeyword="WinJS.Binding.GroupsListProjection.length">Gets the length of the list. Returns an integer value one higher than the highest element defined in a list.</field>
                 length: {
                     get: function () { return this._groupKeys.length; }
                 },
-
                 getItem: function (index) {
                     /// <signature helpKeyword="WinJS.Binding.GroupsListProjection.getItem">
                     /// <summary locid="WinJS.Binding.GroupsListProjection.getItem">
@@ -25570,7 +23303,6 @@ define('WinJS/BindingList',[
                     /// </signature>
                     return this._groupItems[key];
                 },
-
                 indexOfKey: function (key) {
                     /// <signature helpKeyword="WinJS.Binding.GroupsListProjection.indexOfKey">
                     /// <summary locid="WinJS.Binding.GroupsListProjection.indexOfKey">
@@ -25586,7 +23318,6 @@ define('WinJS/BindingList',[
             });
         }),
     });
-
     _Base.Namespace._moduleDefine(exports, "WinJS.Binding", {
         List: _Base.Namespace._lazy(function () {
             return _Base.Class.derive(ns.ListBaseWithMutators, function (list, options) {
@@ -25598,11 +23329,9 @@ define('WinJS/BindingList',[
                 /// <param name="options" type="Object" optional="true" locid="WinJS.Binding.List.constructor_p:options">If options.binding is true, the list will contain the result of calling WinJS.Binding.as() on the element values. If options.proxy is true, the list specified as the first parameter is used as the storage for the WinJS.Binding.List. This option should be used with care because uncoordinated edits to the data storage will result in errors.</param>
                 /// <returns type="WinJS.Binding.List" locid="WinJS.Binding.List.constructor_returnValue">The newly-constructed WinJS.Binding.List instance.</returns>
                 /// </signature>
-
                 this._currentKey = 0;
                 this._keys = null;
                 this._keyMap = {};
-
                 // options:
                 //  - binding: binding.as on items
                 //  - proxy: proxy over input data
@@ -25637,17 +23366,13 @@ define('WinJS/BindingList',[
                 }
             }, {
                 _currentKey: 0,
-
                 _keys: null,
                 _keyMap: null,
-
                 _modifyingData: 0,
-
                 _initializeKeys: function () {
                     if (this._keys) {
                         return;
                     }
-
                     var keys = [];
                     if (this._data) {
                         // If this list is a proxy over the data then we will have been lazily initializing
@@ -25691,11 +23416,9 @@ define('WinJS/BindingList',[
                         return entry;
                     }
                 },
-
                 _assignKey: function () {
                     return (++this._currentKey).toString();
                 },
-
                 /// <field type="Number" integer="true" locid="WinJS.Binding.List.length" helpKeyword="WinJS.Binding.List.length">Gets or sets the length of the list, which is an integer value one higher than the highest element defined in the list.</field>
                 length: {
                     get: function () {
@@ -25737,7 +23460,6 @@ define('WinJS/BindingList',[
                         }
                     }
                 },
-
                 getItem: function (index) {
                     /// <signature helpKeyword="WinJS.Binding.List.getItem">
                     /// <summary locid="WinJS.Binding.List.getItem">
@@ -25776,7 +23498,6 @@ define('WinJS/BindingList',[
                     }
                     return entry;
                 },
-
                 indexOfKey: function (key) {
                     /// <signature helpKeyword="WinJS.Binding.List.indexOfKey">
                     /// <summary locid="WinJS.Binding.List.indexOfKey">
@@ -25796,7 +23517,6 @@ define('WinJS/BindingList',[
                     }
                     return index;
                 },
-
                 move: function (index, newIndex) {
                     /// <signature helpKeyword="WinJS.Binding.List.move">
                     /// <summary locid="WinJS.Binding.List.move">
@@ -25824,7 +23544,6 @@ define('WinJS/BindingList',[
                     this._keys.splice(newIndex, 0, key);
                     this._notifyItemMoved(key, index, newIndex, this.getItemFromKey(key).data);
                 },
-
                 notifyMutated: function (index) {
                     /// <signature helpKeyword="WinJS.Binding.List.notifyMutated">
                     /// <summary locid="WinJS.Binding.List.notifyMutated">
@@ -25836,7 +23555,6 @@ define('WinJS/BindingList',[
                     var key = this._keys ? this._keys[index] : index.toString();
                     this._notifyMutatedFromKey(key);
                 },
-
                 setAt: function (index, newValue) {
                     /// <signature helpKeyword="WinJS.Binding.List.setAt">
                     /// <summary locid="WinJS.Binding.List.setAt">
@@ -25872,11 +23590,9 @@ define('WinJS/BindingList',[
                         }
                     }
                 },
-
                 _setAtKey: function (key, newValue) {
                     this.setAt(this.indexOfKey(key), newValue);
                 },
-
                 // These are the traditional Array mutators, they don't result in projections. In particular
                 //  having both sort and sorted is a bit confusing. It may be the case that we want to eliminate
                 //  the various array helpers outside of the standard push/pop,shift/unshift,splice,get*,setAt
@@ -25934,7 +23650,6 @@ define('WinJS/BindingList',[
                     this._notifyReload();
                     return this;
                 },
-
                 pop: function () {
                     /// <signature helpKeyword="WinJS.Binding.List.pop">
                     /// <summary locid="WinJS.Binding.List.pop">
@@ -25961,7 +23676,6 @@ define('WinJS/BindingList',[
                     this._notifyItemRemoved(key, this._keys.length, data, entry);
                     return data;
                 },
-
                 push: function () {
                     /// <signature helpKeyword="WinJS.Binding.List.push">
                     /// <summary locid="WinJS.Binding.List.push">
@@ -25992,7 +23706,6 @@ define('WinJS/BindingList',[
                     }
                     return this.length;
                 },
-
                 shift: function () {
                     /// <signature helpKeyword="WinJS.Binding.List.shift">
                     /// <summary locid="WinJS.Binding.List.shift">
@@ -26003,7 +23716,6 @@ define('WinJS/BindingList',[
                     if (this.length === 0) {
                         return;
                     }
-
                     this._initializeKeys();
                     var key = this._keys.shift();
                     var entry = this._keyMap[key];
@@ -26020,7 +23732,6 @@ define('WinJS/BindingList',[
                     this._notifyItemRemoved(key, 0, data, entry);
                     return data;
                 },
-
                 unshift: function () {
                     /// <signature helpKeyword="WinJS.Binding.List.unshift">
                     /// <summary locid="WinJS.Binding.List.unshift">
@@ -26051,7 +23762,6 @@ define('WinJS/BindingList',[
                     }
                     return this.length;
                 },
-
                 splice: function (index, howMany, item) {
                     /// <signature helpKeyword="WinJS.Binding.List.splice">
                     /// <summary locid="WinJS.Binding.List.splice">
@@ -26120,7 +23830,6 @@ define('WinJS/BindingList',[
             });
         })
     });
-
 });
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 define('WinJS/Res',[
@@ -26134,16 +23843,11 @@ define('WinJS/Res',[
     './Promise'
     ], function resInit(exports, _Global, _Base, _BaseUtils, _ErrorFromName, _Resources, _OptionsParser, Promise) {
     "use strict";
-
     var readyComplete = false;
-
     var requireSupportedForProcessing = _BaseUtils.requireSupportedForProcessing;
-
     function processAllImpl(rootElement, count) {
         rootElement = rootElement || _Global.document.body;
-
         var count = count || 0;
-
         if (count < 4) {
             // Only 3 depth is supported in the innerHTML
             if (count === 0) {
@@ -26156,27 +23860,22 @@ define('WinJS/Res',[
                     }
                 }
             }
-
             var selector = "[data-win-res],[data-win-control]";
             var elements = rootElement.querySelectorAll(selector);
             if (elements.length === 0) {
                 return Promise.as(rootElement);
             }
-
             for (var i = 0, len = elements.length; i < len; i++) {
                 var e = elements[i];
-
                 if (e.winControl && e.winControl.constructor && e.winControl.constructor.isDeclarativeControlContainer) {
                     var idcc = e.winControl.constructor.isDeclarativeControlContainer;
                     if (typeof idcc === "function") {
                         idcc = requireSupportedForProcessing(idcc);
                         idcc(e.winControl, processAll);
-
                         // Skip all children of declarative control container
                         i += e.querySelectorAll(selector).length;
                     }
                 }
-
                 if (!e.hasAttribute("data-win-res")) {
                     continue;
                 }
@@ -26185,30 +23884,22 @@ define('WinJS/Res',[
                 var decls = _OptionsParser.optionsParser(e.getAttribute('data-win-res'));
                 setMembers(e, e, decls, count);
             }
-
         } else if (_BaseUtils.validation) {
             throw new _ErrorFromName("WinJS.Res.NestingExceeded", "NestingExceeded");
         }
-
         return Promise.as(rootElement);
     }
-
     function setAttributes(root, descriptor) {
         var names = Object.keys(descriptor);
-
         for (var k = 0, l = names.length ; k < l; k++) {
             var name = names[k];
             var value = descriptor[name];
-
             var data = _Resources.getString(value);
-
             if (!data || !data.empty) {
                 root.setAttribute(name, data.value);
-
                 if ((data.lang !== undefined) &&
                     (root.lang !== undefined) &&
                     (root.lang !== data.lang)) {
-
                         root.lang = data.lang;
                     }
             } else if (_BaseUtils.validation) {
@@ -26216,32 +23907,25 @@ define('WinJS/Res',[
             }
         }
     }
-
     function notFound(name) {
         throw new _ErrorFromName("WinJS.Res.NotFound", _Resources._formatString("NotFound: {0}", name));
     }
-
     function setMembers(root, target, descriptor, count) {
         var names = Object.keys(descriptor);
         target = requireSupportedForProcessing(target);
-
         for (var k = 0, l = names.length ; k < l; k++) {
             var name = names[k];
             var value = descriptor[name];
-
             if (typeof value === "string") {
                 var data = _Resources.getString(value);
-
                 if (!data || !data.empty) {
                     target[name] = data.value;
-
                     if ((data.lang !== undefined) &&
                         (root.lang !== undefined) &&
                         (root.lang !== data.lang)) {
                         // When lang property is different, we set the language with selected string's language
                             root.lang = data.lang;
                         }
-
                     if (name === "innerHTML") {
                         processAllImpl(target, count + 1);
                     }
@@ -26256,7 +23940,6 @@ define('WinJS/Res',[
             }
         }
     }
-
     function processAll(rootElement) {
             /// <signature helpKeyword="WinJS.Resources.processAll">
             /// <summary locid="WinJS.Resources.processAll">
@@ -26268,7 +23951,6 @@ define('WinJS/Res',[
             /// If you don't specify root element, processAll processes the entire document.
             /// </param>
             /// </signature>
-
             if (!readyComplete) {
                 return _BaseUtils.ready().then(function () {
                     readyComplete = true;
@@ -26283,7 +23965,6 @@ define('WinJS/Res',[
                 }
             }
         }
-
     _Base.Namespace._moduleDefine(exports, "WinJS.Resources", {
         processAll: processAll
     });
@@ -26301,23 +23982,19 @@ define('WinJS/Pages/_BasePage',[
     '../Utilities/_ElementUtilities'
     ], function pagesInit(exports, _Global, _Base, _BaseUtils, _WriteProfilerMark, Promise, _Control, _Dispose, _ElementUtilities) {
     "use strict";
-
     // not supported in WebWorker
     if (!_Global.document) {
         return;
     }
-
     function abs(uri) {
         var a = _Global.document.createElement("a");
         a.href = uri;
         return a.href;
     }
     var viewMap = {};
-
     function selfhost(uri) {
         return _Global.document.location.href.toLowerCase() === uri.toLowerCase();
     }
-
     var _mixin = {
         dispose: function () {
             /// <signature helpKeyword="WinJS.UI.Pages.dispose">
@@ -26328,7 +24005,6 @@ define('WinJS/Pages/_BasePage',[
             if (this._disposed) {
                 return;
             }
-
             this._disposed = true;
             _Dispose.disposeSubTree(this.element);
             this.element = null;
@@ -26446,7 +24122,6 @@ define('WinJS/Pages/_BasePage',[
             return Promise.wrapError(err);
         }
     };
-
     function Pages_define(uri, members) {
         /// <signature helpKeyword="WinJS.UI.Pages.define">
         /// <summary locid="WinJS.UI.Pages.define">
@@ -26464,10 +24139,8 @@ define('WinJS/Pages/_BasePage',[
         /// A constructor function that creates the page.
         /// </returns>
         /// </signature>
-
         var base = get(uri);
         uri = abs(uri);
-
         if (!base) {
             base = _Base.Class.define(
                 // This needs to follow the WinJS.UI.processAll "async constructor"
@@ -26483,14 +24156,10 @@ define('WinJS/Pages/_BasePage',[
                     this.selfhost = selfhost(uri);
                     element.winControl = this;
                     _ElementUtilities.addClass(element, "pagecontrol");
-
                     var profilerMarkIdentifier = " uri='" + uri + "'" + _BaseUtils._getProfilerMarkIdentifier(this.element);
-
                     _WriteProfilerMark("WinJS.UI.Pages:createPage" + profilerMarkIdentifier + ",StartTM");
-
                     var load = Promise.wrap().
                         then(function Pages_load() { return that.load(uri); });
-
                     var renderCalled = load.then(function Pages_init(loadResult) {
                         return Promise.join({
                             loadResult: loadResult,
@@ -26499,9 +24168,7 @@ define('WinJS/Pages/_BasePage',[
                     }).then(function Pages_render(result) {
                         return that.render(element, options, result.loadResult);
                     });
-
                     this.elementReady = renderCalled.then(function () { return element; });
-
                     this.renderComplete = renderCalled.
                         then(function Pages_process() {
                             return that.process(element, options);
@@ -26510,16 +24177,13 @@ define('WinJS/Pages/_BasePage',[
                         }).then(function () {
                             return that;
                         });
-
                     var callComplete = function () {
                         complete && complete(that);
                         _WriteProfilerMark("WinJS.UI.Pages:createPage" + profilerMarkIdentifier + ",StopTM");
                     };
-
                     // promises guarantee order, so this will be called prior to ready path below
                     //
                     this.renderComplete.then(callComplete, callComplete);
-
                     this.readyComplete = this.renderComplete.then(function () {
                         return parentedPromise;
                     }).then(function Pages_ready() {
@@ -26537,29 +24201,23 @@ define('WinJS/Pages/_BasePage',[
             base = _Base.Class.mix(base, _Control.DOMEventMixin);
             viewMap[uri.toLowerCase()] = base;
         }
-
         // Lazily mix in the members, allowing for multiple definitions of "define" to augment
         // the shared definition of the member.
         //
         if (members) {
             base = _Base.Class.mix(base, members);
         }
-
         base.selfhost = selfhost(uri);
-
         return base;
     }
-
     function get(uri) {
         uri = abs(uri);
         return viewMap[uri.toLowerCase()];
     }
-
     function remove(uri) {
         uri = abs(uri);
         delete viewMap[uri.toLowerCase()];
     }
-
     _Base.Namespace._moduleDefine(exports, null, {
         abs: abs,
         define: Pages_define,
@@ -26567,7 +24225,6 @@ define('WinJS/Pages/_BasePage',[
         remove: remove,
         viewMap: viewMap
     });
-
 });
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 define('WinJS/Pages',[
@@ -26581,12 +24238,10 @@ define('WinJS/Pages',[
     './Promise',
     ], function pagesInit(exports, _Global, _Base, _BaseUtils, ControlProcessor, Fragments, _BasePage, Promise) {
     "use strict";
-
     // not supported in WebWorker
     if (!_Global.document) {
         return;
     }
-
     var _mixin = {
         load: function (uri) {
             /// <signature helpKeyword="WinJS.UI.Pages._mixin.load">
@@ -26647,7 +24302,6 @@ define('WinJS/Pages',[
             return element;
         }
     };
-
     function Pages_define(uri, members) {
         /// <signature helpKeyword="WinJS.UI.Pages.define">
         /// <summary locid="WinJS.UI.Pages.define">
@@ -26665,26 +24319,20 @@ define('WinJS/Pages',[
         /// A constructor function that creates the page.
         /// </returns>
         /// </signature>
-
         var Page = _BasePage.get(uri);
-
         if (!Page) {
             Page = _BasePage.define(uri, _mixin);
         }
-
         if (members) {
             Page = _Base.Class.mix(Page, members);
         }
-
         if (Page.selfhost) {
             _BaseUtils.ready(function () {
                 render(_BasePage.abs(uri), _Global.document.body);
             }, true);
         }
-
         return Page;
     }
-
     function get(uri) {
         /// <signature helpKeyword="WinJS.UI.Pages.get">
         /// <summary locid="WinJS.UI.Pages.get">
@@ -26697,19 +24345,16 @@ define('WinJS/Pages',[
         /// A constructor function that creates the page.
         /// </returns>
         /// </signature>
-
         var ctor = _BasePage.get(uri);
         if (!ctor) {
             ctor = Pages_define(uri);
         }
         return ctor;
     }
-
     function _remove(uri) {
         Fragments.clearCache(_BasePage.abs(uri));
         _BasePage.remove(uri);
     }
-
     function render(uri, element, options, parentedPromise) {
         /// <signature helpKeyword="WinJS.UI.Pages.render">
         /// <summary locid="WinJS.UI.Pages.render">
@@ -26741,7 +24386,6 @@ define('WinJS/Pages',[
             });
         });
     }
-
     _Base.Namespace._moduleDefine(exports, "WinJS.UI.Pages", {
         define: Pages_define,
         get: get,
@@ -26749,7 +24393,6 @@ define('WinJS/Pages',[
         render: render,
         _viewMap: _BasePage.viewMap
     });
-
 });
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 define('WinJS/Controls/HtmlControl',[
@@ -26759,12 +24402,10 @@ define('WinJS/Controls/HtmlControl',[
     '../Pages'
     ], function htmlControlInit(exports, _Global, _Base, Pages) {
     "use strict";
-
     // not supported in WebWorker
     if (!_Global.document) {
         return;
     }
-
     _Base.Namespace._moduleDefine(exports, "WinJS.UI", {
         /// <field>
         /// <summary locid="WinJS.UI.HtmlControl">
@@ -26817,15 +24458,12 @@ define('base',[
     'WinJS/Controls/HtmlControl',
     ], function (_WinJS) {
     "use strict";
-
     _WinJS.Namespace.define("WinJS.Utilities", {
         _require: require,
         _define: define
     });
-
     return _WinJS;
 });
-
         require(['WinJS/Core/_WinJS', 'base'], function (_WinJS) {
             // WinJS always publishes itself to global
             globalObject.WinJS = _WinJS;
@@ -26837,4 +24475,3 @@ define('base',[
         return globalObject.WinJS;
     }));
 }());
-

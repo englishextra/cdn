@@ -6,10 +6,8 @@
  *              If no gyroscope is available, the cursor position is used.
  */
 ;(function(window, document, undefined) {
-
   // Strict Mode
   'use strict';
-
   // Constants
   var NAME = 'Parallax';
   var MAGIC_NUMBER = 30;
@@ -32,13 +30,10 @@
     originX: 0.5,
     originY: 0.5
   };
-
   function Parallax(element, options) {
-
     // DOM Context
     this.element = element;
     this.layers = element.getElementsByClassName('layer');
-
     // Data Extraction
     var data = {
       calibrateX: this.data(this.element, 'calibrate-x'),
@@ -54,53 +49,42 @@
       originX: this.data(this.element, 'origin-x'),
       originY: this.data(this.element, 'origin-y')
     };
-
     // Delete Null Data Values
     for (var key in data) {
       if (data[key] === null) delete data[key];
     }
-
     // Compose Settings Object
     this.extend(this, DEFAULTS, options, data);
-
     // States
     this.calibrationTimer = null;
     this.calibrationFlag = true;
     this.enabled = false;
     this.depths = [];
     this.raf = null;
-
     // Element Bounds
     this.bounds = null;
     this.ex = 0;
     this.ey = 0;
     this.ew = 0;
     this.eh = 0;
-
     // Element Center
     this.ecx = 0;
     this.ecy = 0;
-
     // Element Range
     this.erx = 0;
     this.ery = 0;
-
     // Calibration
     this.cx = 0;
     this.cy = 0;
-
     // Input
     this.ix = 0;
     this.iy = 0;
-
     // Motion
     this.mx = 0;
     this.my = 0;
-
     // Velocity
     this.vx = 0;
     this.vy = 0;
-
     // Callbacks
     this.onMouseMove = this.onMouseMove.bind(this);
     this.onDeviceOrientation = this.onDeviceOrientation.bind(this);
@@ -108,11 +92,9 @@
     this.onCalibrationTimer = this.onCalibrationTimer.bind(this);
     this.onAnimationFrame = this.onAnimationFrame.bind(this);
     this.onWindowResize = this.onWindowResize.bind(this);
-
     // Initialise
     this.initialise();
   }
-
   Parallax.prototype.extend = function() {
     if (arguments.length > 1) {
       var master = arguments[0];
@@ -124,11 +106,9 @@
       }
     }
   };
-
   Parallax.prototype.data = function(element, name) {
     return this.deserialize(element.getAttribute('data-'+name));
   };
-
   Parallax.prototype.deserialize = function(value) {
     if (value === "true") {
       return true;
@@ -142,13 +122,11 @@
       return value;
     }
   };
-
   Parallax.prototype.camelCase = function(value) {
     return value.replace(/-+(.)?/g, function(match, character){
       return character ? character.toUpperCase() : '';
     });
   };
-
   Parallax.prototype.transformSupport = function(value) {
     var element = document.createElement('div');
     var propertySupport = false;
@@ -195,7 +173,6 @@
     }
     return featureSupport;
   };
-
   Parallax.prototype.ww = null;
   Parallax.prototype.wh = null;
   Parallax.prototype.wcx = null;
@@ -211,29 +188,23 @@
   Parallax.prototype.transform2DSupport = Parallax.prototype.transformSupport('2D');
   Parallax.prototype.transform3DSupport = Parallax.prototype.transformSupport('3D');
   Parallax.prototype.propertyCache = {};
-
   Parallax.prototype.initialise = function() {
-
     // Configure Context Styles
     if (this.transform3DSupport) this.accelerate(this.element);
     var style = window.getComputedStyle(this.element);
     if (style.getPropertyValue('position') === 'static') {
       this.element.style.position = 'relative';
     }
-
     // Setup
     this.updateLayers();
     this.updateDimensions();
     this.enable();
     this.queueCalibration(this.calibrationDelay);
   };
-
   Parallax.prototype.updateLayers = function() {
-
     // Cache Layer Elements
     this.layers = this.element.getElementsByClassName('layer');
     this.depths = [];
-
     // Configure Layer Styles
     for (var i = 0, l = this.layers.length; i < l; i++) {
       var layer = this.layers[i];
@@ -242,12 +213,10 @@
       layer.style.display = 'block';
       layer.style.left = 0;
       layer.style.top = 0;
-
       // Cache Layer Depth
       this.depths.push(this.data(layer, 'depth') || 0);
     }
   };
-
   Parallax.prototype.updateDimensions = function() {
     this.ww = window.innerWidth;
     this.wh = window.innerHeight;
@@ -256,7 +225,6 @@
     this.wrx = Math.max(this.wcx, this.ww - this.wcx);
     this.wry = Math.max(this.wcy, this.wh - this.wcy);
   };
-
   Parallax.prototype.updateBounds = function() {
     this.bounds = this.element.getBoundingClientRect();
     this.ex = this.bounds.left;
@@ -268,12 +236,10 @@
     this.erx = Math.max(this.ecx, this.ew - this.ecx);
     this.ery = Math.max(this.ecy, this.eh - this.ecy);
   };
-
   Parallax.prototype.queueCalibration = function(delay) {
     clearTimeout(this.calibrationTimer);
     this.calibrationTimer = setTimeout(this.onCalibrationTimer, delay);
   };
-
   Parallax.prototype.enable = function() {
     if (!this.enabled) {
       this.enabled = true;
@@ -291,7 +257,6 @@
       this.raf = requestAnimationFrame(this.onAnimationFrame);
     }
   };
-
   Parallax.prototype.disable = function() {
     if (this.enabled) {
       this.enabled = false;
@@ -304,43 +269,35 @@
       cancelAnimationFrame(this.raf);
     }
   };
-
   Parallax.prototype.calibrate = function(x, y) {
     this.calibrateX = x === undefined ? this.calibrateX : x;
     this.calibrateY = y === undefined ? this.calibrateY : y;
   };
-
   Parallax.prototype.invert = function(x, y) {
     this.invertX = x === undefined ? this.invertX : x;
     this.invertY = y === undefined ? this.invertY : y;
   };
-
   Parallax.prototype.friction = function(x, y) {
     this.frictionX = x === undefined ? this.frictionX : x;
     this.frictionY = y === undefined ? this.frictionY : y;
   };
-
   Parallax.prototype.scalar = function(x, y) {
     this.scalarX = x === undefined ? this.scalarX : x;
     this.scalarY = y === undefined ? this.scalarY : y;
   };
-
   Parallax.prototype.limit = function(x, y) {
     this.limitX = x === undefined ? this.limitX : x;
     this.limitY = y === undefined ? this.limitY : y;
   };
-
   Parallax.prototype.origin = function(x, y) {
     this.originX = x === undefined ? this.originX : x;
     this.originY = y === undefined ? this.originY : y;
   };
-
   Parallax.prototype.clamp = function(value, min, max) {
     value = Math.max(value, min);
     value = Math.min(value, max);
     return value;
   };
-
   Parallax.prototype.css = function(element, property, value) {
     var jsProperty = this.propertyCache[property];
     if (!jsProperty) {
@@ -358,13 +315,11 @@
     }
     element.style[jsProperty] = value;
   };
-
   Parallax.prototype.accelerate = function(element) {
     this.css(element, 'transform', 'translate3d(0,0,0)');
     this.css(element, 'transform-style', 'preserve-3d');
     this.css(element, 'backface-visibility', 'hidden');
   };
-
   Parallax.prototype.setPosition = function(element, x, y) {
     x += 'px';
     y += 'px';
@@ -377,7 +332,6 @@
       element.style.top = y;
     }
   };
-
   Parallax.prototype.onOrientationTimer = function(event) {
     if (this.orientationSupport && this.orientationStatus === 0) {
       this.disable();
@@ -385,15 +339,12 @@
       this.enable();
     }
   };
-
   Parallax.prototype.onCalibrationTimer = function(event) {
     this.calibrationFlag = true;
   };
-
   Parallax.prototype.onWindowResize = function(event) {
     this.updateDimensions();
   };
-
   Parallax.prototype.onAnimationFrame = function() {
     this.updateBounds();
     var dx = this.ix - this.cx;
@@ -427,48 +378,37 @@
     }
     this.raf = requestAnimationFrame(this.onAnimationFrame);
   };
-
   Parallax.prototype.onDeviceOrientation = function(event) {
-
     // Validate environment and event properties.
     if (!this.desktop && event.beta !== null && event.gamma !== null) {
-
       // Set orientation status.
       this.orientationStatus = 1;
-
       // Extract Rotation
       var x = (event.beta  || 0) / MAGIC_NUMBER; //  -90 :: 90
       var y = (event.gamma || 0) / MAGIC_NUMBER; // -180 :: 180
-
       // Detect Orientation Change
       var portrait = this.wh > this.ww;
       if (this.portrait !== portrait) {
         this.portrait = portrait;
         this.calibrationFlag = true;
       }
-
       // Set Calibration
       if (this.calibrationFlag) {
         this.calibrationFlag = false;
         this.cx = x;
         this.cy = y;
       }
-
       // Set Input
       this.ix = x;
       this.iy = y;
     }
   };
-
   Parallax.prototype.onMouseMove = function(event) {
-
     // Cache mouse coordinates.
     var clientX = event.clientX;
     var clientY = event.clientY;
-
     // Calculate Mouse Input
     if (!this.orientationSupport && this.relativeInput) {
-
       // Clip mouse coordinates inside element bounds.
       if (this.clipRelativeInput) {
         clientX = Math.max(clientX, this.ex);
@@ -476,20 +416,15 @@
         clientY = Math.max(clientY, this.ey);
         clientY = Math.min(clientY, this.ey + this.eh);
       }
-
       // Calculate input relative to the element.
       this.ix = (clientX - this.ex - this.ecx) / this.erx;
       this.iy = (clientY - this.ey - this.ecy) / this.ery;
-
     } else {
-
       // Calculate input relative to the window.
       this.ix = (clientX - this.wcx) / this.wrx;
       this.iy = (clientY - this.wcy) / this.wry;
     }
   };
-
   // Expose Parallax
   window[NAME] = Parallax;
-
 })(window, document);

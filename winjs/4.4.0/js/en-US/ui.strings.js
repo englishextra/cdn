@@ -3,7 +3,6 @@
   Build: 4.4.0.winjs.2015.10.2
   Version: WinJS.4.4
 */
-
 (function () {
     var globalObject =
         typeof window !== 'undefined' ? window :
@@ -11,7 +10,6 @@
         typeof global !== 'undefined' ? global :
         {};
     globalObject.strings = globalObject.strings || {};
-
     function addStrings(keyPrefix,  strings) {
         Object.keys(strings).forEach(function (key) {
             globalObject.strings[keyPrefix + key] = strings[key];
@@ -520,6 +518,5 @@
     "ui/appBarIcons/hamburger":                           "\uE700", // group:General
     "_ui/appBarIcons/hamburger.comment":                  "{Locked=qps-ploc,qps-plocm}"
 }
-
 );
 }());

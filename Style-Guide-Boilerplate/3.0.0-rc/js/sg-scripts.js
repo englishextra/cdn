@@ -3,30 +3,23 @@
  */
 (function (document, undefined) {
   "use strict";
-
   // Add js class to body
   document.getElementsByTagName('body')[0].className+=' js';
-
-
   // Add functionality to toggle classes on elements
   var hasClass = function (el, cl) {
       var regex = new RegExp('(?:\\s|^)' + cl + '(?:\\s|$)');
       return !!el.className.match(regex);
   },
-
   addClass = function (el, cl) {
       el.className += ' ' + cl;
   },
-
   removeClass = function (el, cl) {
       var regex = new RegExp('(?:\\s|^)' + cl + '(?:\\s|$)');
       el.className = el.className.replace(regex, ' ');
   },
-
   toggleClass = function (el, cl) {
       hasClass(el, cl) ? removeClass(el, cl) : addClass(el, cl);
   };
-
   var selectText = function(text) {
       var doc = document;
       if (doc.body.createTextRange) {
@@ -41,16 +34,11 @@
           selection.addRange(range);
       }
   };
-
-
   // Cut the mustard
   if ( !Array.prototype.forEach ) {
-
     // Add legacy class for older browsers
     document.getElementsByTagName('body')[0].className+=' legacy';
-
   } else {
-
     // View Source Toggle
     [].forEach.call( document.querySelectorAll('.sg-btn--source'), function(el) {
       el.onclick = function() {
@@ -60,7 +48,6 @@
         return false;
       };
     }, false);
-
     // Select Code Button
     [].forEach.call( document.querySelectorAll('.sg-btn--select'), function(el) {
       el.onclick = function() {
@@ -70,8 +57,6 @@
       };
     }, false);
   }
-
-
   // Add operamini class to body
   if (window.operamini) {
     document.getElementsByTagName('body')[0].className+=' operamini';
@@ -81,10 +66,8 @@
   else {
     // Init prettyprint
     prettyPrint();
-
     // Get nav form
     var nav = document.getElementById('js-sg-section-switcher');
-
     // Toggle active class on navToggle click
     nav.onchange = function() {
       var val = this.value;
@@ -93,5 +76,4 @@
       }
     };
   }
-
  })(document);

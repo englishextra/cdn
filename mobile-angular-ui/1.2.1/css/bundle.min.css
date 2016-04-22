@@ -14,18 +14,15 @@
   display: block;
   text-align: center;
 }
-
 h1 {
   padding: 0;
   margin: 10px 0;
 }
-
 .chat-user-avatar {
   font-size: 40px;
   background: #ccc;
   padding: 5px 10px;
 }
-
 .feature-icon {
   font-size: 44px;
   padding: 0;
@@ -38,15 +35,12 @@ h1 {
   height: 72px;
   margin-bottom: 20px;
 }
-
 .feature-icon.fa-gamepad {
   line-height: 60px;
 }
-
 .feature-icon.fa-tachometer {
   line-height: 60px;
 }
-
 .app-content-loading {
   text-align: center;
   height: 100%;
@@ -54,7 +48,6 @@ h1 {
   background: #fff;
   position: relative;
 }
-
 .loading-spinner {
   position: absolute;
   font-size: 50px;
@@ -63,7 +56,6 @@ h1 {
   margin-left: -25px;
   margin-top: -25px;
 }
-
 .carousel-example-content {
   position: absolute;
   font-size: 50px;
@@ -73,8 +65,6 @@ h1 {
   top: 50%;
   margin-top: -50px;
 }
-
-
 .carousel-item {
   display: block;
   color: #444;
@@ -91,18 +81,14 @@ h1 {
   -ms-user-select: none;
   user-select: none;
 }
-
-
 .carousel {
   padding: 20px;
   overflow: visible;
 }
-
 .carousel-inner {
   position: relative;
   overflow: visible;
 }
-
 .carousel>.item, .carousel-item {
   top: 0;
   left: 0;
@@ -112,13 +98,11 @@ h1 {
   height: 100%;
   background-size: cover;
 }
-
 .carousel-item {
   -webkit-transition: -webkit-transform 500ms;
   -moz-transition: -moz-transform 500ms;
   transition: transform 500ms;
 }
-
 [drag-to-dismiss]{
   transform: translate(0,0); /* NOTE: this is required to prevent mobile webkit issues */ 
   -webkit-user-drag: none;
@@ -133,35 +117,28 @@ h1 {
   transition: opacity 300ms, transform 300ms;
   opacity: 1;
 }
-
 .notices-container {
   overflow-x: hidden;
 }
-
 .dismiss {
   -webkit-transition: opacity 300ms, -webkit-transform 300ms;
   -moz-transition: opacity 300ms, -moz-transform 300ms;
   transition: opacity 300ms, transform 300ms;
   opacity: 0.5;
 }
-
 .dismitted {
   -webkit-transition: opacity 300ms, -webkit-transform 300ms;
   -moz-transition: opacity 300ms, -moz-transform 300ms;
   transition: opacity 300ms, transform 300ms;
   opacity: 0;
 }
-
 .list-group-item-home {
   padding: 20px; 
 }
-
 pre {
   text-align: left !important;
 }
-
 input.scrollable-header {
   border-bottom: 3px solid #ccc;
 }
-
 .toucharea {width: 100%; height: 100%;}

@@ -9,15 +9,12 @@
  */
 (function($) {
     function mScrollTop(element, settings) {
-
         var _ = this,
             breakpoint;
         var scrollTo = 0;
-
         _.btnClass = '.material-scrolltop';
         _.revealClass = 'reveal';
         _.btnElement = $(_.btnClass);
-
         _.initial = {
             revealElement: 'body',
             revealPosition: 'top',
@@ -26,13 +23,10 @@
             easing: 'swing',
             onScrollEnd: false
         }
-
         _.options = $.extend({}, _.initial, settings);
-
         _.revealElement = $(_.options.revealElement);
         breakpoint = _.options.revealPosition !== 'bottom' ? _.revealElement.offset().top : _.revealElement.offset().top + _.revealElement.height();
         scrollTo = element.offsetTop + _.options.padding;
-
         $(document).scroll(function() {
             if (breakpoint < $(document).scrollTop()) {
                 _.btnElement.addClass(_.revealClass);
@@ -40,7 +34,6 @@
                 _.btnElement.removeClass(_.revealClass);
             }
         });
-
         _.btnElement.click(function() {
             $('body').animate({
                 scrollTop: scrollTo
@@ -48,7 +41,6 @@
             return false;
         });
     }
-
     $.fn.materialScrollTop = function() {
         var _ = this,
             opt = arguments[0],

@@ -1,9 +1,7 @@
 if (typeof window.localStorage == 'undefined' || typeof window.sessionStorage == 'undefined') (function () {
-
 var Storage = function (type) {
   function createCookie(name, value, days) {
     var date, expires;
-
     if (days) {
       date = new Date();
       date.setTime(date.getTime()+(days*24*60*60*1000));
@@ -13,18 +11,15 @@ var Storage = function (type) {
     }
     document.cookie = name+"="+value+expires+"; path=/";
   }
-
   function readCookie(name) {
     var nameEQ = name + "=",
         ca = document.cookie.split(';'),
         i, c;
-
     for (i=0; i < ca.length; i++) {
       c = ca[i];
       while (c.charAt(0)==' ') {
         c = c.substring(1,c.length);
       }
-
       if (c.indexOf(nameEQ) == 0) {
         return c.substring(nameEQ.length,c.length);
       }
@@ -53,11 +48,8 @@ var Storage = function (type) {
     var data = type == 'session' ? window.name : readCookie('localStorage');
     return data ? JSON.parse(data) : {};
   }
-
-
   // initialise if there's already data
   var data = getData();
-
   return {
     length: 0,
     clear: function () {
@@ -89,8 +81,6 @@ var Storage = function (type) {
     }
   };
 };
-
 if (typeof window.localStorage == 'undefined') window.localStorage = new Storage('local');
 if (typeof window.sessionStorage == 'undefined') window.sessionStorage = new Storage('session');
-
 })();

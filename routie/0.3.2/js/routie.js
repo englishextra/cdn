@@ -6,12 +6,10 @@
  * MIT License
 */
 (function(w) {
-
   var routes = [];
   var map = {};
   var reference = "routie";
   var oldReference = w[reference];
-
   var Route = function(path, name) {
     this.name = name;
     this.path = path;
@@ -19,13 +17,10 @@
     this.fns = [];
     this.params = {};
     this.regex = pathToRegexp(this.path, this.keys, false, false);
-
   };
-
   Route.prototype.addHandler = function(fn) {
     this.fns.push(fn);
   };
-
   Route.prototype.removeHandler = function(fn) {
     for (var i = 0, c = this.fns.length; i < c; i++) {
       var f = this.fns[i];
@@ -35,33 +30,24 @@
       }
     }
   };
-
   Route.prototype.run = function(params) {
     for (var i = 0, c = this.fns.length; i < c; i++) {
       this.fns[i].apply(this, params);
     }
   };
-
   Route.prototype.match = function(path, params){
     var m = this.regex.exec(path);
-
     if (!m) return false;
-
-
     for (var i = 1, len = m.length; i < len; ++i) {
       var key = this.keys[i - 1];
-
       var val = ('string' == typeof m[i]) ? decodeURIComponent(m[i]) : m[i];
-
       if (key) {
         this.params[key.name] = val;
       }
       params.push(val);
     }
-
     return true;
   };
-
   Route.prototype.toURL = function(params) {
     var path = this.path;
     for (var param in params) {
@@ -73,7 +59,6 @@
     }
     return path;
   };
-
   var pathToRegexp = function(path, keys, sensitive, strict) {
     if (path instanceof RegExp) return path;
     if (path instanceof Array) path = '(' + path.join('|') + ')';
@@ -91,19 +76,16 @@
       .replace(/\*/g, '(.*)');
     return new RegExp('^' + path + '$', sensitive ? '' : 'i');
   };
-
   var addHandler = function(path, fn) {
     var s = path.split(' ');
     var name = (s.length == 2) ? s[0] : null;
     path = (s.length == 2) ? s[1] : s[0];
-
     if (!map[path]) {
       map[path] = new Route(path, name);
       routes.push(map[path]);
     }
     map[path].addHandler(fn);
   };
-
   var routie = function(path, fn) {
     if (typeof fn == 'function') {
       addHandler(path, fn);
@@ -117,7 +99,6 @@
       routie.navigate(path);
     }
   };
-
   routie.lookup = function(name, obj) {
     for (var i = 0, c = routes.length; i < c; i++) {
       var route = routes[i];
@@ -126,47 +107,38 @@
       }
     }
   };
-
   routie.remove = function(path, fn) {
     var route = map[path];
     if (!route)
       return;
     route.removeHandler(fn);
   };
-
   routie.removeAll = function() {
     map = {};
     routes = [];
   };
-
   routie.navigate = function(path, options) {
     options = options || {};
     var silent = options.silent || false;
-
     if (silent) {
       removeListener();
     }
     setTimeout(function() {
       window.location.hash = path;
-
       if (silent) {
         setTimeout(function() { 
           addListener();
         }, 1);
       }
-
     }, 1);
   };
-
   routie.noConflict = function() {
     w[reference] = oldReference;
     return routie;
   };
-
   var getHash = function() {
     return window.location.hash.substring(1);
   };
-
   var checkRoute = function(hash, route) {
     var params = [];
     if (route.match(hash, params)) {
@@ -175,7 +147,6 @@
     }
     return false;
   };
-
   var hashChanged = routie.reload = function() {
     var hash = getHash();
     for (var i = 0, c = routes.length; i < c; i++) {
@@ -185,7 +156,6 @@
       }
     }
   };
-
   var addListener = function() {
     if (w.addEventListener) {
       w.addEventListener('hashchange', hashChanged, false);
@@ -193,7 +163,6 @@
       w.attachEvent('onhashchange', hashChanged);
     }
   };
-
   var removeListener = function() {
     if (w.removeEventListener) {
       w.removeEventListener('hashchange', hashChanged);
@@ -202,7 +171,6 @@
     }
   };
   addListener();
-
   w[reference] = routie;
    
 })(window);

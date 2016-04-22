@@ -6,16 +6,13 @@
       mutationSupported = false,
       match
   ;
-
   function detectMutation() {
     mutationSupported = true;
     this.removeEventListener('DOMAttrModified', detectMutation, false);
   }
-
   function toCamelCase(s) {
     return s.replace(dashChar, function (m,l) { return l.toUpperCase(); });
   }
-
   function updateDataset() {
     var dataset = {};
     forEach.call(this.attributes, function(attr) {
@@ -24,13 +21,10 @@
     });
     return dataset;
   }
-
   // only add support if the browser doesn't support data-* natively
   if (el.dataset != undefined) return;
-
   el.addEventListener('DOMAttrModified', detectMutation, false);
   el.setAttribute('foo', 'bar');
-
   function defineElementGetter (obj, prop, getter) {
     if (Object.defineProperty) {
         Object.defineProperty(obj, prop,{
@@ -40,7 +34,6 @@
         obj.__defineGetter__(prop, getter);
     }
   }
-
   defineElementGetter(Element.prototype, 'dataset', mutationSupported
     ? function () {
       if (!this._datasetCache) {
@@ -50,7 +43,6 @@
     }
     : updateDataset
   );
-
   document.addEventListener('DOMAttrModified', function (event) {
     delete event.target._datasetCache;
   }, false);

@@ -8,9 +8,7 @@
  * Licensed under the MIT License:
  *   http://www.opensource.org/licenses/mit-license.php
  */
-
 // t: current time, b: begInnIng value, c: change In value, d: duration
-
 jQuery.extend( jQuery.easing,
 {
 	easeInQuad: function (x, t, b, c, d) {
@@ -138,4 +136,3 @@ jQuery.extend( jQuery.easing,
 		return jQuery.easing.easeOutBounce (x, t*2-d, 0, c, d) * .5 + c*.5 + b;
 	}
 });
-

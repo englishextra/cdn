@@ -1,7 +1,6 @@
 if (!sessionStorage && JSON) {
   sessionStorage = (function () {
     var data = window.name ? JSON.parse(window.name) : {};
-
     return {
       clear: function () {
         data = {};

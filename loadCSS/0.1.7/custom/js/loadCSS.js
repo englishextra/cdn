@@ -28,7 +28,6 @@ function loadCSS( href, callback, media, before ){
 	if( callback ) {
 		ss.onload = callback;
 	}
-
 	// inject link
 	ref.parentNode.insertBefore( ss, ref );
 	// This function sets the link's media back to `all` so that the stylesheet applies once it loads

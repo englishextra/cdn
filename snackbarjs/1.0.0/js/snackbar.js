@@ -1,5 +1,4 @@
 /* SnackbarJS - MIT LICENSE (https://github.com/FezVrasta/snackbarjs/blob/master/LICENSE.md) */
-
 (function (factory) {
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
@@ -12,11 +11,9 @@
         factory(jQuery);
     }
 }(function( $ ){
-
     $(document).ready(function() {
         $("body").append("<div id=snackbar-container/>");
     });
-
     function isset(variable) {
         if (typeof variable !== "undefined" && variable !== null) {
             return true;
@@ -24,7 +21,6 @@
             return false;
         }
     }
-
     $(document)
     .on("click", "[data-toggle=snackbar]", function() {
         $(this).snackbar("toggle");
@@ -32,32 +28,23 @@
     .on("click", "#snackbar-container .snackbar", function() {
         $(this).snackbar("hide");
     });
-
     $.snackbar = function(options) {
-
         if (isset(options) && options === Object(options)) {
             var $snackbar;
-
             if (!isset(options.id)) {
                 $snackbar = $("<div/>").attr("id", "snackbar" + Date.now()).attr("class", "snackbar");
             } else {
                 $snackbar = $("#" + options.id);
             }
-
             var snackbarStatus = $snackbar.hasClass("snackbar-opened");
-
             if (isset(options.style)) {
                 $snackbar.attr("class", "snackbar " + options.style);
             } else {
                 $snackbar.attr("class", "snackbar");
             }
-
             options.htmlAllowed = isset(options.htmlAllowed) ? options.htmlAllowed : false;
-
             options.timeout = (isset(options.timeout)) ? options.timeout : 3000;
-
             options.content = (options.htmlAllowed) ? options.content : $("<p>" + options.content + "</p>").text();
-
             if (isset(options.content)) {
                 if ($snackbar.find(".snackbar-content").length) {
                     $snackbar.find(".snackbar-content").html(options.content);
@@ -65,13 +52,11 @@
                     $snackbar.prepend("<span class=snackbar-content>" + options.content + "</span>");
                 }
             }
-
             if (!isset(options.id)) {
                 $snackbar.appendTo("#snackbar-container");
             } else {
                 $snackbar.insertAfter("#snackbar-container .snackbar:last-child");
             }
-
             // Show or hide item
             if (isset(options.action) && options.action == "toggle") {
                 if (snackbarStatus) {
@@ -80,7 +65,6 @@
                     options.action = "show";
                 }
             }
-
             var animationId1 = Date.now();
             $snackbar.data("animationId1", animationId1);
             setTimeout(function() {
@@ -92,11 +76,9 @@
                     }
                 }
             }, 50);
-
             // Set timer for item autohide
             var animationId2 = Date.now();
             $snackbar.data("animationId2", animationId2);
-
             if (options.timeout !== 0) {
                 setTimeout(function() {
                     if ($snackbar.data("animationId2") === animationId2) {
@@ -104,20 +86,14 @@
                     }
                 }, options.timeout);
             }
-
             return $snackbar;
-
         } else {
             return false;
         }
     };
-
     $.fn.snackbar = function(action) {
-
         var options = {};
-
         if (!this.hasClass("snackbar")) {
-
             if (!isset(action) || action === "show" || action === "hide" || action == "toggle") {
                 options = {
                     content: $(this).attr("data-content"),
@@ -126,28 +102,21 @@
                     htmlAllowed: $(this).attr("data-html-allowed")
                 };
             }
-
             if (isset(action)) {
                 options.id = this.attr("data-snackbar-id");
-
                 if(action === "show" || action === "hide" || action == "toggle") {
                     options.action = action;
                 }
             }
-
             var $snackbar = $.snackbar(options);
             this.attr("data-snackbar-id", $snackbar.attr("id"));
-
             return $snackbar;
-
         } else {
-
             options.id = this.attr("id");
             if(action === "show" || action === "hide" || action == "toggle") {
                 options.action = action;
             }
             return $.snackbar(options);
         }
-
     };
 }));

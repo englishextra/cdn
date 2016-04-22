@@ -1,19 +1,14 @@
 ;(function (global) {
-
 if ("EventSource" in global) return;
-
 var reTrim = /^(\s|\u00A0)+|(\s|\u00A0)+$/g;
-
 var EventSource = function (url) {
   var eventsource = this,  
       interval = 500, // polling interval  
       lastEventId = null,
       cache = '';
-
   if (!url || typeof url != 'string') {
     throw new SyntaxError('Not enough arguments');
   }
-
   this.URL = url;
   this.readyState = this.CONNECTING;
   this._pollTimer = null;
@@ -28,7 +23,6 @@ var EventSource = function (url) {
   function poll() {
     try { // force hiding of the error message... insane?
       if (eventsource.readyState == eventsource.CLOSED) return;
-
       // NOTE: IE7 and upwards support
       var xhr = new XMLHttpRequest();
       xhr.open('GET', eventsource.URL, true);
@@ -37,7 +31,6 @@ var EventSource = function (url) {
       // we must make use of this on the server side if we're working with Android - because they don't trigger 
       // readychange until the server connection is closed
       xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-
       if (lastEventId != null) xhr.setRequestHeader('Last-Event-ID', lastEventId);
       cache = '';
     
@@ -49,7 +42,6 @@ var EventSource = function (url) {
             eventsource.readyState = eventsource.OPEN;
             eventsource.dispatchEvent('open', { type: 'open' });
           }
-
           var responseText = '';
           try {
             responseText = this.responseText || '';
@@ -87,7 +79,6 @@ var EventSource = function (url) {
               }
             }
           }
-
           if (this.readyState == 4) pollAgain(interval);
           // don't need to poll again, because we're long-loading
         } else if (eventsource.readyState !== eventsource.CLOSED) {
@@ -118,7 +109,6 @@ var EventSource = function (url) {
   
   poll(); // init now
 };
-
 EventSource.prototype = {
   close: function () {
     // closes the connection - disabling the polling
@@ -136,7 +126,6 @@ EventSource.prototype = {
         handlers[i].call(this, event);
       }
     }
-
     if (this['on' + type]) {
       this['on' + type].call(this, event);
     }
@@ -166,20 +155,17 @@ EventSource.prototype = {
   readyState: 0,
   URL: ''
 };
-
 var MessageEvent = function (data, origin, lastEventId) {
   this.data = data;
   this.origin = origin;
   this.lastEventId = lastEventId || '';
 };
-
 MessageEvent.prototype = {
   data: null,
   type: 'message',
   lastEventId: '',
   origin: ''
 };
-
 if ('module' in global) module.exports = EventSource;
 global.EventSource = EventSource;
  

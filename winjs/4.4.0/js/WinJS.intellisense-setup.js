@@ -2,9 +2,7 @@
 /* global intellisense, window */
 (function () {
     "use strict";
-
     var redirect = intellisense.redirectDefinition;
-
     var originalKeys = Object.keys;
     function baseKeys(o) {
         var values = Object.getOwnPropertyNames(o);
@@ -14,9 +12,7 @@
         return originalKeys(o);
     }
     Object.keys = baseKeys;
-
     redirect(baseKeys, originalKeys);
-
     window._$originalAddEventListener = window.addEventListener;
     function addEventListener(type, handler, useCapture) {
         if (typeof (type) === "string" && (type === "pointerdown" || type === "keydown")) {
@@ -25,6 +21,5 @@
         return window._$originalAddEventListener(type, handler, useCapture);
     }
     window.addEventListener = addEventListener;
-
     redirect(addEventListener, window._$originalAddEventListener);
 })();

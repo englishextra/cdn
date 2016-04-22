@@ -7,14 +7,11 @@ var msGrid = (function() {
 		$('.col-6-8').prev('.col-1-8').addClass('preceding-col-1-8');
 		$('.col-12-24').prev('.col-6-24').addClass('preceding-col-6-24');
 	};
-
 	var obj = {
 		init: function() {
 			findPrecedingColumns();
 		}
 	};
-
 	return obj;
 })();
-
 msGrid.init();

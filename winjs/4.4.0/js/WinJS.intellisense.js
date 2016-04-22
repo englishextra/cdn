@@ -3,7 +3,6 @@
 (function () {
     "use strict";
     var redirect = intellisense.redirectDefinition;
-
     function makeAllEnumerable(v) {
         /// <param name="v" type="Object" />
         if (v && typeof v === "object") {
@@ -17,7 +16,6 @@
         }
         return v;
     }
-
     function wrap(old) {
         /// <param name="old" type="Function" />
         var wrapper = function () {
@@ -30,7 +28,6 @@
         redirect(wrapper, old);
         return wrapper;
     }
-
     function wrapAllMethods(v) {
         /// <param name="v" type="Object" />
         if (v) {
@@ -43,12 +40,10 @@
         }
         return v;
     }
-
     if (this.WinJS) {
         wrapAllMethods(WinJS.Namespace);
         wrapAllMethods(WinJS.Class);
     }
-
     (function () {
         var originalApplicationStart = WinJS.Application.start;
         WinJS.Application.start = function () {
@@ -60,20 +55,16 @@
             return originalApplicationStart.apply(this, arguments);
         };
         redirect(WinJS.Application.start, originalApplicationStart);
-
         var originalPagesDefine = WinJS.UI.Pages.define;
         WinJS.UI.Pages.define = function (uri, members) {
             var result = originalPagesDefine.apply(this, arguments);
-
             intellisense.callerDefines(result, members);
             if (typeof uri === 'string') {
                 intellisense.declareNavigationContainer(result, "Page (" + uri + ")");
             }
-
             // Set the call contexts for IPageControlMembers
             if (members) {
                 var pageInstance = new result();
-
                 if (typeof members.error === 'function') {
                     intellisense.setCallContext(members.error, { thisArg: pageInstance, args: [new Error()] });
                 }
@@ -93,11 +84,9 @@
                     intellisense.setCallContext(members.render, { thisArg: pageInstance, args: [document.createElement('element'), {}, WinJS.Promise.wrap()] });
                 }
             }
-
             return result;
         };
         redirect(WinJS.UI.Pages.define, originalPagesDefine);
-
         // Simulate a call to a class' instance/static methods for WinJS.Class.define
         var originalClassDefine = WinJS.Class.define;
         WinJS.Class.define = function (constructor, instanceMembers, staticMembers) {
@@ -128,11 +117,9 @@
                     }
                 });
             }
-
             return result;
         };
         redirect(WinJS.Class.define, originalClassDefine);
-
         // Define the caller location property for WinJS.Namespace.define
         var originalNamespaceDefine = WinJS.Namespace.define;
         WinJS.Namespace.define = function (name, members) {
@@ -142,7 +129,6 @@
                 var globalObj = (function () {
                     return this;
                 })();
-
                 // Define the caller location of parent namespaces that haven't yet been defined
                 var path;
                 var namespaceParts = name.split(".");
@@ -153,23 +139,19 @@
                         intellisense.callerDefines(item);
                     }
                 }
-
                 // Define the caller location of the original namespace
                 intellisense.callerDefines(result, members);
             }
             return result;
         };
         redirect(WinJS.Namespace.define, originalNamespaceDefine);
-
         intellisense.setCallContext(WinJS.Promise, { thisArg: {}, args: [function () { }] });
     })();
-
     (function () {
         // In the language serivce all promises are completed promises. The completed promise class is private
         // to WinJS, however, we can get access to the prototype through one of the promise instances by
         // getting the instance's constructor's prototype.
         var promisePrototype = WinJS.Promise.as(1).constructor.prototype;
-
         // Setting the argument calling context of the done and then methods to be an instance of Error().
         // The completion callback is handled in WinJS itself through a <returns> metadata comment.
         var originalDone = promisePrototype.done;
@@ -178,7 +160,6 @@
             return originalDone.apply(this, arguments);
         };
         redirect(promisePrototype.done, originalDone);
-
         var originalThen = promisePrototype.then;
         promisePrototype.then = function (c, e, p) {
             intellisense.setCallContext(e, { thisArg: this, args: [new Error()] });
@@ -186,7 +167,6 @@
         };
         redirect(promisePrototype.then, originalThen);
     })();
-
     if (window._$originalAddEventListener) {
         window.addEventListener = window._$originalAddEventListener;
         window._$originalAddEventListener = null;

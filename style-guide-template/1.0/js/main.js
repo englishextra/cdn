@@ -26,7 +26,6 @@ jQuery(document).ready(function($){
 		var actual = $(this);
 		$('<b>'+actual.css("background-color")+'</b>').insertAfter(actual);
 	});
-
 	/*******************
 		buttons
 	********************/
@@ -34,7 +33,6 @@ jQuery(document).ready(function($){
 		buttonsHtml = buttonsWrapper.html(),
 		containerHtml = $('<div class="cd-box"></div>').insertAfter(buttonsWrapper),
 		buttonsHtmlText = buttonsHtml.split('</button>');
-
 	$.map(buttonsHtmlText, function(value){
 		if(value.indexOf('button') >= 0 ) {
 			var splitText = value.split('class="'),
@@ -48,7 +46,6 @@ jQuery(document).ready(function($){
 			wrapperElement.append('"'+block2[1]+'&lt;/button&gt;');
 		}
 	});
-
 	/*******************
 		typography
 	********************/
@@ -63,14 +60,12 @@ jQuery(document).ready(function($){
 		setTypography(heading, headingDescriptionText);
 		setTypography(body, bodyDescriptionText);
 	});
-
 	function setTypography(element, textElement) {
 		var fontSize = Math.round(element.css('font-size').replace('px',''))+'px',
 			fontFamily = (element.css('font-family').split(','))[0].replace(/\'/g, '').replace(/\"/g, ''),
 			fontWeight = element.css('font-weight');
 		textElement.text(fontWeight + ' '+ fontFamily+' '+fontSize );
 	}
-
 	/*******************
 		main  navigation
 	********************/
@@ -92,7 +87,6 @@ jQuery(document).ready(function($){
     $(window).on('scroll', function(){
     	updateNavigation();
     });
-
     function updateNavigation() {
 		contentSections.each(function(){
 			var actual = $(this),
