@@ -1,166 +1,166 @@
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale = 1.0, maximum-scale=1.0">
-    <title>Material – ScrollTop</title>
-    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
-    <style>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale = 1.0, maximum-scale=1.0">
+ <title>Material – ScrollTop</title>
+ <link href='http://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+ <style>
 /**
 * Demo style
 *
 * Just for example. You don't need this stylesheet
 */
 body {
-    background-color: #fafafa;
-    font-family: Roboto,"Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-size: 16px;
-    line-height: 24px;
-    margin: 0;
-    -webkit-font-smoothing: subpixel-antialiased;
+ background-color: #fafafa;
+ font-family: Roboto,"Helvetica Neue",Helvetica,Arial,sans-serif;
+ font-size: 16px;
+ line-height: 24px;
+ margin: 0;
+ -webkit-font-smoothing: subpixel-antialiased;
 }
 header {
-    background: #4caf50;
-    color: #fff;
-    padding: 1rem 0;
+ background: #4caf50;
+ color: #fff;
+ padding: 1rem 0;
 }
 header .container {
-    max-width: 650px;
-    margin: 0 auto;
-    padding: 24px;
+ max-width: 650px;
+ margin: 0 auto;
+ padding: 24px;
 }
 article,
 footer {
-    max-width: 400px;
-    margin: 0 auto;
+ max-width: 400px;
+ margin: 0 auto;
 }
 h1 {
-    color: #fff;
-    font-size: 44px;
-    font-weight: 300;
-    margin: 0 0 12px 0;
-    line-height: 48px;
+ color: #fff;
+ font-size: 44px;
+ font-weight: 300;
+ margin: 0 0 12px 0;
+ line-height: 48px;
 }
 h2 {
-    color: #4caf50;
-    font-size: 20px;
-    font-weight: 400;
-    line-height: 24px;
+ color: #4caf50;
+ font-size: 20px;
+ font-weight: 400;
+ line-height: 24px;
 }
 h3 {
-    color: #4caf50;
-    font-size: 16px;
-    line-height: 18px;
-    font-weight: 400;
+ color: #4caf50;
+ font-size: 16px;
+ line-height: 18px;
+ font-weight: 400;
 }
 p {
-    margin: 24px 0;
-    font-size: 16px;
+ margin: 24px 0;
+ font-size: 16px;
 }
 hr {
-    border: 0;
-    height: 1px;
-    background: #4caf50;
-    margin: 1em 0;
+ border: 0;
+ height: 1px;
+ background: #4caf50;
+ margin: 1em 0;
 }
 a {
-    color: #4caf50;
-    text-decoration: underline;
+ color: #4caf50;
+ text-decoration: underline;
 }
 a:hover {
-    text-decoration: none;
+ text-decoration: none;
 }
 .btn {
-    background: #4caf50;
-    text-align: center;
-    vertical-align: middle;
-    border: none;
-    white-space: nowrap;
-    font-weight: 400;
-    font-size: 14px;
-    letter-spacing: .05em;
-    color: #fff;
-    text-transform: uppercase;
-    height: 54px;
-    line-height: 54px;
-    padding: 0 26px;
-    border-radius: 2px;
-    margin-top: 6px;
-    margin-bottom: 6px;
-    text-decoration: none;
-    position: relative;
-    display: inline-block;
-    overflow: hidden;
-    transition: .2s ease-out;
+ background: #4caf50;
+ text-align: center;
+ vertical-align: middle;
+ border: none;
+ white-space: nowrap;
+ font-weight: 400;
+ font-size: 14px;
+ letter-spacing: .05em;
+ color: #fff;
+ text-transform: uppercase;
+ height: 54px;
+ line-height: 54px;
+ padding: 0 26px;
+ border-radius: 2px;
+ margin-top: 6px;
+ margin-bottom: 6px;
+ text-decoration: none;
+ position: relative;
+ display: inline-block;
+ overflow: hidden;
+ transition: .2s ease-out;
 }
 .btn:hover {
-    box-shadow: 0 4px 7px 0 rgba(0,0,0,.3),0 2px 3px 0 rgba(0,0,0,.1);
+ box-shadow: 0 4px 7px 0 rgba(0,0,0,.3),0 2px 3px 0 rgba(0,0,0,.1);
 }
 .wrap {
-    padding: 1rem 0 0 0;
+ padding: 1rem 0 0 0;
 }
 	</style>
-    <!-- Important stylesheet -->
-    <link rel="stylesheet" type="text/css" href="./css/material-scrolltop.css">
+ <!-- Important stylesheet -->
+ <link rel="stylesheet" type="text/css" href="./css/material-scrolltop.css">
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>Material ScrollTop Button</h1>
-            <span>Lightweight, Material Design inspired plugin for scrolling on top of page (with jQuery)</span>
-        </div>
-    </header>
-    <article class="instructions wrap">
-        <h2>I just want to see it!</h2>
-        <ol>
-            <li>Scroll down</li>
-            <li>Watch right bottom corner</li>
-            <li>Use it</li>
-        </ol>
-        <h2>OK, now I want it. Where is it?</h2>
-        <a href="https://github.com/bartholomej/material-scrollTop" class="btn btn-large">View on Github</a>
-    </article>
-    <article class="dummy">
-        <h2>That's all Folks!</h2>
-        <hr />
-        <h2>Dummy text...</h2>
-        <p>This is just dummy text to make this page longer...</p>
-        <h3>No, motherfucker</h3>
-        <p>Your bones don't break, mine do. That's clear. Your cells react to bacteria and viruses differently than mine. You don't get sick, I do. That's also clear. But for some reason, you and I react the exact same way to water. We swallow it too fast, we choke. We get some in our lungs, we drown. However unreal it may seem, we are connected, you and I. We're on the same curve, just on opposite ends.</p>
-        <h3>I gotta piss</h3>
-        <p>My money's in that office, right? If she start giving me some bullshit about it ain't there, and we got to go someplace else and get it, I'm gonna shoot you in the head then and there. Then I'm gonna shoot that bitch in the kneecaps, find out where my goddamn money is. She gonna tell me too. Hey, look at me when I'm talking to you, motherfucker. You listen: we go in there, and that nigga Winston or anybody else is in there, you the first motherfucker to get shot. You understand?</p>
-        <h3>I can do that</h3>
-        <p>Normally, both your asses would be dead as fucking fried chicken, but you happen to pull this shit while I'm in a transitional period so I don't wanna kill you, I wanna help you. But I can't give you this case, it don't belong to me. Besides, I've already been through too much shit this morning over this case to hand it over to your dumb ass.</p>
-        <h3>Are you ready for the truth?</h3>
-        <p>Normally, both your asses would be dead as fucking fried chicken, but you happen to pull this shit while I'm in a transitional period so I don't wanna kill you, I wanna help you. But I can't give you this case, it don't belong to me. Besides, I've already been through too much shit this morning over this case to hand it over to your dumb ass.</p>
-        <h3>Is she dead, yes or no?</h3>
-        <p>Normally, both your asses would be dead as fucking fried chicken, but you happen to pull this shit while I'm in a transitional period so I don't wanna kill you, I wanna help you. But I can't give you this case, it don't belong to me. Besides, I've already been through too much shit this morning over this case to hand it over to your dumb ass.</p>
-        <h3>I gotta piss</h3>
-        <p>My money's in that office, right? If she start giving me some bullshit about it ain't there, and we got to go someplace else and get it, I'm gonna shoot you in the head then and there. Then I'm gonna shoot that bitch in the kneecaps, find out where my goddamn money is. She gonna tell me too. Hey, look at me when I'm talking to you, motherfucker. You listen: we go in there, and that nigga Winston or anybody else is in there, you the first motherfucker to get shot. You understand?</p>
-        <h3>I gotta piss</h3>
-        <p>Now that there is the Tec-9, a crappy spray gun from South Miami. This gun is advertised as the most popular gun in American crime. Do you believe that shit? It actually says that in the little book that comes with it: the most popular gun in American crime. Like they're actually proud of that shit.</p>
-        <h3>No man, I don't eat pork</h3>
-        <p>You think water moves fast? You should see ice. It moves like it has a mind. Like it knows it killed the world once and got a taste for murder. After the avalanche, it took us a week to climb out. Now, I don't know exactly when we turned on each other, but I know that seven of us survived the slide... and only five made it out. Now we took an oath, that I'm breaking now. We said we'd say it was the snow that killed the other two, but it wasn't. Nature is lethal but it doesn't hold a candle to man.</p>
-    </article>
-    <footer>
-        <p>&copy; <a href="http://github.com/bartholomej">Bartholomej</a></p>
-    </footer>
-    <!--  jQuery 1.7+  -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <!-- Material button -->
-    <button class="material-scrolltop" type="button"></button>
-    <!-- Include js plugin -->
-    <script src="./js/material-scrolltop.js"></script>
-    <!-- Initialize -->
-    <script>
-        $(document).ready(function() {
-            $('body').materialScrollTop({
-                revealElement: 'header',
-                revealPosition: 'bottom',
-                onScrollEnd: function() {
-                    console.log('Scrolling End');
-                }
-            });
-        });
-    </script>
+ <header>
+ <div class="container">
+ <h1>Material ScrollTop Button</h1>
+ <span>Lightweight, Material Design inspired plugin for scrolling on top of page (with jQuery)</span>
+ </div>
+ </header>
+ <article class="instructions wrap">
+ <h2>I just want to see it!</h2>
+ <ol>
+ <li>Scroll down</li>
+ <li>Watch right bottom corner</li>
+ <li>Use it</li>
+ </ol>
+ <h2>OK, now I want it. Where is it?</h2>
+ <a href="https://github.com/bartholomej/material-scrollTop" class="btn btn-large">View on Github</a>
+ </article>
+ <article class="dummy">
+ <h2>That's all Folks!</h2>
+ <hr />
+ <h2>Dummy text...</h2>
+ <p>This is just dummy text to make this page longer...</p>
+ <h3>No, motherfucker</h3>
+ <p>Your bones don't break, mine do. That's clear. Your cells react to bacteria and viruses differently than mine. You don't get sick, I do. That's also clear. But for some reason, you and I react the exact same way to water. We swallow it too fast, we choke. We get some in our lungs, we drown. However unreal it may seem, we are connected, you and I. We're on the same curve, just on opposite ends.</p>
+ <h3>I gotta piss</h3>
+ <p>My money's in that office, right? If she start giving me some bullshit about it ain't there, and we got to go someplace else and get it, I'm gonna shoot you in the head then and there. Then I'm gonna shoot that bitch in the kneecaps, find out where my goddamn money is. She gonna tell me too. Hey, look at me when I'm talking to you, motherfucker. You listen: we go in there, and that nigga Winston or anybody else is in there, you the first motherfucker to get shot. You understand?</p>
+ <h3>I can do that</h3>
+ <p>Normally, both your asses would be dead as fucking fried chicken, but you happen to pull this shit while I'm in a transitional period so I don't wanna kill you, I wanna help you. But I can't give you this case, it don't belong to me. Besides, I've already been through too much shit this morning over this case to hand it over to your dumb ass.</p>
+ <h3>Are you ready for the truth?</h3>
+ <p>Normally, both your asses would be dead as fucking fried chicken, but you happen to pull this shit while I'm in a transitional period so I don't wanna kill you, I wanna help you. But I can't give you this case, it don't belong to me. Besides, I've already been through too much shit this morning over this case to hand it over to your dumb ass.</p>
+ <h3>Is she dead, yes or no?</h3>
+ <p>Normally, both your asses would be dead as fucking fried chicken, but you happen to pull this shit while I'm in a transitional period so I don't wanna kill you, I wanna help you. But I can't give you this case, it don't belong to me. Besides, I've already been through too much shit this morning over this case to hand it over to your dumb ass.</p>
+ <h3>I gotta piss</h3>
+ <p>My money's in that office, right? If she start giving me some bullshit about it ain't there, and we got to go someplace else and get it, I'm gonna shoot you in the head then and there. Then I'm gonna shoot that bitch in the kneecaps, find out where my goddamn money is. She gonna tell me too. Hey, look at me when I'm talking to you, motherfucker. You listen: we go in there, and that nigga Winston or anybody else is in there, you the first motherfucker to get shot. You understand?</p>
+ <h3>I gotta piss</h3>
+ <p>Now that there is the Tec-9, a crappy spray gun from South Miami. This gun is advertised as the most popular gun in American crime. Do you believe that shit? It actually says that in the little book that comes with it: the most popular gun in American crime. Like they're actually proud of that shit.</p>
+ <h3>No man, I don't eat pork</h3>
+ <p>You think water moves fast? You should see ice. It moves like it has a mind. Like it knows it killed the world once and got a taste for murder. After the avalanche, it took us a week to climb out. Now, I don't know exactly when we turned on each other, but I know that seven of us survived the slide... and only five made it out. Now we took an oath, that I'm breaking now. We said we'd say it was the snow that killed the other two, but it wasn't. Nature is lethal but it doesn't hold a candle to man.</p>
+ </article>
+ <footer>
+ <p>&copy; <a href="http://github.com/bartholomej">Bartholomej</a></p>
+ </footer>
+ <!-- jQuery 1.7+ -->
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+ <!-- Material button -->
+ <button class="material-scrolltop" type="button"></button>
+ <!-- Include js plugin -->
+ <script src="./js/material-scrolltop.js"></script>
+ <!-- Initialize -->
+ <script>
+ $(document).ready(function() {
+ $('body').materialScrollTop({
+ revealElement: 'header',
+ revealPosition: 'bottom',
+ onScrollEnd: function() {
+ console.log('Scrolling End');
+ }
+ });
+ });
+ </script>
 </body>
 </html>

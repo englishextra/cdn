@@ -1,0 +1,5 @@
+/**
+ * modified github.com/tristen/tablesort
+ * tristen.ca/tablesort/demo/
+ */
+th.sort-header::-moz-selection{background:transparent;}th.sort-header::selection{background:transparent;}th.sort-header{cursor:pointer;}table th.sort-header:after{content:"";float:right;margin-top:5.250pt;border-width:0 3.000pt 3.000pt;border-style:solid;border-top-color:#363636;border-right-color:transparent;border-bottom-color:#363636;border-left-color:transparent;visibility:hidden;}table th.sort-header:hover:after{visibility:visible;}table th.sort-up:after,table th.sort-down:after,table th.sort-down:hover:after{visibility:visible;opacity:0.4;}table th.sort-up:after{border-bottom:none;border-width:3.000pt 3.000pt 0;}
