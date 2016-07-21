@@ -39,7 +39,6 @@ Each unit [u] within the container [c] needs the class-name:
   
 ___________________________________________
 
-
 To tweak the layout we can combine units like this.
 
     +-------------------[c]-------------------+
@@ -58,7 +57,6 @@ The `.grid_unit--span-x` class-name can be used to combine units in any context 
 
 ___________________________________________
 
-
 Units [f] that need to span the whole width of the container use the class `.grid_field-unit`
 
     +-------------------[c]-------------------+
@@ -73,7 +71,6 @@ Units [f] that need to span the whole width of the container use the class `.gri
     +-----------------------------------------+
 
 ___________________________________________
-
 
 Ingrid includes classes that only respond to certain Media Query breakpoints. In this example container [c] is using the classes `.m-grid` and `.m-grid--divide-2`.
 
@@ -144,7 +141,6 @@ Browser support
 ---------------
 
 Ingrid works with IE8 + and all modern browsers. IE6-7 are not supported.
-
 
 License
 -------
