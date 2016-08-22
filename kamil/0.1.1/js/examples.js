@@ -77,13 +77,13 @@ var examples = (function () {
                 var i, l;
 
                 // Render items
-                for (i = 0, l = items.length; i < l; i++) {
+                for (var i = 0, l = items.length; i < l; i += 1) {
                     this._renderItemData(ul, items[i], i);
                 }
 
                 // Striped menu
                 var listItems = ul.getElementsByTagName('li');
-                for (i = 0, l = listItems.length; i < l; i++) {
+                for (i = 0, l = listItems.length; i < l; i += 1) {
                     if (i % 2 === 0) {
                         listItems[i].classList.add('striped-even');
                     }
