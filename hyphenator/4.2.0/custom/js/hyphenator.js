@@ -139,7 +139,6 @@ var Hyphenator = function (e) {
 			support : !1,
 			property : "",
 			languages : {}
-
 		};
 		e.getComputedStyle && (a = e.getComputedStyle(e.document.getElementsByTagName("body")[0]), -1 !== b.indexOf("Chrome") ? c.support = !1 : -1 !== b.indexOf("Safari") && void 0 !== a["-webkit-hyphens"] ? (c.support = !0, c.property = "-webkit-hyphens", -1 !== b.indexOf("Mobile") ? c.languages[navigator.language.split("-")[0]] = !0 : c.languages = {
 						de : !0,
@@ -179,7 +178,6 @@ var Hyphenator = function (e) {
 		b = function () {
 			this.hyCount = this.count = 0;
 			this.list = {}
-
 		};
 		b.prototype = {
 			add : function (b, d, f) {
@@ -289,7 +287,6 @@ var Hyphenator = function (e) {
 			try {
 				h = null === e.frameElement
 			} catch (t) {}
-
 			document.documentElement.doScroll && h && d()
 		}
 	},
@@ -300,7 +297,6 @@ var Hyphenator = function (e) {
 			if (a.getAttribute("xml:lang"))
 				return a.getAttribute("xml:lang").toLowerCase()
 		} catch (c) {}
-
 		return "HTML" !== a.tagName ? $(a.parentNode, !0) : b ? m : null
 	},
 	ha = function (a) {
@@ -439,7 +435,6 @@ var Hyphenator = function (e) {
 			try {
 				n.setItem("Hyphenator_" + a, e.JSON.stringify(b))
 			} catch (d) {}
-
 	},
 	va = function (a) {
 		var b,
@@ -697,7 +692,6 @@ var Hyphenator = function (e) {
 					n = void 0
 				}
 		} catch (a) {}
-
 	},
 	na = function () {
 		n && n.setItem("Hyphenator_config", e.JSON.stringify({
@@ -930,6 +924,5 @@ Hyphenator.languages.ru = {
 Hyphenator.config({
 	remoteloading : !1,
 	onerrorhandler : function (e) {}
-
 });
 Hyphenator.run();

@@ -1,7 +1,5 @@
 var examples = (function () {
-
     var
-
         tags = [
             "ActionScript",
             "AppleScript",
@@ -26,7 +24,6 @@ var examples = (function () {
             "Scala",
             "Scheme"
         ],
-
         tags1 = [
             {
                 label: "jQuery",
@@ -41,46 +38,36 @@ var examples = (function () {
                 desc: "a pure-JavaScript CSS selector engine"
             }
         ],
-
         example = function (num, opts) {
             var autoComplete = new Kamil('#tags' + num, opts);
         },
-
         example5 = function () {
             var autoComplete = new Kamil('#tags5', {
                 source: tags1
             });
-
             autoComplete.renderItem = function (ul, item) {
                 var li = document.createElement('li');
                 li.innerHTML = "<a>" + item.label + "<br><small>" + item.desc + "</small></a>";
                 ul.appendChild(li);
-
                 return li;
             };
-
             autoComplete.on('kamilfocus', function (e) {
                 e.inputElement.value = e.item.label;
             });
-
             autoComplete.on('kamilselect', function (e) {
                 e.inputElement.value = e.item.label;
             });
         },
-
         example6 = function () {
             var autoComplete = new Kamil('#tags6', {
                 source: tags
             });
-
             autoComplete.renderMenu = function (ul, items) {
                 var i, l;
-
                 // Render items
                 for (var i = 0, l = items.length; i < l; i += 1) {
                     this._renderItemData(ul, items[i], i);
                 }
-
                 // Striped menu
                 var listItems = ul.getElementsByTagName('li');
                 for (i = 0, l = listItems.length; i < l; i += 1) {
@@ -90,7 +77,6 @@ var examples = (function () {
                 }
             }
         },
-
         example7 = function () {
             var data = [
                     { label: "anders", category: "" },
@@ -106,19 +92,15 @@ var examples = (function () {
                 ac = new Kamil('#tags7', {
                     source: data
                 });
-
             ac.renderMenu = function (ul, items) {
                 var self = this,
                     currentCategory = "";
-
                 items.forEach(function (item, index) {
                     var li;
-
                     if (item.category !== currentCategory) {
                         var catLi = document.createElement('li');
                         catLi.className = 'kamil-autocomplete-category';
                         catLi.innerHTML = item.category;
-
                         ul.appendChild(catLi);
                         currentCategory = item.category;
                     }
@@ -129,9 +111,7 @@ var examples = (function () {
                 });
             };
         },
-
         init = function () {
-
             example(1, { source: tags });
             example(2, { source: tags, autoFocus: true });
             example(3, { source: tags, minChars: 2 });
@@ -144,17 +124,12 @@ var examples = (function () {
             example5();
             example6();
             example7();
-
         };
-
     return {
         'init': init
     }
-
 })();
-
 window.onload = examples.init;
-
 /*window.onload = function () {
     var tags = [
         {
@@ -170,23 +145,18 @@ window.onload = examples.init;
             desc: "a pure-JavaScript CSS selector engine"
         }
     ];
-
     var autoComplete = new Kamil('#tags', {
         source: tags
     });
-
     autoComplete.renderItem = function (ul, item) {
         var li = document.createElement('li');
         li.innerHTML = "<a>" + item.label + "<br><small>" + item.desc + "</small></a>";
         ul.appendChild(li);
-
         return li;
     };
-
     autoComplete.on('kamilfocus', function (e) {
         e.inputElement.value = e.item.label;
     });
-
     autoComplete.on('kamilselect', function (e) {
         e.inputElement.value = e.item.label.toLowerCase();
     });

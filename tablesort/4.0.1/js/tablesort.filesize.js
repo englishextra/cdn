@@ -3,24 +3,19 @@
   var compareNumber = function(a, b) {
     a = parseFloat(a);
     b = parseFloat(b);
-
     a = isNaN(a) ? 0 : a;
     b = isNaN(b) ? 0 : b;
-
     return a - b;
   },
-
   cleanNumber = function(i) {
     return i.replace(/[^\-?0-9.]/g, '');
   },
-
   // Returns suffix multiplier
   // Ex. suffix2num('KB') -> 1000
   // Ex. suffix2num('KiB') -> 1024
   suffix2num = function(suffix) {
     suffix = suffix.toLowerCase();
     var base = suffix[1] === 'i' ? 1024 : 1000;
-
     switch(suffix[0]) {
       case 'k':
         return Math.pow(base, 2);
@@ -48,19 +43,15 @@
   // Ex. filesize2num('123 KiB') -> 125952
   filesize2num = function(filesize) {
     var matches = filesize.match(/^(\d+(\.\d+)?) ?((K|M|G|T|P|E|Z|Y|B$)i?B?)$/i);
-
     var num  = parseFloat(cleanNumber(matches[1])),
       suffix = matches[3];
-
     return num * suffix2num(suffix);
   };
-
   Tablesort.extend('filesize', function(item) {
     return /^\d+(\.\d+)? ?(K|M|G|T|P|E|Z|Y|B$)i?B?$/i.test(item);
   }, function(a, b) {
     a = filesize2num(a);
     b = filesize2num(b);
-
     return compareNumber(b, a);
   });
 }());
