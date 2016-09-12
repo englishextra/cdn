@@ -53,7 +53,7 @@
 		e.stopPropagation();
 		var w = window,
 		d = document,
-		s = /localhost/.test(self.location.host) ? "http://localhost/externalcounters/" : "//shimansky.biz/externalcounters/",
+		s = /localhost/.test(self.location.host) ? "http://localhost/externalcounters/" : "",
 		rfrr = encodeURIComponent(d.location.href || ""),
 		ttl = encodeURIComponent(d.title || "").replace("\x27", "&#39;"),
 		h = $(this).attr("href"),
@@ -63,7 +63,7 @@
 		a.setAttribute("style", "position:absolute;left:-9999px;width:1px;height:1px;border:0;background:transparent url(" + s + "?dmn=" + dmn + "&rfrr=" + rfrr + "&ttl=" + ttl + "&encoding=utf-8) top left no-repeat;");
 		b && b.parentNode.insertBefore(a, b);
 		setTimeout(function () {
-			w.open(h, "_blank") || changeDocumentLocation(h);
+			w.open(h, "_blank") || changeLocation(h);
 		}, 500);
 	});
 }); */
