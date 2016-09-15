@@ -10,12 +10,6 @@
  * chenged breakpoint max 767px to max 800px ???
  * added float none to col- and mobile-col- at mobile media query
  */
-/*!
- * Simple Grid
- * Project Page - http://thisisdallas.github.com/Simple-Grid/
- * Author - Dallas Bass
- * Site - http://ninenineteen.co
- */
 *,*:after,*:before {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;

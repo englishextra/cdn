@@ -11,7 +11,7 @@ Third-party libraries
 ## Default Push URL
 
 ```
-https://gitlab.com/englishextra/cdn.git
+https://github.com/englishextra/cdn.git
 ```
 
 ## Remotes
