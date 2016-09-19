@@ -31,13 +31,9 @@ html > body > .ui-pnotify {
 	padding: .8em;
 	height: 100%;
 	margin: 0;
-	-webkit-border-radius: 0;
-	-moz-border-radius: 0;
 	border-radius: 0;
 }
 .ui-pnotify-sharp {
-	-webkit-border-radius: 0;
-	-moz-border-radius: 0;
 	border-radius: 0;
 }
 .ui-pnotify-closer,
@@ -67,11 +63,7 @@ html > body > .ui-pnotify {
 	width: 5.000em;
 	border-top: none;
 	padding: 0;
-	-webkit-border-top-left-radius: 0;
-	-moz-border-top-left-radius: 0;
 	border-top-left-radius: 0;
-	-webkit-border-top-right-radius: 0;
-	-moz-border-top-right-radius: 0;
 	border-top-right-radius: 0;
 	z-index: 10000;
 }

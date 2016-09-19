@@ -7,7 +7,6 @@
 	background: #F2F2F2;
 	border: 0.750pt solid #F2F2F2;
 	z-index: 9999999;
-	-webkit-border-radius: 0;
 	border-radius: 0;
 }
 .ui-state-hover,
@@ -18,7 +17,6 @@
 .ui-widget-header .ui-state-focus {
 	background: #D5D5D5;
 	border: 0.750pt solid #D5D5D5;
-	-webkit-border-radius: 0;
 	border-radius: 0;
 	padding: 0;
 	margin: 0;
@@ -33,6 +31,5 @@
 	outline: none;
 }
 .ui-widget-shadow {
-	-webkit-border-radius: 0;
 	border-radius: 0;
 }
