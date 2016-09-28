@@ -7,7 +7,7 @@
  */
 ;(function(window, document, undefined) {
   // Strict Mode
-  'use strict';
+  "use strict";
   // Constants
   var NAME = 'Parallax';
   var MAGIC_NUMBER = 30;
