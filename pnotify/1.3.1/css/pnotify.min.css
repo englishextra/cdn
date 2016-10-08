@@ -103,12 +103,12 @@ html > body > .ui-pnotify {
  * overrides to pnotify
  */
 .ui-pnotify-title {
-	font-family: "Source Sans Pro","Exo2","Fira Sans","Segoe UI","Segoe WP",sans-serif;
+	font-family: "Source Sans Pro","Open Sans","Exo2","Fira Sans","Segoe UI","Segoe WP",sans-serif;
 	font-weight: 700;
 }
 .ui-pnotify-title,
 .ui-pnotify-text {
-	font-family: "Source Sans Pro","Exo2","Fira Sans","Segoe UI","Segoe WP",sans-serif;
+	font-family: "Source Sans Pro","Open Sans","Exo2","Fira Sans","Segoe UI","Segoe WP",sans-serif;
 	font-size: 1.000em;
 }
 .ui-pnotify-text {
