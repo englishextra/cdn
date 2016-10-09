@@ -8,7 +8,7 @@
  * removed top padding of grid-pad at mobile media query
  * added bottom margin to last child of grid-pad
  * removed top margin for h1/h2/h3 within the grid content
- * chenged breakpoint max 767px to max 800px ???
+ * chenged breakpoint max 767px to max 800px
  * added float none to col- and mobile-col- at mobile media query
  * removed .hide-on-mobile class
  */
