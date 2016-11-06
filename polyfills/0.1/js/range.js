@@ -1,4 +1,4 @@
-/**
+/*!
  * This was from a proposal that James Edwards / Brothercake had during
  * 2011 Highland Fling - to use select elements as a starting point for
  * the range element - so it's a pretty darn good fit, I put this together

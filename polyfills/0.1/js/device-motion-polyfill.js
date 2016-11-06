@@ -1,4 +1,4 @@
-/**
+/*!
  * DeviceMotion and DeviceOrientation polyfill
  * by Remy Sharp / leftlogic.com
  * MIT http://rem.mit-license.org

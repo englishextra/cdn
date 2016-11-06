@@ -1,4 +1,4 @@
-/**
+/*!
  * Zenscroll 3.2.2
  * https://github.com/zengabor/zenscroll/
  *
