@@ -19,6 +19,7 @@ module.exports = function (grunt) {
 				"jquery-builder/0.7.0/dist/2.1.1/js/jquery-deprecated-wrap.fixed.js",
 				"jqueryui/1.10.4/custom/js/jquery-ui.custom.fixed.js",
 				"jqueryui/1.12.1/js/jquery-ui.fixed.js",
+				"js-cookie/2.1.3/js/js.cookie.fixed.js",
 				"kamil/0.1.1/js/examples.js",
 				"kamil/0.1.1/js/kamil.fixed.js",
 				"lazyload/3.2.2/js/lazyload.fixed.js",
