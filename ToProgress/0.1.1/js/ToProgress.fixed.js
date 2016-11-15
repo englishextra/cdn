@@ -9,7 +9,6 @@
  * else{document.body.appendChild(this.progressBar);};
  * removed AMD, CommonJS support
  * exposed as window property;
- * exposed as window property
  * added window object existence check
  * passes jshint
  */
