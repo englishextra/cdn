@@ -4,9 +4,9 @@
 .ui-autocomplete {
 	font-family: inherit;
 	color: inherit;
-	background: #F2F2F2;
-	border: 0.750pt solid #F2F2F2;
-	z-index: 9999999;
+	background: #FFFFFF;
+	border: 0.750pt solid #C3C3C3;
+	z-index: 999;
 	border-radius: 0;
 }
 .ui-state-hover,
@@ -15,15 +15,15 @@
 .ui-state-focus,
 .ui-widget-content .ui-state-focus,
 .ui-widget-header .ui-state-focus {
-	background: #D5D5D5;
-	border: 0.750pt solid #D5D5D5;
+	background: #DFDFDF;
+	border: 0.750pt solid #DFDFDF;
 	border-radius: 0;
 	padding: 0;
 	margin: 0;
 }
 .ui-menu-item,
 .ui-menu-item .ui-corner-all {
-	font-size: 0.875em;
+	font-size: 0.813rem;
 	font-weight: 400 !important;
 	color: inherit;
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
