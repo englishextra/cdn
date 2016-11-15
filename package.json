@@ -1,0 +1,92 @@
+{
+	"name": "cdn-englishextra",
+	"productName": "cdn-englishextra",
+	"companyName": "englishextra.github.io",
+	"version": "0.1.0",
+	"identifier": "cdn.englishextra.app",
+	"description": "CDN",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/englishextra/cdn.git"
+	},
+	"email": "englishextra@mail.ru",
+	"url": "https://github.com/englishextra/cdn/issues",
+	"scripts": {
+		"test": "grunt --verbose",
+		"start": "electron ./index.js"
+	},
+	"main_file": "index.js",
+	"electronVersion": "1.4.5",
+	"dependencies": {
+		"electron-debug": "^1.0.1"
+	},
+	"devDependencies": {
+		"autoprefixer": "^6.4.0",
+		"babel-cli": "^6.14.0",
+		"babel-plugin-transform-es2015-arrow-functions": "^6.8.0",
+		"babel-preset-es2015": "^6.14.0",
+		"browserify": "^13.1.0",
+		"clean-css": "^3.4.19",
+		"crel": "^3.0.0",
+		"electron": "^1.4.5",
+		"electron-packager": "^8.1.2",
+		"grunt": "^1.0.1",
+		"grunt-cli": "0.1.9",
+		"grunt-contrib-jshint": "^1.0.0",
+		"gulp-jshint": "^2.0.2",
+		"jshint": "^2.9.4",
+		"lodash": "^4.15.0",
+		"postcss-cli": "^2.5.2",
+		"source-sans-pro": "^2.0.10",
+		"typeboost.css": "^0.1.5",
+		"uglify-js": "^2.7.3",
+		"webpack": "^1.13.2",
+		"xo": "^0.16.0",
+		"zenscroll": "^3.2.1"
+	},
+	"xo": {
+		"esnext": true,
+		"envs": ["node",
+		"browser"]
+	},
+	"main": "diy/index.html",
+	"window": {
+		"title": "Английский без регистрации",
+		"icon": "diy/icon.png",
+		"toolbar": true,
+		"frame": true,
+		"width": 844,
+		"height": 640,
+		"min_width": 800,
+		"min_height": 600
+	},
+	"webkit": {
+		"plugin": true
+	},
+	"babel": {
+		"presets": ["es2015"],
+		"plugins": ["transform-es2015-arrow-functions"]
+	},
+	"_aerobatic": {
+		"clientConfigVar": "_global",
+		"omitClientConfigVar": false,
+		"router": [{
+			"module": "webpage",
+			"options": {
+				"pushState": false,
+				"canonicalRedirects": false
+			}
+		}]
+	},
+	"maintainers": {
+		"name": "Serguei Shimansky",
+		"email": "englishextra@mail.ru",
+		"url": "https://github.com/englishextra"
+	},
+	"author": {
+		"name": "Serguei Shimansky",
+		"email": "englishextra@mail.ru",
+		"url": "https://github.com/englishextra"
+	},
+	"license": "(MIT)"
+}

@@ -1,3 +1,7 @@
+module.exports = function (grunt) {
+	grunt.initConfig({
+		jshint: {
+			all: [
 				"bala/0.1.9/js/bala.fixed.js",
 				"bootstrap/3.3.7/js/bootstrap.fixed.js",
 				"chriswrightdesign/js/ie8Events.fixed.js",
@@ -45,3 +49,9 @@
 				"weakmap-polyfill/2.0.0/js/weakmap-polyfill.fixed.js",
 				"webcomponentsjs/0.7.22/MutationObserver/js/MutationObserver.fixed.js",
 				"zenscroll/3.2.2/js/zenscroll.fixed.js"
+			]
+		}
+	});
+	grunt.loadNpmTasks("grunt-contrib-jshint");
+	grunt.registerTask("default", "jshint");
+};

@@ -63,7 +63,7 @@ var examples = (function () {
 			var i,
 			l;
 			// Render items
-			for (var i = 0, l = items.length; i < l; i += 1) {
+			for (i = 0, l = items.length; i < l; i += 1) {
 				this._renderItemData(ul, items[i], i);
 			}
 			// Striped menu
@@ -73,7 +73,7 @@ var examples = (function () {
 					listItems[i].classList.add('striped-even');
 				}
 			}
-		}
+		};
 	},
 	example7 = function () {
 		var data = [{
@@ -151,7 +151,7 @@ var examples = (function () {
 	};
 	return {
 		'init': init
-	}
+	};
 })();
 window.onload = examples.init;
 /* window.onload = function () {

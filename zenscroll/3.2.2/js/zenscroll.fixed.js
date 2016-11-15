@@ -1,7 +1,7 @@
 /*!
  * modified for babel Zenscroll - v3.2.2
  * github.com/zengabor/zenscroll
- * Copyright 2015–2016 Gabor Lenard
+ * Copyright 2015-2016 Gabor Lenard
  * removed AMD, CommonJS support
  * exposed as window property
  * fixed IIFE enforcing
