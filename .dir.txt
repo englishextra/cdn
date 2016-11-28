@@ -1,48 +1,75 @@
-				"bala/0.1.9/js/bala.fixed.js",
-				"bootstrap/3.3.7/js/bootstrap.fixed.js",
-				"chriswrightdesign/js/ie8Events.fixed.js",
-				"classlist-polyfill/d94a623c25bc69caf09f7089c0066fd65e760e82/classList.fixed.js",
-				"crel/3.0.0/js/crel.fixed.js",
-				"docReady/1.0.0/js/docready.fixed.js",
-				"doSlide/1.1.4/js/do-slide.fixed.js",
-				"es6-promise/3.2.2/js/es6-promise.fixed.js",
-				"Evento/1.0.0/js/evento.fixed.js",
-				"fastclick/1.0.6/js/fastclick.fixed.js",
-				"fetch/1.0.0/js/fetch.fixed.js",
-				"google-code-prettify/0.1/js/prettify.lang-css.fixed.js",
-				"jquery/1.10.2/js/jquery.fixed.js",
-				"jquery/2.2.4/js/jquery.fixed.js",
-				"jquery-builder/0.7.0/dist/2.1.1/js/jquery-deprecated-wrap.fixed.js",
-				"jqueryui/1.10.4/custom/js/jquery-ui.custom.fixed.js",
-				"jqueryui/1.12.1/js/jquery-ui.fixed.js",
-				"js-cookie/2.1.3/js/js.cookie.fixed.js",
-				"kamil/0.1.1/js/examples.js",
-				"kamil/0.1.1/js/kamil.fixed.js",
-				"lazyload/3.2.2/js/lazyload.fixed.js",
-				"loadCSS/1.2.0/js/loadCSS.fixed.js",
-				"loadJS/0.2.3/js/loadJS.fixed.js",
-				"location-origin.js/1.1.4/js/location-origin.fixed.js",
-				"ManUp.js/0.7/js/manup.fixed.js",
-				"masonry/4.1.1/js/masonry.imagesloaded.pkgd.fixed.js",
-				"masonry/4.1.1/js/masonry.pkgd.fixed.js",
-				"packery/2.1.1/js/packery.draggabilly.pkgd.fixed.js",
-				"parallax/2.1.3/js/parallax.fixed.js",
-				"paulirish/js/matchMedia.fixed.js",
-				"paulirish/js/rAF.fixed.js",
-				"photoswipe/4.1.0/js/photoswipe.photoswipe-ui-default.fixed.js",
-				"pnotify/1.3.1/js/pnotify.fixed.js",
-				"polyfill/0.1.27/js/url.fixed.js",
-				"polyfills/0.1/js/dataset.fixed.js",
-				"polyfills/0.1/js/Storage.fixed.js",
-				"Prism/6.1.0/js/prism.fixed.js",
-				"reqwest/2.0.5/js/reqwest.fixed.js",
-				"routie/0.3.2/js/routie.fixed.js",
-				"setImmediate/1.0.5/js/setImmediate.fixed.js",
-				"shower/1.0.1/js/shower.fixed.js",
-				"tablesort/4.0.1/js/tablesort.fixed.js",
-				"tether/1.3.7/js/tether.fixed.js",
-				"ToProgress/0.1.1/js/ToProgress.fixed.js",
-				"UItoTop-jQuery-Plugin/1.2/js/jquery.ui.totop.js",
-				"weakmap-polyfill/2.0.0/js/weakmap-polyfill.fixed.js",
-				"webcomponentsjs/0.7.22/MutationObserver/js/MutationObserver.fixed.js",
-				"zenscroll/3.2.2/js/zenscroll.fixed.js"
+D:\server\sources\cdn\bala\0.1.9\js\bala.fixed.js
+D:\server\sources\cdn\bootstrap\3.3.7\js\bootstrap.fixed.js
+D:\server\sources\cdn\chriswrightdesign\js\ie8Events.fixed.js
+D:\server\sources\cdn\classlist-polyfill\d94a623c25bc69caf09f7089c0066fd65e760e82\classList.fixed.js
+D:\server\sources\cdn\crel\3.0.0\js\crel.fixed.js
+D:\server\sources\cdn\docReady\1.0.0\js\docready.fixed.js
+D:\server\sources\cdn\doSlide\1.1.4\Infinite.html
+D:\server\sources\cdn\doSlide\1.1.4\Slider.html
+D:\server\sources\cdn\doSlide\1.1.4\css\do-slide.css
+D:\server\sources\cdn\doSlide\1.1.4\custom\Slider.html
+D:\server\sources\cdn\doSlide\1.1.4\custom\css\do-slide.fixed.css
+D:\server\sources\cdn\doSlide\1.1.4\custom\img\1.jpg
+D:\server\sources\cdn\doSlide\1.1.4\custom\img\2.jpg
+D:\server\sources\cdn\doSlide\1.1.4\custom\img\3.jpg
+D:\server\sources\cdn\doSlide\1.1.4\img\1.jpg
+D:\server\sources\cdn\doSlide\1.1.4\img\2.jpg
+D:\server\sources\cdn\doSlide\1.1.4\img\3.jpg
+D:\server\sources\cdn\doSlide\1.1.4\js\do-slide.fixed.js
+D:\server\sources\cdn\es6-promise\3.2.2\js\es6-promise.fixed.js
+D:\server\sources\cdn\Evento\1.0.0\js\evento.fixed.js
+D:\server\sources\cdn\fastclick\1.0.6\js\fastclick.fixed.js
+D:\server\sources\cdn\fetch\1.0.0\js\fetch.fixed.js
+D:\server\sources\cdn\google-code-prettify\0.1\custom\css\prettyprint.fixed.css
+D:\server\sources\cdn\google-code-prettify\0.1\js\prettify.lang-css.fixed.js
+D:\server\sources\cdn\jquery\1.10.2\js\jquery.fixed.js
+D:\server\sources\cdn\jquery\2.2.4\js\jquery.fixed.js
+D:\server\sources\cdn\jquery-builder\0.7.0\dist\2.1.1\js\jquery-deprecated-wrap.fixed.js
+D:\server\sources\cdn\jqueryui\1.10.4\custom\index.html
+D:\server\sources\cdn\jqueryui\1.10.4\custom\css\smoothness\autocomplete.fixed.css
+D:\server\sources\cdn\jqueryui\1.10.4\custom\css\smoothness\jquery-ui-1.10.4.custom.fixed.css
+D:\server\sources\cdn\jqueryui\1.10.4\custom\js\jquery-ui.custom.fixed.js
+D:\server\sources\cdn\jqueryui\1.12.1\js\jquery-ui.fixed.js
+D:\server\sources\cdn\js-cookie\2.1.3\js\js.cookie.fixed.js
+D:\server\sources\cdn\kamil\0.1.1\index.html
+D:\server\sources\cdn\kamil\0.1.1\css\kamil.css
+D:\server\sources\cdn\kamil\0.1.1\css\style.css
+D:\server\sources\cdn\kamil\0.1.1\js\examples.js
+D:\server\sources\cdn\kamil\0.1.1\js\kamil.fixed.js
+D:\server\sources\cdn\lazyload\3.2.2\js\lazyload.fixed.js
+D:\server\sources\cdn\loadCSS\1.2.0\js\loadCSS.fixed.js
+D:\server\sources\cdn\loadJS\0.2.3\js\loadJS.fixed.js
+D:\server\sources\cdn\location-origin.js\1.1.4\js\location-origin.fixed.js
+D:\server\sources\cdn\ManUp.js\0.7\js\manup.fixed.js
+D:\server\sources\cdn\masonry\4.1.1\js\masonry.imagesloaded.pkgd.fixed.js
+D:\server\sources\cdn\masonry\4.1.1\js\masonry.pkgd.fixed.js
+D:\server\sources\cdn\packery\2.1.1\js\packery.draggabilly.pkgd.fixed.js
+D:\server\sources\cdn\parallax\2.1.3\js\parallax.fixed.js
+D:\server\sources\cdn\paulirish\js\matchMedia.fixed.js
+D:\server\sources\cdn\paulirish\js\rAF.fixed.js
+D:\server\sources\cdn\photoswipe\4.1.0\index.html
+D:\server\sources\cdn\photoswipe\4.1.0\css\photoswipe.default-skin.fixed.css
+D:\server\sources\cdn\photoswipe\4.1.0\css\site.css
+D:\server\sources\cdn\photoswipe\4.1.0\js\photoswipe.photoswipe-ui-default.fixed.js
+D:\server\sources\cdn\pnotify\1.3.1\js\pnotify.fixed.js
+D:\server\sources\cdn\polyfill\0.1.27\js\url.fixed.js
+D:\server\sources\cdn\polyfills\0.1\js\dataset.fixed.js
+D:\server\sources\cdn\polyfills\0.1\js\Storage.fixed.js
+D:\server\sources\cdn\Prism\6.1.0\css\prism.css
+D:\server\sources\cdn\Prism\6.1.0\js\prism.fixed.js
+D:\server\sources\cdn\reqwest\2.0.5\js\reqwest.fixed.js
+D:\server\sources\cdn\routie\0.3.2\js\routie.fixed.js
+D:\server\sources\cdn\setImmediate\1.0.5\js\setImmediate.fixed.js
+D:\server\sources\cdn\shower\1.0.1\js\shower.fixed.js
+D:\server\sources\cdn\tablesort\4.0.1\css\tablesort.fixed.min.css
+D:\server\sources\cdn\tablesort\4.0.1\js\tablesort.fixed.js
+D:\server\sources\cdn\tether\1.3.7\js\tether.fixed.js
+D:\server\sources\cdn\ToProgress\0.1.1\js\ToProgress.fixed.js
+D:\server\sources\cdn\UItoTop-jQuery-Plugin\1.2\index.html
+D:\server\sources\cdn\UItoTop-jQuery-Plugin\1.2\css\jquery.ui.totop.css
+D:\server\sources\cdn\UItoTop-jQuery-Plugin\1.2\img\totop-50x50.png
+D:\server\sources\cdn\UItoTop-jQuery-Plugin\1.2\img\totop-50x50.svg
+D:\server\sources\cdn\UItoTop-jQuery-Plugin\1.2\js\jquery.ui.totop.js
+D:\server\sources\cdn\weakmap-polyfill\2.0.0\js\weakmap-polyfill.fixed.js
+D:\server\sources\cdn\webcomponentsjs\0.7.22\MutationObserver\js\MutationObserver.fixed.js
+D:\server\sources\cdn\zenscroll\3.2.2\js\zenscroll.fixed.js
