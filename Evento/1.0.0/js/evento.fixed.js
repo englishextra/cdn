@@ -2,6 +2,8 @@
  * modified for babel Evento - v1.0.0
  * by Erik Royall <erikroyalL@hotmail.com> (http://erikroyall.github.io)
  * Dual licensed under MIT and GPL
+ * when target element is window,
+ * function expressions should be wrapped with anonymous function
  * evento.add(window,"load",function(){});
  * removed Array.prototype.indexOf shim
  * removed Helio stuff which seems to be added
