@@ -588,10 +588,8 @@ img.img--with_border {
  background: none;
 	width: 100%;
  padding-top: 0;
-
 }
 .content-wrap {
-
 }*/
 /* clearfix */
 .row:after {
@@ -817,7 +815,6 @@ a.demo-gallery__img--main {
 	background: #d34836;
 }
 @media screen and (max-width: 1000px) {
-
 	.row--wide {
 		max-width: 800px;
 	}
@@ -873,7 +870,6 @@ a.demo-gallery__img--main {
 	}
 }
 @media screen and (max-width: 450px) {
-
 	.col-50:nth-child(1) {
 		margin-right: 0;
 	}
