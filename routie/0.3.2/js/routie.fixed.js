@@ -5,9 +5,9 @@
  * MIT License
  * @requires setImmediate {@link https://github.com/YuzuJS/setImmediate YuzuJS/setImmediate}
  * "#" => ""
- * "#/" => "/"
+ * "#/" => "/" wont trigger anything? {@link https://github.com/jgallen23/routie/issues/49}
  * "#/home" => "/home"
- * routie({"/": function () {},"/feedback": function () {};};
+ * routie({"/contents": function () {},"/feedback": function () {};};
  * routie.navigate("/somepage");
  * changed setTimeout to setImmediate in navigate method
  * added window object existence check

@@ -3,8 +3,6 @@
 *.xap
 *.apk
 *.exe
-*.git*
-*.hg*
 *.bat
 *.xdk
 *.xdke
@@ -21,8 +19,6 @@
 *.guid
 *.isl
 *-cache
-.a.html
-.a.txt
 .dir.txt
 .remove-modules.sh
 builder.json
@@ -48,4 +44,6 @@ xdk/
 /.*
 !/.hgignore
 !/.gitignore
+!/.bithoundrc
 !/.pgbomit
+!/.travis.yml
