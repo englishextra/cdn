@@ -20,8 +20,7 @@
 *.isl
 *-cache
 .dir.txt
-.remove-modules.sh
-builder.json
+.remove-modules.shon
 bundle.css
 bundle.js
 cordova.js
@@ -32,7 +31,6 @@ index.js
 installer.nsi.tpl
 intelxdk.config.*.xml
 koala-config.json
-main.js
 print.css
 xdk-publish-meta-data.json
 node_modules/
