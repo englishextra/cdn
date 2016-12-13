@@ -1,6 +1,8 @@
 # cdn
 
-Third-party libraries
+*Third-party libraries*
+
+[![Travis](https://img.shields.io/travis/englishextra/cdn.svg)](https://github.com/englishextra/cdn)
 
 ## Usage
 
