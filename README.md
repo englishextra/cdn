@@ -21,3 +21,7 @@ https://github.com/englishextra/cdn.git
  - [GitHub](https://github.com/englishextra/cdn)
  - [BitBucket](https://bitbucket.org/englishextra/cdn)
  - [GitLab](https://gitlab.com/englishextra/cdn)
+
+## Copyright
+
+© [englishextra.github.com](https://englishextra.github.com/), 2015-2017
