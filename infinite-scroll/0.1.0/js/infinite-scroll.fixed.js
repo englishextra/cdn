@@ -12,12 +12,12 @@
  * source: github.com/alexblack/infinite-scroll/blob/master/infinite-scroll.js
  * passes jshint
  */
-;(function (root) {
+;(function (w) {
 	var getScrollPos = function () {
 		if (/msie/gi.test(navigator.userAgent)) {
 			return document.documentElement.scrollTop;
 		} else {
-			return window.pageYOffset;
+			return w.pageYOffset;
 		}
 	},
 	prevScrollPos = getScrollPos() || "",
@@ -39,7 +39,7 @@
 		}
 		prevScrollPos = scrollPos;
 	};
-	root.infiniteScroll = function (options) {
+	w.infiniteScroll = function (options) {
 		var defaults = {
 			callback: function () {},
 			distance: 50
@@ -55,7 +55,7 @@
 			options: options,
 			updateInitiated: false
 		};
-		window.onscroll = function (event) {
+		w.onscroll = function (event) {
 			handleScroll(scroller, event);
 		};
 		document.ontouchmove = function (event) {
