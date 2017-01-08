@@ -643,8 +643,8 @@ img.img--with_border {
 }
 .style-select input {
 	position: absolute;
-	left: 0;
 	top: 0;
+	left: 0;
 	width: 24px;
 	height: 24px;
 	overflow: hidden;
@@ -765,8 +765,8 @@ a.demo-gallery__img--main {
 	position: absolute;
 	width: 21px;
 	height: 7px;
-	left: 0;
 	top: 0;
+	left: 0;
 	background: #0066cc;
 }
 .demo-gallery figure {
