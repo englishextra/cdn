@@ -6,8 +6,8 @@
 	color: inherit;
 	background: #FFFFFF;
 	border: 0.750pt solid #C3C3C3;
-	z-index: 999;
 	border-radius: 0;
+	z-index: 999;
 }
 .ui-state-hover,
 .ui-widget-content .ui-state-hover,
