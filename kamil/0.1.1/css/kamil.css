@@ -5,4 +5,28 @@
  * MIT License
  * by Ossama Edbali
  */
-.kamil-autocomplete{display:none;position:absolute;list-style:none;text-align:left;margin:0;padding:0;background-color:#fafafa;z-index:9999;outline:none;color:#272727;box-sizing:border-box;font-size:16px;box-shadow:0 2px 5px 0 rgba(0,0,0,0.16);border-top:1px solid rgba(0,0,0,0.08);border-radius:0 0 2px 2px;}.kamil-autocomplete li{cursor:pointer;padding:5px 16px;}.kamil-autocomplete li.kamil-active{background-color:#3F51B5;color:#fff;}
+.kamil-autocomplete {
+	display: none;
+	position: absolute;
+	list-style: none;
+	text-align: left;
+	margin: 0;
+	padding: 0;
+	background-color: #fafafa;
+	z-index: 9999;
+	outline: none;
+	color: #272727;
+	box-sizing: border-box;
+	font-size: 16px;
+	box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16);
+	border-top: 1px solid rgba(0,0,0,0.08);
+	border-radius: 0 0 2px 2px;
+}
+.kamil-autocomplete li {
+	cursor: pointer;
+	padding: 5px 16px;
+}
+.kamil-autocomplete li.kamil-active {
+	background-color: #3F51B5;
+	color: #fff;
+}
