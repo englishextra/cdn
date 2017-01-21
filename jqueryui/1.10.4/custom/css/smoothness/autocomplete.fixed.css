@@ -9,6 +9,7 @@
 	border-radius: 0;
 	z-index: 999;
 }
+
 .ui-state-hover,
 .ui-widget-content .ui-state-hover,
 .ui-widget-header .ui-state-hover,
@@ -21,6 +22,7 @@
 	padding: 0;
 	margin: 0;
 }
+
 .ui-menu-item,
 .ui-menu-item .ui-corner-all {
 	font-size: 0.813rem;
@@ -29,6 +31,8 @@
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
 	outline: none;
 }
+
 .ui-widget-shadow {
 	border-radius: 0;
 }
+
