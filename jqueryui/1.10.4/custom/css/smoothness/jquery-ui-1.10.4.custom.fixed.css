@@ -252,13 +252,13 @@
 .ui-widget-header .ui-state-highlight {
 	border: 1px solid #fcefa1;
 	background: #fbf9ee;
-	color: #363636;
+	color: #373737;
 }
 
 .ui-state-highlight a,
 .ui-widget-content .ui-state-highlight a,
 .ui-widget-header .ui-state-highlight a {
-	color: #363636;
+	color: #373737;
 }
 
 .ui-state-error,
