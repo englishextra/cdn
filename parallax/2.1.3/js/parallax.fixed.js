@@ -1,10 +1,10 @@
 /*!
- * modified for babel Parallax.js v2.1.3
+ * modified Parallax.js v2.1.3
  * @author Matthew Wagerfield - @wagerfield
  * @description Creates a parallax effect between an array of layers,
  * driving the motion from the gyroscope output of a smartdevice.
  * If no gyroscope is available, the cursor position is used.
- * added window object existence check
+ * added window check
  * source: github.com/wagerfield/parallax/blob/master/deploy/parallax.js
  * passes jshint
  */

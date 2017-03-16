@@ -1,5 +1,5 @@
 /*!
- * matchMedia() polyfill - Test a CSS media type/query in JS.
+ * modified matchMedia() polyfill - Test a CSS media type/query in JS.
  * github.com/paulirish/matchMedia.js
  * Authors & copyright (c) 2012:
  * Scott Jehl, Paul Irish, Nicholas Zakas, David Knight.

@@ -1,5 +1,5 @@
 /*!
- * jQuery UI - v1.10.4 - 2016-11-12
+ * modified jQuery UI - v1.10.4 - 2016-11-12
  * http://jqueryui.com
  * Includes: jquery.ui.core.js, jquery.ui.widget.js, jquery.ui.position.js, jquery.ui.autocomplete.js, jquery.ui.menu.js
  * Copyright jQuery Foundation and other contributors; Licensed MIT

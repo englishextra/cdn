@@ -1,5 +1,5 @@
 /*!
- * A function for elements selection - v0.1.9
+ * modified A function for elements selection - v0.1.9
  * github.com/finom/bala
  * @param {String} a id, class or tag string
  * @param {String|Object} [b] context tag string or HTML Element object
@@ -7,7 +7,7 @@
  * a=BALA.one("sometag/#someid/.someclass"[,someParent]);
  * global $ becomes var g
  * renamed function $ to g
- * added window object existence check
+ * added window check
  * source: github.com/finom/bala/blob/master/bala.js
  * passes jshint
  */

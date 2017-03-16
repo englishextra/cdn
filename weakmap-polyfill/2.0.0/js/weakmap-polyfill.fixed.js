@@ -1,5 +1,5 @@
 /*!
- * weakmap-polyfill v2.0.0 - ECMAScript6 WeakMap polyfill
+ * modified weakmap-polyfill v2.0.0 - ECMAScript6 WeakMap polyfill
  * https://github.com/polygonplanet/weakmap-polyfill
  * Copyright (c) 2015-2016 polygon planet <polygon.planet.aqua@gmail.com>
  * @license MIT

@@ -1,5 +1,5 @@
 /*!
- * modified for babel load CSS async v1.2.0
+ * modified load CSS async v1.2.0
  * modified order of arguments, added callback option, removed CommonJS stuff
  * github.com/filamentgroup/loadCSS
  * gist.github.com/englishextra/50592e9944bd2edc46fe5a82adec3396

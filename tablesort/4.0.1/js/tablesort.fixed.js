@@ -1,9 +1,9 @@
 /*!
- * modified for babel tablesort v4.0.1 (2016-03-30)
+ * modified tablesort v4.0.1 (2016-03-30)
  * http://tristen.ca/tablesort/demo/
  * github.com/tristen/tablesort
  * Copyright (c) 2016 ; Licensed MIT
- * added window object existence check
+ * added window check
  * source: github.com/tristen/tablesort/blob/gh-pages/src/tablesort.js
  * passes jshint
  */

@@ -1,5 +1,5 @@
 /*!
- * ManUp.js is a polyfill to support the Manifest for Web Apps
+ * modified ManUp.js is a polyfill to support the Manifest for Web Apps
  * github.com/boyofgreen/manUp.js/
  * added fullURL empty declaration:
  * var a,fulURL,n=/^https?:\/\//i;n.test(e)?fulURL=e

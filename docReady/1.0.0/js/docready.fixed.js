@@ -1,9 +1,9 @@
 /*!
- * Plain javascript replacement for jQuery's .ready()
+ * modified Plain javascript replacement for jQuery's .ready()
  * so code can be scheduled to run when the document is ready
  * github.com/jfriend00/docReady
  * gist.github.com/englishextra/7c22a9a9cae3320318e9c9eab6777c84
- * added window object existence check
+ * added window check
  * docReady(function(){});
  * source: github.com/jfriend00/docReady/blob/master/docready.js
  * passes jshint

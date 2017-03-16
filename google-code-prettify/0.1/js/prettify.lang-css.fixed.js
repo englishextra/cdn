@@ -1,5 +1,5 @@
 /*!
- * Automatically exported from code.google.com/p/google-code-prettify
+ * modified Automatically exported from code.google.com/p/google-code-prettify
  * github.com/google/code-prettify
  * Copyright (C) 2006 Google Inc.
  * Licensed under the Apache License, Version 2.0 (the "License");

@@ -1,6 +1,8 @@
 /*!
- * tether 1.3.7
- * source: raw.githubusercontent.com/HubSpot/tether/master/dist/js/tether.js
+ * modified tether 1.3.7
+ * A positioning engine to make overlays, tooltips and dropdowns better
+ * #hubspot-open-source http://tether.io/docs/welcome
+ * source: github.com/HubSpot/tether/blob/master/dist/js/tether.js
  * passes jshint with suppressing comments
  */
 /* jshint -W018 */

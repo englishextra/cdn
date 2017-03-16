@@ -1,14 +1,14 @@
 /*!
- * modified for babel Packery PACKAGED v2.1.1
+ * modified Packery PACKAGED v2.1.1
  * Gapless, draggable grid layouts
  * Licensed GPLv3 for open source use
  * or Packery Commercial License for commercial use
  * packery.metafizzy.co
  * Copyright 2016 Metafizzy
  * removed jQuery support
- * removed AMD, CommonJS support
+ * removed module check
  * exposed as window property
- * added window object existence check
+ * added window check
  * source: github.com/metafizzy/packery/blob/master/dist/packery.pkgd.js
  * passes jshint
  */

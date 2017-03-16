@@ -1,5 +1,5 @@
 /*!
- * github.com/webcomponents/webcomponentsjs/blob/master/src/MutationObserver/MutationObserver.js
+ * modified github.com/webcomponents/webcomponentsjs/blob/master/src/MutationObserver/MutationObserver.js
  * closure-compiler.appspot.com/code/jsc665493f158bf71252a410cf61ec2ee93/default.js
  * v0.7.22
  * @license

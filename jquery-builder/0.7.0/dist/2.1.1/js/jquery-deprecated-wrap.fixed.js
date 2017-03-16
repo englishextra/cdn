@@ -1,5 +1,5 @@
 /*!
- * jQuery JavaScript Library v2.1.1 -deprecated,-wrap
+ * modified jQuery JavaScript Library v2.1.1 -deprecated,-wrap
  * http://jquery.com/
  * Includes Sizzle.js
  * http://sizzlejs.com/

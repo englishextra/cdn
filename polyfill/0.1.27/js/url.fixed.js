@@ -1,5 +1,5 @@
 /*!
- * URL Polyfill
+ * modified URL Polyfill
  * github.com/inexorabletash/polyfill/blob/master/url.js
  * Draft specification: https://url.spec.whatwg.org
  * Notes:

@@ -4,7 +4,7 @@
  * @copyright 2010–2014 Vadim Makeev, pepelsbey.net
  * @license MIT license: github.com/shower/shower/wiki/MIT-License
  * exposed as window property
- * added window object existence check
+ * added window check
  * changed container from body to particular class
  * added check for container existense
  * source: shwr.me/shower/shower.min.js

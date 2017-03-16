@@ -1,12 +1,12 @@
 /*!
- * modified for babel DoSlide v1.1.4
+ * modified DoSlide v1.1.4
  * (c) 2016 MopTym <moptym@163.com>
  * Released under the MIT License.
  * Homepage - https://github.com/MopTym/doSlide
  * cached this in _that beforehand for listener function
  * ~~ can be changed to Math.floor()
  * exposed as window property
- * added window object existence check
+ * added window check
  * source: github.com/MopTym/doSlide/blob/dev/dist/do-slide.js
  * passes jshint with suppressing comments
  */

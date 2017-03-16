@@ -1,5 +1,5 @@
 /*!
- * Isotope PACKAGED v3.0.1
+ * modified Isotope PACKAGED v3.0.1
  * github.com/metafizzy/isotope
  * Licensed GPLv3 for open source use
  * or Isotope Commercial License for commercial use

@@ -1,5 +1,5 @@
 /*!
- * modified routie - a tiny hash router - v0.3.2
+ * modified modified routie - a tiny hash router - v0.3.2
  * github.com/jgallen23/routie/blob/master/dist/routie.js
  * projects.jga.me/routie
  * copyright Greg Allen 2013
@@ -11,7 +11,7 @@
  * routie({"/contents": function () {},"/feedback": function () {};};
  * routie.navigate("/somepage");
  * in navigate method setImmediate with setTimeout fallback
- * added window object existence check
+ * added window check
  * fixed The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
  * source: github.com/jgallen23/routie/blob/master/dist/routie.js
  * passes jshint

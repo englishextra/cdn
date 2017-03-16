@@ -1,25 +1,24 @@
 /*!
- *  qr.js -- QR code generator in Javascript (revision 2011-01-19)
+ * modified qr.js -- QR code generator in Javascript (revision 2011-01-19)
  * Written by Kang Seonghoon <public+qrjs@mearie.org>.
  * v0.0.20110119
  * This source code is in the public domain; if your jurisdiction does not
  * recognize the public domain the terms of Creative Commons CC0 license
  * apply. In the other words, you can always do what you want.
+ * added options properties: fillcolor and textcolor
+ * svg now works in Edge 13 and IE 11
+ * gist.github.com/englishextra/b46969e3382ef737c611bb59d837220b
  * source: github.com/lifthrasiir/qr.js/blob/v0.0.20110119/qr.js
+ * passes jshint with suppressing comments
  */
 /* jslint bitwise: true */
 /* jshint shadow: true */
 /* jshint sub:true */
 /* jshint -W041 */
+;
 (function (root, name, definition) {
-	if (typeof define === 'function' && define.amd) {
-		define([], definition);
-	} else if (typeof module === 'object' && module.exports) {
-		module.exports = definition();
-	} else {
-		root[name] = definition();
-	}
-})(this, 'QRCode', function () {
+	root[name] = definition();
+})("undefined" !== typeof window ? window : this, 'QRCode', function () {
 	var VERSIONS = [null, [[10, 7, 17, 13], [1, 1, 1, 1], []], [[16, 10, 28, 22], [1, 1, 1, 1], [4, 16]], [[26, 15, 22, 18], [1, 1, 2, 2], [4, 20]], [[18, 20, 16, 26], [2, 1, 4, 2], [4, 24]], [[24, 26, 22, 18], [2, 1, 4, 4], [4, 28]], [[16, 18, 28, 24], [4, 2, 4, 4], [4, 32]], [[18, 20, 26, 18], [4, 2, 5, 6], [4, 20, 36]], [[22, 24, 26, 22], [4, 2, 6, 6], [4, 22, 40]], [[22, 30, 24, 20], [5, 2, 8, 8], [4, 24, 44]], [[26, 18, 28, 24], [5, 4, 8, 8], [4, 26, 48]], [[30, 20, 24, 28], [5, 4, 11, 8], [4, 28, 52]], [[22, 24, 28, 26], [8, 4, 11, 10], [4, 30, 56]], [[22, 26, 22, 24], [9, 4, 16, 12], [4, 32, 60]], [[24, 30, 24, 20], [9, 4, 16, 16], [4, 24, 44, 64]], [[24, 22, 24, 30], [10, 6, 18, 12], [4, 24, 46, 68]], [[28, 24, 30, 24], [10, 6, 16, 17], [4, 24, 48, 72]], [[28, 28, 28, 28], [11, 6, 19, 16], [4, 28, 52, 76]], [[26, 30, 28, 28], [13, 6, 21, 18], [4, 28, 54, 80]], [[26, 28, 26, 26], [14, 7, 25, 21], [4, 28, 56, 84]], [[26, 28, 28, 30], [16, 8, 25, 20], [4, 32, 60, 88]], [[26, 28, 30, 28], [17, 8, 25, 23], [4, 26, 48, 70, 92]], [[28, 28, 24, 30], [17, 9, 34, 23], [4, 24, 48, 72, 96]], [[28, 30, 30, 30], [18, 9, 30, 25], [4, 28, 52, 76, 100]], [[28, 30, 30, 30], [20, 10, 32, 27], [4, 26, 52, 78, 104]], [[28, 26, 30, 30], [21, 12, 35, 29], [4, 30, 56, 82, 108]], [[28, 28, 30, 28], [23, 12, 37, 34], [4, 28, 56, 84, 112]], [[28, 30, 30, 30], [25, 12, 40, 34], [4, 32, 60, 88, 116]], [[28, 30, 30, 30], [26, 13, 42, 35], [4, 24, 48, 72, 96, 120]], [[28, 30, 30, 30], [28, 14, 45, 38], [4, 28, 52, 76, 100, 124]], [[28, 30, 30, 30], [29, 15, 48, 40], [4, 24, 50, 76, 102, 128]], [[28, 30, 30, 30], [31, 16, 51, 43], [4, 28, 54, 80, 106, 132]], [[28, 30, 30, 30], [33, 17, 54, 45], [4, 32, 58, 84, 110, 136]], [[28, 30, 30, 30], [35, 18, 57, 48], [4, 28, 56, 84, 112, 140]], [[28, 30, 30, 30], [37, 19, 60, 51], [4, 32, 60, 88, 116, 144]], [[28, 30, 30, 30], [38, 19, 63, 53], [4, 28, 52, 76, 100, 124, 148]], [[28, 30, 30, 30], [40, 20, 66, 56], [4, 22, 48, 74, 100, 126, 152]], [[28, 30, 30, 30], [43, 21, 70, 59], [4, 26, 52, 78, 104, 130, 156]], [[28, 30, 30, 30], [45, 22, 74, 62], [4, 30, 56, 82, 108, 134, 160]], [[28, 30, 30, 30], [47, 24, 77, 65], [4, 24, 52, 80, 108, 136, 164]], [[28, 30, 30, 30], [49, 25, 81, 68], [4, 28, 56, 84, 112, 140, 168]]];
 	var MODE_TERMINATOR = 0;
 	var MODE_NUMERIC = 1,
@@ -494,52 +493,98 @@
 		},
 		'generateHTML': function (data, options) {
 			options = options || {};
+
+			var fillcolor = options.fillcolor ? options.fillcolor : "#FFFFFF";
+			var textcolor = options.textcolor ? options.textcolor : "#000000";
+
 			var matrix = QRCode['generate'](data, options);
 			var modsize = Math.max(options.modulesize || 5, 0.5);
 			var margin = Math.max(options.margin !== null ? options.margin : 4, 0.0);
 			var e = document.createElement('div');
 			var n = matrix.length;
 			var html = ['<table border="0" cellspacing="0" cellpadding="0" style="border:' +
-				modsize * margin + 'px solid #fff;background:#fff">'];
+				modsize * margin + 'px solid ' + fillcolor + ';background:' + fillcolor + '">'];
 			for (var i = 0; i < n; ++i) {
 				html.push('<tr>');
 				for (var j = 0; j < n; ++j) {
 					html.push('<td style="width:' + modsize + 'px;height:' + modsize + 'px' +
-						(matrix[i][j] ? ';background:#000' : '') + '"></td>');
+						(matrix[i][j] ? ';background:' + textcolor : '') + '"></td>');
 				}
 				html.push('</tr>');
 			}
 			e.className = 'qrcode';
-			e.innerHTML = html.join('') + '</table>';
+			/* e.innerHTML = html.join('') + '</table>'; */
+
+			var range = document.createRange();
+			range.selectNodeContents(e);
+			var frag = range.createContextualFragment(html.join('') + '</table>');
+			e.appendChild(frag);
+
 			return e;
 		},
 		'generateSVG': function (data, options) {
 			options = options || {};
+
+			var fillcolor = options.fillcolor ? options.fillcolor : "#FFFFFF";
+			var textcolor = options.textcolor ? options.textcolor : "#000000";
+
 			var matrix = QRCode['generate'](data, options);
 			var n = matrix.length;
 			var modsize = Math.max(options.modulesize || 5, 0.5);
 			var margin = Math.max(options.margin ? options.margin : 4, 0.0);
 			var size = modsize * (n + 2 * margin);
-			var common = ' class= "fg"' + ' width="' + modsize + '" height="' + modsize + '"/>';
+			/* var common = ' class= "fg"' + ' width="' + modsize + '" height="' + modsize + '"/>'; */
 			var e = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
 			e.setAttribute('viewBox', '0 0 ' + size + ' ' + size);
 			e.setAttribute('style', 'shape-rendering:crispEdges');
-			var svg = ['<style scoped>.bg{fill:#FFF}.fg{fill:#000}</style>', '<rect class="bg" x="0" y="0"', 'width="' + size + '" height="' + size + '"/>', ];
+
+			var frag = document.createDocumentFragment();
+
+			/* var svg = ['<style scoped>.bg{fill:' + fillcolor + '}.fg{fill:' + textcolor + '}</style>', '<rect class="bg" x="0" y="0"', 'width="' + size + '" height="' + size + '"/>', ]; */
+			var style = document.createElementNS('http://www.w3.org/2000/svg', 'style');
+			style.appendChild(document.createTextNode('.bg{fill:' + fillcolor + '}.fg{fill:' + textcolor + '}'));
+			style.setAttribute("scoped", "scoped");
+
+			frag.appendChild(style);
+
+			var createRect = function (c, f, x, y, s) {
+				var fg = document.createElementNS('http://www.w3.org/2000/svg', 'rect') || "";
+				fg.setAttributeNS(null, "class", c);
+				fg.setAttributeNS(null, "fill", f);
+				fg.setAttributeNS(null, "x", x);
+				fg.setAttributeNS(null, "y", y);
+				fg.setAttributeNS(null, "width", s);
+				fg.setAttributeNS(null, "height", s);
+				return fg;
+			};
+
+			frag.appendChild(createRect("bg", "none", 0, 0, size));
+
 			var yo = margin * modsize;
+
 			for (var y = 0; y < n; ++y) {
 				var xo = margin * modsize;
 				for (var x = 0; x < n; ++x) {
-					if (matrix[y][x])
-						svg.push('<rect x="' + xo + '" y="' + yo + '"', common);
+					if (matrix[y][x]) {
+						/* svg.push('<rect x="' + xo + '" y="' + yo + '"', common); */
+						frag.appendChild(createRect("fg", "none", xo, yo, modsize));
+					}
 					xo += modsize;
 				}
 				yo += modsize;
 			}
-			e.innerHTML = svg.join('');
+
+			/* e.innerHTML = svg.join(''); */
+			e.appendChild(frag);
+
 			return e;
 		},
 		'generatePNG': function (data, options) {
 			options = options || {};
+
+			var fillcolor = options.fillcolor ? options.fillcolor : "#FFFFFF";
+			var textcolor = options.textcolor ? options.textcolor : "#000000";
+
 			var matrix = QRCode['generate'](data, options);
 			var modsize = Math.max(options.modulesize || 5, 0.5);
 			var margin = Math.max(options.margin != null ? options.margin : 4, 0.0);
@@ -551,9 +596,9 @@
 			context = canvas.getContext('2d');
 			if (!context)
 				throw 'canvas support is needed for PNG output';
-			context.fillStyle = '#fff';
+			context.fillStyle = fillcolor;
 			context.fillRect(0, 0, size, size);
-			context.fillStyle = '#000';
+			context.fillStyle = textcolor;
 			for (var i = 0; i < n; ++i) {
 				for (var j = 0; j < n; ++j) {
 					if (matrix[i][j]) {

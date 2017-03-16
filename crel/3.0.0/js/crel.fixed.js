@@ -1,14 +1,14 @@
 /*!
- * modified for babel crel - a small, simple, and fast DOM creation utility
+ * modified crel - a small, simple, and fast DOM creation utility
  * github.com/KoryNunn/crel
  * crel(tagName/dom element[,attributes,child1,child2,childN...])
  * var element=crel('div',crel('h1','Crello World!'),
  * crel('p','This is crel'),crel('input',{type:'number'}));
- * removed AMD, CommonJS support
+ * removed module check
  * fixed Use '===' to compare with 'null'.
  * fixed The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
  * fixed Expected an assignment or function call and instead saw an expression.
- * added window object existence check
+ * added window check
  * source: github.com/KoryNunn/crel/blob/master/crel.js
  * passes jshint
  */

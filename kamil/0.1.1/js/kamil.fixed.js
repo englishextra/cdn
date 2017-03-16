@@ -1,5 +1,5 @@
 /*!
- * modified for babel Kamil v0.1.1
+ * modified Kamil v0.1.1
  * Autocomplete library - pure JS
  * http://oss6.github.io/kamil
  * MIT License
@@ -7,7 +7,7 @@
  * fixed radix parameter - 10
  * stackoverflow.com/questions/7818903/jslint-says-missing-radix-parameter-what-should-i-do
  * changed infix operator invocation to normal IIFE
- * added window object existence check
+ * added window check
  * source: github.com/oss6/kamil/blob/gh-pages/kamil.js
  * passes jshint
  */

@@ -1,5 +1,5 @@
 /*!
- * A cross-browser implementation of the new setImmediate API - v1.0.5
+ * modified A cross-browser implementation of the new setImmediate API - v1.0.5
  * github.com/YuzuJS/setImmediate
  * fixed The Function constructor is a form of eval.
  * source: github.com/YuzuJS/setImmediate/blob/master/setImmediate.js

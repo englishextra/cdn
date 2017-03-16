@@ -1,5 +1,5 @@
 /*!
- * modified for babel Lazyload images, iframes, widgets
+ * modified Lazyload images, iframes, widgets
  * with a standalone JavaScript lazyloader - v3.2.2
  * https://vvo.github.io/lazyload/
  * github.com/englishextra/lazyload
@@ -11,7 +11,7 @@
  * throw f;
  * fixed b = b.parentNode;
  * while (b) {
- * added window object existence check
+ * added window check
  * source: github.com/vvo/lazyload/blob/master/build/lazyload.js
  * passes jshint with suppressing comments
  */

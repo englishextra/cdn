@@ -1,5 +1,5 @@
 /*!
- * Polyfill for IE8 Javascript Event
+ * modified Polyfill for IE8 Javascript Event
  * gist.github.com/englishextra/871776e0aabb70bb5d13
  * based on gist.github.com/chriswrightdesign/7573368
  * passes jshint

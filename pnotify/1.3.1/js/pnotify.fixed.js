@@ -1,5 +1,5 @@
-/*
- * jQuery PNotify Plugin 1.3.1
+/*!
+ * modified jQuery PNotify Plugin 1.3.1
  * http://sciactive.com/pnotify/
  * Copyright (c) 2009-2014 Hunter Perrin
  * Triple license under the GPL, LGPL, and MPL:

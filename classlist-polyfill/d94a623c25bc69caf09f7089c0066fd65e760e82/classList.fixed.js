@@ -1,5 +1,5 @@
 /*!
- * classList.js: Cross-browser full element.classList implementation.
+ * modified classList.js: Cross-browser full element.classList implementation.
  * 1.1.20150312
  * https://github.com/eligrey/classList.js/pull/57
  * github.com/beck/classlist-polyfill/commit/d94a623c25bc69caf09f7089c0066fd65e760e82

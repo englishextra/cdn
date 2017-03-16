@@ -1,5 +1,5 @@
 /*!
- * Storage.js
+ * modified Storage.js
  * github.com/remy/polyfills/blob/master/Storage.js
  * fixed 0 === comparison
  * passes jshint

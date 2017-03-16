@@ -1,5 +1,5 @@
 /*!
- * modified for babel Implement infinite scrolling v0.1.0
+ * modified Implement infinite scrolling v0.1.0
  * github.com/alexblack/infinite-scroll
  * - Inspired by: http://ravikiranj.net/drupal/201106/code/javascript/how-implement-infinite-scrolling-using-native-javascript-and-yui3
  * infiniteScroll({distance:50,callback: function (done) {

@@ -1,8 +1,8 @@
 /*!
- * modified for babel Zenscroll - v3.2.2
+ * modified Zenscroll - v3.2.2
  * github.com/zengabor/zenscroll
  * Copyright 2015-2016 Gabor Lenard
- * removed AMD, CommonJS support
+ * removed module check
  * fixed IIFE enforcing
  * added brackets in if / for
  * source: github.com/zengabor/zenscroll/blob/dist/zenscroll.js

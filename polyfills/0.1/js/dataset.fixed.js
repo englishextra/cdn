@@ -1,5 +1,5 @@
 /*!
- * dataset.js
+ * modified dataset.js
  * source: github.com/remy/polyfills/blob/master/dataset.js
  * passes jshint
  */

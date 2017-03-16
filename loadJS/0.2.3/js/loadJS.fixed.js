@@ -1,5 +1,5 @@
 /*!
- * modified for babel load JS async v0.2.3
+ * modified load JS async v0.2.3
  * modified order of arguments, removed CommonJS stuff
  * github.com/filamentgroup/loadJS
  * gist.github.com/englishextra/397e62184fde65d7755744fdb7a01829

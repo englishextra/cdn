@@ -1,5 +1,5 @@
 /*!
- * Super lightweight script (~1kb) to detect via Javascript events like
+ * modified Super lightweight script (~1kb) to detect via Javascript events like
  * 'tap' 'dbltap' 'swipeup' 'swipedown' 'swipeleft' 'swiperight'
  * on any kind of device.
  * Version: 2.0.1

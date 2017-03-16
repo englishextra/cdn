@@ -1,5 +1,5 @@
 /*!
- * https://github.com/es-shims/es5-shim v4.5.9
+ * modified github.com/es-shims/es5-shim v4.5.9
  * @license es5-shim Copyright 2009-2015 by contributors, MIT License
  * see https://github.com/es-shims/es5-shim/blob/master/LICENSE
  * source: github.com/es-shims/es5-shim/blob/master/es5-shim.js
@@ -186,7 +186,7 @@
 				var n = +num;
 				if (isActualNaN(n)) {
 					n = 0;
-				} else if (n !== 0 && n !== (1 / 0) && n !==  - (1 / 0)) {
+				} else if (n !== 0 && n !== (1 / 0) && n !== - (1 / 0)) {
 					n = (n > 0 || -1) * Math.floor(Math.abs(n));
 				}
 				return n;

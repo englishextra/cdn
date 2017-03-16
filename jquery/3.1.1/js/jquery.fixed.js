@@ -1,5 +1,5 @@
 /*!
- * jQuery JavaScript Library v3.1.1
+ * modified jQuery JavaScript Library v3.1.1
  * https://jquery.com/
  *
  * Includes Sizzle.js
@@ -11,6 +11,7 @@
  *
  * Date: 2016-09-22T22:30Z
  * source: cdn.jsdelivr.net/jquery/3.1.1/jquery.js
+ * pass jshint with suppressing comments
  */
 /* jshint ignore: start */
 ;(function (global, factory) {
@@ -962,8 +963,8 @@
 						if (!match[3]) {
 							Sizzle.error(match[0]);
 						}
-						match[4] =  + (match[4] ? match[5] + (match[6] || 1) : 2 * (match[3] === "even" || match[3] === "odd"));
-						match[5] =  + ((match[7] + match[8]) || match[3] === "odd");
+						match[4] = + (match[4] ? match[5] + (match[6] || 1) : 2 * (match[3] === "even" || match[3] === "odd"));
+						match[5] = + ((match[7] + match[8]) || match[3] === "odd");
 					} else if (match[3]) {
 						Sizzle.error(match[0]);
 					}

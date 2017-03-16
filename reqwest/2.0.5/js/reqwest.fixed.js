@@ -1,9 +1,9 @@
 /*!
- * modified for babel Reqwest! v2.0.5
+ * modified Reqwest! v2.0.5
  * A general purpose XHR connection manager
  * license MIT (c) Dustin Diaz 2015
  * github.com/ded/reqwest
- * removed AMD, CommonJS support
+ * removed module check
  * exposed as window property
  * source: github.com/ded/reqwest/blob/master/reqwest.js
  * pass jshint with suppressing comments
