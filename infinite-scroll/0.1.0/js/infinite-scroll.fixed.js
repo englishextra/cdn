@@ -12,7 +12,7 @@
  * source: github.com/alexblack/infinite-scroll/blob/master/infinite-scroll.js
  * passes jshint
  */
-;(function (w) {
+(function (w) {
 	var getScrollPos = function () {
 		if (/msie/gi.test(navigator.userAgent)) {
 			return document.documentElement.scrollTop;

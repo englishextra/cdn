@@ -14,7 +14,7 @@
  * pass jshint with suppressing comments
  */
 /* jshint ignore: start */
-;(function (global, factory) {
+(function (global, factory) {
 	"use strict";
 	if (typeof module === "object" && typeof module.exports === "object") {
 		module.exports = global.document ? factory(global, true) : function (w) {

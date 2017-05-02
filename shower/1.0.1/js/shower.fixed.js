@@ -10,7 +10,7 @@
  * source: shwr.me/shower/shower.min.js
  * passes jshint
  */
-;(function () {
+(function () {
 	if ("undefined" == typeof window || !("document" in window)) {
 		return console.log("window is undefined or document is not in window"),
 		!1;

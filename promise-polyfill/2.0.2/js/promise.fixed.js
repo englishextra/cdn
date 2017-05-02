@@ -5,7 +5,7 @@
  * source: github.com/taylorhakes/promise-polyfill/blob/master/promise.js
  * passes jshint
  */
-;(function (root) {
+(function (root) {
 	var setTimeoutFunc = setTimeout;
 	function noop() {}
 	function bind(fn, thisArg) {

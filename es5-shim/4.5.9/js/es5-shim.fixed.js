@@ -14,7 +14,7 @@
 /* jshint loopfunc: true */
 /* jshint shadow:true */
 /* jshint eqnull: true */
-;(function (root, factory) {
+(function (root, factory) {
 	'use strict';
 	if (typeof define === 'function' && define.amd) {
 		define(factory);

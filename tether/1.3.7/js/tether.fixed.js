@@ -16,7 +16,7 @@
 /* jshint sub: true */
 /* jslint asi: true */
 /* jslint bitwise: true */
-;(function(root,factory){if(typeof define==='function'&&define.amd){define(factory);}else if(typeof exports==='object'){module.exports=factory(require,exports,module);}else{root.Tether=factory();}}
+(function(root,factory){if(typeof define==='function'&&define.amd){define(factory);}else if(typeof exports==='object'){module.exports=factory(require,exports,module);}else{root.Tether=factory();}}
 (this,function(require,exports,module){'use strict';var _createClass=(function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if('value'in descriptor)
 descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}
 return function(Constructor,protoProps,staticProps){if(protoProps)
