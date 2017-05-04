@@ -1,5 +1,5 @@
 /*!
- * modified Lightweight ES6 Promise polyfill for the browser and node. A+ Compliant 
+ * modified Lightweight ES6 Promise polyfill for the browser and node. A+ Compliant
  * github.com/taylorhakes/promise-polyfill
  * changed this to window
  * source: github.com/taylorhakes/promise-polyfill/blob/master/promise.js
