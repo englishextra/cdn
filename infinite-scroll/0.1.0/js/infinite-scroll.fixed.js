@@ -1,6 +1,6 @@
 /*!
  * modified Implement infinite scrolling v0.1.0
- * github.com/alexblack/infinite-scroll
+ * @see {@link https://github.com/alexblack/infinite-scroll}
  * - Inspired by: http://ravikiranj.net/drupal/201106/code/javascript/how-implement-infinite-scrolling-using-native-javascript-and-yui3
  * infiniteScroll({distance:50,callback: function (done) {
  * 1. fetch data from the server
@@ -9,7 +9,7 @@
  * window.location.hash = "#/somepage";
  * done();}});
  * exposed as window / self / global property;
- * source: github.com/alexblack/infinite-scroll/blob/master/infinite-scroll.js
+ * @see {@link https://github.com/alexblack/infinite-scroll/blob/master/infinite-scroll.js}
  * passes jshint
  */
 (function (w) {
@@ -63,7 +63,7 @@
 		};
 	};
 }
-	("undefined"===typeof window?"undefined"===typeof self?"undefined"===typeof global?this:global:self:window));
+	("undefined" !== typeof window ? window : this));
 /* infiniteScroll({
 	distance: 50,
 	callback: function (done) {

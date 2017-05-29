@@ -1,8 +1,8 @@
 /*!
  * modified Lightweight ES6 Promise polyfill for the browser and node. A+ Compliant
- * github.com/taylorhakes/promise-polyfill
+ * @see {@link https://github.com/taylorhakes/promise-polyfill}
  * changed this to window
- * source: github.com/taylorhakes/promise-polyfill/blob/master/promise.js
+ * @see {@link https://github.com/taylorhakes/promise-polyfill/blob/master/promise.js}
  * passes jshint
  */
 (function (root) {
@@ -195,4 +195,4 @@
 	} else if (!root.Promise) {
 		root.Promise = Promise;
 	}
-})("undefined"===typeof window?"undefined"===typeof self?"undefined"===typeof global?this:global:self:window);
+})("undefined" !== typeof window ? window : this);

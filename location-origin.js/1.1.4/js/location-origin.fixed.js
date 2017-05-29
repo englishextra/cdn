@@ -1,6 +1,6 @@
 /*!
  * modified Polyfill for window.location.origin
- * github.com/shinnn/location-origin.js
+ * @see {@link https://github.com/shinnn/location-origin.js}
  * compiled with closure-compiler.appspot.com/home
  * passes jshint
  */

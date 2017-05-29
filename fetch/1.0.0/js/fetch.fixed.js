@@ -1,6 +1,6 @@
 /*!
  * modified A window.fetch JavaScript polyfill. http://github.github.io/fetch/
- * github.com/github/fetch
+ * @see {@link https://github.com/github/fetch}
  * The global fetch function is an easier way to make web requests
  * and handle responses than using an XMLHttpRequest.
  * This polyfill is written as closely as possible

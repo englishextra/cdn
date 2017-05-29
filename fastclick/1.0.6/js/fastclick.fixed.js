@@ -1,11 +1,11 @@
 /*!
  * modified FastClick: polyfill to remove click delays on browsers with touch UIs.
- * github.com/ftlabs/fastclick
+ * @see {@link https://github.com/ftlabs/fastclick}
  * @codingstandard ftlabs-jsv2
  * @copyright The Financial Times Limited [All Rights Reserved]
  * @license MIT License (see LICENSE.txt)
- * github.com/tddbin/es6katas.org/issues/3
- * source: github.com/ftlabs/fastclick/blob/master/lib/fastclick.js
+ * @see {@link https://github.com/tddbin/es6katas.org/issues/3}
+ * @see {@link https://github.com/ftlabs/fastclick/blob/master/lib/fastclick.js}
  * pass jshint with suppressing comments
  */
 /* jshint elision: true */

@@ -1,11 +1,11 @@
 /*!
  * modified jQuery JavaScript Library v2.1.1 -deprecated,-wrap
- * http://jquery.com/
+ * @see {@link http://jquery.com/}
  * Includes Sizzle.js
- * http://sizzlejs.com/
+ * @see {@link http://sizzlejs.com/}
  * Copyright 2005, 2014 jQuery Foundation, Inc. and other contributors
  * Released under the MIT license
- * http://jquery.org/license
+ * @see {@link http://jquery.org/license}
  * Date: 2014-09-28T02:59Z
  * projects.jga.me/jquery-builder/
  * source: raw.githubusercontent.com/jgallen23/jquery-builder/0.7.0/dist/2.1.1/jquery-deprecated-wrap.js

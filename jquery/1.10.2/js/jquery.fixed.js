@@ -1,11 +1,11 @@
 /*!
  * modified jQuery JavaScript Library v1.10.2
- * http://jquery.com/
+ * @see {@link http://jquery.com/}
  * Includes Sizzle.js
- * http://sizzlejs.com/
+ * @see {@link http://sizzlejs.com/}
  * Copyright 2005, 2013 jQuery Foundation, Inc. and other contributors
  * Released under the MIT license
- * http://jquery.org/license
+ * @see {@link http://jquery.org/license}
  * Date: 2013-07-03T13:48Z
  * source: ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.js
  * passes jshint with suppressing comments

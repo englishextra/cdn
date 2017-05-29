@@ -1,21 +1,20 @@
 /*!
  * modified fo babel Shower HTML presentation engine v1.0.1
- * github.com/shower/shower
+ * @see {@link https://github.com/shower/shower}
  * @copyright 2010–2014 Vadim Makeev, pepelsbey.net
  * @license MIT license: github.com/shower/shower/wiki/MIT-License
  * exposed as window property
- * added window check
  * changed container from body to particular class
  * added check for container existense
  * source: shwr.me/shower/shower.min.js
  * passes jshint
  */
-(function () {
-	if ("undefined" == typeof window || !("document" in window)) {
-		return console.log("window is undefined or document is not in window"),
+(function (root) {
+	if ("undefined" == typeof root || !("document" in root)) {
+		return console.log("root is undefined or document is not in window"),
 		!1;
 	}
-	window.shower = window.shower || function (a, b, c) {
+	root.shower = root.shower || function (a, b, c) {
 		function d(a) {
 			for (var b in a) {
 				if (a.hasOwnProperty(b)) {
@@ -501,6 +500,6 @@
 			console.log(h_cls + " is not found");
 		}
 	}
-	(this, this.document);
-}
-	());
+	(root, root.document);
+})
+	("undefined" !== typeof window ? window : this);

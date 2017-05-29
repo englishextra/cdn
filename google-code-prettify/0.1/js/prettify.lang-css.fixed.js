@@ -1,9 +1,9 @@
 /*!
  * modified Automatically exported from code.google.com/p/google-code-prettify
- * github.com/google/code-prettify
+ * @see {@link https://github.com/google/code-prettify}
  * Copyright (C) 2006 Google Inc.
  * Licensed under the Apache License, Version 2.0 (the "License");
- * source: github.com/google/code-prettify/blob/master/loader/prettify.js
+ * @see {@link https://github.com/google/code-prettify/blob/master/loader/prettify.js}
  * pass jshint with suppressing comments
  */
 /* jshint -W030 */
@@ -24,7 +24,7 @@
 /* jslint asi: false */
 /* jslint bitwise: false */
 /*!
- * source: github.com/google/code-prettify/blob/master/loader/lang-css.js
+ * @see {@link https://github.com/google/code-prettify/blob/master/loader/lang-css.js}
  * passes jshint
  */
 PR.registerLangHandler(PR.createSimpleLexer([["pln", /^[ \t\r\n\f]+/, null, " \t\r\n\f"]], [["str", /^\"(?:[^\n\r\f\\\"]|\\(?:\r\n?|\n|\f)|\\[\s\S])*\"/, null], ["str", /^\'(?:[^\n\r\f\\\']|\\(?:\r\n?|\n|\f)|\\[\s\S])*\'/, null], ["lang-css-str", /^url\(([^\)\"\']+)\)/i], ["kwd", /^(?:url|rgb|\!important|@import|@page|@media|@charset|inherit)(?=[^\-\w]|$)/i, null], ["lang-css-kw", /^(-?(?:[_a-z]|(?:\\[0-9a-f]+ ?))(?:[_a-z0-9\-]|\\(?:\\[0-9a-f]+ ?))*)\s*:/i], ["com", /^\/\*[^*]*\*+(?:[^\/*][^*]*\*+)*\//], ["com", /^(?:\x3c!--|--\x3e)/], ["lit", /^(?:\d+|\d*\.\d+)(?:%|[a-z]+)?/i], ["lit", /^#(?:[0-9a-f]{3}){1,2}\b/i], ["pln", /^-?(?:[_a-z]|(?:\\[\da-f]+ ?))(?:[_a-z\d\-]|\\(?:\\[\da-f]+ ?))*/i], ["pun", /^[^\s\w\'\"]+/]]), ["css"]);PR.registerLangHandler(PR.createSimpleLexer([], [["kwd", /^-?(?:[_a-z]|(?:\\[\da-f]+ ?))(?:[_a-z\d\-]|\\(?:\\[\da-f]+ ?))*/i]]), ["css-kw"]);PR.registerLangHandler(PR.createSimpleLexer([], [["str", /^[^\)\"\']+/]]), ["css-str"]);

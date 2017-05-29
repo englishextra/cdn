@@ -1,13 +1,13 @@
 /*!
  * modified jQuery JavaScript Library v3.1.1
- * https://jquery.com/
+ * @see {@link https://jquery.com/}
  *
  * Includes Sizzle.js
- * https://sizzlejs.com/
+ * @see {@link https://sizzlejs.com/}
  *
  * Copyright jQuery Foundation and other contributors
  * Released under the MIT license
- * https://jquery.org/license
+ * @see {@link https://jquery.org/license}
  *
  * Date: 2016-09-22T22:30Z
  * source: cdn.jsdelivr.net/jquery/3.1.1/jquery.js
@@ -26,7 +26,7 @@
 	} else {
 		factory(global);
 	}
-})(typeof window !== "undefined" ? window : this, function (window, noGlobal) {
+})("undefined" !== typeof window ? window : this, function (window, noGlobal) {
 	"use strict";
 	var arr = [];
 	var document = window.document;

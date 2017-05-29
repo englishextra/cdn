@@ -2,7 +2,7 @@
  * modified github.com/es-shims/es5-shim v4.5.9
  * @license es5-shim Copyright 2009-2015 by contributors, MIT License
  * see https://github.com/es-shims/es5-shim/blob/master/LICENSE
- * source: github.com/es-shims/es5-shim/blob/master/es5-shim.js
+ * @see {@link https://github.com/es-shims/es5-shim/blob/master/es5-shim.js}
  * passes jshint with suppressing comments
  */
 /* global Date:true */

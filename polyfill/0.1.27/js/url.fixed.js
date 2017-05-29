@@ -1,6 +1,6 @@
 /*!
  * modified URL Polyfill
- * github.com/inexorabletash/polyfill/blob/master/url.js
+ * @see {@link https://github.com/inexorabletash/polyfill/blob/master/url.js}
  * Draft specification: https://url.spec.whatwg.org
  * Notes:
  * - Primarily useful for parsing URLs and modifying query parameters
