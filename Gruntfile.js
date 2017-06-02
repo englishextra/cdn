@@ -43,6 +43,7 @@ module.exports = function (grunt) {
 				"routie/0.3.2/js/routie.fixed.js",
 				"setImmediate/1.0.5/js/setImmediate.fixed.js",
 				"shower/1.0.1/js/shower.fixed.js",
+				"sw-toolbox/3.6.1/js/sw-toolbox.fixed.js",
 				"tablesort/4.0.1/js/tablesort.fixed.js",
 				"tether/1.3.7/js/tether.fixed.js",
 				"ToProgress/0.1.1/js/ToProgress.fixed.js",
