@@ -4,7 +4,6 @@
  * projects.jga.me/routie
  * copyright Greg Allen 2013
  * MIT License
- * @requires setImmediate {@link https://github.com/YuzuJS/setImmediate YuzuJS/setImmediate}
  * "#" => ""
  * "#/" => "/" wont trigger anything? {@link https://github.com/jgallen23/routie/issues/49}
  * "#/home" => "/home"
