@@ -28,13 +28,11 @@ module.exports = function (grunt) {
 				"parallax/2.1.3/js/parallax.fixed.js",
 				"photoswipe/4.1.0/js/photoswipe.photoswipe-ui-default.fixed.js",
 				"pnotify/1.3.1/js/pnotify.fixed.js",
-				"Prism/6.1.0/js/prism.fixed.js",
 				"reqwest/2.0.5/js/reqwest.fixed.js",
 				"routie/0.3.2/js/routie.fixed.js",
 				"shower/1.0.1/js/shower.fixed.js",
 				"sw-toolbox/3.6.1/js/sw-toolbox.fixed.js",
 				"tablesort/4.0.1/js/tablesort.fixed.js",
-				"tether/1.3.7/js/tether.fixed.js",
 				"Tocca.js/2.0.1/js/Tocca.fixed.js",
 				"ToProgress/0.1.1/js/ToProgress.fixed.js",
 				"zenscroll/3.2.2/js/zenscroll.fixed.js"
