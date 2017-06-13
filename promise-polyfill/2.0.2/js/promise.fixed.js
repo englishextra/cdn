@@ -16,7 +16,7 @@
 	function Promise(fn) {
 		if (typeof this !== 'object')
 			throw new TypeError('Promises must be constructed via new');
-		if (typeof fn !== 'function')
+		if (typeof fn !== "function")
 			throw new TypeError('not a function');
 		this._state = 0;
 		this._handled = false;
@@ -53,14 +53,14 @@
 		try {
 			if (newValue === self)
 				throw new TypeError('A promise cannot be resolved with itself.');
-			if (newValue && (typeof newValue === 'object' || typeof newValue === 'function')) {
+			if (newValue && (typeof newValue === 'object' || typeof newValue === "function")) {
 				var then = newValue.then;
 				if (newValue instanceof Promise) {
 					self._state = 3;
 					self._value = newValue;
 					finale(self);
 					return;
-				} else if (typeof then === 'function') {
+				} else if (typeof then === "function") {
 					doResolve(bind(then, newValue), self);
 					return;
 				}
@@ -91,8 +91,8 @@
 		self._deferreds = null;
 	}
 	function Handler(onFulfilled, onRejected, promise) {
-		this.onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : null;
-		this.onRejected = typeof onRejected === 'function' ? onRejected : null;
+		this.onFulfilled = typeof onFulfilled === "function" ? onFulfilled : null;
+		this.onRejected = typeof onRejected === "function" ? onRejected : null;
 		this.promise = promise;
 	}
 	function doResolve(fn, self) {
@@ -132,9 +132,9 @@
 			var remaining = args.length;
 			function res(i, val) {
 				try {
-					if (val && (typeof val === 'object' || typeof val === 'function')) {
+					if (val && (typeof val === 'object' || typeof val === "function")) {
 						var then = val.then;
-						if (typeof then === 'function') {
+						if (typeof then === "function") {
 							then.call(val, function (val) {
 								res(i, val);
 							}, reject);
@@ -174,13 +174,13 @@
 			}
 		});
 	};
-	Promise._immediateFn = (typeof setImmediate === 'function' && function (fn) {
+	Promise._immediateFn = (typeof setImmediate === "function" && function (fn) {
 		setImmediate(fn);
 	}) || function (fn) {
 		setTimeoutFunc(fn, 0);
 	};
 	Promise._unhandledRejectionFn = function _unhandledRejectionFn(err) {
-		if (typeof console !== 'undefined' && console) {
+		if (typeof console !== "undefined" && console) {
 			console.warn('Possible Unhandled Promise Rejection:', err);
 		}
 	};
@@ -190,9 +190,9 @@
 	Promise._setUnhandledRejectionFn = function _setUnhandledRejectionFn(fn) {
 		Promise._unhandledRejectionFn = fn;
 	};
-	if (typeof module !== 'undefined' && module.exports) {
+	if (typeof module !== "undefined" && module.exports) {
 		module.exports = Promise;
 	} else if (!root.Promise) {
 		root.Promise = Promise;
 	}
-})("undefined" !== typeof window ? window : this);
+}("undefined" !== typeof window ? window : this));

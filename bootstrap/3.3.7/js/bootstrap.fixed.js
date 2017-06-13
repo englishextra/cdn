@@ -9,10 +9,10 @@
 /* jshint -W041 */
 /* jslint asi: true */
 /* jslint bitwise: true */
-if(typeof jQuery==='undefined'){throw new Error('Bootstrap\'s JavaScript requires jQuery')}
-+function($){'use strict';var version=$.fn.jquery.split(' ')[0].split('.')
+if(typeof jQuery==="undefined"){throw new Error('Bootstrap\'s JavaScript requires jQuery')}
++function($){"use strict";var version=$.fn.jquery.split(' ')[0].split('.')
 if((version[0]<2&&version[1]<9)||(version[0]==1&&version[1]==9&&version[2]<1)||(version[0]>3)){throw new Error('Bootstrap\'s JavaScript requires jQuery version 1.9.1 or higher, but lower than version 4')}}
-(jQuery);+function($){'use strict';function transitionEnd(){var el=document.createElement('bootstrap')
+(jQuery);+function($){"use strict";function transitionEnd(){var el=document.createElement('bootstrap')
 var transEndEventNames={WebkitTransition:'webkitTransitionEnd',MozTransition:'transitionend',OTransition:'oTransitionEnd otransitionend',transition:'transitionend'}
 for(var name in transEndEventNames){if(el.style[name]!==undefined){return{end:transEndEventNames[name]}}}
 return false}
@@ -28,7 +28,7 @@ if(!$.support.transition)
 return
 $.event.special.bsTransitionEnd={bindType:$.support.transition.end,delegateType:$.support.transition.end,handle:function(e){if($(e.target).is(this))
 return e.handleObj.handler.apply(this,arguments)}}})}
-(jQuery);+function($){'use strict';var dismiss='[data-dismiss="alert"]'
+(jQuery);+function($){"use strict";var dismiss='[data-dismiss="alert"]'
 var Alert=function(el){$(el).on('click',dismiss,this.close)}
 Alert.VERSION='3.3.7'
 Alert.TRANSITION_DURATION=150
@@ -58,7 +58,7 @@ $.fn.alert.Constructor=Alert
 $.fn.alert.noConflict=function(){$.fn.alert=old
 return this}
 $(document).on('click.bs.alert.data-api',dismiss,Alert.prototype.close)}
-(jQuery);+function($){'use strict';var Button=function(element,options){this.$element=$(element)
+(jQuery);+function($){"use strict";var Button=function(element,options){this.$element=$(element)
 this.options=$.extend({},Button.DEFAULTS,options)
 this.isLoading=false}
 Button.VERSION='3.3.7'
@@ -106,7 +106,7 @@ if(!($(e.target).is('input[type="radio"], input[type="checkbox"]'))){e.preventDe
 if($btn.is('input,button'))
 $btn.trigger('focus');else
 $btn.find('input:visible,button:visible').first().trigger('focus')}}).on('focus.bs.button.data-api blur.bs.button.data-api','[data-toggle^="button"]',function(e){$(e.target).closest('.btn').toggleClass('focus',/^focus(in)?$/.test(e.type))})}
-(jQuery);+function($){'use strict';var Carousel=function(element,options){this.$element=$(element)
+(jQuery);+function($){"use strict";var Carousel=function(element,options){this.$element=$(element)
 this.$indicators=this.$element.find('.carousel-indicators')
 this.options=options
 this.paused=null
@@ -219,7 +219,7 @@ e.preventDefault()}
 $(document).on('click.bs.carousel.data-api','[data-slide]',clickHandler).on('click.bs.carousel.data-api','[data-slide-to]',clickHandler)
 $(window).on('load',function(){$('[data-ride="carousel"]').each(function(){var $carousel=$(this)
 Plugin.call($carousel,$carousel.data())})})}
-(jQuery);+function($){'use strict';var Collapse=function(element,options){this.$element=$(element)
+(jQuery);+function($){"use strict";var Collapse=function(element,options){this.$element=$(element)
 this.options=$.extend({},Collapse.DEFAULTS,options)
 this.$trigger=$('[data-toggle="collapse"][href="#'+element.id+'"],'+'[data-toggle="collapse"][data-target="#'+element.id+'"]')
 this.transitioning=null
@@ -302,7 +302,7 @@ var $target=getTargetFromTrigger($this)
 var data=$target.data('bs.collapse')
 var option=data?'toggle':$this.data()
 Plugin.call($target,option)})}
-(jQuery);+function($){'use strict';var backdrop='.dropdown-backdrop'
+(jQuery);+function($){"use strict";var backdrop='.dropdown-backdrop'
 var toggle='[data-toggle="dropdown"]'
 var Dropdown=function(element){$(element).on('click.bs.dropdown',this.toggle)}
 Dropdown.VERSION='3.3.7'
@@ -376,7 +376,7 @@ $.fn.dropdown.Constructor=Dropdown
 $.fn.dropdown.noConflict=function(){$.fn.dropdown=old
 return this}
 $(document).on('click.bs.dropdown.data-api',clearMenus).on('click.bs.dropdown.data-api','.dropdown form',function(e){e.stopPropagation()}).on('click.bs.dropdown.data-api',toggle,Dropdown.prototype.toggle).on('keydown.bs.dropdown.data-api',toggle,Dropdown.prototype.keydown).on('keydown.bs.dropdown.data-api','.dropdown-menu',Dropdown.prototype.keydown)}
-(jQuery);+function($){'use strict';var Modal=function(element,options){this.options=options
+(jQuery);+function($){"use strict";var Modal=function(element,options){this.options=options
 this.$body=$(document.body)
 this.$element=$(element)
 this.$dialog=this.$element.find('.modal-dialog')
@@ -499,7 +499,7 @@ $target.one('show.bs.modal',function(showEvent){if(showEvent.isDefaultPrevented(
 return
 $target.one('hidden.bs.modal',function(){$this.is(':visible')&&$this.trigger('focus')})})
 Plugin.call($target,option,this)})}
-(jQuery);+function($){'use strict';var Tooltip=function(element,options){this.type=null
+(jQuery);+function($){"use strict";var Tooltip=function(element,options){this.type=null
 this.options=null
 this.enabled=null
 this.timeout=null
@@ -573,7 +573,7 @@ $tip.attr('id',tipId)
 this.$element.attr('aria-describedby',tipId)
 if(this.options.animation)
 $tip.addClass('fade')
-var placement=typeof this.options.placement=='function'?this.options.placement.call(this,$tip[0],this.$element[0]):this.options.placement
+var placement=typeof this.options.placement=="function"?this.options.placement.call(this,$tip[0],this.$element[0]):this.options.placement
 var autoToken=/\s?auto?\s?/i
 var autoPlace=autoToken.test(placement)
 if(autoPlace)
@@ -668,7 +668,7 @@ return delta}
 Tooltip.prototype.getTitle=function(){var title
 var $e=this.$element
 var o=this.options
-title=$e.attr('data-original-title')||(typeof o.title=='function'?o.title.call($e[0]):o.title)
+title=$e.attr('data-original-title')||(typeof o.title=="function"?o.title.call($e[0]):o.title)
 return title}
 Tooltip.prototype.getUID=function(prefix){do
 prefix+=~~(Math.random()*1000000);while(document.getElementById(prefix))
@@ -710,7 +710,7 @@ $.fn.tooltip=Plugin
 $.fn.tooltip.Constructor=Tooltip
 $.fn.tooltip.noConflict=function(){$.fn.tooltip=old
 return this}}
-(jQuery);+function($){'use strict';var Popover=function(element,options){this.init('popover',element,options)}
+(jQuery);+function($){"use strict";var Popover=function(element,options){this.init('popover',element,options)}
 if(!$.fn.tooltip)
 throw new Error('Popover requires tooltip.js')
 Popover.VERSION='3.3.7'
@@ -729,7 +729,7 @@ $tip.find('.popover-title').hide()}
 Popover.prototype.hasContent=function(){return this.getTitle()||this.getContent()}
 Popover.prototype.getContent=function(){var $e=this.$element
 var o=this.options
-return $e.attr('data-content')||(typeof o.content=='function'?o.content.call($e[0]):o.content)}
+return $e.attr('data-content')||(typeof o.content=="function"?o.content.call($e[0]):o.content)}
 Popover.prototype.arrow=function(){return(this.$arrow=this.$arrow||this.tip().find('.arrow'))}
 function Plugin(option){return this.each(function(){var $this=$(this)
 var data=$this.data('bs.popover')
@@ -745,7 +745,7 @@ $.fn.popover=Plugin
 $.fn.popover.Constructor=Popover
 $.fn.popover.noConflict=function(){$.fn.popover=old
 return this}}
-(jQuery);+function($){'use strict';function ScrollSpy(element,options){this.$body=$(document.body)
+(jQuery);+function($){"use strict";function ScrollSpy(element,options){this.$body=$(document.body)
 this.$scrollElement=$(element).is(document.body)?$(window):$(element)
 this.options=$.extend({},ScrollSpy.DEFAULTS,options)
 this.selector=(this.options.target||'')+' .nav li > a'
@@ -806,7 +806,7 @@ $.fn.scrollspy.noConflict=function(){$.fn.scrollspy=old
 return this}
 $(window).on('load.bs.scrollspy.data-api',function(){$('[data-spy="scroll"]').each(function(){var $spy=$(this)
 Plugin.call($spy,$spy.data())})})}
-(jQuery);+function($){'use strict';var Tab=function(element){this.element=$(element)}
+(jQuery);+function($){"use strict";var Tab=function(element){this.element=$(element)}
 Tab.VERSION='3.3.7'
 Tab.TRANSITION_DURATION=150
 Tab.prototype.show=function(){var $this=this.element
@@ -851,7 +851,7 @@ return this}
 var clickHandler=function(e){e.preventDefault()
 Plugin.call($(this),'show')}
 $(document).on('click.bs.tab.data-api','[data-toggle="tab"]',clickHandler).on('click.bs.tab.data-api','[data-toggle="pill"]',clickHandler)}
-(jQuery);+function($){'use strict';var Affix=function(element,options){this.options=$.extend({},Affix.DEFAULTS,options)
+(jQuery);+function($){"use strict";var Affix=function(element,options){this.options=$.extend({},Affix.DEFAULTS,options)
 this.$target=$(this.options.target).on('scroll.bs.affix.data-api',$.proxy(this.checkPosition,this)).on('click.bs.affix.data-api',$.proxy(this.checkPositionWithEventLoop,this))
 this.$element=$(element)
 this.affixed=null
@@ -893,9 +893,9 @@ var offsetBottom=offset.bottom
 var scrollHeight=Math.max($(document).height(),$(document.body).height())
 if(typeof offset!='object')
 offsetBottom=offsetTop=offset
-if(typeof offsetTop=='function')
+if(typeof offsetTop=="function")
 offsetTop=offset.top(this.$element)
-if(typeof offsetBottom=='function')
+if(typeof offsetBottom=="function")
 offsetBottom=offset.bottom(this.$element)
 var affix=this.getState(scrollHeight,height,offsetTop,offsetBottom)
 if(this.affixed!=affix){if(this.unpin!=null)

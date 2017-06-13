@@ -2867,7 +2867,7 @@
 		support.checkClone = div.cloneNode(true).cloneNode(true).lastChild.checked;
 		div.innerHTML = "<textarea>x</textarea>";
 		support.noCloneChecked = !!div.cloneNode(true).lastChild.defaultValue;
-	})();
+	}());
 	var documentElement = document.documentElement;
 	var
 	rkeyEvent = /^key/,
@@ -3766,7 +3766,7 @@
 				return reliableMarginLeftVal;
 			}
 		});
-	})();
+	}());
 	function curCSS(elem, name, computed) {
 		var width,
 		minWidth,
@@ -4662,7 +4662,7 @@
 		input.value = "t";
 		input.type = "radio";
 		support.radioValue = input.value === "t";
-	})();
+	}());
 	var boolHook,
 	attrHandle = jQuery.expr.attrHandle;
 	jQuery.fn.extend({
@@ -6073,7 +6073,7 @@
 		var body = document.implementation.createHTMLDocument("").body;
 		body.innerHTML = "<form></form><form></form>";
 		return body.childNodes.length === 2;
-	})();
+	}());
 	jQuery.parseHTML = function (data, context, keepScripts) {
 		if (typeof data !== "string") {
 			return [];

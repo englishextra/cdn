@@ -12,17 +12,17 @@
  * passes jshint
  */
 (function (root, factory) {
-	'use strict';
+	"use strict";
 	root.getSize = factory();
 })( "undefined" !== typeof window ? window : this, function factory() {
-	'use strict';
+	"use strict";
 	function getStyleSize(value) {
 		var num = parseFloat(value);
 		var isValid = value.indexOf('%') == -1 && !isNaN(num);
 		return isValid && num;
 	}
 	function noop() {}
-	var logError = typeof console == 'undefined' ? noop : function (message) {
+	var logError = typeof console == "undefined" ? noop : function (message) {
 		console.error(message);
 	};
 	var measurements = ['paddingLeft', 'paddingRight', 'paddingTop', 'paddingBottom', 'marginLeft', 'marginRight', 'marginTop', 'marginBottom', 'borderLeftWidth', 'borderRightWidth', 'borderTopWidth', 'borderBottomWidth'];
@@ -175,11 +175,11 @@
 		return EvEmitter;
 	}));
 (function (window, factory) {
-	'use strict';
+	"use strict";
 	window.matchesSelector = factory();
 }
 	("undefined" !== typeof window ? window : this, function factory() {
-		'use strict';
+		"use strict";
 		var matchesMethod = (function () {
 			var ElemProto = Element.prototype;
 			if (ElemProto.matches) {
@@ -196,7 +196,7 @@
 					return method;
 				}
 			}
-		})();
+		}());
 		return function matchesSelector(elem, selector) {
 			return elem[matchesMethod](selector);
 		};
@@ -340,7 +340,7 @@
 	window.Outlayer.Item = factory(window.EvEmitter, window.getSize);
 }
 	("undefined" !== typeof window ? window : this, function factory(EvEmitter, getSize) {
-		'use strict';
+		"use strict";
 		function isEmptyObj(obj) {
 			for (var prop in obj) {
 				if (obj.hasOwnProperty(prop)) {
@@ -692,11 +692,11 @@
 		return Item;
 	}));
 (function (window, factory) {
-	'use strict';
+	"use strict";
 	window.Outlayer = factory(window, window.EvEmitter, window.getSize, window.fizzyUIUtils, window.Outlayer.Item);
 }
 	("undefined" !== typeof window ? window : this, function factory(window, EvEmitter, getSize, utils, Item) {
-		'use strict';
+		"use strict";
 		var console = window.console;
 		var jQuery = window.jQuery;
 		var noop = function () {};
@@ -1190,7 +1190,7 @@
 	window.Packery.Rect = factory();
 }
 	("undefined" !== typeof window ? window : this, function factory() {
-		'use strict';
+		"use strict";
 		function Rect(props) {
 			for (var prop in Rect.defaults) {
 				if (Rect.defaults.hasOwnProperty(prop)) {
@@ -1280,7 +1280,7 @@
 	Packery.Packer = factory(Packery.Rect);
 }
 	("undefined" !== typeof window ? window : this, function factory(Rect) {
-		'use strict';
+		"use strict";
 		function Packer(width, height, sortDirection) {
 			this.width = width || 0;
 			this.height = height || 0;
@@ -1396,7 +1396,7 @@
 	window.Packery.Item = factory(window.Outlayer, window.Packery.Rect);
 }
 	("undefined" !== typeof window ? window : this, function factory(Outlayer, Rect) {
-		'use strict';
+		"use strict";
 		var docElemStyle = document.documentElement.style;
 		var transformProperty = typeof docElemStyle.transform == 'string' ? 'transform' : 'WebkitTransform';
 		var Item = function PackeryItem() {
@@ -1464,7 +1464,7 @@
 	window.Packery = factory(window.getSize, window.Outlayer, window.Packery.Rect, window.Packery.Packer, window.Packery.Item);
 }
 	("undefined" !== typeof window ? window : this, function factory(getSize, Outlayer, Rect, Packer, Item) {
-		'use strict';
+		"use strict";
 		Rect.prototype.canFit = function (rect) {
 			return this.width >= rect.width - 1 && this.height >= rect.height - 1;
 		};
@@ -1901,7 +1901,7 @@
 		return isValid && num;
 	}
 	function noop() {}
-	var logError = typeof console == 'undefined' ? noop : function (message) {
+	var logError = typeof console == "undefined" ? noop : function (message) {
 		console.error(message);
 	};
 	var measurements = ['paddingLeft', 'paddingRight', 'paddingTop', 'paddingBottom', 'marginLeft', 'marginRight', 'marginTop', 'marginBottom', 'borderLeftWidth', 'borderRightWidth', 'borderTopWidth', 'borderBottomWidth'];
@@ -2070,12 +2070,12 @@
 			isBind = isBind === undefined ? true : !!isBind;
 			var bindMethod = isBind ? 'addEventListener' : 'removeEventListener';
 			if (window.navigator.pointerEnabled) {
-				elem[bindMethod]('pointerdown', this);
+				elem[bindMethod]("PointerDown", this);
 			} else if (window.navigator.msPointerEnabled) {
 				elem[bindMethod]('MSPointerDown', this);
 			} else {
-				elem[bindMethod]('mousedown', this);
-				elem[bindMethod]('touchstart', this);
+				elem[bindMethod]("mousedown", this);
+				elem[bindMethod]("touchstart", this);
 			}
 		};
 		proto.handleEvent = function (event) {
@@ -2115,12 +2115,12 @@
 		};
 		proto.pointerDown = function (event, pointer) {
 			this._bindPostStartEvents(event);
-			this.emitEvent('pointerDown', [event, pointer]);
+			this.emitEvent("PointerDown", [event, pointer]);
 		};
 		var postStartEvents = {
-			mousedown: ['mousemove', 'mouseup'],
-			touchstart: ['touchmove', 'touchend', 'touchcancel'],
-			pointerdown: ['pointermove', 'pointerup', 'pointercancel'],
+			mousedown: ["mousemove", "mouseup"],
+			touchstart: ["touchmove", "touchend", 'touchcancel'],
+			pointerdown: ["PointerMove", "PointerUp", 'pointercancel'],
 			MSPointerDown: ['MSPointerMove', 'MSPointerUp', 'MSPointerCancel']
 		};
 		proto._bindPostStartEvents = function (event) {
@@ -2160,7 +2160,7 @@
 			this.pointerMove(event, pointer);
 		};
 		proto.pointerMove = function (event, pointer) {
-			this.emitEvent('pointerMove', [event, pointer]);
+			this.emitEvent("PointerMove", [event, pointer]);
 		};
 		proto.onmouseup = function (event) {
 			this._pointerUp(event, event);
@@ -2181,7 +2181,7 @@
 			this.pointerUp(event, pointer);
 		};
 		proto.pointerUp = function (event, pointer) {
-			this.emitEvent('pointerUp', [event, pointer]);
+			this.emitEvent("PointerUp", [event, pointer]);
 		};
 		proto._pointerDone = function () {
 			this.isPointerDown = false;
@@ -2264,7 +2264,7 @@
 				focused.blur();
 			}
 			this._bindPostStartEvents(event);
-			this.emitEvent('pointerDown', [event, pointer]);
+			this.emitEvent("PointerDown", [event, pointer]);
 		};
 		proto._dragPointerDown = function (event, pointer) {
 			this.pointerDownPoint = Unipointer.getPointerPoint(pointer);
@@ -2278,7 +2278,7 @@
 		};
 		proto.pointerMove = function (event, pointer) {
 			var moveVector = this._dragPointerMove(event, pointer);
-			this.emitEvent('pointerMove', [event, pointer, moveVector]);
+			this.emitEvent("PointerMove", [event, pointer, moveVector]);
 			this._dragMove(event, pointer, moveVector);
 		};
 		proto._dragPointerMove = function (event, pointer) {
@@ -2296,7 +2296,7 @@
 			return Math.abs(moveVector.x) > 3 || Math.abs(moveVector.y) > 3;
 		};
 		proto.pointerUp = function (event, pointer) {
-			this.emitEvent('pointerUp', [event, pointer]);
+			this.emitEvent("PointerUp", [event, pointer]);
 			this._dragPointerUp(event, pointer);
 		};
 		proto._dragPointerUp = function (event, pointer) {
@@ -2342,7 +2342,7 @@
 			}
 		};
 		proto._staticClick = function (event, pointer) {
-			if (this.isIgnoringMouseUp && event.type == 'mouseup') {
+			if (this.isIgnoringMouseUp && event.type == "mouseup") {
 				return;
 			}
 			var nodeName = event.target.nodeName;
@@ -2350,7 +2350,7 @@
 				event.target.focus();
 			}
 			this.staticClick(event, pointer);
-			if (event.type != 'mouseup') {
+			if (event.type != "mouseup") {
 				this.isIgnoringMouseUp = true;
 				setTimeout(function () {
 					delete this.isIgnoringMouseUp;
@@ -2486,11 +2486,11 @@
 			}
 			this._bindPostStartEvents(event);
 			this.element.classList.add('is-pointer-down');
-			this.dispatchEvent('pointerDown', event, [pointer]);
+			this.dispatchEvent("PointerDown", event, [pointer]);
 		};
 		proto.pointerMove = function (event, pointer) {
 			var moveVector = this._dragPointerMove(event, pointer);
-			this.dispatchEvent('pointerMove', event, [pointer, moveVector]);
+			this.dispatchEvent("PointerMove", event, [pointer, moveVector]);
 			this._dragMove(event, pointer, moveVector);
 		};
 		proto.dragStart = function (event, pointer) {
@@ -2567,7 +2567,7 @@
 		};
 		proto.pointerUp = function (event, pointer) {
 			this.element.classList.remove('is-pointer-down');
-			this.dispatchEvent('pointerUp', event, [pointer]);
+			this.dispatchEvent("PointerUp", event, [pointer]);
 			this._dragPointerUp(event, pointer);
 		};
 		proto.dragEnd = function (event, pointer) {

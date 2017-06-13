@@ -71,17 +71,17 @@
 		return EvEmitter;
 	}));
 (function (window, factory) {
-	'use strict';
+	"use strict";
 	window.getSize = factory();
 })("undefined" !== typeof window ? window : this, function factory() {
-	'use strict';
+	"use strict";
 	function getStyleSize(value) {
 		var num = parseFloat(value);
 		var isValid = value.indexOf('%') == -1 && !isNaN(num);
 		return isValid && num;
 	}
 	function noop() {}
-	var logError = typeof console == 'undefined' ? noop : function (message) {
+	var logError = typeof console == "undefined" ? noop : function (message) {
 		console.error(message);
 	};
 	var measurements = ['paddingLeft', 'paddingRight', 'paddingTop', 'paddingBottom', 'marginLeft', 'marginRight', 'marginTop', 'marginBottom', 'borderLeftWidth', 'borderRightWidth', 'borderTopWidth', 'borderBottomWidth'];
@@ -173,11 +173,11 @@
 	return getSize;
 });
 (function (window, factory) {
-	'use strict';
+	"use strict";
 	window.matchesSelector = factory();
 }
 	("undefined" !== typeof window ? window : this, function factory() {
-		'use strict';
+		"use strict";
 		var matchesMethod = (function () {
 			var ElemProto = Element.prototype;
 			if (ElemProto.matches) {
@@ -194,7 +194,7 @@
 					return method;
 				}
 			}
-		})();
+		}());
 		return function matchesSelector(elem, selector) {
 			return elem[matchesMethod](selector);
 		};
@@ -339,7 +339,7 @@
 	window.Outlayer.Item = factory(window.EvEmitter, window.getSize);
 }
 	("undefined" !== typeof window ? window : this, function factory(EvEmitter, getSize) {
-		'use strict';
+		"use strict";
 		function isEmptyObj(obj) {
 			for (var prop in obj) {
 				if (obj.hasOwnProperty(prop)) {
@@ -691,11 +691,11 @@
 		return Item;
 	}));
 (function (window, factory) {
-	'use strict';
+	"use strict";
 	window.Outlayer = factory(window, window.EvEmitter, window.getSize, window.fizzyUIUtils, window.Outlayer.Item);
 }
 	("undefined" !== typeof window ? window : this, function factory(window, EvEmitter, getSize, utils, Item) {
-		'use strict';
+		"use strict";
 		var console = window.console;
 		var jQuery = window.jQuery;
 		var noop = function () {};
@@ -1369,7 +1369,7 @@
 		return EvEmitter;
 	}));
 (function (window, factory) {
-	'use strict';
+	"use strict";
 	window.imagesLoaded = factory(window, window.EvEmitter);
 })("undefined" !== typeof window ? window : this, function factory(window, EvEmitter) {
 	var $ = window.jQuery;
@@ -1404,7 +1404,7 @@
 		}
 		this.elements = makeArray(elem);
 		this.options = extend({}, this.options);
-		if (typeof options == 'function') {
+		if (typeof options == "function") {
 			onAlways = options;
 		} else {
 			extend(this.options, options);

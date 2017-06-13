@@ -152,7 +152,7 @@ var examples = (function () {
 	return {
 		'init': init
 	};
-})();
+}());
 window.onload = examples.init;
 /* window.onload = function () {
 	var tags = [{

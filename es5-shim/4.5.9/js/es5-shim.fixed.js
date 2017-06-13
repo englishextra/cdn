@@ -15,8 +15,8 @@
 /* jshint shadow:true */
 /* jshint eqnull: true */
 (function (root, factory) {
-	'use strict';
-	if (typeof define === 'function' && define.amd) {
+	"use strict";
+	if (typeof define === "function" && define.amd) {
 		define(factory);
 	} else if (typeof exports === 'object') {
 		module.exports = factory();
@@ -46,7 +46,7 @@
 		var max = Math.max;
 		var min = Math.min;
 		var to_string = ObjectPrototype.toString;
-		var hasToStringTag = typeof Symbol === 'function' && typeof Symbol.toStringTag === 'symbol';
+		var hasToStringTag = typeof Symbol === "function" && typeof Symbol.toStringTag === 'symbol';
 		var isCallable;
 		var fnToStr = Function.prototype.toString,
 		constructorRegex = /^\s*class /,
@@ -78,7 +78,7 @@
 			if (!value) {
 				return false;
 			}
-			if (typeof value !== 'function' && typeof value !== 'object') {
+			if (typeof value !== "function" && typeof value !== 'object') {
 				return false;
 			}
 			if (hasToStringTag) {
@@ -176,7 +176,7 @@
 			(ObjectPrototype.hasOwnProperty));
 		var isPrimitive = function isPrimitive(input) {
 			var type = typeof input;
-			return input === null || (type !== 'object' && type !== 'function');
+			return input === null || (type !== 'object' && type !== "function");
 		};
 		var isActualNaN = $Number.isNaN || function isActualNaN(x) {
 			return x !== x;
@@ -295,7 +295,7 @@
 						}
 					});
 					method.call([1], function () {
-						'use strict';
+						"use strict";
 						properlyBoxesStrict = typeof this === 'string';
 					}, 'x');
 				} catch (e) {
@@ -319,7 +319,7 @@
 				}
 				while (++i < length) {
 					if (i in self) {
-						if (typeof T === 'undefined') {
+						if (typeof T === "undefined") {
 							callbackfn(self[i], i, object);
 						} else {
 							callbackfn.call(T, self[i], i, object);
@@ -343,7 +343,7 @@
 				}
 				for (var i = 0; i < length; i++) {
 					if (i in self) {
-						if (typeof T === 'undefined') {
+						if (typeof T === "undefined") {
 							result[i] = callbackfn(self[i], i, object);
 						} else {
 							result[i] = callbackfn.call(T, self[i], i, object);
@@ -370,7 +370,7 @@
 				for (var i = 0; i < length; i++) {
 					if (i in self) {
 						value = self[i];
-						if (typeof T === 'undefined' ? callbackfn(value, i, object) : callbackfn.call(T, value, i, object)) {
+						if (typeof T === "undefined" ? callbackfn(value, i, object) : callbackfn.call(T, value, i, object)) {
 							pushCall(result, value);
 						}
 					}
@@ -391,7 +391,7 @@
 					throw new TypeError('Array.prototype.every callback must be a function');
 				}
 				for (var i = 0; i < length; i++) {
-					if (i in self && !(typeof T === 'undefined' ? callbackfn(self[i], i, object) : callbackfn.call(T, self[i], i, object))) {
+					if (i in self && !(typeof T === "undefined" ? callbackfn(self[i], i, object) : callbackfn.call(T, self[i], i, object))) {
 						return false;
 					}
 				}
@@ -411,7 +411,7 @@
 					throw new TypeError('Array.prototype.some callback must be a function');
 				}
 				for (var i = 0; i < length; i++) {
-					if (i in self && (typeof T === 'undefined' ? callbackfn(self[i], i, object) : callbackfn.call(T, self[i], i, object))) {
+					if (i in self && (typeof T === "undefined" ? callbackfn(self[i], i, object) : callbackfn.call(T, self[i], i, object))) {
 						return true;
 					}
 				}
@@ -668,7 +668,7 @@
 		if (hasStringJoinBug) {
 			defineProperties(ArrayPrototype, {
 				join: function join(separator) {
-					var sep = typeof separator === 'undefined' ? ',' : separator;
+					var sep = typeof separator === "undefined" ? ',' : separator;
 					return originalJoin.call(isString(this) ? strSplit(this, '') : this, sep);
 				}
 			}, hasStringJoinBug);
@@ -677,7 +677,7 @@
 		if (hasJoinUndefinedBug) {
 			defineProperties(ArrayPrototype, {
 				join: function join(separator) {
-					var sep = typeof separator === 'undefined' ? ',' : separator;
+					var sep = typeof separator === "undefined" ? ',' : separator;
 					return originalJoin.call(this, sep);
 				}
 			}, hasJoinUndefinedBug);
@@ -696,7 +696,7 @@
 		var pushIsNotGeneric = (function () {
 			var obj = {};
 			var result = Array.prototype.push.call(obj, undefined);
-			return result !== 1 || obj.length !== 1 || typeof obj[0] !== 'undefined' || !owns(obj, 0);
+			return result !== 1 || obj.length !== 1 || typeof obj[0] !== "undefined" || !owns(obj, 0);
 		}
 			());
 		defineProperties(ArrayPrototype, {
@@ -710,7 +710,7 @@
 		var pushUndefinedIsWeird = (function () {
 			var arr = [];
 			var result = arr.push(undefined);
-			return result !== 1 || arr.length !== 1 || typeof arr[0] !== 'undefined' || !owns(arr, 0);
+			return result !== 1 || arr.length !== 1 || typeof arr[0] !== "undefined" || !owns(arr, 0);
 		}
 			());
 		defineProperties(ArrayPrototype, {
@@ -749,7 +749,7 @@
 			());
 		defineProperties(ArrayPrototype, {
 			sort: function sort(compareFn) {
-				if (typeof compareFn === 'undefined') {
+				if (typeof compareFn === "undefined") {
 					return arraySort(this);
 				}
 				if (!isCallable(compareFn)) {
@@ -782,7 +782,7 @@
 			$height: true
 		};
 		var hasAutomationEqualityBug = (function () {
-			if (typeof window === 'undefined') {
+			if (typeof window === "undefined") {
 				return false;
 			}
 			for (var k in window) {
@@ -798,7 +798,7 @@
 		}
 			());
 		var equalsConstructorPrototypeIfNotBuggy = function (object) {
-			if (typeof window === 'undefined' || !hasAutomationEqualityBug) {
+			if (typeof window === "undefined" || !hasAutomationEqualityBug) {
 				return equalsConstructorPrototype(object);
 			}
 			try {
@@ -1341,16 +1341,16 @@
 		var originalToPrecision = NumberPrototype.toPrecision;
 		defineProperties(NumberPrototype, {
 			toPrecision: function toPrecision(precision) {
-				return typeof precision === 'undefined' ? originalToPrecision.call(this) : originalToPrecision.call(this, precision);
+				return typeof precision === "undefined" ? originalToPrecision.call(this) : originalToPrecision.call(this, precision);
 			}
 		}, hasToPrecisionUndefinedBug);
 		if ('ab'.split(/(?:ab)*/).length !== 2 || '.'.split(/(.?)(.?)/).length !== 4 || 'tesst'.split(/(s)*/)[1] === 't' || 'test'.split(/(?:)/, -1).length !== 4 || ''.split(/.?/).length || '.'.split(/()()/).length > 1) {
 			(function () {
-				var compliantExecNpcg = typeof(/()??/).exec('')[1] === 'undefined';
+				var compliantExecNpcg = typeof(/()??/).exec('')[1] === "undefined";
 				var maxSafe32BitInt = Math.pow(2, 32) - 1;
 				StringPrototype.split = function (separator, limit) {
 					var string = String(this);
-					if (typeof separator === 'undefined' && limit === 0) {
+					if (typeof separator === "undefined" && limit === 0) {
 						return [];
 					}
 					if (!isRegex(separator)) {
@@ -1370,7 +1370,7 @@
 					if (!compliantExecNpcg) {
 						separator2 = new RegExp('^' + separatorCopy.source + '$(?!\\s)', flags);
 					}
-					var splitLimit = typeof limit === 'undefined' ? maxSafe32BitInt : ES.ToUint32(limit);
+					var splitLimit = typeof limit === "undefined" ? maxSafe32BitInt : ES.ToUint32(limit);
 					match = separatorCopy.exec(string);
 					while (match) {
 						lastIndex = match.index + match[0].length;
@@ -1379,7 +1379,7 @@
 							if (!compliantExecNpcg && match.length > 1) {
 								match[0].replace(separator2, function () {
 									for (var i = 1; i < arguments.length - 2; i++) {
-										if (typeof arguments[i] === 'undefined') {
+										if (typeof arguments[i] === "undefined") {
 											match[i] = void 0;
 										}
 									}
@@ -1412,7 +1412,7 @@
 				());
 		} else if ('0'.split(void 0, 0).length) {
 			StringPrototype.split = function split(separator, limit) {
-				if (typeof separator === 'undefined' && limit === 0) {
+				if (typeof separator === "undefined" && limit === 0) {
 					return [];
 				}
 				return strSplit(this, separator, limit);
@@ -1424,7 +1424,7 @@
 			'x'.replace(/x(.)?/g, function (match, group) {
 				pushCall(groups, group);
 			});
-			return groups.length === 1 && typeof groups[0] === 'undefined';
+			return groups.length === 1 && typeof groups[0] === "undefined";
 		}
 			());
 		if (!replaceReportsGroupsCorrectly) {
@@ -1466,7 +1466,7 @@
 		var hasTrimWhitespaceBug = StringPrototype.trim && (ws.trim() || !zeroWidth.trim());
 		defineProperties(StringPrototype, {
 			trim: function trim() {
-				if (typeof this === 'undefined' || this === null) {
+				if (typeof this === "undefined" || this === null) {
 					throw new TypeError("can't convert " + this + ' to object');
 				}
 				return $String(this).replace(trimBeginRegexp, '').replace(trimEndRegexp, '');
@@ -1476,7 +1476,7 @@
 		var hasLastIndexBug = StringPrototype.lastIndexOf && 'abcあい'.lastIndexOf('あい', 2) !== -1;
 		defineProperties(StringPrototype, {
 			lastIndexOf: function lastIndexOf(searchString) {
-				if (typeof this === 'undefined' || this === null) {
+				if (typeof this === "undefined" || this === null) {
 					throw new TypeError("can't convert " + this + ' to object');
 				}
 				var S = $String(this);
@@ -1525,17 +1525,17 @@
 		}
 		if (String(new RangeError('test')) !== 'RangeError: test') {
 			var errorToStringShim = function toString() {
-				if (typeof this === 'undefined' || this === null) {
+				if (typeof this === "undefined" || this === null) {
 					throw new TypeError("can't convert " + this + ' to object');
 				}
 				var name = this.name;
-				if (typeof name === 'undefined') {
+				if (typeof name === "undefined") {
 					name = 'Error';
 				} else if (typeof name !== 'string') {
 					name = $String(name);
 				}
 				var msg = this.message;
-				if (typeof msg === 'undefined') {
+				if (typeof msg === "undefined") {
 					msg = '';
 				} else if (typeof msg !== 'string') {
 					msg = $String(msg);
