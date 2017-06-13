@@ -53,16 +53,19 @@
 							var descriptor = props[i];
 							descriptor.enumerable = descriptor.enumerable || false;
 							descriptor.configurable = true;
-							if ("value" in descriptor)
+							if ("value" in descriptor) {
 								descriptor.writable = true;
+							}
 							Object.defineProperty(target, descriptor.key, descriptor);
 						}
 					}
 					return function (Constructor, protoProps, staticProps) {
-						if (protoProps)
+						if (protoProps) {
 							defineProperties(Constructor.prototype, protoProps);
-						if (staticProps)
+						}
+						if (staticProps) {
 							defineProperties(Constructor, staticProps);
+						}
 						return Constructor;
 					};
 				}
@@ -88,11 +91,11 @@
 				}
 				var DoSlide = function () {
 					function DoSlide() {
-						var selector = arguments.length <= 0 || arguments[0] === undefined ? document.createElement('div') : arguments[0];
+						var selector = arguments.length <= 0 || arguments[0] === undefined ? document.createElement("div") : arguments[0];
 						var config = arguments.length <= 1 || arguments[1] === undefined ? {}
 						 : arguments[1];
 						_classCallCheck(this, DoSlide);
-						Object.defineProperty(this, '_data', _config.DATA_DESCRIPTOR);
+						Object.defineProperty(this, "_data", _config.DATA_DESCRIPTOR);
 						this.$ = _util2.default;
 							this.callbacks = {
 								onChanged: [],
@@ -113,10 +116,10 @@
 							(0, _init.init)(this);
 					}
 					_createClass(DoSlide, [{
-								key: 'set',
+								key: "set",
 								value: function set(name, value) {
 									var config = this.config;
-									if (typeof name === 'string') {
+									if (typeof name === "string") {
 										config[name] = value;
 									} else {
 										_extends(config, name);
@@ -124,68 +127,68 @@
 									return this;
 								}
 							}, {
-								key: 'get',
+								key: "get",
 								value: function get(name) {
 									return this.config[name];
 								}
 							}, {
-								key: 'next',
+								key: "next",
 								value: function next() {
 									var index = this.config.infinite ? (this.currentIndex + 1) % this.el.children.length : this.currentIndex + 1;
 									this.go(index);
 									return this;
 								}
 							}, {
-								key: 'prev',
+								key: "prev",
 								value: function prev() {
 									var index = this.config.infinite ? (this.currentIndex || this.el.children.length) - 1 : this.currentIndex - 1;
 									this.go(index);
 									return this;
 								}
 							}, {
-								key: 'go',
+								key: "go",
 								value: function go(index) {
 									(0, _show.change)(this, +index || 0);
 									return this;
 								}
 							}, {
-								key: 'do',
+								key: "do",
 								value: function _do(callback) {
 									callback.call(this, this.currentIndex, this.currentSection);
 									return this;
 								}
 							}, {
-								key: 'onChanged',
+								key: "onChanged",
 								value: function onChanged(callback) {
 									this.callbacks.onChanged.push(callback);
 									return this;
 								}
 							}, {
-								key: 'onBeforeChange',
+								key: "onBeforeChange",
 								value: function onBeforeChange(callback) {
 									this.callbacks.onBeforeChange.push(callback);
 									return this;
 								}
 							}, {
-								key: 'onOverRange',
+								key: "onOverRange",
 								value: function onOverRange(callback) {
 									this.callbacks.onOverRange.push(callback);
 									return this;
 								}
 							}, {
-								key: 'onUserMouseWheel',
+								key: "onUserMouseWheel",
 								value: function onUserMouseWheel(callback) {
 									this.callbacks.onUserMouseWheel.push(callback);
 									return this;
 								}
 							}, {
-								key: 'onUserSwipe',
+								key: "onUserSwipe",
 								value: function onUserSwipe(callback) {
 									this.callbacks.onUserSwipe.push(callback);
 									return this;
 								}
 							}, {
-								key: 'initSpaceByKey',
+								key: "initSpaceByKey",
 								value: function initSpaceByKey(key) {
 									Object.defineProperty(this._data, key, {
 										enumerable: false,
@@ -196,7 +199,7 @@
 									return this._data[key];
 								}
 							}, {
-								key: 'getSpaceByKey',
+								key: "getSpaceByKey",
 								value: function getSpaceByKey(key) {
 									return this._data[key];
 								}
@@ -209,7 +212,7 @@
 					return new DoSlide(selector, _extends({}, doSlide.config, config));
 				};
 				DoSlide.applyNewKey = function () {
-					var key = 'key' + Date.now() + ~~(Math.random() * 10000);
+					var key = "key" + Date.now() + ~~(Math.random() * 10000);
 					return key;
 				};
 				DoSlide.use = function (plugin, config) {
@@ -219,8 +222,8 @@
 				};
 				DoSlide.use(_keyboard2.default);
 					DoSlide.$ = _util2.default;
-						DoSlide.supportedTransition = _util2.default.getSupportedCSS('transition');
-							DoSlide.supportedTransform = _util2.default.getSupportedCSS('transform');
+						DoSlide.supportedTransition = _util2.default.getSupportedCSS("transition");
+							DoSlide.supportedTransform = _util2.default.getSupportedCSS("transform");
 								module.exports = DoSlide;
 				}, function (module, exports) {
 					"use strict";
@@ -229,10 +232,10 @@
 					});
 					var DEFAULT_INIT_CONFIG = exports.DEFAULT_INIT_CONFIG = {
 						initIndex: 0,
-						initClass: 'ds-init',
-						activeClass: 'active',
-						transitionInClass: 'transition-in',
-						transitionOutClass: 'transition-out',
+						initClass: "ds-init",
+						activeClass: "active",
+						transitionInClass: "transition-in",
+						transitionOutClass: "transition-out",
 						silent: false,
 						horizontal: false,
 						infinite: false,
@@ -242,7 +245,7 @@
 					};
 					var DEFAULT_CONFIG = exports.DEFAULT_CONFIG = {
 						duration: 1000,
-						timingFunction: 'ease',
+						timingFunction: "ease",
 						minInterval: 50,
 						translate3d: true,
 						parent: null,
@@ -295,7 +298,7 @@
 								this[0] = selector;
 								this.length = 1;
 							} else {
-								if (typeof selector === 'string') {
+								if (typeof selector === "string") {
 									selector = document.querySelectorAll(selector) || [];
 								}
 								util.each(selector, function (elem, index) {
@@ -390,11 +393,11 @@
 						},
 						attr: function attr(elem, name, value) {
 							if (elem) {
-								if (typeof name === 'string') {
+								if (typeof name === "string") {
 									if (isSet(value)) {
 										elem.setAttribute(name, value);
 									} else {
-										return elem.getAttribute(name) || '';
+										return elem.getAttribute(name) || "";
 									}
 								} else {
 									for (var key in name) {
@@ -407,7 +410,7 @@
 						},
 						css: function css(elem, name, value) {
 							if (elem && name) {
-								if (typeof name === 'string') {
+								if (typeof name === "string") {
 									if (isSet(value)) {
 										elem.style[name] = value;
 									} else {
@@ -428,26 +431,26 @@
 						},
 						addClass: function addClass(elem, name) {
 							if (elem && name && !this.hasClass(elem, name)) {
-								var cur = this.attr(elem, 'class').trim();
-								var res = (cur + ' ' + name).trim();
-								this.attr(elem, 'class', res);
+								var cur = this.attr(elem, "class").trim();
+								var res = (cur + " " + name).trim();
+								this.attr(elem, "class", res);
 							}
 						},
 						removeClass: function removeClass(elem, name) {
 							if (elem && name) {
-								var reg = new RegExp('\\s*\\b' + name + '\\b\\s*', 'g');
-								var res = this.attr(elem, 'class').replace(reg, ' ').trim();
-								this.attr(elem, 'class', res);
+								var reg = new RegExp("\\s*\\b" + name + "\\b\\s*", "g");
+								var res = this.attr(elem, "class").replace(reg, " ").trim();
+								this.attr(elem, "class", res);
 							}
 						},
 						hasClass: function hasClass(elem, name) {
-							return !!(elem && name) && new RegExp('\\b' + name + '\\b').test(this.attr(elem, 'class'));
+							return !!(elem && name) && new RegExp("\\b" + name + "\\b").test(this.attr(elem, "class"));
 						}
 					});
 					_extends(util, {
 						getSupportedCSS: function () {
-							var prefixes = ['', '-webkit-', '-moz-', '-o-', '-ms-'];
-							var elem = document.createElement('div');
+							var prefixes = ["", "-webkit-", "-moz-", "-o-", "-ms-"];
+							var elem = document.createElement("div");
 							var style = elem.style;
 							return function (name) {
 								var isAutoPrefix = arguments.length <= 1 || arguments[1] === undefined ? true : arguments[1];
@@ -468,15 +471,17 @@
 								return false;
 							}
 							 : arguments[2];
-							if (!elem || !callback)
+							if (!elem || !callback) {
 								return;
+							}
 							var lastTime = 0,
 							scrollings = [];
-							['DOMMouseScroll', 'mousewheel'].map(function (mouseWheel) {
+							["DOMMouseScroll", "mousewheel"].map(function (mouseWheel) {
 								elem.addEventListener(mouseWheel, function (event) {
 									event.preventDefault();
-									if (isStopPropFn())
+									if (isStopPropFn()) {
 										event.stopPropagation();
+									}
 									var delta = event.detail ? -event.detail : event.wheelDelta;
 									if (delta) {
 										if (Date.now() - lastTime > 200) {
@@ -491,7 +496,7 @@
 										var avgMiddle = ~~getAvarage(scrollings.slice(-70));
 										var isAccelerating = avgEnd >= avgMiddle;
 										if (isAccelerating) {
-											var direction = delta < 0 ? 'down' : 'up';
+											var direction = delta < 0 ? "down" : "up";
 											callback.call(elem, direction);
 										}
 									}
@@ -511,8 +516,9 @@
 							endX = undefined,
 							endY = undefined;
 							elem.addEventListener("touchstart", function (event) {
-								if (isStopPropFn())
+								if (isStopPropFn()) {
 									event.stopPropagation();
+								}
 								var touch = event.changedTouches[0];
 								startX = touch.clientX;
 								startY = touch.clientY;
@@ -521,8 +527,9 @@
 								startTime = Date.now();
 							}, false);
 							elem.addEventListener("touchmove", function (event) {
-								if (isStopPropFn())
+								if (isStopPropFn()) {
 									event.stopPropagation();
+								}
 								event.preventDefault();
 								if (!(event.scale && event.scale !== 1) && event.changedTouches.length === 1) {
 									var touch = event.changedTouches[0];
@@ -531,8 +538,9 @@
 								}
 							}, false);
 							elem.addEventListener("touchend", function (event) {
-								if (isStopPropFn())
+								if (isStopPropFn()) {
 									event.stopPropagation();
+								}
 								if (Date.now() - startTime < MAX_TOUCH_TIME) {
 									var diffX = endX - startX,
 									diffY = endY - startY;
@@ -541,9 +549,9 @@
 									var direction = undefined;
 									if (Math.max(absDiffX, absDiffY) > SLIDE_THRESHOLD) {
 										if (absDiffX > absDiffY) {
-											direction = diffX > 0 ? 'right' : 'left';
+											direction = diffX > 0 ? "right" : "left";
 										} else {
-											direction = diffY > 0 ? 'down' : 'up';
+											direction = diffY > 0 ? "down" : "up";
 										}
 										callback.call(elem, direction);
 									}
@@ -562,10 +570,10 @@
 						return sum / array.length;
 					}
 					function isArrayLike(tar) {
-						return (typeof tar === "undefined" ? "undefined" : _typeof(tar)) === 'object' && isSet(tar.length);
+						return (typeof tar === "undefined" ? "undefined" : _typeof(tar)) === "object" && isSet(tar.length);
 					}
 					function access(elems, fn, key, value) {
-						if (isSet(value) || (typeof key === "undefined" ? "undefined" : _typeof(key)) === 'object') {
+						if (isSet(value) || (typeof key === "undefined" ? "undefined" : _typeof(key)) === "object") {
 							util.each(elems, function (elem) {
 								return fn(elem, key, value);
 							});
@@ -638,32 +646,32 @@
 							obj
 						};
 					}
-					var supportedTransition = _util2.default.getSupportedCSS('transition');
-						var supportedTransform = _util2.default.getSupportedCSS('transform');
+					var supportedTransition = _util2.default.getSupportedCSS("transition");
+						var supportedTransform = _util2.default.getSupportedCSS("transform");
 							var isSupport3d = function () {
 								var has3d = false;
 								if (supportedTransform && window.getComputedStyle) {
-									var el = document.createElement('div');
+									var el = document.createElement("div");
 									document.body.insertBefore(el, null);
-									el.style[supportedTransform] = 'translate3d(1%, 1%, 0)';
+									el.style[supportedTransform] = "translate3d(1%, 1%, 0)";
 									has3d = window.getComputedStyle(el).getPropertyValue(supportedTransform);
 									document.body.removeChild(el);
 								}
-								return has3d && has3d !== 'none';
+								return has3d && has3d !== "none";
 							}
 							();
 							function initSections(doSlide, initIndex) {
 								var $container = (0, _util2.default)(doSlide.el);
 									var $sections = (0, _util2.default)(doSlide.sections);
 										if (doSlide.config.horizontal) {
-											$container.css('width', $sections.length + '00%');
+											$container.css("width", $sections.length + "00%");
 											$sections.css({
-												width: 100 / $sections.length + '%',
-												float: 'left'
+												width: 100 / $sections.length + "%",
+												float: "left"
 											});
 										} else {
-											$container.css('height', $sections.length + '00%');
-											$sections.css('height', 100 / $sections.length + '%');
+											$container.css("height", $sections.length + "00%");
+											$sections.css("height", 100 / $sections.length + "%");
 										}
 										showSection(doSlide, initIndex, true);
 							}
@@ -715,7 +723,7 @@
 											(function () {
 												var lastIndex = doSlide.currentIndex;
 												var isOK = (0, _event.executeEventCallbacks)(doSlide, {
-													name: 'onBeforeChange',
+													name: "onBeforeChange",
 													args: [lastIndex, index, doSlide.currentSection, doSlide.sections[index]]
 												});
 												if (isOK) {
@@ -724,7 +732,7 @@
 													doSlide.currentSection = doSlide.sections[index];
 													setTimeout(function () {
 														(0, _event.executeEventCallbacks)(doSlide, {
-															name: 'onChanged',
+															name: "onChanged",
 															args: [index, lastIndex, doSlide.currentSection, doSlide.sections[lastIndex]]
 														});
 													}, busyTime);
@@ -742,7 +750,7 @@
 								function doingOnOverRange(doSlide, index) {
 									var parent = doSlide.config.parent;
 									var isOK = (0, _event.executeEventCallbacks)(doSlide, {
-										name: 'onOverRange',
+										name: "onOverRange",
 										args: [doSlide.currentIndex, index, doSlide.currentSection]
 									});
 									if (isOK && parent) {
@@ -757,16 +765,16 @@
 									var config = doSlide.config;
 									if (supportedTransform) {
 										if (supportedTransition) {
-											var transition = supportedTransform + ' ' + (config.timingFunction || '') + ' ' + config.duration + 'ms';
-											var transitionClean = supportedTransform + ' 0ms';
+											var transition = supportedTransform + " " + (config.timingFunction || "") + " " + config.duration + "ms";
+											var transitionClean = supportedTransform + " 0ms";
 											_util2.default.css(doSlide.el, supportedTransition, isImmediate ? transitionClean : transition);
 										}
-										var offset = -index * 100 / doSlide.sections.length + '%';
-										var translate = config.horizontal ? offset + ',0' : '0,' + offset;
-										translate = isSupport3d && config.translate3d ? 'translate3d(' + translate + ',0)' : 'translate(' + translate + ')';
+										var offset = -index * 100 / doSlide.sections.length + "%";
+										var translate = config.horizontal ? offset + ",0" : "0," + offset;
+										translate = isSupport3d && config.translate3d ? "translate3d(" + translate + ",0)" : "translate(" + translate + ")";
 										_util2.default.css(doSlide.el, supportedTransform, translate);
 									} else {
-										_util2.default.css(doSlide.el, config.horizontal ? 'left' : 'top', -index + '00%');
+										_util2.default.css(doSlide.el, config.horizontal ? "left" : "top", -index + "00%");
 									}
 								}
 								exports.initSections = initSections;
@@ -824,13 +832,14 @@
 						}
 						function listenUserMouseWheel(doSlide, eventElem) {
 							_util2.default.onMouseWheel(eventElem, function (direction) {
-								if (!doSlide.config.respondToUserEvent || doSlide.isChanging)
+								if (!doSlide.config.respondToUserEvent || doSlide.isChanging) {
 									return;
+								}
 								doSlide.userEvent = {
-									name: 'onUserMouseWheel',
+									name: "onUserMouseWheel",
 									args: [direction]
 								};
-								if (direction === 'down') {
+								if (direction === "down") {
 									doSlide.next();
 								} else {
 									doSlide.prev();
@@ -841,22 +850,27 @@
 						}
 						function listenUserSwipe(doSlide, eventElem) {
 							_util2.default.onSwipe(eventElem, function (direction) {
-								if (!doSlide.config.respondToUserEvent || doSlide.isChanging)
+								if (!doSlide.config.respondToUserEvent || doSlide.isChanging) {
 									return;
+								}
 								doSlide.userEvent = {
-									name: 'onUserSwipe',
+									name: "onUserSwipe",
 									args: [direction]
 								};
 								if (doSlide.config.horizontal) {
-									if (direction === 'left')
+									if (direction === "left") {
 										doSlide.next();
-									if (direction === 'right')
+									}
+									if (direction === "right") {
 										doSlide.prev();
+									}
 								} else {
-									if (direction === 'up')
+									if (direction === "up") {
 										doSlide.next();
-									if (direction === 'down')
+									}
+									if (direction === "down") {
 										doSlide.prev();
+									}
 								}
 							}, function () {
 								return doSlide.config.stopPropagation;
@@ -874,16 +888,19 @@
 									var descriptor = props[i];
 									descriptor.enumerable = descriptor.enumerable || false;
 									descriptor.configurable = true;
-									if ("value" in descriptor)
+									if ("value" in descriptor) {
 										descriptor.writable = true;
+									}
 									Object.defineProperty(target, descriptor.key, descriptor);
 								}
 							}
 							return function (Constructor, protoProps, staticProps) {
-								if (protoProps)
+								if (protoProps) {
 									defineProperties(Constructor.prototype, protoProps);
-								if (staticProps)
+								}
+								if (staticProps) {
 									defineProperties(Constructor, staticProps);
+								}
 								return Constructor;
 							};
 						}
@@ -899,7 +916,7 @@
 						var Keyboard = function () {
 							function Keyboard(doSlide, key) {
 								_classCallCheck(this, Keyboard);
-								this.eventType = 'keydown';
+								this.eventType = "keydown";
 								this.eventElement = window;
 								this.for  = doSlide;
 							this.$ = doSlide.$;
@@ -933,44 +950,48 @@
 								];
 							}
 							_createClass(Keyboard, [{
-										key: 'setEventType',
+										key: "setEventType",
 										value: function setEventType(eventType) {
 											if (eventType !== this.eventType) {
 												var isOn = this.isOn;
-												if (isOn)
+												if (isOn) {
 													this.turnOff();
+												}
 												this.eventType = eventType;
-												if (isOn)
+												if (isOn) {
 													this.turnOn();
+												}
 											}
 											return this;
 										}
 									}, {
-										key: 'setEventElement',
+										key: "setEventElement",
 										value: function setEventElement(elem) {
 											if (elem !== this.eventElement) {
 												var isOn = this.isOn;
-												if (isOn)
+												if (isOn) {
 													this.turnOff();
+												}
 												this.eventElement = elem;
-												if (isOn)
+												if (isOn) {
 													this.turnOn();
+												}
 											}
 											return this;
 										}
 									}, {
-										key: 'getMappings',
+										key: "getMappings",
 										value: function getMappings() {
 											return this.mappings;
 										}
 									}, {
-										key: 'setMappings',
+										key: "setMappings",
 										value: function setMappings(mappings) {
 											this.mappings = mappings;
 											return this;
 										}
 									}, {
-										key: 'turnOn',
+										key: "turnOn",
 										value: function turnOn() {
 											if (!this.isOn) {
 												this.$.on(this.eventElement, this.eventType, this.listener, false);
@@ -979,7 +1000,7 @@
 											return this;
 										}
 									}, {
-										key: 'turnOff',
+										key: "turnOff",
 										value: function turnOff() {
 											if (this.isOn) {
 												this.$.off(this.eventElement, this.eventType, this.listener, false);

@@ -14,7 +14,7 @@
 		};
 	}
 	function Promise(fn) {
-		if (typeof this !== 'object')
+		if (typeof this !== "object")
 			throw new TypeError('Promises must be constructed via new');
 		if (typeof fn !== "function")
 			throw new TypeError('not a function');
@@ -53,7 +53,7 @@
 		try {
 			if (newValue === self)
 				throw new TypeError('A promise cannot be resolved with itself.');
-			if (newValue && (typeof newValue === 'object' || typeof newValue === "function")) {
+			if (newValue && (typeof newValue === "object" || typeof newValue === "function")) {
 				var then = newValue.then;
 				if (newValue instanceof Promise) {
 					self._state = 3;
@@ -132,7 +132,7 @@
 			var remaining = args.length;
 			function res(i, val) {
 				try {
-					if (val && (typeof val === 'object' || typeof val === "function")) {
+					if (val && (typeof val === "object" || typeof val === "function")) {
 						var then = val.then;
 						if (typeof then === "function") {
 							then.call(val, function (val) {
@@ -155,7 +155,7 @@
 		});
 	};
 	Promise.resolve = function (value) {
-		if (value && typeof value === 'object' && value.constructor === Promise) {
+		if (value && typeof value === "object" && value.constructor === Promise) {
 			return value;
 		}
 		return new Promise(function (resolve) {

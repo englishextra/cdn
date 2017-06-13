@@ -186,7 +186,7 @@
 				for (var i = 0; i < type.length; i++) {
 					evName = type[i];
 					if (evName) {
-						if (typeof listener === 'object' && listener.handleEvent) {
+						if (typeof listener === "object" && listener.handleEvent) {
 							if (!unbind) {
 								listener['oldIE' + evName] = _handleEv;
 							} else {

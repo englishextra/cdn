@@ -132,7 +132,7 @@
 		if (typeof elem == 'string') {
 			elem = document.querySelector(elem);
 		}
-		if (!elem || typeof elem != 'object' || !elem.nodeType) {
+		if (!elem || typeof elem != "object" || !elem.nodeType) {
 			return;
 		}
 		var style = getStyle(elem);
