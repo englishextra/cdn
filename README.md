@@ -2,6 +2,7 @@
 
 *Third-party libraries*
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/af68cd814a414fffb2596b2979aeba8b)](https://www.codacy.com/app/englishextra/cdn?utm_source=github.com&utm_medium=referral&utm_content=englishextra/cdn&utm_campaign=badger)
 [![Travis](https://img.shields.io/travis/englishextra/cdn.svg)](https://github.com/englishextra/cdn)
 
 ## Usage
@@ -24,4 +25,4 @@ https://github.com/englishextra/cdn.git
 
 ## Copyright
 
-© [englishextra.github.com](https://englishextra.github.com/), 2015-2017
+Â©Â [englishextra.github.com](https://englishextra.github.com/), 2015-2017
