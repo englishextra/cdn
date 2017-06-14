@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head lang="en">
 	<meta charset="UTF-8">
 	<title>Kamil | Simple and highly customisable autocomplete</title>
@@ -15,8 +16,10 @@
 			background-color: #dadada;
 			cursor: default;
 		}
+
 	</style>
 </head>
+
 <body class="language-markup">
 	<header>
 		<h1 id="h1">Kamil autocomplete</h1>
@@ -41,14 +44,14 @@
 		<div class="demo">
 			<h1 id="basic-usage">Basic usage</h1>
 			<p>In the following examples, assume that the source list is:</p>
-<pre class="language-javascript">
+			<pre class="language-javascript">
 <code>
 var tags = ["ActionScript", "AppleScript", "Asp", "BASIC", "C", "C++", "Clojure", "COBOL", ... ]
 </code>
 </pre>
 			<p>The basic usage of Kamil autocomplete is very simple to configure:</p>
-<pre class="language-markup"><code>&lt;input id=&quot;tags&quot; placeholder=&quot;search&quot;&gt;</code></pre>
-<pre class="language-javascript">
+			<pre class="language-markup"><code>&lt;input id=&quot;tags&quot; placeholder=&quot;search&quot;&gt;</code></pre>
+			<pre class="language-javascript">
 <code>
 var autoComplete = new Kamil('#tags', {
 	source: tags
@@ -59,7 +62,7 @@ var autoComplete = new Kamil('#tags', {
 				<input id="tags1" placeholder="Search">
 			</div>
 			<p>The same result can be achieved by passing a selector instead of an array:</p>
-<pre class="language-markup"><code>
+			<pre class="language-markup"><code>
 &lt;input id=&quot;tags&quot; placeholder=&quot;search&quot;&gt;
 &lt;ul id=&quot;list&quot;&gt;
 	&lt;li&gt;ActionScript&lt;/li&gt;
@@ -71,7 +74,7 @@ var autoComplete = new Kamil('#tags', {
 	...
 &lt;/ul&gt;
 </code></pre>
-<pre class="language-javascript">
+			<pre class="language-javascript">
 <code>
 	var autoComplete = new Kamil('#tags', { source: '#list' });
 </code>
@@ -80,8 +83,7 @@ var autoComplete = new Kamil('#tags', {
 		<div class="demo">
 			<h1 id="customisation">Customisation</h1>
 			<p>
-				Kamil is highly customisable; you can pass and change various options through the Kamil object.
-				The table below lists all the available options:
+				Kamil is highly customisable; you can pass and change various options through the Kamil object. The table below lists all the available options:
 			</p>
 			<table>
 				<thead>
@@ -139,7 +141,7 @@ var autoComplete = new Kamil('#tags', {
 						<td>filter</td>
 						<td>
 							The filter function to apply to the source list:
-<pre class="language-javascript">
+							<pre class="language-javascript">
 <code>
 filter: function (listItem, input) { ... }
 </code>
@@ -160,8 +162,8 @@ filter: function (listItem, input) { ... }
 			</table>
 			<p>Below you can find some examples of customisation.</p>
 			<h2>Auto focus</h2>
-<pre class="language-markup"><code>&lt;input id=&quot;tags&quot; placeholder=&quot;search&quot;&gt;</code></pre>
-<pre class="language-javascript">
+			<pre class="language-markup"><code>&lt;input id=&quot;tags&quot; placeholder=&quot;search&quot;&gt;</code></pre>
+			<pre class="language-javascript">
 <code>
 var autoComplete = new Kamil('#tags', {
 	source: tags,
@@ -173,8 +175,8 @@ var autoComplete = new Kamil('#tags', {
 				<input id="tags2" placeholder="Search">
 			</div>
 			<h2>Minimum characters</h2>
-<pre class="language-markup"><code>&lt;input id=&quot;tags&quot; placeholder=&quot;search&quot;&gt;</code></pre>
-<pre class="language-javascript">
+			<pre class="language-markup"><code>&lt;input id=&quot;tags&quot; placeholder=&quot;search&quot;&gt;</code></pre>
+			<pre class="language-javascript">
 <code>
 var autoComplete = new Kamil('#tags', {
 	source: tags,
@@ -187,8 +189,8 @@ var autoComplete = new Kamil('#tags', {
 				<input id="tags3" placeholder="Search">
 			</div>
 			<h2>Sort</h2>
-<pre class="language-markup"><code>&lt;input id=&quot;tags&quot; placeholder=&quot;search&quot;&gt;</code></pre>
-<pre class="language-javascript">
+			<pre class="language-markup"><code>&lt;input id=&quot;tags&quot; placeholder=&quot;search&quot;&gt;</code></pre>
+			<pre class="language-javascript">
 <code>
 var autoComplete = new Kamil('#tags', {
 	source: tags,
@@ -205,16 +207,14 @@ var autoComplete = new Kamil('#tags', {
 		<div class="demo">
 			<h1 id="extension-points">Extension points</h1>
 			<p>
-				When extending the widget, you have the ability to override or add to the behavior of existing methods.
-				Extension points gives you more freedom than options.
+				When extending the widget, you have the ability to override or add to the behavior of existing methods. Extension points gives you more freedom than options.
 			</p>
 			<h2><code>renderItem(ul, item)</code></h2>
 			<p>
-				The renderItem extension point allows you to change the rendering of each list item.
-				The method must create an item, append it to the ul parameter and return it (the item):
+				The renderItem extension point allows you to change the rendering of each list item. The method must create an item, append it to the ul parameter and return it (the item):
 			</p>
-<pre class="language-markup"><code>&lt;input id=&quot;tags&quot; placeholder=&quot;search&quot;&gt;</code></pre>
-<pre class="language-javascript">
+			<pre class="language-markup"><code>&lt;input id=&quot;tags&quot; placeholder=&quot;search&quot;&gt;</code></pre>
+			<pre class="language-javascript">
 <code>
 // Set up an array of objects
 var tags = [
@@ -255,12 +255,10 @@ ac.on('kamilselect', function (e) {
 			</div>
 			<h2><code>renderMenu(ul, items)</code></h2>
 			<p>
-				This method controls the rendering of the menu. It is passed an empty ul element and a list of
-				items. Creation of the individual &lt;li&gt; elements should be delegated to _renderItemData() like
-				in the following example:
+				This method controls the rendering of the menu. It is passed an empty ul element and a list of items. Creation of the individual &lt;li&gt; elements should be delegated to _renderItemData() like in the following example:
 			</p>
-<pre class="language-markup"><code>&lt;input id=&quot;tags&quot; placeholder=&quot;search&quot;&gt;</code></pre>
-<pre class="language-javascript">
+			<pre class="language-markup"><code>&lt;input id=&quot;tags&quot; placeholder=&quot;search&quot;&gt;</code></pre>
+			<pre class="language-javascript">
 <code>
 var ac = new Kamil('#tags6', {
 	source: tags
@@ -285,8 +283,8 @@ ac.renderMenu = function (ul, items) {
 				<input id="tags6" placeholder="Search">
 			</div>
 			<p>Categories (example from <a href="https://jqueryui.com/autocomplete/#categories">jQuery UI Autocomplete</a>):</p>
-<pre class="language-markup"><code>&lt;input id=&quot;tags&quot; placeholder=&quot;search&quot;&gt;</code></pre>
-<pre class="language-javascript">
+			<pre class="language-markup"><code>&lt;input id=&quot;tags&quot; placeholder=&quot;search&quot;&gt;</code></pre>
+			<pre class="language-javascript">
 <code>
 var data = [
 		{ label: "anders", category: "" },
@@ -353,7 +351,7 @@ ac.renderMenu = function (ul, items) {
 		<div class="demo">
 			<h1 id="events">Events</h1>
 			You can add an event listener using the <code>on</code> method:
-<pre class="language-javascript">
+			<pre class="language-javascript">
 <code>
 autoComplete.on('kamilopen', function (e) {
 	...
@@ -364,10 +362,7 @@ autoComplete.on('kamilopen', function (e) {
 			<p>Triggered when the menu is closed (hidden).</p>
 			<h2><code>kamilfocus</code></h2>
 			<p>
-				Triggered when focus is moved to an item. The default behaviour is to
-				replace the input's field with the 'property' option (if it's not
-				specified then it will fallback on 'label' then 'value' then the
-				item's text itself).
+				Triggered when focus is moved to an item. The default behaviour is to replace the input's field with the 'property' option (if it's not specified then it will fallback on 'label' then 'value' then the item's text itself).
 			</p>
 			<h2><code>kamilopen</code></h2>
 			<p>
@@ -385,192 +380,192 @@ autoComplete.on('kamilopen', function (e) {
 	</div>
 	<script src="./js/kamil.fixed.js"></script>
 	<script>
-var examples = (function () {
-	var
-	tags = [
-		"ActionScript",
-		"AppleScript",
-		"Asp",
-		"BASIC",
-		"C",
-		"C++",
-		"Clojure",
-		"COBOL",
-		"ColdFusion",
-		"Erlang",
-		"Fortran",
-		"Groovy",
-		"Haskell",
-		"Java",
-		"JavaScript",
-		"Lisp",
-		"Perl",
-		"PHP",
-		"Python",
-		"Ruby",
-		"Scala",
-		"Scheme"
-	],
-	tags1 = [{
-			label: "jQuery",
-			desc: "the write less, do more, JavaScript library"
-		}, {
-			label: "jQuery UI",
-			desc: "the official user interface library for jQuery"
-		}, {
-			label: "Sizzle JS",
-			desc: "a pure-JavaScript CSS selector engine"
-		}
-	],
-	example = function (num, opts) {
-		var autoComplete;
-		autoComplete = new Kamil('#tags' + num, opts);
-	},
-	example5 = function () {
-		var autoComplete = new Kamil('#tags5', {
-				source: tags1
-			});
-		autoComplete.renderItem = function (ul, item) {
-			var li = document.createElement('li');
-			li.innerHTML = "<a>" + item.label + "<br><small>" + item.desc + "</small></a>";
-			ul.appendChild(li);
-			return li;
-		};
-		autoComplete.on('kamilfocus', function (e) {
-			e.inputElement.value = e.item.label;
-		});
-		autoComplete.on('kamilselect', function (e) {
-			e.inputElement.value = e.item.label;
-		});
-	},
-	example6 = function () {
-		var autoComplete = new Kamil('#tags6', {
-				source: tags
-			});
-		autoComplete.renderMenu = function (ul, items) {
-			var i,
-			l;
-			// Render items
-			for (i = 0, l = items.length; i < l; i += 1) {
-				this._renderItemData(ul, items[i], i);
+		var examples = (function() {
+				var
+					tags = [
+						"ActionScript",
+						"AppleScript",
+						"Asp",
+						"BASIC",
+						"C",
+						"C++",
+						"Clojure",
+						"COBOL",
+						"ColdFusion",
+						"Erlang",
+						"Fortran",
+						"Groovy",
+						"Haskell",
+						"Java",
+						"JavaScript",
+						"Lisp",
+						"Perl",
+						"PHP",
+						"Python",
+						"Ruby",
+						"Scala",
+						"Scheme"
+					],
+					tags1 = [{
+						label: "jQuery",
+						desc: "the write less, do more, JavaScript library"
+					}, {
+						label: "jQuery UI",
+						desc: "the official user interface library for jQuery"
+					}, {
+						label: "Sizzle JS",
+						desc: "a pure-JavaScript CSS selector engine"
+					}],
+					example = function(num, opts) {
+						var autoComplete;
+						autoComplete = new Kamil('#tags' + num, opts);
+					},
+					example5 = function() {
+						var autoComplete = new Kamil('#tags5', {
+							source: tags1
+						});
+						autoComplete.renderItem = function(ul, item) {
+							var li = document.createElement('li');
+							li.innerHTML = "<a>" + item.label + "<br><small>" + item.desc + "</small></a>";
+							ul.appendChild(li);
+							return li;
+						};
+						autoComplete.on('kamilfocus', function(e) {
+							e.inputElement.value = e.item.label;
+						});
+						autoComplete.on('kamilselect', function(e) {
+							e.inputElement.value = e.item.label;
+						});
+					},
+					example6 = function() {
+						var autoComplete = new Kamil('#tags6', {
+							source: tags
+						});
+						autoComplete.renderMenu = function(ul, items) {
+							var i,
+								l;
+							// Render items
+							for (i = 0, l = items.length; i < l; i += 1) {
+								this._renderItemData(ul, items[i], i);
+							}
+							// Striped menu
+							var listItems = ul.getElementsByTagName('li');
+							for (i = 0, l = listItems.length; i < l; i += 1) {
+								if (i % 2 === 0) {
+									listItems[i].classList.add('striped-even');
+								}
+							}
+						};
+					},
+					example7 = function() {
+						var data = [{
+								label: "anders",
+								category: ""
+							}, {
+								label: "andreas",
+								category: ""
+							}, {
+								label: "antal",
+								category: ""
+							}, {
+								label: "annhhx10",
+								category: "Products"
+							}, {
+								label: "annk K12",
+								category: "Products"
+							}, {
+								label: "annttop C13",
+								category: "Products"
+							}, {
+								label: "anders andersson",
+								category: "People"
+							}, {
+								label: "andreas andersson",
+								category: "People"
+							}, {
+								label: "andreas johnson",
+								category: "People"
+							}],
+							ac = new Kamil('#tags7', {
+								source: data
+							});
+						ac.renderMenu = function(ul, items) {
+							var self = this,
+								currentCategory = "";
+							items.forEach(function(item, index) {
+								var li;
+								if (item.category !== currentCategory) {
+									var catLi = document.createElement('li');
+									catLi.className = 'kamil-autocomplete-category';
+									catLi.innerHTML = item.category;
+									ul.appendChild(catLi);
+									currentCategory = item.category;
+								}
+								li = self._renderItemData(ul, item, index);
+								if (item.category) {
+									li.setAttribute('aria-label', item.category + ' : ' + item.label);
+								}
+							});
+						};
+					},
+					init = function() {
+						example(1, {
+							source: tags
+						});
+						example(2, {
+							source: tags,
+							autoFocus: true
+						});
+						example(3, {
+							source: tags,
+							minChars: 2
+						});
+						example(4, {
+							source: tags,
+							sort: function(a, b) {
+								return a.localeCompare(b);
+							}
+						});
+						example5();
+						example6();
+						example7();
+					};
+				return {
+					'init': init
+				};
 			}
-			// Striped menu
-			var listItems = ul.getElementsByTagName('li');
-			for (i = 0, l = listItems.length; i < l; i += 1) {
-				if (i % 2 === 0) {
-					listItems[i].classList.add('striped-even');
+			());
+		window.onload = examples.init;
+		/* window.onload = function () {
+			var tags = [{
+					label: "jQuery",
+					desc: "the write less, do more, JavaScript library"
+				}, {
+					label: "jQuery UI",
+					desc: "the official user interface library for jQuery"
+				}, {
+					label: "Sizzle JS",
+					desc: "a pure-JavaScript CSS selector engine"
 				}
-			}
-		};
-	},
-	example7 = function () {
-		var data = [{
-				label: "anders",
-				category: ""
-			}, {
-				label: "andreas",
-				category: ""
-			}, {
-				label: "antal",
-				category: ""
-			}, {
-				label: "annhhx10",
-				category: "Products"
-			}, {
-				label: "annk K12",
-				category: "Products"
-			}, {
-				label: "annttop C13",
-				category: "Products"
-			}, {
-				label: "anders andersson",
-				category: "People"
-			}, {
-				label: "andreas andersson",
-				category: "People"
-			}, {
-				label: "andreas johnson",
-				category: "People"
-			}
-		],
-		ac = new Kamil('#tags7', {
-				source: data
+			];
+			var autoComplete = new Kamil('#tags', {
+					source: tags
+				});
+			autoComplete.renderItem = function (ul, item) {
+				var li = document.createElement('li');
+				li.innerHTML = "<a>" + item.label + "<br><small>" + item.desc + "</small></a>";
+				ul.appendChild(li);
+				return li;
+			};
+			autoComplete.on('kamilfocus', function (e) {
+				e.inputElement.value = e.item.label;
 			});
-		ac.renderMenu = function (ul, items) {
-			var self = this,
-			currentCategory = "";
-			items.forEach(function (item, index) {
-				var li;
-				if (item.category !== currentCategory) {
-					var catLi = document.createElement('li');
-					catLi.className = 'kamil-autocomplete-category';
-					catLi.innerHTML = item.category;
-					ul.appendChild(catLi);
-					currentCategory = item.category;
-				}
-				li = self._renderItemData(ul, item, index);
-				if (item.category) {
-					li.setAttribute('aria-label', item.category + ' : ' + item.label);
-				}
+			autoComplete.on('kamilselect', function (e) {
+				e.inputElement.value = e.item.label.toLowerCase();
 			});
-		};
-	},
-	init = function () {
-		example(1, {
-			source: tags
-		});
-		example(2, {
-			source: tags,
-			autoFocus: true
-		});
-		example(3, {
-			source: tags,
-			minChars: 2
-		});
-		example(4, {
-			source: tags,
-			sort: function (a, b) {
-				return a.localeCompare(b);
-			}
-		});
-		example5();
-		example6();
-		example7();
-	};
-	return {
-		'init': init
-	};
-}
-	());
-window.onload = examples.init;
-/* window.onload = function () {
-	var tags = [{
-			label: "jQuery",
-			desc: "the write less, do more, JavaScript library"
-		}, {
-			label: "jQuery UI",
-			desc: "the official user interface library for jQuery"
-		}, {
-			label: "Sizzle JS",
-			desc: "a pure-JavaScript CSS selector engine"
-		}
-	];
-	var autoComplete = new Kamil('#tags', {
-			source: tags
-		});
-	autoComplete.renderItem = function (ul, item) {
-		var li = document.createElement('li');
-		li.innerHTML = "<a>" + item.label + "<br><small>" + item.desc + "</small></a>";
-		ul.appendChild(li);
-		return li;
-	};
-	autoComplete.on('kamilfocus', function (e) {
-		e.inputElement.value = e.item.label;
-	});
-	autoComplete.on('kamilselect', function (e) {
-		e.inputElement.value = e.item.label.toLowerCase();
-	});
-}; */
+		}; */
+
 	</script>
 </body>
+
 </html>
