@@ -573,7 +573,7 @@ $tip.attr('id',tipId)
 this.$element.attr('aria-describedby',tipId)
 if(this.options.animation)
 $tip.addClass('fade')
-var placement=typeof this.options.placement=="function"?this.options.placement.call(this,$tip[0],this.$element[0]):this.options.placement
+var placement=typeof this.options.placement==="function"?this.options.placement.call(this,$tip[0],this.$element[0]):this.options.placement
 var autoToken=/\s?auto?\s?/i
 var autoPlace=autoToken.test(placement)
 if(autoPlace)
@@ -668,7 +668,7 @@ return delta}
 Tooltip.prototype.getTitle=function(){var title
 var $e=this.$element
 var o=this.options
-title=$e.attr('data-original-title')||(typeof o.title=="function"?o.title.call($e[0]):o.title)
+title=$e.attr('data-original-title')||(typeof o.title==="function"?o.title.call($e[0]):o.title)
 return title}
 Tooltip.prototype.getUID=function(prefix){do
 prefix+=~~(Math.random()*1000000);while(document.getElementById(prefix))
@@ -729,7 +729,7 @@ $tip.find('.popover-title').hide()}
 Popover.prototype.hasContent=function(){return this.getTitle()||this.getContent()}
 Popover.prototype.getContent=function(){var $e=this.$element
 var o=this.options
-return $e.attr('data-content')||(typeof o.content=="function"?o.content.call($e[0]):o.content)}
+return $e.attr('data-content')||(typeof o.content==="function"?o.content.call($e[0]):o.content)}
 Popover.prototype.arrow=function(){return(this.$arrow=this.$arrow||this.tip().find('.arrow'))}
 function Plugin(option){return this.each(function(){var $this=$(this)
 var data=$this.data('bs.popover')
@@ -893,9 +893,9 @@ var offsetBottom=offset.bottom
 var scrollHeight=Math.max($(document).height(),$(document.body).height())
 if(typeof offset!="object")
 offsetBottom=offsetTop=offset
-if(typeof offsetTop=="function")
+if(typeof offsetTop==="function")
 offsetTop=offset.top(this.$element)
-if(typeof offsetBottom=="function")
+if(typeof offsetBottom==="function")
 offsetBottom=offset.bottom(this.$element)
 var affix=this.getState(scrollHeight,height,offsetTop,offsetBottom)
 if(this.affixed!=affix){if(this.unpin!=null)
