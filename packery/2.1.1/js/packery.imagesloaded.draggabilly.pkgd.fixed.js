@@ -18,7 +18,7 @@
 	"use strict";
 	function getStyleSize(value) {
 		var num = parseFloat(value);
-		var isValid = value.indexOf('%') == -1 && !isNaN(num);
+		var isValid = value.indexOf('%') === -1 && !isNaN(num);
 		return isValid && num;
 	}
 	function noop() {}
@@ -70,7 +70,7 @@
 	}
 	function getSize(elem) {
 		setup();
-		if (typeof elem == 'string') {
+		if (typeof elem == "string") {
 			elem = document.querySelector(elem);
 		}
 		if (!elem || typeof elem != "object" || !elem.nodeType) {
@@ -146,7 +146,7 @@
 				return;
 			}
 			var index = listeners.indexOf(listener);
-			if (index != -1) {
+			if (index !== -1) {
 				listeners.splice(index, 1);
 			}
 			return this;
@@ -232,7 +232,7 @@
 		};
 		utils.removeFrom = function (ary, obj) {
 			var index = ary.indexOf(obj);
-			if (index != -1) {
+			if (index !== -1) {
 				ary.splice(index, 1);
 			}
 		};
@@ -245,7 +245,7 @@
 			}
 		};
 		utils.getQueryElement = function (elem) {
-			if (typeof elem == 'string') {
+			if (typeof elem == "string") {
 				return document.querySelector(elem);
 			}
 			return elem;
@@ -351,8 +351,8 @@
 			return true;
 		}
 		var docElemStyle = document.documentElement.style;
-		var transitionProperty = typeof docElemStyle.transition == 'string' ? 'transition' : 'WebkitTransition';
-		var transformProperty = typeof docElemStyle.transform == 'string' ? 'transform' : 'WebkitTransform';
+		var transitionProperty = typeof docElemStyle.transition == "string" ? 'transition' : 'WebkitTransition';
+		var transformProperty = typeof docElemStyle.transform == "string" ? "transform" : "WebkitTransform";
 		var transitionEndEvent = {
 			WebkitTransition: 'webkitTransitionEnd',
 			transition: 'transitionend'
@@ -556,7 +556,7 @@
 			this.ontransitionend(event);
 		};
 		var dashedVendorProperties = {
-			'-webkit-transform': 'transform'
+			'-webkit-transform': "transform"
 		};
 		proto.ontransitionend = function (event) {
 			if (event.target !== this.element) {
@@ -817,7 +817,7 @@
 			if (!option) {
 				this[measurement] = 0;
 			} else {
-				if (typeof option == 'string') {
+				if (typeof option == "string") {
 					elem = this.element.querySelector(option);
 				} else if (option instanceof HTMLElement) {
 					elem = option;
@@ -973,7 +973,7 @@
 			if (!elems) {
 				return;
 			}
-			if (typeof elems == 'string') {
+			if (typeof elems == "string") {
 				elems = this.element.querySelectorAll(elems);
 			}
 			elems = utils.makeArray(elems);
@@ -1398,7 +1398,7 @@
 	("undefined" !== typeof window ? window : this, function factory(Outlayer, Rect) {
 		"use strict";
 		var docElemStyle = document.documentElement.style;
-		var transformProperty = typeof docElemStyle.transform == 'string' ? 'transform' : 'WebkitTransform';
+		var transformProperty = typeof docElemStyle.transform == "string" ? "transform" : "WebkitTransform";
 		var Item = function PackeryItem() {
 			Outlayer.Item.apply(this, arguments);
 		};
@@ -1922,7 +1922,7 @@
 				return;
 			}
 			var index = listeners.indexOf(listener);
-			if (index != -1) {
+			if (index !== -1) {
 				listeners.splice(index, 1);
 			}
 			return this;
@@ -1981,7 +1981,7 @@
 		if (!(this instanceof ImagesLoaded)) {
 			return new ImagesLoaded(elem, options, onAlways);
 		}
-		if (typeof elem == 'string') {
+		if (typeof elem == "string") {
 			elem = document.querySelectorAll(elem);
 		}
 		this.elements = makeArray(elem);
@@ -2025,7 +2025,7 @@
 			var img = childImgs[i];
 			this.addImage(img);
 		}
-		if (typeof this.options.background == 'string') {
+		if (typeof this.options.background == "string") {
 			var children = elem.querySelectorAll(this.options.background);
 			for (i = 0; i < children.length; i++) {
 				var child = children[i];
@@ -2201,7 +2201,7 @@
 })( "undefined" !== typeof window ? window : this, function factory() {
 	function getStyleSize(value) {
 		var num = parseFloat(value);
-		var isValid = value.indexOf('%') == -1 && !isNaN(num);
+		var isValid = value.indexOf('%') === -1 && !isNaN(num);
 		return isValid && num;
 	}
 	function noop() {}
@@ -2253,7 +2253,7 @@
 	}
 	function getSize(elem) {
 		setup();
-		if (typeof elem == 'string') {
+		if (typeof elem == "string") {
 			elem = document.querySelector(elem);
 		}
 		if (!elem || typeof elem != "object" || !elem.nodeType) {
@@ -2329,7 +2329,7 @@
 				return;
 			}
 			var index = listeners.indexOf(listener);
-			if (index != -1) {
+			if (index !== -1) {
 				listeners.splice(index, 1);
 			}
 			return this;
@@ -2650,7 +2650,7 @@
 				return;
 			}
 			var nodeName = event.target.nodeName;
-			if (nodeName == 'INPUT' || nodeName == 'TEXTAREA') {
+			if (nodeName === "input" || nodeName === "textarea") {
 				event.target.focus();
 			}
 			this.staticClick(event, pointer);
@@ -2697,10 +2697,10 @@
 			};
 		}
 		var docElem = document.documentElement;
-		var transformProperty = typeof docElem.style.transform == 'string' ? 'transform' : 'WebkitTransform';
+		var transformProperty = typeof docElem.style.transform == "string" ? "transform" : "WebkitTransform";
 		var jQuery = window.jQuery;
 		function Draggabilly(element, options) {
-			this.element = typeof element == 'string' ? document.querySelector(element) : element;
+			this.element = typeof element == "string" ? document.querySelector(element) : element;
 			if (jQuery) {
 				this.$element = jQuery(this.element);
 			}
@@ -2817,7 +2817,7 @@
 			if (!containment) {
 				return;
 			}
-			var container = isElement(containment) ? containment : typeof containment == 'string' ? document.querySelector(containment) : this.element.parentNode;
+			var container = isElement(containment) ? containment : typeof containment == "string" ? document.querySelector(containment) : this.element.parentNode;
 			var elemSize = getSize(this.element);
 			var containerSize = getSize(container);
 			var elemRect = this.element.getBoundingClientRect();

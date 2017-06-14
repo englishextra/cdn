@@ -26,7 +26,7 @@
 			return;
 		}
 		var scrollPos = getScrollPos();
-		if (scrollPos == prevScrollPos) {
+		if (scrollPos === prevScrollPos) {
 			return;
 		}
 		var pageHeight = document.documentElement.scrollHeight,

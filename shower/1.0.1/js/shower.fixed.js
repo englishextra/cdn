@@ -10,7 +10,7 @@
  * passes jshint
  */
 (function (root) {
-	if ("undefined" == typeof root || !("document" in root)) {
+	if ("undefined" === typeof root || !("document" in root)) {
 		return console.log("root is undefined or document is not in window"),
 		!1;
 	}

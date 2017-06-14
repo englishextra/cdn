@@ -50,7 +50,7 @@ function Plugin(option){return this.each(function(){var $this=$(this)
 var data=$this.data('bs.alert')
 if(!data)
 $this.data('bs.alert',(data=new Alert(this)))
-if(typeof option=='string')
+if(typeof option=="string")
 data[option].call($this)})}
 var old=$.fn.alert
 $.fn.alert=Plugin
@@ -192,7 +192,7 @@ return this}
 function Plugin(option){return this.each(function(){var $this=$(this)
 var data=$this.data('bs.carousel')
 var options=$.extend({},Carousel.DEFAULTS,$this.data(),typeof option=="object"&&option)
-var action=typeof option=='string'?option:options.slide
+var action=typeof option=="string"?option:options.slide
 if(!data)
 $this.data('bs.carousel',(data=new Carousel(this,options)))
 if(typeof option=='number')
@@ -288,7 +288,7 @@ if(!data&&options.toggle&&/show|hide/.test(option))
 options.toggle=false
 if(!data)
 $this.data('bs.collapse',(data=new Collapse(this,options)))
-if(typeof option=='string')
+if(typeof option=="string")
 data[option]()})}
 var old=$.fn.collapse
 $.fn.collapse=Plugin
@@ -368,7 +368,7 @@ function Plugin(option){return this.each(function(){var $this=$(this)
 var data=$this.data('bs.dropdown')
 if(!data)
 $this.data('bs.dropdown',(data=new Dropdown(this)))
-if(typeof option=='string')
+if(typeof option=="string")
 data[option].call($this)})}
 var old=$.fn.dropdown
 $.fn.dropdown=Plugin
@@ -481,7 +481,7 @@ var data=$this.data('bs.modal')
 var options=$.extend({},Modal.DEFAULTS,$this.data(),typeof option=="object"&&option)
 if(!data)
 $this.data('bs.modal',(data=new Modal(this,options)))
-if(typeof option=='string')
+if(typeof option=="string")
 data[option](_relatedTarget);else if(options.show)
 data.show(_relatedTarget)})}
 var old=$.fn.modal
@@ -641,7 +641,7 @@ $.support.transition&&$tip.hasClass('fade')?$tip.one('bsTransitionEnd',complete)
 this.hoverState=null
 return this}
 Tooltip.prototype.fixTitle=function(){var $e=this.$element
-if($e.attr('title')||typeof $e.attr('data-original-title')!='string'){$e.attr('data-original-title',$e.attr('title')||'').attr('title','')}}
+if($e.attr('title')||typeof $e.attr('data-original-title')!="string"){$e.attr('data-original-title',$e.attr('title')||'').attr('title','')}}
 Tooltip.prototype.hasContent=function(){return this.getTitle()}
 Tooltip.prototype.getPosition=function($element){$element=$element||this.$element
 var el=$element[0]
@@ -703,7 +703,7 @@ if(!data&&/destroy|hide/.test(option))
 return
 if(!data)
 $this.data('bs.tooltip',(data=new Tooltip(this,options)))
-if(typeof option=='string')
+if(typeof option=="string")
 data[option]()})}
 var old=$.fn.tooltip
 $.fn.tooltip=Plugin
@@ -722,7 +722,7 @@ Popover.prototype.setContent=function(){var $tip=this.tip()
 var title=this.getTitle()
 var content=this.getContent()
 $tip.find('.popover-title')[this.options.html?'html':'text'](title)
-$tip.find('.popover-content').children().detach().end()[this.options.html?(typeof content=='string'?'html':'append'):'text'](content)
+$tip.find('.popover-content').children().detach().end()[this.options.html?(typeof content=="string"?'html':'append'):'text'](content)
 $tip.removeClass('fade top bottom left right in')
 if(!$tip.find('.popover-title').html())
 $tip.find('.popover-title').hide()}
@@ -738,7 +738,7 @@ if(!data&&/destroy|hide/.test(option))
 return
 if(!data)
 $this.data('bs.popover',(data=new Popover(this,options)))
-if(typeof option=='string')
+if(typeof option=="string")
 data[option]()})}
 var old=$.fn.popover
 $.fn.popover=Plugin
@@ -797,7 +797,7 @@ var data=$this.data('bs.scrollspy')
 var options=typeof option=="object"&&option
 if(!data)
 $this.data('bs.scrollspy',(data=new ScrollSpy(this,options)))
-if(typeof option=='string')
+if(typeof option=="string")
 data[option]()})}
 var old=$.fn.scrollspy
 $.fn.scrollspy=Plugin
@@ -841,7 +841,7 @@ function Plugin(option){return this.each(function(){var $this=$(this)
 var data=$this.data('bs.tab')
 if(!data)
 $this.data('bs.tab',(data=new Tab(this)))
-if(typeof option=='string')
+if(typeof option=="string")
 data[option]()})}
 var old=$.fn.tab
 $.fn.tab=Plugin
@@ -914,7 +914,7 @@ var data=$this.data('bs.affix')
 var options=typeof option=="object"&&option
 if(!data)
 $this.data('bs.affix',(data=new Affix(this,options)))
-if(typeof option=='string')
+if(typeof option=="string")
 data[option]()})}
 var old=$.fn.affix
 $.fn.affix=Plugin

@@ -133,7 +133,7 @@
 					}
 					features.isMobileOpera = /opera mini|opera mobi/i.test(ua);
 				}
-				var styleChecks = ['transform', 'perspective', 'animationName'],
+				var styleChecks = ["transform", 'perspective', 'animationName'],
 				vendors = ['', 'webkit', 'Moz', 'ms', 'O'],
 				styleCheckItem,
 				styleName;

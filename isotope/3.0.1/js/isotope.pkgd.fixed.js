@@ -42,7 +42,7 @@
 				return;
 			}
 			var index = listeners.indexOf(listener);
-			if (index != -1) {
+			if (index !== -1) {
 				listeners.splice(index, 1);
 			}
 			return this;
@@ -77,7 +77,7 @@
 	"use strict";
 	function getStyleSize(value) {
 		var num = parseFloat(value);
-		var isValid = value.indexOf('%') == -1 && !isNaN(num);
+		var isValid = value.indexOf('%') === -1 && !isNaN(num);
 		return isValid && num;
 	}
 	function noop() {}
@@ -129,7 +129,7 @@
 	}
 	function getSize(elem) {
 		setup();
-		if (typeof elem == 'string') {
+		if (typeof elem == "string") {
 			elem = document.querySelector(elem);
 		}
 		if (!elem || typeof elem != "object" || !elem.nodeType) {
@@ -228,7 +228,7 @@
 		};
 		utils.removeFrom = function (ary, obj) {
 			var index = ary.indexOf(obj);
-			if (index != -1) {
+			if (index !== -1) {
 				ary.splice(index, 1);
 			}
 		};
@@ -241,7 +241,7 @@
 			}
 		};
 		utils.getQueryElement = function (elem) {
-			if (typeof elem == 'string') {
+			if (typeof elem == "string") {
 				return document.querySelector(elem);
 			}
 			return elem;
@@ -346,8 +346,8 @@
 			return true;
 		}
 		var docElemStyle = document.documentElement.style;
-		var transitionProperty = typeof docElemStyle.transition == 'string' ? 'transition' : 'WebkitTransition';
-		var transformProperty = typeof docElemStyle.transform == 'string' ? 'transform' : 'WebkitTransform';
+		var transitionProperty = typeof docElemStyle.transition == "string" ? 'transition' : 'WebkitTransition';
+		var transformProperty = typeof docElemStyle.transform == "string" ? "transform" : "WebkitTransform";
 		var transitionEndEvent = {
 			WebkitTransition: 'webkitTransitionEnd',
 			transition: 'transitionend'
@@ -543,7 +543,7 @@
 			this.ontransitionend(event);
 		};
 		var dashedVendorProperties = {
-			'-webkit-transform': 'transform'
+			'-webkit-transform': "transform"
 		};
 		proto.ontransitionend = function (event) {
 			if (event.target !== this.element) {
@@ -800,7 +800,7 @@
 			if (!option) {
 				this[measurement] = 0;
 			} else {
-				if (typeof option == 'string') {
+				if (typeof option == "string") {
 					elem = this.element.querySelector(option);
 				} else if (option instanceof HTMLElement) {
 					elem = option;
@@ -956,7 +956,7 @@
 			if (!elems) {
 				return;
 			}
-			if (typeof elems == 'string') {
+			if (typeof elems == "string") {
 				elems = this.element.querySelectorAll(elems);
 			}
 			elems = utils.makeArray(elems);
@@ -1673,7 +1673,7 @@
 		};
 		var mungeSorter = (function () {
 			function mungeSorter(sorter) {
-				if (typeof sorter != 'string') {
+				if (typeof sorter != "string") {
 					return sorter;
 				}
 				var args = trim(sorter).split(' ');
