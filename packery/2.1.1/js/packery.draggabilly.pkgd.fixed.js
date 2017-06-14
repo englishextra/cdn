@@ -221,7 +221,7 @@
 			var ary = [];
 			if (Array.isArray(obj)) {
 				ary = obj;
-			} else if (obj && typeof obj.length == 'number') {
+			} else if (obj && typeof obj.length === "number") {
 				for (var i = 0; i < obj.length; i++) {
 					ary.push(obj[i]);
 				}
@@ -415,7 +415,7 @@
 			var yValue = style[isOriginTop ? 'top' : 'bottom'];
 			var layoutSize = this.layout.size;
 			var x = xValue.indexOf('%') != -1 ? (parseFloat(xValue) / 100) * layoutSize.width : parseInt(xValue, 10);
-			var y = yValue.indexOf('%') != -1 ? (parseFloat(yValue) / 100) * layoutSize.height : parseInt(yValue, 10);
+			var y = yValue.indexOf('%') !== -1 ? (parseFloat(yValue) / 100) * layoutSize.height : parseInt(yValue, 10);
 			x = isNaN(x) ? 0 : x;
 			y = isNaN(y) ? 0 : y;
 			x -= isOriginLeft ? layoutSize.paddingLeft : layoutSize.paddingRight;
@@ -541,7 +541,7 @@
 				return;
 			}
 			var duration = this.layout.options.transitionDuration;
-			duration = typeof duration == 'number' ? duration + 'ms' : duration;
+			duration = typeof duration === "number" ? duration + 'ms' : duration;
 			this.css({
 				transitionProperty: transitionProps,
 				transitionDuration: duration,
@@ -1094,7 +1094,7 @@
 		proto.getItem = function (elem) {
 			for (var i = 0; i < this.items.length; i++) {
 				var item = this.items[i];
-				if (item.element == elem) {
+				if (item.element === elem) {
 					return item;
 				}
 			}
@@ -1169,7 +1169,7 @@
 			s: 1000
 		};
 		function getMilliseconds(time) {
-			if (typeof time == 'number') {
+			if (typeof time === 'number') {
 				return time;
 			}
 			var matches = time.match(/(^\d*\.?\d*)(\w*)/);
@@ -1768,7 +1768,7 @@
 				return;
 			}
 			var key = x + ',' + y;
-			var hasKey = this.shiftTargetKeys.indexOf(key) != -1;
+			var hasKey = this.shiftTargetKeys.indexOf(key) !== -1;
 			if (hasKey) {
 				return;
 			}
@@ -2087,7 +2087,7 @@
 		proto.getTouch = function (touches) {
 			for (var i = 0; i < touches.length; i++) {
 				var touch = touches[i];
-				if (touch.identifier == this.pointerIdentifier) {
+				if (touch.identifier === this.pointerIdentifier) {
 					return touch;
 				}
 			}
@@ -2253,7 +2253,7 @@
 			}
 		};
 		proto.pointerDown = function (event, pointer) {
-			if (event.target.nodeName == 'INPUT' && event.target.type == 'range') {
+			if (event.target.nodeName === "input" && event.target.type === "range") {
 				this.isPointerDown = false;
 				delete this.pointerIdentifier;
 				return;
@@ -2350,7 +2350,7 @@
 				event.target.focus();
 			}
 			this.staticClick(event, pointer);
-			if (event.type != "mouseup") {
+			if (event.type !== "mouseup") {
 				this.isIgnoringMouseUp = true;
 				setTimeout(function () {
 					delete this.isIgnoringMouseUp;
@@ -2543,7 +2543,7 @@
 			dragX = this.containDrag('x', dragX, gridX);
 			dragY = this.containDrag('y', dragY, gridY);
 			dragX = this.options.axis == 'y' ? 0 : dragX;
-			dragY = this.options.axis == 'x' ? 0 : dragY;
+			dragY = this.options.axis === "x" ? 0 : dragY;
 			this.position.x = this.startPosition.x + dragX;
 			this.position.y = this.startPosition.y + dragY;
 			this.dragPoint.x = dragX;

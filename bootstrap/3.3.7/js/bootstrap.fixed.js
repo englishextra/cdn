@@ -195,7 +195,7 @@ var options=$.extend({},Carousel.DEFAULTS,$this.data(),typeof option=="object"&&
 var action=typeof option=="string"?option:options.slide
 if(!data)
 $this.data('bs.carousel',(data=new Carousel(this,options)))
-if(typeof option=='number')
+if(typeof option=="number")
 data.to(option);else if(action)
 data[action]();else if(options.interval)
 data.pause().cycle()})}
@@ -526,7 +526,7 @@ this.$element.on(eventOut+'.'+this.type,this.options.selector,$.proxy(this.leave
 this.options.selector?(this._options=$.extend({},this.options,{trigger:'manual',selector:''})):this.fixTitle()}
 Tooltip.prototype.getDefaults=function(){return Tooltip.DEFAULTS}
 Tooltip.prototype.getOptions=function(options){options=$.extend({},this.getDefaults(),this.$element.data(),options)
-if(options.delay&&typeof options.delay=='number'){options.delay={show:options.delay,hide:options.delay}}
+if(options.delay&&typeof options.delay=="number"){options.delay={show:options.delay,hide:options.delay}}
 return options}
 Tooltip.prototype.getDelegateOptions=function(){var options={}
 var defaults=this.getDefaults()

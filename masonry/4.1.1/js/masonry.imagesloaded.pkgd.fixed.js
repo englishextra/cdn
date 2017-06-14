@@ -219,7 +219,7 @@
 			var ary = [];
 			if (Array.isArray(obj)) {
 				ary = obj;
-			} else if (obj && typeof obj.length == 'number') {
+			} else if (obj && typeof obj.length === "number") {
 				for (var i = 0; i < obj.length; i++) {
 					ary.push(obj[i]);
 				}
@@ -414,7 +414,7 @@
 			var yValue = style[isOriginTop ? 'top' : 'bottom'];
 			var layoutSize = this.layout.size;
 			var x = xValue.indexOf('%') != -1 ? (parseFloat(xValue) / 100) * layoutSize.width : parseInt(xValue, 10);
-			var y = yValue.indexOf('%') != -1 ? (parseFloat(yValue) / 100) * layoutSize.height : parseInt(yValue, 10);
+			var y = yValue.indexOf('%') !== -1 ? (parseFloat(yValue) / 100) * layoutSize.height : parseInt(yValue, 10);
 			x = isNaN(x) ? 0 : x;
 			y = isNaN(y) ? 0 : y;
 			x -= isOriginLeft ? layoutSize.paddingLeft : layoutSize.paddingRight;
@@ -540,7 +540,7 @@
 				return;
 			}
 			var duration = this.layout.options.transitionDuration;
-			duration = typeof duration == 'number' ? duration + 'ms' : duration;
+			duration = typeof duration === "number" ? duration + 'ms' : duration;
 			this.css({
 				transitionProperty: transitionProps,
 				transitionDuration: duration,
@@ -1093,7 +1093,7 @@
 		proto.getItem = function (elem) {
 			for (var i = 0; i < this.items.length; i++) {
 				var item = this.items[i];
-				if (item.element == elem) {
+				if (item.element === elem) {
 					return item;
 				}
 			}
@@ -1168,7 +1168,7 @@
 			s: 1000
 		};
 		function getMilliseconds(time) {
-			if (typeof time == 'number') {
+			if (typeof time === 'number') {
 				return time;
 			}
 			var matches = time.match(/(^\d*\.?\d*)(\w*)/);
@@ -1386,7 +1386,7 @@
 		var ary = [];
 		if (Array.isArray(obj)) {
 			ary = obj;
-		} else if (typeof obj.length == 'number') {
+		} else if (typeof obj.length === "number") {
 			for (var i = 0; i < obj.length; i++) {
 				ary.push(obj[i]);
 			}
@@ -1428,7 +1428,7 @@
 		this.elements.forEach(this.addElementImages, this);
 	};
 	ImagesLoaded.prototype.addElementImages = function (elem) {
-		if (elem.nodeName == 'IMG') {
+		if (elem.nodeName === "img"') {
 			this.addImage(elem);
 		}
 		if (this.options.background === true) {
