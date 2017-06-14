@@ -5,6 +5,7 @@
  * MIT License
  * by Ossama Edbali
  */
+
 .kamil-autocomplete {
 	display: none;
 	position: absolute;
@@ -32,4 +33,3 @@
 	background-color: #3F51B5;
 	color: #fff;
 }
-

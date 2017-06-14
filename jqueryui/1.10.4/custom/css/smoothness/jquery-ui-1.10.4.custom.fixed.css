@@ -1,8 +1,11 @@
 /*! @import "jquery-ui-smoothness.fixed"; */
+
+
 /**
  * fixed /cdn/jquery-ui-1.10.4.custom/css/smoothness/jquery-ui-1.10.4.custom.fixed.min.css
  * image urls have been deleted
  */
+
 .ui-helper-hidden {
 	display: none;
 }
@@ -158,7 +161,7 @@
 }
 
 .ui-widget {
-	font-family: Verdana,Arial,sans-serif;
+	font-family: Verdana, Arial, sans-serif;
 	font-size: 1.1em;
 }
 
@@ -170,7 +173,7 @@
 .ui-widget select,
 .ui-widget textarea,
 .ui-widget button {
-	font-family: Verdana,Arial,sans-serif;
+	font-family: Verdana, Arial, sans-serif;
 	font-size: 1em;
 }
 
@@ -312,28 +315,21 @@
 }
 
 .ui-icon,
-.ui-widget-content .ui-icon {
-}
+.ui-widget-content .ui-icon {}
 
-.ui-widget-header .ui-icon {
-}
+.ui-widget-header .ui-icon {}
 
-.ui-state-default .ui-icon {
-}
+.ui-state-default .ui-icon {}
 
 .ui-state-hover .ui-icon,
-.ui-state-focus .ui-icon {
-}
+.ui-state-focus .ui-icon {}
 
-.ui-state-active .ui-icon {
-}
+.ui-state-active .ui-icon {}
 
-.ui-state-highlight .ui-icon {
-}
+.ui-state-highlight .ui-icon {}
 
 .ui-state-error .ui-icon,
-.ui-state-error-text .ui-icon {
-}
+.ui-state-error-text .ui-icon {}
 
 .ui-icon-blank {
 	background-position: 16px 16px;
@@ -1112,4 +1108,3 @@
 .ui-widget-shadow {
 	border-radius: 0;
 }
-

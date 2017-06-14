@@ -32,7 +32,7 @@
 .pswp--animate_opacity {
 	opacity: 0.001;
 	/* will-change: opacity; */
-	transition: opacity 333ms cubic-bezier(0.4,0,0.22,1);
+	transition: opacity 333ms cubic-bezier(0.4, 0, 0.22, 1);
 }
 
 .pswp--open {
@@ -93,12 +93,12 @@
 	position: absolute;
 	width: 100%;
 	transform-origin: left top;
-	transition: transform 333ms cubic-bezier(0.4,0,0.22,1);
+	transition: transform 333ms cubic-bezier(0.4, 0, 0.22, 1);
 }
 
 .pswp__bg {
 	/* will-change: opacity; */
-	transition: opacity 333ms cubic-bezier(0.4,0,0.22,1);
+	transition: opacity 333ms cubic-bezier(0.4, 0, 0.22, 1);
 }
 
 .pswp--animated-in .pswp__bg,
@@ -161,6 +161,7 @@
 	text-decoration: underline;
 }
 
+
 /**
  * PhotoSwipe Default UI CSS by Dmitry Semenov | photoswipe.com | MIT license
  * default-skin.css modified images base64 encoded
@@ -220,7 +221,10 @@
 	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQgAAABYCAQAAACjBqE3AAAB6klEQVR4Ae3bsWpUQRTG8YkkanwCa7GzVotsI/gEgk9h4Vu4ySLYmMYgbJrc3lrwZbJwC0FMt4j7F6Y4oIZrsXtgxvx/1c0ufEX4cnbmLCmSJEmSJEmSJEmSJP3XCBPvbJU+8doWmDFwyZpLBmYlNJebz0KwzykwsuSYJSNwykEJreV2BaBMaLIQZ2xYcFgqDlmw4ayE/FwL0dDk4Qh4W37DAjgqIT+3HRbigjH+iikVdxgZStgyN0Su2sXIeTwTT+esdpcbIlfNAuZ/TxresG4zV8kYWSZNiKUTokMMSWeIwTNEn4fK2TW3gRNgVkJLuVksROA9G+bEvoATNlBCa7nZXEwdxEZxzpKRKFh+bsv8LmPFmhX1OwfIz81jIRJQ5eeqG9B+riRJkiRJkiRJkiRJkiRJkiRJUkvA/8RQoEpKlJWINFkJ62AlrEP/mNBibnv2yz/A3t7Uq3LcpoxP8COjC1T5vxoAD5VdoEqdDrd5QuW1swtUSaueh3zkiuBiqgtA2OlkeMcP/uDqugsJdbjHF65VdPMKwS0+WQc/MgKvrIOHysB9vgPwk8+85hmPbnQdvHZyDMAFD7L3EOpgMcVdvnHFS0/vlatrXvCVx0U9gt3fxvnA0/hB4nmRJEmSJEmSJEmSJGmHfgFLaDPoMu5xWwAAAABJRU5ErkJggg==);
 }
 
-@media (-webkit-min-device-pixel-ratio:1.1),(-webkit-min-device-pixel-ratio:1.09375),(min-resolution:105dpi),(min-resolution:1.1dppx) {
+@media (-webkit-min-device-pixel-ratio:1.1),
+(-webkit-min-device-pixel-ratio:1.09375),
+(min-resolution:105dpi),
+(min-resolution:1.1dppx) {
 	.pswp--svg .pswp__button--arrow--left,
 	.pswp--svg .pswp__button--arrow--right {
 		background: none;
@@ -495,7 +499,7 @@ a.pswp__share--download:hover {
 }
 
 .pswp--css_animation .pswp__preloader--active .pswp__preloader__donut {
-	animation: donut-rotate 1000ms cubic-bezier(0.4,0,0.22,1) infinite;
+	animation: donut-rotate 1000ms cubic-bezier(0.4, 0, 0.22, 1) infinite;
 }
 
 .pswp--css_animation .pswp__preloader__icn {
@@ -545,7 +549,6 @@ a.pswp__share--download:hover {
 	0% {
 		transform: rotate(0deg);
 	}
-
 	100% {
 		transform: rotate(360deg);
 	}
@@ -555,11 +558,9 @@ a.pswp__share--download:hover {
 	0% {
 		transform: rotate(0);
 	}
-
 	50% {
 		transform: rotate(-140deg);
 	}
-
 	100% {
 		transform: rotate(0);
 	}
@@ -586,7 +587,7 @@ a.pswp__share--download:hover {
 .pswp--has_mouse .pswp__button--arrow--right {
 	-webkit-backface-visibility: hidden;
 	/* will-change: opacity; */
-	transition: opacity 333ms cubic-bezier(0.4,0,0.22,1);
+	transition: opacity 333ms cubic-bezier(0.4, 0, 0.22, 1);
 }
 
 .pswp--has_mouse .pswp__button--arrow--left,
@@ -633,4 +634,3 @@ a.pswp__share--download:hover {
 .pswp--minimal--dark .pswp__top-bar {
 	background: none;
 }
-
