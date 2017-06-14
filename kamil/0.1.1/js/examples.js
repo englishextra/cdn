@@ -36,7 +36,8 @@ var examples = (function () {
 		}
 	],
 	example = function (num, opts) {
-		var autoComplete = new Kamil('#tags' + num, opts);
+		var autoComplete;
+		autoComplete = new Kamil('#tags' + num, opts);
 	},
 	example5 = function () {
 		var autoComplete = new Kamil('#tags5', {
@@ -152,7 +153,8 @@ var examples = (function () {
 	return {
 		'init': init
 	};
-}());
+}
+	());
 window.onload = examples.init;
 /* window.onload = function () {
 	var tags = [{
