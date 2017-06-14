@@ -1428,7 +1428,7 @@
 		this.elements.forEach(this.addElementImages, this);
 	};
 	ImagesLoaded.prototype.addElementImages = function (elem) {
-		if (elem.nodeName === "img"') {
+		if (elem.nodeName === "img") {
 			this.addImage(elem);
 		}
 		if (this.options.background === true) {
@@ -1438,7 +1438,7 @@
 		if (!nodeType || !elementNodeTypes[nodeType]) {
 			return;
 		}
-		var childImgs = elem.querySelectorAll('img');
+		var childImgs = elem.querySelectorAll("img");
 		for (var i = 0; i < childImgs.length; i++) {
 			var img = childImgs[i];
 			this.addImage(img);
