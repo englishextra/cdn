@@ -357,42 +357,35 @@
 							minHeight: opts.min_height
 						});
 					}
-
 					if (opts.opacity !== old_opts.opacity) {
 						pnotify.fadeTo(opts.animate_speed, opts.opacity);
 					}
-
 					if (!opts.closer || opts.nonblock) {
 						pnotify.closer.css("display", "none");
 					} else {
 						pnotify.closer.css("display", "block");
 					}
-
 					if (!opts.sticker || opts.nonblock) {
 						pnotify.sticker.css("display", "none");
 					} else {
 						pnotify.sticker.css("display", "block");
 					}
-
 					pnotify.sticker.trigger("pnotify_icon");
 					if (opts.sticker_hover) {
 						pnotify.sticker.css("visibility", "hidden");
 					} else if (!opts.nonblock) {
 						pnotify.sticker.css("visibility", "visible");
 					}
-
 					if (opts.closer_hover) {
 						pnotify.closer.css("visibility", "hidden");
 					} else if (!opts.nonblock) {
 						pnotify.closer.css("visibility", "visible");
 					}
-
 					if (!opts.hide) {
 						pnotify.pnotify_cancel_remove();
 					} else if (!old_opts.hide) {
 						pnotify.pnotify_queue_remove();
 					}
-
 					pnotify.pnotify_queue_position(true);
 					return pnotify;
 				};
@@ -401,23 +394,18 @@
 					if (typeof s.context === "undefined") {
 						s.context = body;
 					}
-
 					if (!s) {
 						return;
 					}
-
 					if (typeof s.nextpos1 !== "number") {
 						s.nextpos1 = s.firstpos1;
 					}
-
 					if (typeof s.nextpos2 !== "number") {
 						s.nextpos2 = s.firstpos2;
 					}
-
 					if (typeof s.addpos2 !== "number") {
 						s.addpos2 = 0;
 					}
-
 					var hidden = pnotify.css("display") === "none";
 					if (!hidden || dont_skip_hidden) {
 						var curpos1,
@@ -442,7 +430,6 @@
 						if (isNaN(curpos1)) {
 							curpos1 = 0;
 						}
-
 						if (typeof s.firstpos1 === "undefined" && !hidden) {
 							s.firstpos1 = curpos1;
 							s.nextpos1 = s.firstpos1;
@@ -466,7 +453,6 @@
 						if (isNaN(curpos2)) {
 							curpos2 = 0;
 						}
-
 						if (typeof s.firstpos2 === "undefined" && !hidden) {
 							s.firstpos2 = curpos2;
 							s.nextpos2 = s.firstpos2;
@@ -492,19 +478,22 @@
 								break;
 							}
 						} else {
-							if (typeof s.nextpos2 === "number")
+							if (typeof s.nextpos2 === "number") {
 								pnotify.css(csspos2, s.nextpos2 + "px");
+							}
 						}
 						switch (s.dir2) {
 						case "down":
 						case "up":
-							if (pnotify.outerHeight(true) > s.addpos2)
+							if (pnotify.outerHeight(true) > s.addpos2) {
 								s.addpos2 = pnotify.height();
+							}
 							break;
 						case "left":
 						case "right":
-							if (pnotify.outerWidth(true) > s.addpos2)
+							if (pnotify.outerWidth(true) > s.addpos2) {
 								s.addpos2 = pnotify.width();
+							}
 							break;
 						}
 						if (typeof s.nextpos1 === "number") {
@@ -523,8 +512,8 @@
 									animate.left = s.nextpos1 + "px";
 									break;
 								}
-							} else
-								pnotify.css(csspos1, s.nextpos1 + "px");
+							} else {pnotify.css(csspos1, s.nextpos1 + "px");}
+								
 						}
 						if (animate.top || animate.bottom || animate.right || animate.left) {
 							pnotify.animate(animate, {
@@ -532,7 +521,6 @@
 								queue: false
 							});
 						}
-
 						switch (s.dir1) {
 						case "down":
 						case "up":
@@ -549,11 +537,9 @@
 					if (timer) {
 						clearTimeout(timer);
 					}
-
 					if (!milliseconds) {
 						milliseconds = 10;
 					}
-
 					timer = setTimeout(function () {
 							$.pnotify_position_all(animate);
 						}, milliseconds);
@@ -567,44 +553,38 @@
 						} else {
 							el = notices_data.slice(opts.maxonscreen, notices_data.length);
 						}
-
 						$.each(el, function () {
-							if (this.pnotify_remove)
+							if (this.pnotify_remove) {
 								this.pnotify_remove();
+							}
 						});
 					}
 					if (!pnotify.parent().length) {
 						pnotify.appendTo(opts.stack.context ? opts.stack.context : body);
 					}
-
 					if (opts.before_open) {
 						if (opts.before_open(pnotify) === false) {
 							return;
 						}
-
 					}
 					if (opts.stack.push !== "top") {
 						pnotify.pnotify_position(true);
 					}
-
 					if (opts.animation === "fade" || opts.animation.effect_in === "fade") {
 						pnotify.show().fadeTo(0, 0).hide();
 					} else {
 						if (opts.opacity !== 1) {
 							pnotify.show().fadeTo(0, opts.opacity).hide();
 						}
-
 					}
 					pnotify.animate_in(function () {
 						if (opts.after_open) {
 							opts.after_open(pnotify);
 						}
-
 						pnotify.pnotify_queue_position(true);
 						if (opts.hide) {
 							pnotify.pnotify_queue_remove();
 						}
-
 					});
 				};
 				pnotify.pnotify_remove = function (timer_hide) {
@@ -616,14 +596,12 @@
 						if (opts.before_close(pnotify, timer_hide) === false) {
 							return;
 						}
-
 					}
 					pnotify.animate_out(function () {
 						if (opts.after_close) {
 							if (opts.after_close(pnotify, timer_hide) === false) {
 								return;
 							}
-
 						}
 						pnotify.pnotify_queue_position(true);
 						if (opts.remove) {
@@ -648,13 +626,12 @@
 					} else {
 						animation = opts.animation;
 					}
-
 					if (animation === "none") {
 						pnotify.show();
 						callback();
-					} else if (animation === "show")
+					} else if (animation === "show") {
 						pnotify.show(opts.animate_speed, callback);
-					else if (animation === "fade") {
+					} else if (animation === "fade") {
 						pnotify.show().fadeTo(opts.animate_speed, opts.opacity, callback);
 					} else if (animation === "slide") {
 						pnotify.slideDown(opts.animate_speed, callback);
@@ -672,7 +649,6 @@
 					} else {
 						animation = opts.animation;
 					}
-
 					if (animation === "none") {
 						pnotify.hide();
 						callback();
@@ -692,7 +668,6 @@
 					if (pnotify.timer) {
 						window.clearTimeout(pnotify.timer);
 					}
-
 				};
 				pnotify.pnotify_queue_remove = function () {
 					pnotify.pnotify_cancel_remove();
@@ -731,7 +706,6 @@
 							} else {
 								pnotify.pnotify_cancel_remove();
 							}
-
 							$(this).trigger("pnotify_icon");
 						}
 					}).bind("pnotify_icon", function () {
@@ -770,37 +744,30 @@
 				} else {
 					pnotify.text_container.html(opts.insert_brs ? String(opts.text).replace(/\n/g, "<br />") : opts.text);
 				}
-
 				if (typeof opts.width === "string") {
 					pnotify.css("width", opts.width);
 				}
-
 				if (typeof opts.min_height === "string") {
 					pnotify.container.css("min-height", opts.min_height);
 				}
-
 				pnotify.pnotify_history = opts.history;
 				pnotify.pnotify_hide = opts.hide;
 				var notices_data = jwindow.data("pnotify");
 				if (notices_data === null || (typeof notices_data === "undefined" ? "undefined" : typeof(notices_data)) !== "object") {
 					notices_data = [];
 				}
-
 				if (opts.stack.push === "top") {
 					notices_data = $.merge([pnotify], notices_data);
 				} else {
 					notices_data = $.merge(notices_data, [pnotify]);
 				}
-
 				jwindow.data("pnotify", notices_data);
 				if (opts.stack.push === "top") {
 					pnotify.pnotify_queue_position(false, 1);
 				}
-
 				if (opts.after_init) {
 					opts.after_init(pnotify);
 				}
-
 				if (opts.history) {
 					var history_menu = jwindow.data("pnotify_history");
 					if (typeof history_menu === "undefined") {
@@ -811,11 +778,9 @@
 										if (this.pnotify_hide) {
 											this.pnotify_queue_remove();
 										}
-
 									} else if (this.pnotify_display) {
 										this.pnotify_display();
 									}
-
 								}
 							});
 						}).on("pnotify.history-last", function () {
@@ -828,17 +793,14 @@
 								} else {
 									notice = notices_data.slice(i, i + 1);
 								}
-
 								if (!notice[0]) {
 									return false;
 								}
-
 								i = pushTop ? i + 1 : i - 1;
 							} while (!notice[0].pnotify_history || notice[0].is(":visible"));
 							if (notice[0].pnotify_display) {
 								notice[0].pnotify_display();
 							}
-
 						});
 						history_menu = $("<div />", {
 								"class": "ui-pnotify-history-container " + styles.hi_menu,
@@ -902,7 +864,6 @@
 				if (opts.auto_display) {
 					pnotify.pnotify_display();
 				}
-
 				return pnotify;
 			}
 		});
@@ -929,13 +890,11 @@
 				if (!event_object) {
 					return;
 				}
-
 				this.dispatchEvent(event_object);
 			} else {
 				if (!e.match(re_on)) {
 					e = "on" + e;
 				}
-
 				event_object = document.createEventObject(orig_e);
 				this.fireEvent(e, event_object);
 			}

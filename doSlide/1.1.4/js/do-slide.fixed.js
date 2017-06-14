@@ -15,12 +15,14 @@
 /* jshint esnext: true */
 (function webpackUniversalModuleDefinition(root, factory) {
 	root.DoSlide = factory();
-})( "undefined" !== typeof window ? window : this, function () {
+})("undefined" !== typeof window ? window : this, function () {
 	return (function (modules) {
 		var installedModules = {};
 		function __webpack_require__(moduleId) {
-			if (installedModules[moduleId])
+			if (installedModules[moduleId]) {
 				return installedModules[moduleId].exports;
+			}
+
 			var module = installedModules[moduleId] = {
 				exports: {},
 				id: moduleId,
@@ -290,10 +292,14 @@
 						length: 0,
 						Init: function Init(selector) {
 							var _this = this;
-							if (!selector)
+							if (!selector) {
 								return this;
-							if (selector instanceof util)
+							}
+
+							if (selector instanceof util) {
 								return selector;
+							}
+
 							if (selector.nodeType) {
 								this[0] = selector;
 								this.length = 1;
@@ -383,13 +389,17 @@
 						},
 						on: function on(elem, type, listener) {
 							var useCapture = arguments.length <= 3 || arguments[3] === undefined ? false : arguments[3];
-							if (elem)
+							if (elem) {
 								elem.addEventListener(type, listener, useCapture);
+							}
+
 						},
 						off: function off(elem, type, listener) {
 							var useCapture = arguments.length <= 3 || arguments[3] === undefined ? false : arguments[3];
-							if (elem)
+							if (elem) {
 								elem.removeEventListener(type, listener, useCapture);
+							}
+
 						},
 						attr: function attr(elem, name, value) {
 							if (elem) {
@@ -426,8 +436,10 @@
 							}
 						},
 						removeAttr: function removeAttr(elem, name) {
-							if (elem)
+							if (elem) {
 								elem.removeAttribute(name);
+							}
+
 						},
 						addClass: function addClass(elem, name) {
 							if (elem && name && !this.hasClass(elem, name)) {
@@ -508,8 +520,10 @@
 								return false;
 							}
 							 : arguments[2];
-							if (!elem || !callback)
+							if (!elem || !callback) {
 								return;
+							}
+
 							var startX = undefined,
 							startY = undefined,
 							startTime = undefined,
@@ -562,8 +576,10 @@
 						keys: keys
 					});
 					function getAvarage(array) {
-						if (!array.length)
+						if (!array.length) {
 							return 0;
+						}
+
 						var sum = Array.prototype.reduce.call(array, function (last, item) {
 								return last + item;
 							});
@@ -737,7 +753,8 @@
 														});
 													}, busyTime);
 												}
-											}());
+											}
+												());
 										}
 									}
 								}
@@ -925,129 +942,137 @@
 							this.mappings = [{
 									filter: filterByKeyCode(40),
 									action: function action() {
-										if (!this.config.horizontal)
+										if (!this.config.horizontal) {
 											this.next();
 										}
-									}, {
-										filter: filterByKeyCode(38),
-										action: function action() {
-											if (!this.config.horizontal)
-												this.prev();
-										}
-									}, {
-										filter: filterByKeyCode(39),
-										action: function action() {
-											if (this.config.horizontal)
-												this.next();
-										}
-									}, {
-										filter: filterByKeyCode(37),
-										action: function action() {
-											if (this.config.horizontal)
-												this.prev();
-										}
+
 									}
-								];
+								}, {
+									filter: filterByKeyCode(38),
+									action: function action() {
+										if (!this.config.horizontal) {
+											this.prev();
+										}
+
+									}
+								}, {
+									filter: filterByKeyCode(39),
+									action: function action() {
+										if (this.config.horizontal) {
+											this.next();
+										}
+
+									}
+								}, {
+									filter: filterByKeyCode(37),
+									action: function action() {
+										if (this.config.horizontal) {
+											this.prev();
+										}
+
+									}
+								}
+							];
+						}
+						_createClass(Keyboard, [{
+									key: "setEventType",
+									value: function setEventType(eventType) {
+										if (eventType !== this.eventType) {
+											var isOn = this.isOn;
+											if (isOn) {
+												this.turnOff();
+											}
+											this.eventType = eventType;
+											if (isOn) {
+												this.turnOn();
+											}
+										}
+										return this;
+									}
+								}, {
+									key: "setEventElement",
+									value: function setEventElement(elem) {
+										if (elem !== this.eventElement) {
+											var isOn = this.isOn;
+											if (isOn) {
+												this.turnOff();
+											}
+											this.eventElement = elem;
+											if (isOn) {
+												this.turnOn();
+											}
+										}
+										return this;
+									}
+								}, {
+									key: "getMappings",
+									value: function getMappings() {
+										return this.mappings;
+									}
+								}, {
+									key: "setMappings",
+									value: function setMappings(mappings) {
+										this.mappings = mappings;
+										return this;
+									}
+								}, {
+									key: "turnOn",
+									value: function turnOn() {
+										if (!this.isOn) {
+											this.$.on(this.eventElement, this.eventType, this.listener, false);
+											this.isOn = true;
+										}
+										return this;
+									}
+								}, {
+									key: "turnOff",
+									value: function turnOff() {
+										if (this.isOn) {
+											this.$.off(this.eventElement, this.eventType, this.listener, false);
+											this.isOn = false;
+										}
+										return this;
+									}
+								}
+							]);
+						return Keyboard;
+					}
+					();
+					function filterByKeyCode(keyCode) {
+						return function (event) {
+							return event.keyCode === keyCode;
+						};
+					}
+					function listener(event) {
+						var mappings = _that.mappings || [];
+						var doSlide = _that.for;
+						mappings.forEach(function (mapping) {
+							if (mapping.filter.call(doSlide, event) === true) {
+								mapping.action.call(doSlide, event);
 							}
-							_createClass(Keyboard, [{
-										key: "setEventType",
-										value: function setEventType(eventType) {
-											if (eventType !== this.eventType) {
-												var isOn = this.isOn;
-												if (isOn) {
-													this.turnOff();
-												}
-												this.eventType = eventType;
-												if (isOn) {
-													this.turnOn();
-												}
-											}
-											return this;
-										}
-									}, {
-										key: "setEventElement",
-										value: function setEventElement(elem) {
-											if (elem !== this.eventElement) {
-												var isOn = this.isOn;
-												if (isOn) {
-													this.turnOff();
-												}
-												this.eventElement = elem;
-												if (isOn) {
-													this.turnOn();
-												}
-											}
-											return this;
-										}
-									}, {
-										key: "getMappings",
-										value: function getMappings() {
-											return this.mappings;
-										}
-									}, {
-										key: "setMappings",
-										value: function setMappings(mappings) {
-											this.mappings = mappings;
-											return this;
-										}
-									}, {
-										key: "turnOn",
-										value: function turnOn() {
-											if (!this.isOn) {
-												this.$.on(this.eventElement, this.eventType, this.listener, false);
-												this.isOn = true;
-											}
-											return this;
-										}
-									}, {
-										key: "turnOff",
-										value: function turnOff() {
-											if (this.isOn) {
-												this.$.off(this.eventElement, this.eventType, this.listener, false);
-												this.isOn = false;
-											}
-											return this;
-										}
-									}
-								]);
-							return Keyboard;
-						}
-						();
-						function filterByKeyCode(keyCode) {
-							return function (event) {
-								return event.keyCode === keyCode;
-							};
-						}
-						function listener(event) {
-							var mappings = _that.mappings || [];
-							var doSlide = _that.for;
-							mappings.forEach(function (mapping) {
-								if (mapping.filter.call(doSlide, event) === true) {
-									mapping.action.call(doSlide, event);
-								}
-							});
-					}
-					function install(DoSlide) {
-						DoSlide.prototype.getKeyboard = function () {
-							var key = DoSlide.applyNewKey();
-							return function () {
-								var space = this.getSpaceByKey(key);
-								if (!space) {
-									space = this.initSpaceByKey(key);
-									space.res = new Keyboard(this, key);
-								}
-								return space.res;
-							};
-						}
-						();
-					}
-					exports.default = {
-						install: install
-					};
+						});
 				}
-			]);
-	});
-	/* jshint +W067 */
-	/* jshint +W080 */
-	/* jshint bitwise: true */
-	/* jshint esnext: false */
+				function install(DoSlide) {
+					DoSlide.prototype.getKeyboard = function () {
+						var key = DoSlide.applyNewKey();
+						return function () {
+							var space = this.getSpaceByKey(key);
+							if (!space) {
+								space = this.initSpaceByKey(key);
+								space.res = new Keyboard(this, key);
+							}
+							return space.res;
+						};
+					}
+					();
+				}
+				exports.default = {
+					install: install
+				};
+			}
+		]);
+});
+/* jshint +W067 */
+/* jshint +W080 */
+/* jshint bitwise: true */
+/* jshint esnext: false */

@@ -125,16 +125,18 @@
 					return !isNaN(parseFloat(a)) && isFinite(a);
 				},
 				f._normalizeSlideNumber = function (a) {
-					if (!f._isNumber(a))
+					if (!f._isNumber(a)) {
 						throw new Error("Gimme slide number as Number, baby!");
+					}
 					return 0 > a && (a = 0),
 					a >= f.slideList.length && (a = f.slideList.length - 1),
 					a;
 				},
 				f._getSlideIdByEl = function (a) {
 					for (; "BODY" !== a.nodeName && "HTML" !== a.nodeName; ) {
-						if (a.classList.contains("slide"))
+						if (a.classList.contains("slide")) {
 							return a.id;
+						}
 						a = a.parentNode;
 					}
 					return "";
@@ -145,17 +147,19 @@
 				f.getSlideNumber = function (a) {
 					var b,
 					c = f.slideList.length - 1;
-					for ("" === a && (b = 0); c >= 0; --c)
+					for ("" === a && (b = 0); c >= 0; --c) {
 						if (a === f.slideList[c].id) {
 							b = c;
 							break;
 						}
+					}
 					return b;
 				},
 				f.go = function (a, b) {
 					var c;
-					if (!f._isNumber(a))
+					if (!f._isNumber(a)) {
 						throw new Error("Gimme slide number as Number, baby!");
+					}
 					return f.slideList[a] ? (g.hash = f.getSlideHash(a), f.updateProgress(a), f.updateActiveAndVisitedSlides(a), f.isSlideMode() && (f.showPresenterNotes(a), c = f.slideList[a], c.timing && c.initTimer(f)), "function" == typeof b && b(), a) : !1;
 				},
 				f.next = function (a) {
@@ -513,5 +517,5 @@
 			}
 		}
 			(root, root.document));
-})
-("undefined" !== typeof window ? window : this);
+}
+	("undefined" !== typeof window ? window : this));
