@@ -22,7 +22,7 @@
 		return isValid && num;
 	}
 	function noop() {}
-	var logError = typeof console == "undefined" ? noop : function (message) {
+	var logError = typeof console === "undefined" ? noop : function (message) {
 		console.error(message);
 	};
 	var measurements = ['paddingLeft', 'paddingRight', 'paddingTop', 'paddingBottom', 'marginLeft', 'marginRight', 'marginTop', 'marginBottom', 'borderLeftWidth', 'borderRightWidth', 'borderTopWidth', 'borderBottomWidth'];
@@ -65,15 +65,15 @@
 		var body = document.body || document.documentElement;
 		body.appendChild(div);
 		var style = getStyle(div);
-		getSize.isBoxSizeOuter = isBoxSizeOuter = getStyleSize(style.width) == 200;
+		getSize.isBoxSizeOuter = isBoxSizeOuter = getStyleSize(style.width) === 200;
 		body.removeChild(div);
 	}
 	function getSize(elem) {
 		setup();
-		if (typeof elem == "string") {
+		if (typeof elem === "string") {
 			elem = document.querySelector(elem);
 		}
-		if (!elem || typeof elem != "object" || !elem.nodeType) {
+		if (!elem || typeof elem !== "object" || !elem.nodeType) {
 			return;
 		}
 		var style = getStyle(elem);
@@ -125,7 +125,7 @@
 			}
 			var events = this._events = this._events || {};
 			var listeners = events[eventName] = events[eventName] || [];
-			if (listeners.indexOf(listener) == -1) {
+			if (listeners.indexOf(listener) === -1) {
 				listeners.push(listener);
 			}
 			return this;
@@ -237,7 +237,7 @@
 			}
 		};
 		utils.getParent = function (elem, selector) {
-			while (elem != document.body) {
+			while (elem !== document.body) {
 				elem = elem.parentNode;
 				if (matchesSelector(elem, selector)) {
 					return elem;
@@ -245,7 +245,7 @@
 			}
 		};
 		utils.getQueryElement = function (elem) {
-			if (typeof elem == "string") {
+			if (typeof elem === "string") {
 				return document.querySelector(elem);
 			}
 			return elem;
@@ -351,8 +351,8 @@
 			return true;
 		}
 		var docElemStyle = document.documentElement.style;
-		var transitionProperty = typeof docElemStyle.transition == "string" ? 'transition' : 'WebkitTransition';
-		var transformProperty = typeof docElemStyle.transform == "string" ? "transform" : "WebkitTransform";
+		var transitionProperty = typeof docElemStyle.transition === "string" ? 'transition' : 'WebkitTransition';
+		var transformProperty = typeof docElemStyle.transform === "string" ? "transform" : "WebkitTransform";
 		var transitionEndEvent = {
 			WebkitTransition: 'webkitTransitionEnd',
 			transition: 'transitionend'
@@ -817,7 +817,7 @@
 			if (!option) {
 				this[measurement] = 0;
 			} else {
-				if (typeof option == "string") {
+				if (typeof option === "string") {
 					elem = this.element.querySelector(option);
 				} else if (option instanceof HTMLElement) {
 					elem = option;
@@ -917,7 +917,7 @@
 			var doneCount = 0;
 			function tick() {
 				doneCount++;
-				if (doneCount == count) {
+				if (doneCount === count) {
 					onComplete();
 				}
 			}
@@ -973,7 +973,7 @@
 			if (!elems) {
 				return;
 			}
-			if (typeof elems == "string") {
+			if (typeof elems === "string") {
 				elems = this.element.querySelectorAll(elems);
 			}
 			elems = utils.makeArray(elems);
@@ -1364,7 +1364,7 @@
 				var j = 0;
 				var compareRect = rects[i + j];
 				while (compareRect) {
-					if (compareRect == rect) {
+					if (compareRect === rect) {
 						j++;
 					} else if (compareRect.contains(rect)) {
 						rects.splice(i, 1);
@@ -1398,7 +1398,7 @@
 	("undefined" !== typeof window ? window : this, function factory(Outlayer, Rect) {
 		"use strict";
 		var docElemStyle = document.documentElement.style;
-		var transformProperty = typeof docElemStyle.transform == "string" ? "transform" : "WebkitTransform";
+		var transformProperty = typeof docElemStyle.transform === "string" ? "transform" : "WebkitTransform";
 		var Item = function PackeryItem() {
 			Outlayer.Item.apply(this, arguments);
 		};
@@ -1901,7 +1901,7 @@
 		return isValid && num;
 	}
 	function noop() {}
-	var logError = typeof console == "undefined" ? noop : function (message) {
+	var logError = typeof console === "undefined" ? noop : function (message) {
 		console.error(message);
 	};
 	var measurements = ['paddingLeft', 'paddingRight', 'paddingTop', 'paddingBottom', 'marginLeft', 'marginRight', 'marginTop', 'marginBottom', 'borderLeftWidth', 'borderRightWidth', 'borderTopWidth', 'borderBottomWidth'];
@@ -1944,15 +1944,15 @@
 		var body = document.body || document.documentElement;
 		body.appendChild(div);
 		var style = getStyle(div);
-		getSize.isBoxSizeOuter = isBoxSizeOuter = getStyleSize(style.width) == 200;
+		getSize.isBoxSizeOuter = isBoxSizeOuter = getStyleSize(style.width) === 200;
 		body.removeChild(div);
 	}
 	function getSize(elem) {
 		setup();
-		if (typeof elem == "string") {
+		if (typeof elem === "string") {
 			elem = document.querySelector(elem);
 		}
-		if (!elem || typeof elem != "object" || !elem.nodeType) {
+		if (!elem || typeof elem !== "object" || !elem.nodeType) {
 			return;
 		}
 		var style = getStyle(elem);
@@ -2004,7 +2004,7 @@
 			}
 			var events = this._events = this._events || {};
 			var listeners = events[eventName] = events[eventName] || [];
-			if (listeners.indexOf(listener) == -1) {
+			if (listeners.indexOf(listener) === -1) {
 				listeners.push(listener);
 			}
 			return this;
@@ -2393,10 +2393,10 @@
 			};
 		}
 		var docElem = document.documentElement;
-		var transformProperty = typeof docElem.style.transform == "string" ? "transform" : "WebkitTransform";
+		var transformProperty = typeof docElem.style.transform === "string" ? "transform" : "WebkitTransform";
 		var jQuery = window.jQuery;
 		function Draggabilly(element, options) {
-			this.element = typeof element == "string" ? document.querySelector(element) : element;
+			this.element = typeof element === "string" ? document.querySelector(element) : element;
 			if (jQuery) {
 				this.$element = jQuery(this.element);
 			}
@@ -2513,7 +2513,7 @@
 			if (!containment) {
 				return;
 			}
-			var container = isElement(containment) ? containment : typeof containment == "string" ? document.querySelector(containment) : this.element.parentNode;
+			var container = isElement(containment) ? containment : typeof containment === "string" ? document.querySelector(containment) : this.element.parentNode;
 			var elemSize = getSize(this.element);
 			var containerSize = getSize(container);
 			var elemRect = this.element.getBoundingClientRect();

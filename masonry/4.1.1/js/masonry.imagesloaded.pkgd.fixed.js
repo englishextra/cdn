@@ -21,7 +21,7 @@
 			}
 			var events = this._events = this._events || {};
 			var listeners = events[eventName] = events[eventName] || [];
-			if (listeners.indexOf(listener) == -1) {
+			if (listeners.indexOf(listener) === -1) {
 				listeners.push(listener);
 			}
 			return this;
@@ -81,7 +81,7 @@
 		return isValid && num;
 	}
 	function noop() {}
-	var logError = typeof console == "undefined" ? noop : function (message) {
+	var logError = typeof console === "undefined" ? noop : function (message) {
 		console.error(message);
 	};
 	var measurements = ['paddingLeft', 'paddingRight', 'paddingTop', 'paddingBottom', 'marginLeft', 'marginRight', 'marginTop', 'marginBottom', 'borderLeftWidth', 'borderRightWidth', 'borderTopWidth', 'borderBottomWidth'];
@@ -124,15 +124,15 @@
 		var body = document.body || document.documentElement;
 		body.appendChild(div);
 		var style = getStyle(div);
-		getSize.isBoxSizeOuter = isBoxSizeOuter = getStyleSize(style.width) == 200;
+		getSize.isBoxSizeOuter = isBoxSizeOuter = getStyleSize(style.width) === 200;
 		body.removeChild(div);
 	}
 	function getSize(elem) {
 		setup();
-		if (typeof elem == "string") {
+		if (typeof elem === "string") {
 			elem = document.querySelector(elem);
 		}
-		if (!elem || typeof elem != "object" || !elem.nodeType) {
+		if (!elem || typeof elem !== "object" || !elem.nodeType) {
 			return;
 		}
 		var style = getStyle(elem);
@@ -235,7 +235,7 @@
 			}
 		};
 		utils.getParent = function (elem, selector) {
-			while (elem != document.body) {
+			while (elem !== document.body) {
 				elem = elem.parentNode;
 				if (matchesSelector(elem, selector)) {
 					return elem;
@@ -243,7 +243,7 @@
 			}
 		};
 		utils.getQueryElement = function (elem) {
-			if (typeof elem == "string") {
+			if (typeof elem === "string") {
 				return document.querySelector(elem);
 			}
 			return elem;
@@ -350,8 +350,8 @@
 			return true;
 		}
 		var docElemStyle = document.documentElement.style;
-		var transitionProperty = typeof docElemStyle.transition == "string" ? 'transition' : 'WebkitTransition';
-		var transformProperty = typeof docElemStyle.transform == "string" ? "transform" : "WebkitTransform";
+		var transitionProperty = typeof docElemStyle.transition === "string" ? 'transition' : 'WebkitTransition';
+		var transformProperty = typeof docElemStyle.transform === "string" ? "transform" : "WebkitTransform";
 		var transitionEndEvent = {
 			WebkitTransition: 'webkitTransitionEnd',
 			transition: 'transitionend'
@@ -816,7 +816,7 @@
 			if (!option) {
 				this[measurement] = 0;
 			} else {
-				if (typeof option == "string") {
+				if (typeof option === "string") {
 					elem = this.element.querySelector(option);
 				} else if (option instanceof HTMLElement) {
 					elem = option;
@@ -916,7 +916,7 @@
 			var doneCount = 0;
 			function tick() {
 				doneCount++;
-				if (doneCount == count) {
+				if (doneCount === count) {
 					onComplete();
 				}
 			}
@@ -972,7 +972,7 @@
 			if (!elems) {
 				return;
 			}
-			if (typeof elems == "string") {
+			if (typeof elems === "string") {
 				elems = this.element.querySelectorAll(elems);
 			}
 			elems = utils.makeArray(elems);
@@ -1319,7 +1319,7 @@
 			}
 			var events = this._events = this._events || {};
 			var listeners = events[eventName] = events[eventName] || [];
-			if (listeners.indexOf(listener) == -1) {
+			if (listeners.indexOf(listener) === -1) {
 				listeners.push(listener);
 			}
 			return this;
@@ -1399,7 +1399,7 @@
 		if (!(this instanceof ImagesLoaded)) {
 			return new ImagesLoaded(elem, options, onAlways);
 		}
-		if (typeof elem == "string") {
+		if (typeof elem === "string") {
 			elem = document.querySelectorAll(elem);
 		}
 		this.elements = makeArray(elem);
@@ -1443,7 +1443,7 @@
 			var img = childImgs[i];
 			this.addImage(img);
 		}
-		if (typeof this.options.background == "string") {
+		if (typeof this.options.background === "string") {
 			var children = elem.querySelectorAll(this.options.background);
 			for (i = 0; i < children.length; i++) {
 				var child = children[i];
@@ -1504,7 +1504,7 @@
 		if (this.jqDeferred && this.jqDeferred.notify) {
 			this.jqDeferred.notify(this, image);
 		}
-		if (this.progressedCount == this.images.length) {
+		if (this.progressedCount === this.images.length) {
 			this.complete();
 		}
 		if (this.options.debug && console) {

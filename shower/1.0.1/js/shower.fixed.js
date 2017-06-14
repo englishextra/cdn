@@ -160,12 +160,12 @@
 					if (!f._isNumber(a)) {
 						throw new Error("Gimme slide number as Number, baby!");
 					}
-					return f.slideList[a] ? (g.hash = f.getSlideHash(a), f.updateProgress(a), f.updateActiveAndVisitedSlides(a), f.isSlideMode() && (f.showPresenterNotes(a), c = f.slideList[a], c.timing && c.initTimer(f)), "function" == typeof b && b(), a) : !1;
+					return f.slideList[a] ? (g.hash = f.getSlideHash(a), f.updateProgress(a), f.updateActiveAndVisitedSlides(a), f.isSlideMode() && (f.showPresenterNotes(a), c = f.slideList[a], c.timing && c.initTimer(f)), "function" === typeof b && b(), a) : !1;
 				},
 				f.next = function (a) {
 					var b = f.getCurrentSlideNumber(),
 					c = f.slideList[b + 1];
-					return c ? (f.go(b + 1), "function" == typeof a && a(), this) : !1;
+					return c ? (f.go(b + 1), "function" === typeof a && a(), this) : !1;
 				},
 				f._turnNextSlide = function (a) {
 					var b = f.getCurrentSlideNumber(),
@@ -176,20 +176,20 @@
 					} else {
 						f.go(b + 1);
 					}
-					if ("function" == typeof a) {
+					if ("function" === typeof a) {
 						a();
 					}
 				},
 				f.prev = f.previous = function (a) {
 					var b = f.getCurrentSlideNumber();
-					return 1 > b ? !1 : (f.go(b - 1), "function" == typeof a && a(), !0);
+					return 1 > b ? !1 : (f.go(b - 1), "function" === typeof a && a(), !0);
 				},
 				f._turnPreviousSlide = function (a) {
 					var b = f.getCurrentSlideNumber(),
 					c = f.slideList[b];
 					return c.stopTimer(),
 					f.isSlideMode() ? c.prev(f) : f.go(b - 1),
-					"function" == typeof a && a(),
+					"function" === typeof a && a(),
 					!0;
 				},
 				f.first = function (a) {
@@ -198,7 +198,7 @@
 						b.stopTimer();
 					}
 					f.go(0);
-					if ("function" == typeof a) {
+					if ("function" === typeof a) {
 						a();
 					}
 				},
@@ -208,7 +208,7 @@
 						b.stopTimer();
 					}
 					f.go(f.slideList.length - 1);
-					if ("function" == typeof a) {
+					if ("function" === typeof a) {
 						a();
 					}
 				},
@@ -218,7 +218,7 @@
 					h.classList.add("full"),
 					f.isListMode() && k && history.pushState(null, null, g.pathname + "?full" + f.getSlideHash(b)),
 					f._applyTransform(f._getTransform()),
-					"function" == typeof a && a(),
+					"function" === typeof a && a(),
 					!0;
 				},
 				f.enterListMode = function (a) {
@@ -227,11 +227,11 @@
 					h.classList.add(h_cls),
 					f.clearPresenterNotes(),
 					f._applyTransform("none"),
-					f.isListMode() ? !1 : (b = f.getCurrentSlideNumber(), f.slideList[b].stopTimer(), f.isSlideMode() && k && history.pushState(null, null, g.pathname + f.getSlideHash(b)), f.scrollToSlide(b), "function" == typeof a && a(), !0);
+					f.isListMode() ? !1 : (b = f.getCurrentSlideNumber(), f.slideList[b].stopTimer(), f.isSlideMode() && k && history.pushState(null, null, g.pathname + f.getSlideHash(b)), f.scrollToSlide(b), "function" === typeof a && a(), !0);
 				},
 				f.toggleMode = function (a) {
 					return f.isListMode() ? f.enterSlideMode() : f.enterListMode(),
-					"function" == typeof a && a(),
+					"function" === typeof a && a(),
 					!0;
 				},
 				f.getCurrentSlideNumber = function () {
