@@ -54,4 +54,3 @@ if ("serviceWorker" in navigator) {
 		console.log("Registered Service Worker", workerScript);
 	}
 }
-

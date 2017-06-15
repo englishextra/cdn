@@ -445,7 +445,7 @@
 						}
 					});
 					_extends(util, {
-						getSupportedCSS: function () {
+						getSupportedCSS: (function () {
 							var prefixes = ['', '-webkit-', '-moz-', '-o-', '-ms-'];
 							var elem = document.createElement('div');
 							var style = elem.style;
@@ -462,7 +462,7 @@
 								return supportedName;
 							};
 						}
-						(),
+						()),
 						onMouseWheel: function onMouseWheel(elem, callback) {
 							var isStopPropFn = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {
 								return false;
@@ -875,7 +875,7 @@
 					Object.defineProperty(exports, "__esModule", {
 						value: true
 					});
-					var _createClass = function () {
+					var _createClass = (function () {
 						function defineProperties(target, props) {
 							for (var i = 0; i < props.length; i++) {
 								var descriptor = props[i];
@@ -894,13 +894,13 @@
 							return Constructor;
 						};
 					}
-					();
+					());
 					function _classCallCheck(instance, Constructor) {
 						if (!(instance instanceof Constructor)) {
 							throw new TypeError("Cannot call a class as a function");
 						}
 					}
-					var Keyboard = function () {
+					var Keyboard = (function () {
 						function Keyboard(doSlide, key) {
 							_classCallCheck(this, Keyboard);
 							this.eventType = 'keydown';
@@ -995,7 +995,7 @@
 							]);
 						return Keyboard;
 					}
-					();
+					());
 					function filterByKeyCode(keyCode) {
 						return function (event) {
 							return event.keyCode === keyCode;
@@ -1011,7 +1011,7 @@
 						});
 				};
 				function install(DoSlide) {
-					DoSlide.prototype.getKeyboard = function () {
+					DoSlide.prototype.getKeyboard = (function () {
 						var key = DoSlide.applyNewKey();
 						return function () {
 							var space = this.getSpaceByKey(key);
@@ -1022,7 +1022,7 @@
 							return space.res;
 						};
 					}
-					();
+					());
 				}
 				exports.default = {
 					install: install
