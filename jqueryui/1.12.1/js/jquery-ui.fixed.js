@@ -20,7 +20,7 @@
 /*jshint forin: false */
 /*jshint shadow: true */
 /*jshint sub: true */
-/*jshint bitwise: true */
+/*jshint bitwise: false */
 (function(factory){if(typeof define==="function"&&define.amd){define(["jquery"],factory);}else{factory(jQuery);}}(function($){$.ui=$.ui||{};var version=$.ui.version="1.12.1";var widgetUuid=0;var widgetSlice=Array.prototype.slice;$.cleanData=(function(orig){return function(elems){var events,elem,i;for(i=0;(elem=elems[i])!=null;i++){try{events=$._data(elem,"events");if(events&&events.remove){$(elem).triggerHandler("remove");}}catch(e){}}
 orig(elems);};})($.cleanData);$.widget=function(name,base,prototype){var existingConstructor,constructor,basePrototype;var proxiedPrototype={};var namespace=name.split(".")[0];name=name.split(".")[1];var fullName=namespace+"-"+name;if(!prototype){prototype=base;base=$.Widget;}
 if($.isArray(prototype)){prototype=$.extend.apply(null,[{}].concat(prototype));}
@@ -1165,4 +1165,4 @@ var widgetsTooltip=$.ui.tooltip;}));
 /*jshint forin: true */
 /*jshint shadow: false */
 /*jshint sub: false */
-/*jshint bitwise: false */
+/*jshint bitwise: true */
