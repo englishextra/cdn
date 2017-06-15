@@ -435,8 +435,10 @@
 					case 37:
 					case 72:
 					case 75:
-						if (a.altKey || a.ctrlKey || a.metaKey)
+						if (a.altKey || a.ctrlKey || a.metaKey) {
 							return;
+						}
+
 						a.preventDefault();
 						f._turnPreviousSlide();
 						break;
@@ -445,8 +447,10 @@
 					case 39:
 					case 76:
 					case 74:
-						if (a.altKey || a.ctrlKey || a.metaKey)
+						if (a.altKey || a.ctrlKey || a.metaKey) {
 							return;
+						}
+
 						a.preventDefault();
 						f._turnNextSlide();
 						break;
