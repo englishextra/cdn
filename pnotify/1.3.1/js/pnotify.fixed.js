@@ -513,7 +513,7 @@
 									break;
 								}
 							} else {pnotify.css(csspos1, s.nextpos1 + "px");}
-								
+
 						}
 						if (animate.top || animate.bottom || animate.right || animate.left) {
 							pnotify.animate(animate, {
