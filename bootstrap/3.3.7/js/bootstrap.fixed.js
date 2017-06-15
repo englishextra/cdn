@@ -5,10 +5,10 @@
  * source: maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js
  * passes jshint with suppressing comments
  */
-/* jshint -W030 */
-/* jshint -W041 */
-/* jslint asi: true */
-/* jslint bitwise: true */
+/*jshint -W030 */
+/*jshint -W041 */
+/*jslint asi: true */
+/*jslint bitwise: true */
 if(typeof jQuery==="undefined"){throw new Error('Bootstrap\'s JavaScript requires jQuery')}
 +function($){"use strict";var version=$.fn.jquery.split(' ')[0].split('.')
 if((version[0]<2&&version[1]<9)||(version[0]==1&&version[1]==9&&version[2]<1)||(version[0]>3)){throw new Error('Bootstrap\'s JavaScript requires jQuery version 1.9.1 or higher, but lower than version 4')}}
@@ -930,7 +930,7 @@ if(data.offsetTop!=null)
 data.offset.top=data.offsetTop
 Plugin.call($spy,data)})})}
 (jQuery);
-/* jshint +W030 */
-/* jshint +W041 */
-/* jslint asi: false */
-/* jslint bitwise: false */
+/*jshint +W030 */
+/*jshint +W041 */
+/*jslint asi: false */
+/*jslint bitwise: false */

@@ -8,7 +8,7 @@
  * @see {@link https://github.com/metafizzy/isotope/blob/master/dist/isotope.pkgd.js}
  * passes jshint with suppressing comments
  */
-/* jshint forin: false */
+/*jshint forin: false */
 (function (root, factory) {
 	root.EvEmitter = factory();
 }
@@ -1846,5 +1846,5 @@
 		};
 		return Isotope;
 	}));
-/* jshint forin: true */
+/*jshint forin: true */
 

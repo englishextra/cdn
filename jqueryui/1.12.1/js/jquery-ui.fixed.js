@@ -7,20 +7,20 @@
  * source: code.jquery.com/ui/1.12.1/jquery-ui.js
  * passes jshint with suppressing comments
  */
-/* jshint -W007 */
-/* jshint -W014 */
-/* jshint -W018 */
-/* jshint -W030 */
-/* jshint -W041 */
-/* jshint -W058 */
-/* jshint -W008 */
-/* jshint asi: true */
-/* jshint boss: true */
-/* jshint elision: true */
-/* jshint forin: false */
-/* jshint shadow: true */
-/* jshint sub: true */
-/* jslint bitwise: true */
+/*jshint -W007 */
+/*jshint -W014 */
+/*jshint -W018 */
+/*jshint -W030 */
+/*jshint -W041 */
+/*jshint -W058 */
+/*jshint -W008 */
+/*jshint asi: true */
+/*jshint boss: true */
+/*jshint elision: true */
+/*jshint forin: false */
+/*jshint shadow: true */
+/*jshint sub: true */
+/*jslint bitwise: true */
 (function(factory){if(typeof define==="function"&&define.amd){define(["jquery"],factory);}else{factory(jQuery);}}(function($){$.ui=$.ui||{};var version=$.ui.version="1.12.1";var widgetUuid=0;var widgetSlice=Array.prototype.slice;$.cleanData=(function(orig){return function(elems){var events,elem,i;for(i=0;(elem=elems[i])!=null;i++){try{events=$._data(elem,"events");if(events&&events.remove){$(elem).triggerHandler("remove");}}catch(e){}}
 orig(elems);};})($.cleanData);$.widget=function(name,base,prototype){var existingConstructor,constructor,basePrototype;var proxiedPrototype={};var namespace=name.split(".")[0];name=name.split(".")[1];var fullName=namespace+"-"+name;if(!prototype){prototype=base;base=$.Widget;}
 if($.isArray(prototype)){prototype=$.extend.apply(null,[{}].concat(prototype));}
@@ -1152,17 +1152,17 @@ return element;},_destroy:function(){var that=this;$.each(this.tooltips,function
 element.removeData("ui-tooltip-title");}});this.liveRegion.remove();}});if($.uiBackCompat!==false){$.widget("ui.tooltip",$.ui.tooltip,{options:{tooltipClass:null},_tooltip:function(){var tooltipData=this._superApply(arguments);if(this.options.tooltipClass){tooltipData.tooltip.addClass(this.options.tooltipClass);}
 return tooltipData;}});}
 var widgetsTooltip=$.ui.tooltip;}));
-/* jshint +W007 */
-/* jshint +W014 */
-/* jshint +W018 */
-/* jshint +W030 */
-/* jshint +W041 */
-/* jshint +W058 */
-/* jshint +W008 */
-/* jshint asi: false */
-/* jshint boss: false */
-/* jshint elision: false */
-/* jshint forin: true */
-/* jshint shadow: false */
-/* jshint sub: false */
-/* jslint bitwise: false */
+/*jshint +W007 */
+/*jshint +W014 */
+/*jshint +W018 */
+/*jshint +W030 */
+/*jshint +W041 */
+/*jshint +W058 */
+/*jshint +W008 */
+/*jshint asi: false */
+/*jshint boss: false */
+/*jshint elision: false */
+/*jshint forin: true */
+/*jshint shadow: false */
+/*jshint sub: false */
+/*jslint bitwise: false */
