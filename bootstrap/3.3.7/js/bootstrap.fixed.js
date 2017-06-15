@@ -89,7 +89,7 @@ $input.trigger('change')}else{this.$element.attr('aria-pressed',!this.$element.h
 this.$element.toggleClass('active')}}
 function Plugin(option){return this.each(function(){var $this=$(this)
 var data=$this.data('bs.button')
-var options=typeof option=="object"&&option
+var options=typeof option==="object"&&option
 if(!data)
 $this.data('bs.button',(data=new Button(this,options)))
 if(option=='toggle')
@@ -191,7 +191,7 @@ isCycling&&this.cycle()
 return this}
 function Plugin(option){return this.each(function(){var $this=$(this)
 var data=$this.data('bs.carousel')
-var options=$.extend({},Carousel.DEFAULTS,$this.data(),typeof option=="object"&&option)
+var options=$.extend({},Carousel.DEFAULTS,$this.data(),typeof option==="object"&&option)
 var action=typeof option=="string"?option:options.slide
 if(!data)
 $this.data('bs.carousel',(data=new Carousel(this,options)))
@@ -283,7 +283,7 @@ var target=$trigger.attr('data-target')||(href=$trigger.attr('href'))&&href.repl
 return $(target)}
 function Plugin(option){return this.each(function(){var $this=$(this)
 var data=$this.data('bs.collapse')
-var options=$.extend({},Collapse.DEFAULTS,$this.data(),typeof option=="object"&&option)
+var options=$.extend({},Collapse.DEFAULTS,$this.data(),typeof option==="object"&&option)
 if(!data&&options.toggle&&/show|hide/.test(option))
 options.toggle=false
 if(!data)
@@ -478,7 +478,7 @@ this.$body[0].removeChild(scrollDiv)
 return scrollbarWidth}
 function Plugin(option,_relatedTarget){return this.each(function(){var $this=$(this)
 var data=$this.data('bs.modal')
-var options=$.extend({},Modal.DEFAULTS,$this.data(),typeof option=="object"&&option)
+var options=$.extend({},Modal.DEFAULTS,$this.data(),typeof option==="object"&&option)
 if(!data)
 $this.data('bs.modal',(data=new Modal(this,options)))
 if(typeof option=="string")
@@ -698,7 +698,7 @@ that.$viewport=null
 that.$element=null})}
 function Plugin(option){return this.each(function(){var $this=$(this)
 var data=$this.data('bs.tooltip')
-var options=typeof option=="object"&&option
+var options=typeof option==="object"&&option
 if(!data&&/destroy|hide/.test(option))
 return
 if(!data)
@@ -733,7 +733,7 @@ return $e.attr('data-content')||(typeof o.content==="function"?o.content.call($e
 Popover.prototype.arrow=function(){return(this.$arrow=this.$arrow||this.tip().find('.arrow'))}
 function Plugin(option){return this.each(function(){var $this=$(this)
 var data=$this.data('bs.popover')
-var options=typeof option=="object"&&option
+var options=typeof option==="object"&&option
 if(!data&&/destroy|hide/.test(option))
 return
 if(!data)
@@ -794,7 +794,7 @@ active.trigger('activate.bs.scrollspy')}
 ScrollSpy.prototype.clear=function(){$(this.selector).parentsUntil(this.options.target,'.active').removeClass('active')}
 function Plugin(option){return this.each(function(){var $this=$(this)
 var data=$this.data('bs.scrollspy')
-var options=typeof option=="object"&&option
+var options=typeof option==="object"&&option
 if(!data)
 $this.data('bs.scrollspy',(data=new ScrollSpy(this,options)))
 if(typeof option=="string")
@@ -911,7 +911,7 @@ this.$element.removeClass(Affix.RESET).addClass(affixType).trigger(affixType.rep
 if(affix=='bottom'){this.$element.offset({top:scrollHeight-height-offsetBottom})}}
 function Plugin(option){return this.each(function(){var $this=$(this)
 var data=$this.data('bs.affix')
-var options=typeof option=="object"&&option
+var options=typeof option==="object"&&option
 if(!data)
 $this.data('bs.affix',(data=new Affix(this,options)))
 if(typeof option=="string")

@@ -3,6 +3,15 @@
  * @see {@link https://github.com/google/code-prettify}
  * Copyright (C) 2006 Google Inc.
  * Licensed under the Apache License, Version 2.0 (the "License");
+ * <pre class="prettyprint lang-html">
+ * The lang-* class specifies the language file extensions.
+ * File extensions supported by default include:
+ * "bsh", "c", "cc", "cpp", "cs", "csh", "cyc", "cv", "htm", "html", "java",
+ * "js", "m", "mxml", "perl", "pl", "pm", "py", "rb", "sh", "xhtml", "xml",
+ * "xsl".
+ * </pre>
+ * You may also use the HTML 5 convention of embedding a <code> element inside the <pre> and using language-java style classes:
+ * <pre class="prettyprint"><code class="language-java">...</code></pre>
  * @see {@link https://github.com/google/code-prettify/blob/master/loader/prettify.js}
  * pass jshint with suppressing comments
  */
