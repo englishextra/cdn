@@ -7,10 +7,10 @@
  */
 /*jshint -W030 */
 /*jshint -W041 */
-/*jslint asi: true */
-/*jslint bitwise: true */
+/*jshint asi: true */
+/*jshint bitwise: true */
 if(typeof jQuery==="undefined"){throw new Error('Bootstrap\'s JavaScript requires jQuery')}
-+function($){"use strict";var version=$.fn.jquery.split(' ')[0].split('.')
++function($){"use strict";var version=$.fn.jquery.split(" ")[0].split(".")
 if((version[0]<2&&version[1]<9)||(version[0]==1&&version[1]==9&&version[2]<1)||(version[0]>3)){throw new Error('Bootstrap\'s JavaScript requires jQuery version 1.9.1 or higher, but lower than version 4')}}
 (jQuery);+function($){"use strict";function transitionEnd(){var el=document.createElement('bootstrap')
 var transEndEventNames={WebkitTransition:'webkitTransitionEnd',MozTransition:'transitionend',OTransition:'oTransitionEnd otransitionend',transition:'transitionend'}
@@ -517,7 +517,7 @@ this.options=this.getOptions(options)
 this.$viewport=this.options.viewport&&$($.isFunction(this.options.viewport)?this.options.viewport.call(this,this.$element):(this.options.viewport.selector||this.options.viewport))
 this.inState={click:false,hover:false,focus:false}
 if(this.$element[0]instanceof document.constructor&&!this.options.selector){throw new Error('`selector` option must be specified when initializing '+this.type+' on the window.document object!')}
-var triggers=this.options.trigger.split(' ')
+var triggers=this.options.trigger.split(" ")
 for(var i=triggers.length;i--;){var trigger=triggers[i]
 if(trigger=='click'){this.$element.on('click.'+this.type,this.options.selector,$.proxy(this.toggle,this))}else if(trigger!='manual'){var eventIn=trigger=='hover'?'mouseenter':'focusin'
 var eventOut=trigger=='hover'?'mouseleave':'focusout'
@@ -932,5 +932,5 @@ Plugin.call($spy,data)})})}
 (jQuery);
 /*jshint +W030 */
 /*jshint +W041 */
-/*jslint asi: false */
-/*jslint bitwise: false */
+/*jshint asi: false */
+/*jshint bitwise: false */

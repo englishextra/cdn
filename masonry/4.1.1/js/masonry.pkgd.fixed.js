@@ -1295,7 +1295,7 @@
 		Masonry.prototype.needsResizeLayout = function () {
 			var previousWidth = this.containerWidth;
 			this.getContainerWidth();
-			return previousWidth != this.containerWidth;
+			return previousWidth !== this.containerWidth;
 		};
 		return Masonry;
 	}));

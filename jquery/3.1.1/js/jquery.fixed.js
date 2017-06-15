@@ -13,7 +13,7 @@
  * source: cdn.jsdelivr.net/jquery/3.1.1/jquery.js
  * pass jshint with suppressing comments
  */
-/*jshint ignore: start */
+/*jshint ignore:start */
 (function (global, factory) {
 	"use strict";
 	if (typeof module === "object" && typeof module.exports === "object") {
@@ -6357,4 +6357,4 @@
 	}
 	return jQuery;
 });
-/*jshint ignore: end */
+/*jshint ignore:end */
