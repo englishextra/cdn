@@ -77,13 +77,13 @@
 			return;
 		}
 		var style = getStyle(elem);
-		if (style.display == 'none') {
+		if (style.display === "none") {
 			return getZeroSize();
 		}
 		var size = {};
 		size.width = elem.offsetWidth;
 		size.height = elem.offsetHeight;
-		var isBorderBox = size.isBorderBox = style.boxSizing == 'border-box';
+		var isBorderBox = size.isBorderBox = style.boxSizing === "border-box";
 		for (var i = 0; i < measurementsLength; i++) {
 			var measurement = measurements[i];
 			var value = style[measurement];
@@ -294,7 +294,7 @@
 			};
 		};
 		utils.docReady = function (callback) {
-			if (document.readyState == 'complete') {
+			if (document.readyState === "complete") {
 				callback();
 			} else {
 				document.addEventListener('DOMContentLoaded', callback);
@@ -414,7 +414,7 @@
 			var xValue = style[isOriginLeft ? 'left' : 'right'];
 			var yValue = style[isOriginTop ? 'top' : 'bottom'];
 			var layoutSize = this.layout.size;
-			var x = xValue.indexOf('%') != -1 ? (parseFloat(xValue) / 100) * layoutSize.width : parseInt(xValue, 10);
+			var x = xValue.indexOf('%') !== -1 ? (parseFloat(xValue) / 100) * layoutSize.width : parseInt(xValue, 10);
 			var y = yValue.indexOf('%') !== -1 ? (parseFloat(yValue) / 100) * layoutSize.height : parseInt(yValue, 10);
 			x = isNaN(x) ? 0 : x;
 			y = isNaN(y) ? 0 : y;
@@ -1641,7 +1641,7 @@
 			var ticks = 0;
 			function onLayout() {
 				ticks++;
-				if (ticks != 2) {
+				if (ticks !== 2) {
 					return;
 				}
 				_this.dispatchEvent('fitComplete', null, [item]);
@@ -1662,7 +1662,7 @@
 		proto.needsResizeLayout = function () {
 			var size = getSize(this.element);
 			var innerSize = this._getOption('horizontal') ? 'innerHeight' : 'innerWidth';
-			return size[innerSize] != this.size[innerSize];
+			return size[innerSize] !== this.size[innerSize];
 		};
 		proto.resizeShiftPercentLayout = function () {
 			var items = this._getItemsForLayout(this.items);
@@ -1956,13 +1956,13 @@
 			return;
 		}
 		var style = getStyle(elem);
-		if (style.display == 'none') {
+		if (style.display === "none") {
 			return getZeroSize();
 		}
 		var size = {};
 		size.width = elem.offsetWidth;
 		size.height = elem.offsetHeight;
-		var isBorderBox = size.isBorderBox = style.boxSizing == 'border-box';
+		var isBorderBox = size.isBorderBox = style.boxSizing === "border-box";
 		for (var i = 0; i < measurementsLength; i++) {
 			var measurement = measurements[i];
 			var value = style[measurement];
@@ -2146,7 +2146,7 @@
 			this._pointerMove(event, event);
 		};
 		proto.onMSPointerMove = proto.onpointermove = function (event) {
-			if (event.pointerId == this.pointerIdentifier) {
+			if (event.pointerId === this.pointerIdentifier) {
 				this._pointerMove(event, event);
 			}
 		};
@@ -2166,7 +2166,7 @@
 			this._pointerUp(event, event);
 		};
 		proto.onMSPointerUp = proto.onpointerup = function (event) {
-			if (event.pointerId == this.pointerIdentifier) {
+			if (event.pointerId === this.pointerIdentifier) {
 				this._pointerUp(event, event);
 			}
 		};
@@ -2191,7 +2191,7 @@
 		};
 		proto.pointerDone = noop;
 		proto.onMSPointerCancel = proto.onpointercancel = function (event) {
-			if (event.pointerId == this.pointerIdentifier) {
+			if (event.pointerId === this.pointerIdentifier) {
 				this._pointerCancel(event, event);
 			}
 		};
@@ -2274,7 +2274,7 @@
 			}
 		};
 		proto.canPreventDefaultOnPointerDown = function (event) {
-			return event.target.nodeName != 'SELECT';
+			return event.target.nodeName !== "select";
 		};
 		proto.pointerMove = function (event, pointer) {
 			var moveVector = this._dragPointerMove(event, pointer);
@@ -2342,7 +2342,7 @@
 			}
 		};
 		proto._staticClick = function (event, pointer) {
-			if (this.isIgnoringMouseUp && event.type == "mouseup") {
+			if (this.isIgnoringMouseUp && event.type === "mouseup") {
 				return;
 			}
 			var nodeName = event.target.nodeName;
@@ -2460,7 +2460,7 @@
 			this._addTransformPosition(style);
 		};
 		proto._getPositionCoord = function (styleSide, measure) {
-			if (styleSide.indexOf('%') != -1) {
+			if (styleSide.indexOf('%') !== -1) {
 				var parentSize = getSize(this.element.parentNode);
 				return !parentSize ? 0 : (parseFloat(styleSide) / 100) * parentSize[measure];
 			}
@@ -2481,7 +2481,7 @@
 		proto.pointerDown = function (event, pointer) {
 			this._dragPointerDown(event, pointer);
 			var focused = document.activeElement;
-			if (focused && focused.blur && focused != document.body) {
+			if (focused && focused.blur && focused !== document.body) {
 				focused.blur();
 			}
 			this._bindPostStartEvents(event);
@@ -2542,7 +2542,7 @@
 			dragY = applyGrid(dragY, gridY);
 			dragX = this.containDrag('x', dragX, gridX);
 			dragY = this.containDrag('y', dragY, gridY);
-			dragX = this.options.axis == 'y' ? 0 : dragX;
+			dragX = this.options.axis === 'y' ? 0 : dragX;
 			dragY = this.options.axis === "x" ? 0 : dragY;
 			this.position.x = this.startPosition.x + dragX;
 			this.position.y = this.startPosition.y + dragY;
@@ -2558,7 +2558,7 @@
 			if (!this.options.containment) {
 				return drag;
 			}
-			var measure = axis == 'x' ? 'width' : 'height';
+			var measure = axis === 'x' ? 'width' : 'height';
 			var rel = this.relativeStartPosition[axis];
 			var min = applyGrid(-rel, grid, 'ceil');
 			var max = this.containSize[measure];
