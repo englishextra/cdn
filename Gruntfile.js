@@ -17,8 +17,6 @@ module.exports = function (grunt) {
 				"iframe-lightbox/0.1.3/js/iframe-lightbox.fixed.js",
 				"isotope/3.0.1/js/isotope.imagesloaded.pkgd.fixed.js",
 				"isotope/3.0.1/js/isotope.pkgd.fixed.js",
-				"jquery/1.10.2/js/jquery.fixed.js",
-				"jquery/2.2.4/js/jquery.fixed.js",
 				"jquery/3.1.1/js/jquery.fixed.js",
 				"jquery-builder/0.7.0/dist/2.1.1/js/jquery-deprecated-wrap.fixed.js",
 				"jqueryui/1.10.4/custom/js/jquery-ui.custom.fixed.js",
