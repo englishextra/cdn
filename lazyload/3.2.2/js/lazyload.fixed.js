@@ -1,4 +1,4 @@
-/*global ActiveXObject, define, escape, module, pnotify, Proxy, require, self, setImmediate */
+/*global global, ActiveXObject, define, escape, module, pnotify, Proxy, require, self, setImmediate */
 /*!
  * modified Lazyload images, iframes, widgets
  * with a standalone JavaScript lazyloader - v3.2.2
@@ -18,7 +18,7 @@
 /*jshint bitwise: false */
 (function (f) {
 	window.lazyload = f();
-})(function () {
+}(function () {
 	var define,
 	module,
 	exports;
@@ -334,5 +334,5 @@
 			}, {}
 		]
 	}, {}, [1])(1);
-});
+}));
 /*jshint bitwise: true */
