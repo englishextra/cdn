@@ -1,4 +1,4 @@
-/*global ActiveXObject, define, escape, module, pnotify, Proxy, require, setImmediate */
+/*global ActiveXObject, define, escape, module, pnotify, Proxy, require, self, setImmediate */
 /*!
  * modified ToProgress v0.1.1
  * @see {@link https://github.com/djyde/ToProgress}

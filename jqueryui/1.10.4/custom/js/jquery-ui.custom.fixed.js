@@ -1,4 +1,4 @@
-/*global ActiveXObject, define, escape, module, pnotify, Proxy, require, setImmediate */
+/*global ActiveXObject, define, escape, module, pnotify, Proxy, require, self, setImmediate */
 /*!
  * modified jQuery UI - v1.10.4 - 2016-11-12
  * @see {@link http://jqueryui.com}

@@ -1,4 +1,4 @@
-/*global ActiveXObject, define, escape, module, pnotify, Proxy, require, setImmediate */
+/*global ActiveXObject, define, escape, module, pnotify, Proxy, require, self, setImmediate */
 /*!
  * modified Simple lightbox effect in pure JS
  * @see {@link https://github.com/squeral/lightbox}

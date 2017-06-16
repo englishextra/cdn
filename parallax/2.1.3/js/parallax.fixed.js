@@ -1,4 +1,4 @@
-/*global ActiveXObject, define, escape, module, pnotify, Proxy, require, setImmediate */
+/*global ActiveXObject, define, escape, module, pnotify, Proxy, require, self, setImmediate */
 /*!
  * modified Parallax.js v2.1.3
  * @author Matthew Wagerfield - @wagerfield
@@ -404,7 +404,7 @@
 		}
 	};
 	window[NAME] = Parallax;
-})(window, document); ;
+})(window, document);
 (function () {
 	var lastTime = 0;
 	var vendors = ['ms', 'moz', 'webkit', 'o'];

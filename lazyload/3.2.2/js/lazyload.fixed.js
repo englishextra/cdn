@@ -1,4 +1,4 @@
-/*global ActiveXObject, define, escape, module, pnotify, Proxy, require, setImmediate */
+/*global ActiveXObject, define, escape, module, pnotify, Proxy, require, self, setImmediate */
 /*!
  * modified Lazyload images, iframes, widgets
  * with a standalone JavaScript lazyloader - v3.2.2
@@ -55,17 +55,6 @@
 	})({
 		1: [function (require, module, exports) {
 				(function (global) {
-					module.exports = lazyload;
-					var inViewport = require('in-viewport');
-					var lazyAttrs = ['data-src'];
-					global.lzld = lazyload();
-					replaceGetAttribute('Image');
-					replaceGetAttribute('IFrame');
-					function registerLazyAttr(attr) {
-						if (indexOf.call(lazyAttrs, attr) === -1) {
-							lazyAttrs.push(attr);
-						}
-					}
 					function lazyload(opts) {
 						opts = merge({
 								'offset': 333,
@@ -101,6 +90,10 @@
 						}
 						return register;
 					}
+					module.exports = lazyload;
+					var inViewport = require('in-viewport');
+					var lazyAttrs = ['data-src'];
+					global.lzld = lazyload();
 					function replaceGetAttribute(elementName) {
 						var fullname = 'HTML' + elementName + 'Element';
 						if (fullname in global === false) {
@@ -121,6 +114,13 @@
 							return original.call(this, name);
 						};
 					}
+					replaceGetAttribute('Image');
+					replaceGetAttribute('IFrame');
+					function registerLazyAttr(attr) {
+						if (indexOf.call(lazyAttrs, attr) === -1) {
+							lazyAttrs.push(attr);
+						}
+					}
 					function merge(defaults, opts) {
 						for (var name in defaults) {
 							if (opts[name] === undefined) {
@@ -140,9 +140,6 @@
 		],
 		2: [function (require, module, exports) {
 				(function (global) {
-					module.exports = inViewport;
-					var instances = [];
-					var supportsMutationObserver = typeof global.MutationObserver === "function";
 					function inViewport(elt, params, cb) {
 						var opts = {
 							container: global.document.body,
@@ -161,6 +158,9 @@
 						}
 						return instances[instances.push(createInViewport(container)) - 1].isInViewport(elt, offset, cb);
 					}
+					module.exports = inViewport;
+					var instances = [];
+					var supportsMutationObserver = typeof global.MutationObserver === "function";
 					function addEvent(el, type, fn) {
 						if (el.attachEvent) {
 							el.attachEvent("on" + type, fn);
@@ -175,15 +175,15 @@
 							args = arguments;
 							var callNow = immediate && !timeout;
 							clearTimeout(timeout);
-							timeout = setTimeout(later, wait);
-							if (callNow) {
-								func.apply(context, args);
-							}
 							function later() {
 								timeout = null;
 								if (!immediate) {
 									func.apply(context, args);
 								}
+							}
+							timeout = setTimeout(later, wait);
+							if (callNow) {
+								func.apply(context, args);
 							}
 						};
 					}
@@ -205,6 +205,12 @@
 					function createInViewport(container) {
 						var watches = createWatches();
 						var scrollContainer = container === global.document.body ? global : container;
+						function watchInViewport(elt, offset, cb) {
+							if (isVisible(elt, offset)) {
+								watches.remove(elt);
+								cb(elt);
+							}
+						}
 						var debouncedCheck = debounce(watches.checkAll(watchInViewport), 15);
 						addEvent(scrollContainer, 'scroll', debouncedCheck);
 						if (scrollContainer === global) {
@@ -233,12 +239,6 @@
 								watch: watch,
 								dispose: dispose
 							};
-						}
-						function watchInViewport(elt, offset, cb) {
-							if (isVisible(elt, offset)) {
-								watches.remove(elt);
-								cb(elt);
-							}
 						}
 						function isVisible(elt, offset) {
 							if (!contains(global.document.documentElement, elt) || !contains(global.document.documentElement, container)) {
@@ -312,6 +312,11 @@
 						};
 					}
 					function observeDOM(watches, container, cb) {
+						function watch(mutations) {
+							if (mutations.some(knownNodes) === true) {
+								setTimeout(cb, 0);
+							}
+						}
 						var observer = new MutationObserver(watch);
 						var filter = Array.prototype.filter;
 						var concat = Array.prototype.concat;
@@ -320,11 +325,6 @@
 							subtree: true,
 							attributes: true
 						});
-						function watch(mutations) {
-							if (mutations.some(knownNodes) === true) {
-								setTimeout(cb, 0);
-							}
-						}
 						function knownNodes(mutation) {
 							var nodes = concat.call([], Array.prototype.slice.call(mutation.addedNodes), mutation.target);
 							return filter.call(nodes, watches.isWatched).length > 0;

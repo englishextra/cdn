@@ -1,4 +1,4 @@
-/*global ActiveXObject, ActiveXObject, define, escape, module, pnotify, Proxy, require, setImmediate */
+/*global ActiveXObject, define, escape, module, pnotify, Proxy, require, self, setImmediate */
 /*!
  * DoSlide v1.1.4
  * (c) 2017 MopTym <moptym@163.com>
@@ -71,14 +71,14 @@
 					};
 				}
 					());
+				var _config = __webpack_require__(1);
+				var _util = __webpack_require__(2);
 				function _interopRequireDefault(obj) {
 					return obj && obj.__esModule ? obj : {
 					default:
 						obj
 					};
 				}
-				var _config = __webpack_require__(1);
-				var _util = __webpack_require__(2);
 				var _util2 = _interopRequireDefault(_util);
 				var _init = __webpack_require__(3);
 				var _event = __webpack_require__(5);
@@ -619,15 +619,15 @@
 					});
 					exports.init = undefined;
 					var _util = __webpack_require__(2);
-					var _util2 = _interopRequireDefault(_util);
-					var _show = __webpack_require__(4);
-					var _event = __webpack_require__(5);
 					function _interopRequireDefault(obj) {
 						return obj && obj.__esModule ? obj : {
 						default:
 							obj
 						};
 					}
+					var _util2 = _interopRequireDefault(_util);
+					var _show = __webpack_require__(4);
+					var _event = __webpack_require__(5);
 					function init(doSlide) {
 						if (!doSlide.config.silent) {
 							/* (0, _show.initSections)(doSlide, doSlide.config.initIndex || 0); */
@@ -647,17 +647,17 @@
 					});
 					exports.change = exports.initSections = undefined;
 					var _util = __webpack_require__(2);
-					var _util2 = _interopRequireDefault(_util);
-					var _event = __webpack_require__(5);
 					function _interopRequireDefault(obj) {
 						return obj && obj.__esModule ? obj : {
 						default:
 							obj
 						};
 					}
+					var _util2 = _interopRequireDefault(_util);
+					var _event = __webpack_require__(5);
 					var supportedTransition = _util2.default.getSupportedCSS("transition");
 						var supportedTransform = _util2.default.getSupportedCSS("transform");
-							var isSupport3d = function () {
+							var isSupport3d = (function () {
 								var has3d = false;
 								if (supportedTransform && window.getComputedStyle) {
 									var el = document.createElement("div");
@@ -668,7 +668,7 @@
 								}
 								return has3d && has3d !== "none";
 							}
-							();
+							());
 							function initSections(doSlide, initIndex) {
 								/* var $container = (0, _util2.default)(doSlide.el); */
 								var $container = _util2.default(doSlide.el);
@@ -798,14 +798,14 @@
 					Object.defineProperty(exports, "__esModule", {
 						value: true
 					});
+					exports.executeUserEventCallbacks = exports.executeEventCallbacks = exports.startListen = undefined;
+					var _util = __webpack_require__(2);
 					function _interopRequireDefault(obj) {
 						return obj && obj.__esModule ? obj : {
 						default:
 							obj
 						};
 					}
-					exports.executeUserEventCallbacks = exports.executeEventCallbacks = exports.startListen = undefined;
-					var _util = __webpack_require__(2);
 					var _util2 = _interopRequireDefault(_util);
 					function executeUserEventCallbacks(doSlide) {
 						var event = doSlide.userEvent;
