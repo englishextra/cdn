@@ -1,3 +1,4 @@
+/*global ActiveXObject, define, escape, module, pnotify, Proxy, require, setImmediate */
 /*!
  * modified Kamil v0.1.1
  * Autocomplete library - pure JS

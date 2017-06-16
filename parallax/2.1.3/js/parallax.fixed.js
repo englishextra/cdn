@@ -1,3 +1,4 @@
+/*global ActiveXObject, define, escape, module, pnotify, Proxy, require, setImmediate */
 /*!
  * modified Parallax.js v2.1.3
  * @author Matthew Wagerfield - @wagerfield

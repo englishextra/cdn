@@ -1,3 +1,4 @@
+/*global ActiveXObject, define, escape, module, pnotify, Proxy, require, setImmediate */
 /*!
  * modified Masonry PACKAGED v4.1.1
  * Cascading grid layout library
@@ -293,7 +294,7 @@
 		};
 		utils.docReady = function (callback) {
 			var readyState = document.readyState;
-			if (readyState == "complete" || readyState == "interactive") {
+			if (readyState === "complete" || readyState === "interactive") {
 				callback();
 			} else {
 				document.addEventListener('DOMContentLoaded', callback);

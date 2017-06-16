@@ -1,3 +1,4 @@
+/*global ActiveXObject, define, escape, module, pnotify, Proxy, require, setImmediate */
 /*!
  * modified Lazyload images, iframes, widgets
  * with a standalone JavaScript lazyloader - v3.2.2

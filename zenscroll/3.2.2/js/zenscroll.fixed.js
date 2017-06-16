@@ -1,3 +1,4 @@
+/*global ActiveXObject, define, escape, module, pnotify, Proxy, require, setImmediate */
 /*!
  * modified Zenscroll - v3.2.2
  * @see {@link https://github.com/zengabor/zenscroll}

@@ -70,6 +70,12 @@
 					};
 				}
 					());
+				function _interopRequireDefault(obj) {
+					return obj && obj.__esModule ? obj : {
+					default:
+						obj
+					};
+				}
 				var _config = __webpack_require__(1);
 				var _util = __webpack_require__(2);
 				var _util2 = _interopRequireDefault(_util);
@@ -800,12 +806,6 @@
 					exports.executeUserEventCallbacks = exports.executeEventCallbacks = exports.startListen = undefined;
 					var _util = __webpack_require__(2);
 					var _util2 = _interopRequireDefault(_util);
-					function _interopRequireDefault(obj) {
-						return obj && obj.__esModule ? obj : {
-						default:
-							obj
-						};
-					}
 					function executeUserEventCallbacks(doSlide) {
 						var event = doSlide.userEvent;
 						if (event) {

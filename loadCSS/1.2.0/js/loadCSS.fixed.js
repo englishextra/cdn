@@ -1,3 +1,4 @@
+/*global ActiveXObject, define, escape, module, pnotify, Proxy, require, setImmediate */
 /*!
  * modified load CSS async v1.2.0
  * modified order of arguments, added callback option, removed CommonJS stuff

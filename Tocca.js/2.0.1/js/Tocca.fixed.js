@@ -1,3 +1,4 @@
+/*global ActiveXObject, define, escape, module, pnotify, Proxy, require, setImmediate */
 /*!
  * modified Super lightweight script (~1kb) to detect via Javascript events like
  * 'tap' 'dbltap' "swipeup" "swipedown" "swipeleft" "swiperight"

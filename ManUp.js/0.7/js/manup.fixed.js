@@ -1,3 +1,4 @@
+/*global ActiveXObject, define, escape, module, pnotify, Proxy, require, setImmediate */
 /*!
  * modified ManUp.js is a polyfill to support the Manifest for Web Apps
  * @see {@link https://github.com/boyofgreen/manUp.js/}

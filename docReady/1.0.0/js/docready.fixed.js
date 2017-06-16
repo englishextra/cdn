@@ -1,3 +1,4 @@
+/*global ActiveXObject, define, escape, module, pnotify, Proxy, require, setImmediate */
 /*!
  * modified Plain javascript replacement for jQuery's .ready()
  * so code can be scheduled to run when the document is ready

@@ -1,3 +1,4 @@
+/*global ActiveXObject, define, escape, module, pnotify, Proxy, require, setImmediate */
 /*!
  * modified Isotope PACKAGED v3.0.1
  * @see {@link https://github.com/metafizzy/isotope}
@@ -291,7 +292,7 @@
 		};
 		utils.docReady = function (callback) {
 			var readyState = document.readyState;
-			if (readyState == "complete" || readyState == "interactive") {
+			if (readyState === "complete" || readyState === "interactive") {
 				callback();
 			} else {
 				document.addEventListener('DOMContentLoaded', callback);

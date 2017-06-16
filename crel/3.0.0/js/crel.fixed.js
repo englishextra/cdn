@@ -1,3 +1,4 @@
+/*global ActiveXObject, define, escape, module, pnotify, Proxy, require, setImmediate */
 /*!
  * modified crel - a small, simple, and fast DOM creation utility
  * @see {@link https://github.com/KoryNunn/crel}

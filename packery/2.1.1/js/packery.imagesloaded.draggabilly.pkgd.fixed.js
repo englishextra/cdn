@@ -1,3 +1,4 @@
+/*global ActiveXObject, define, escape, module, pnotify, Proxy, require, setImmediate */
 /*!
  * modified Packery PACKAGED v2.1.1
  * Gapless, draggable grid layouts

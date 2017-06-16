@@ -1,3 +1,4 @@
+/*global ActiveXObject, define, escape, module, pnotify, Proxy, require, setImmediate */
 /*!
  * modified FastClick: polyfill to remove click delays on browsers with touch UIs.
  * @see {@link https://github.com/ftlabs/fastclick}

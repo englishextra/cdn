@@ -1,3 +1,4 @@
+/*global ActiveXObject, define, escape, module, pnotify, Proxy, require, setImmediate */
 /*!
  * modified jQuery JavaScript Library v1.10.2
  * @see {@link http://jquery.com/}

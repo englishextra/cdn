@@ -1,3 +1,4 @@
+/*global ActiveXObject, define, escape, module, pnotify, Proxy, require, setImmediate */
 /*!
  * modified routie - a tiny hash router - v0.3.2
  * @see {@link https://github.com/jgallen23/routie/blob/master/dist/routie.js}
