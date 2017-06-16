@@ -1,4 +1,4 @@
-/*global global, ActiveXObject, define, escape, module, pnotify, Proxy, require, self, setImmediate */
+/*global global, ActiveXObject, define, escape, module, pnotify, Proxy, jQuery, require, self, setImmediate */
 /*!
  * modified t.js
  * a micro-templating framework in ~400 bytes gzipped

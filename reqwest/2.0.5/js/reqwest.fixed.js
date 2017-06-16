@@ -1,4 +1,4 @@
-/*global global, ActiveXObject, define, escape, module, pnotify, Proxy, require, self, setImmediate */
+/*global global, ActiveXObject, define, escape, module, pnotify, Proxy, jQuery, require, self, setImmediate */
 /*!
  * modified Reqwest! v2.0.5
  * A general purpose XHR connection manager

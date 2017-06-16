@@ -1,4 +1,4 @@
-/*global global, ActiveXObject, define, escape, module, pnotify, Proxy, require, self, setImmediate */
+/*global global, ActiveXObject, define, escape, module, pnotify, Proxy, jQuery, require, self, setImmediate */
 /*!
  * modified Masonry PACKAGED v4.1.1
  * Cascading grid layout library

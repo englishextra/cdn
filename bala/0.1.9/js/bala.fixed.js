@@ -1,4 +1,4 @@
-/*global global, ActiveXObject, define, escape, module, pnotify, Proxy, require, self, setImmediate */
+/*global global, ActiveXObject, define, escape, module, pnotify, Proxy, jQuery, require, self, setImmediate */
 /*!
  * modified A function for elements selection - v0.1.9
  * @see {@link https://github.com/finom/bala}

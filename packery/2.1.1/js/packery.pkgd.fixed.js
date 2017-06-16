@@ -1,4 +1,4 @@
-/*global global, ActiveXObject, define, escape, module, pnotify, Proxy, require, self, setImmediate */
+/*global global, ActiveXObject, define, escape, module, pnotify, Proxy, jQuery, require, self, setImmediate */
 /*!
  * modified Packery PACKAGED v2.1.1
  * Gapless, draggable grid layouts
