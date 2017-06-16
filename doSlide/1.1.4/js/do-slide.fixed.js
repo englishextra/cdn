@@ -1,3 +1,4 @@
+/*global ActiveXObject, ActiveXObject, define, escape, module, pnotify, Proxy, require, setImmediate */
 /*!
  * DoSlide v1.1.4
  * (c) 2017 MopTym <moptym@163.com>
@@ -84,18 +85,12 @@
 				var _show = __webpack_require__(4);
 				var _keyboard = __webpack_require__(6);
 				var _keyboard2 = _interopRequireDefault(_keyboard);
-				function _interopRequireDefault(obj) {
-					return obj && obj.__esModule ? obj : {
-					default:
-						obj
-					};
-				}
 				function _classCallCheck(instance, Constructor) {
 					if (!(instance instanceof Constructor)) {
 						throw new TypeError("Cannot call a class as a function");
 					}
 				}
-				var DoSlide = function () {
+				var DoSlide = (function () {
 					function DoSlide() {
 						var selector = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : document.createElement("div");
 						var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
@@ -214,7 +209,7 @@
 						]);
 					return DoSlide;
 				}
-				();
+				());
 				DoSlide.from = function (doSlide, selector, config) {
 					return new DoSlide(selector, _extends({}, doSlide.config, config));
 				};
@@ -803,6 +798,12 @@
 					Object.defineProperty(exports, "__esModule", {
 						value: true
 					});
+					function _interopRequireDefault(obj) {
+						return obj && obj.__esModule ? obj : {
+						default:
+							obj
+						};
+					}
 					exports.executeUserEventCallbacks = exports.executeEventCallbacks = exports.startListen = undefined;
 					var _util = __webpack_require__(2);
 					var _util2 = _interopRequireDefault(_util);

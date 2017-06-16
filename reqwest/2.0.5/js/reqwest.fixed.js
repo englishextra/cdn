@@ -88,16 +88,19 @@
 		}
 		function handleReadyState(r, success, error) {
 			return function () {
-				if (r._aborted) {return error(r.request);}
-					
-				if (r._timedOut) {return error(r.request, "Request is aborted: timeout");}
-					
+				if (r._aborted) {
+					return error(r.request);
+				}
+				if (r._timedOut) {
+					return error(r.request, "Request is aborted: timeout");
+				}
 				if (r.request && r.request[readyState] === 4) {
 					r.request.onreadystatechange = noop;
-					if (succeed(r)) {success(r.request);}
-
-					else {error(r.request);}
-
+					if (succeed(r)) {
+						success(r.request);
+					} else {
+						error(r.request);
+					}
 				}
 			};
 		}
@@ -106,12 +109,15 @@
 			h;
 			headers["Accept"] = headers["Accept"] || defaultHeaders["accept"][o["type"]] || defaultHeaders["accept"]["*"];
 			var isAFormData = typeof FormData !== "undefined" && (o["data"]instanceof FormData);
-			if (!o["crossOrigin"] && !headers[requestedWith]) {headers[requestedWith] = defaultHeaders["requestedWith"];}
-				
-			if (!headers[contentType] && !isAFormData) {headers[contentType] = o["contentType"] || defaultHeaders["contentType"];}
-				
-			for (h in headers) {headers.hasOwnProperty(h) && "setRequestHeader" in http && http.setRequestHeader(h, headers[h]);}
-				
+			if (!o["crossOrigin"] && !headers[requestedWith]) {
+				headers[requestedWith] = defaultHeaders["requestedWith"];
+			}
+			if (!headers[contentType] && !isAFormData) {
+				headers[contentType] = o["contentType"] || defaultHeaders["contentType"];
+			}
+			for (h in headers) {
+				headers.hasOwnProperty(h) && "setRequestHeader" in http && http.setRequestHeader(h, headers[h]);
+			}
 		}
 		function setCredentials(http, o) {
 			if (typeof o["withCredentials"] !== "undefined" && typeof http.withCredentials !== "undefined") {
@@ -182,8 +188,9 @@
 				url = urlappend(url, data);
 				data = null;
 			}
-			if (o["type"] === "jsonp") {return handleJsonp(o, fn, err, url);}
-				
+			if (o["type"] === "jsonp") {
+				return handleJsonp(o, fn, err, url);
+			}
 			http = (o.xhr && o.xhr(o)) || xhr(o);
 			http.open(method, url, o["async"] === false ? false : true);
 			setHeaders(http, o);
@@ -212,16 +219,21 @@
 			init.apply(this, arguments);
 		}
 		function setType(header) {
-			if (header === null) {return undefined;}
-				
-			if (header.match("json")) {return "json";}
-				
-			if (header.match("javascript")) {return "js";}
-				
-			if (header.match("text")) {return "html";}
-				
-			if (header.match("xml")) {return "xml";}
-				
+			if (header === null) {
+				return undefined;
+			}
+			if (header.match("json")) {
+				return "json";
+			}
+			if (header.match("javascript")) {
+				return "js";
+			}
+			if (header.match("text")) {
+				return "html";
+			}
+			if (header.match("xml")) {
+				return "xml";
+			}
 		}
 		function init(o, fn) {
 			this.url = typeof o === "string" ? o : o["url"];
@@ -367,15 +379,17 @@
 			var n = el.name,
 			t = el.tagName.toLowerCase(),
 			optCb = function (o) {
-				if (o && !o["disabled"]) {cb(n, normalize(o["attributes"]["value"] && o["attributes"]["value"]["specified"] ? o["value"] : o["text"]));}
-					
+				if (o && !o["disabled"]) {
+					cb(n, normalize(o["attributes"]["value"] && o["attributes"]["value"]["specified"] ? o["value"] : o["text"]));
+				}
 			},
 			ch,
 			ra,
 			val,
 			i;
-			if (el.disabled || !n) {return;}
-				
+			if (el.disabled || !n) {
+				return;
+			}
 			switch (t) {
 			case "input":
 				if (!/reset|button|image|file/i.test(el.type)) {
@@ -409,14 +423,16 @@
 				fa;
 				for (i = 0; i < tags.length; i++) {
 					fa = e[byTag](tags[i]);
-					for (j = 0; j < fa.length; j++)
+					for (j = 0; j < fa.length; j++) {
 						serial(fa[j], cb);
+					}
 				}
 			};
 			for (i = 0; i < arguments.length; i++) {
 				e = arguments[i];
-				if (/input|select|textarea/i.test(e.tagName)) {serial(e, cb);}
-					
+				if (/input|select|textarea/i.test(e.tagName)) {
+					serial(e, cb);
+				}
 				serializeSubtags(e, ["input", "select", "textarea"]);
 			}
 		}
@@ -429,8 +445,9 @@
 				if (name in hash) {
 					hash[name] && !isArray(hash[name]) && (hash[name] = [hash[name]]);
 					hash[name].push(value);
-				} else
+				} else {
 					hash[name] = value;
+				}
 			}, arguments);
 			return hash;
 		}
@@ -445,8 +462,9 @@
 			return arr;
 		};
 		reqwest.serialize = function () {
-			if (arguments.length === 0) {return "";}
-				
+			if (arguments.length === 0) {
+				return "";
+			}
 			var opt,
 			fn,
 			args = Array.prototype.slice.call(arguments, 0);
@@ -473,12 +491,14 @@
 				s[s.length] = enc(key) + "=" + enc(value);
 			};
 			if (isArray(o)) {
-				for (i = 0; o && i < o.length; i++) {add(o[i]["name"], o[i]["value"]);}
-					
+				for (i = 0; o && i < o.length; i++) {
+					add(o[i]["name"], o[i]["value"]);
+				}
 			} else {
 				for (prefix in o) {
-					if (o.hasOwnProperty(prefix)) {buildParams(prefix, o[prefix], traditional, add);}
-						
+					if (o.hasOwnProperty(prefix)) {
+						buildParams(prefix, o[prefix], traditional, add);
+					}
 				}
 			}
 			return s.join("&").replace(/%20/g, "+");

@@ -146,8 +146,9 @@
 				header.classList.remove(sortDir === 'sort-down' ? 'sort-up' : 'sort-down');
 				header.classList.add(sortDir);
 			}
-			if (that.table.rows.length < 2)
+			if (that.table.rows.length < 2) {
 				return;
+			}
 			if (!sortMethod) {
 				while (items.length < 3 && i < that.table.tBodies[0].rows.length) {
 					item = getInnerText(that.table.tBodies[0].rows[i].cells[column]);
@@ -180,8 +181,9 @@
 				j,
 				totalRows = 0,
 				noSortsSoFar = 0;
-				if (that.table.tBodies[i].rows.length < 2)
+				if (that.table.tBodies[i].rows.length < 2) {
 					continue;
+				}
 				for (j = 0; j < that.table.tBodies[i].rows.length; j++) {
 					item = that.table.tBodies[i].rows[j];
 					if (item.classList.contains('no-sort')) {
