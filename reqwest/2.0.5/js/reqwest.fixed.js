@@ -1,4 +1,6 @@
-/*global global, ActiveXObject, define, escape, module, pnotify, Proxy, jQuery, require, self, setImmediate */
+/*jslint browser: true */
+/*jslint node: true */
+/*global global, ActiveXObject, define, escape, module, pnotify, Proxy, jQuery, require, self, setImmediate, window */
 /*!
  * modified Reqwest! v2.0.5
  * A general purpose XHR connection manager

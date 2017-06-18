@@ -1,4 +1,6 @@
-/*global global, ActiveXObject, define, escape, module, pnotify, Proxy, jQuery, require, self, setImmediate */
+/*jslint browser: true */
+/*jslint node: true */
+/*global global, ActiveXObject, define, escape, module, pnotify, Proxy, jQuery, require, self, setImmediate, window */
 /*!
  * modified load CSS async v1.2.0
  * modified order of arguments, added callback option, removed CommonJS stuff

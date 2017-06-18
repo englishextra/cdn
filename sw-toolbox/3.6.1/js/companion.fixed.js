@@ -1,4 +1,6 @@
-/*global global, ActiveXObject, define, escape, module, pnotify, Proxy, jQuery, require, self, setImmediate */
+/*jslint browser: true */
+/*jslint node: true */
+/*global global, ActiveXObject, define, escape, module, pnotify, Proxy, jQuery, require, self, setImmediate, window */
 /*!
  * Copyright 2016 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,40 +20,45 @@
 		navigator.serviceWorker.register(workerScript);
 	}
 })(); */
-if ("serviceWorker" in navigator) {
-	/* navigator.serviceWorker.getRegistrations().then(function (registrations) {
-		"use strict";
-		var _iteratorNormalCompletion = true;
-		var _didIteratorError = false;
-		var _iteratorError;
-		var _iterator;
-		var _step;
-		try {
-			for (_iterator = registrations[Symbol.iterator](); !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-				var registration = _step.value;
-				registration.unregister();
-				console.log("Unregistered Service Worker", registration.scope);
-			}
-		} catch (err) {
-			_didIteratorError = true;
-			_iteratorError = err;
-		}
-		finally {
+(function (root) {
+	"use strict";
+	var p = root ? root.location.protocol : "";
+	if ((/^http/).test(p) && Object.getPrototypeOf(navigator).hasOwnProperty("serviceWorker")) {
+		/* navigator.serviceWorker.getRegistrations().then(function (registrations) {
+			"use strict";
+			var _iteratorNormalCompletion = true;
+			var _didIteratorError = false;
+			var _iteratorError;
+			var _iterator;
+			var _step;
 			try {
-				if (!_iteratorNormalCompletion && _iterator.return ) {
-					_iterator.return ();
+				for (_iterator = registrations[Symbol.iterator](); !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+					var registration = _step.value;
+					registration.unregister();
+					console.log("Unregistered Service Worker", registration.scope);
 				}
+			} catch (err) {
+				_didIteratorError = true;
+				_iteratorError = err;
 			}
 			finally {
-				if (_didIteratorError) {
-					throw _iteratorError;
+				try {
+					if (!_iteratorNormalCompletion && _iterator.return ) {
+						_iterator.return ();
+					}
+				}
+				finally {
+					if (_didIteratorError) {
+						throw _iteratorError;
+					}
 				}
 			}
+		}); */
+		var workerScript = document.currentScript && document.currentScript.dataset.serviceWorker;
+		if (workerScript) {
+			navigator.serviceWorker.register(workerScript);
+			root.console.log("Registered Service Worker", workerScript);
 		}
-	}); */
-	var workerScript = document.currentScript && document.currentScript.dataset.serviceWorker;
-	if (workerScript) {
-		navigator.serviceWorker.register(workerScript);
-		console.log("Registered Service Worker", workerScript);
 	}
 }
+	("undefined" !== typeof window ? window : this));
