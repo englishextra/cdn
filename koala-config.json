@@ -1,0 +1,10 @@
+{
+  "ignores": ["scss",
+  "src",
+  "json",
+  "img"],
+  "options": {
+    "autocompile": true,
+    "sourceMap": false
+  }
+}
