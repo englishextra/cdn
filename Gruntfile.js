@@ -33,7 +33,7 @@ module.exports = function (grunt) {
 				"packery/2.1.1/js/packery.imagesloaded.draggabilly.pkgd.fixed.js",
 				"packery/2.1.1/js/packery.imagesloaded.pkgd.fixed.js",
 				"packery/2.1.1/js/packery.pkgd.fixed.js",
-				"parallax/2.1.3/js/parallax.fixed.js",
+				"parallax-js/3.1.0/js/parallax.fixed.js",
 				"photoswipe/4.1.0/js/photoswipe.photoswipe-ui-default.fixed.js",
 				"pnotify/1.3.1/js/pnotify.fixed.js",
 				"polyfills/js/polyfills.fixed.js",
