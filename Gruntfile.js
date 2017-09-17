@@ -47,6 +47,7 @@ module.exports = function (grunt) {
 				"tablesort/4.0.1/js/tablesort.fixed.js",
 				"Tocca.js/2.0.1/js/Tocca.fixed.js",
 				"ToProgress/0.1.1/js/ToProgress.fixed.js",
+				"wheel-indicator/1.1.4/js/wheel-indicator.fixed.js",
 				"zenscroll/3.2.2/js/zenscroll.fixed.js"
 			]
 		}
