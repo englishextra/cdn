@@ -232,7 +232,7 @@ var WheelIndicator = (function(win, doc) {
 
     function addEvent(elem, type, handler){
         if(elem.addEventListener) {
-            elem.addEventListener(type, handler, {passive:true});
+            elem.addEventListener(type, handler, {passive: false});
         } else if (elem.attachEvent) {
             elem.attachEvent('on' + type, handler);
         }
@@ -240,7 +240,7 @@ var WheelIndicator = (function(win, doc) {
 
     function removeEvent(elem, type, handler) {
         if (elem.removeEventListener) {
-            elem.removeEventListener(type, handler, {passive:true});
+            elem.removeEventListener(type, handler, {passive: false});
         } else if (elem.detachEvent) {
             elem.detachEvent('on'+ type, handler);
         }
