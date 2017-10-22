@@ -1,6 +1,3 @@
-/*jslint browser: true */
-/*jslint node: true */
-/*global global, ActiveXObject, define, escape, module, pnotify, Proxy, jQuery, require, self, setImmediate, window */
 /*!
  * modified qr.js -- QR code generator in Javascript (revision 2011-01-19)
  * Written by Kang Seonghoon <public+qrjs@mearie.org>.
@@ -28,8 +25,8 @@
 	MODE_OCTET = 4,
 	MODE_KANJI = 8;
 	var NUMERIC_REGEXP = /^\d*$/;
-	var ALPHANUMERIC_REGEXP = /^[A-Za-z0-9 $%*+\-./:] * $ / ;
-	var ALPHANUMERIC_OUT_REGEXP = /^[A-Z0-9 $%*+\-./:] * $ / ;
+	var ALPHANUMERIC_REGEXP = /^[A-Za-z0-9 $%*+\-./:]*$/;
+	var ALPHANUMERIC_OUT_REGEXP = /^[A-Z0-9 $%*+\-./:]*$/;
 	var ECCLEVEL_L = 1,
 	ECCLEVEL_M = 0,
 	ECCLEVEL_Q = 3,
