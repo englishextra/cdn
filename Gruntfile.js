@@ -42,7 +42,7 @@ module.exports = function (grunt) {
 					"platform/1.3.4/js/platform.fixed.js",
 					"pnotify/1.3.1/js/pnotify.fixed.js",
 					"polyfills/js/polyfills.fixed.js",
-					"qrjs2/0.1.4/js/qrjs2.fixed.js",
+					"qrjs2/0.1.6/js/qrjs2.fixed.js",
 					"reqwest/2.0.5/js/reqwest.fixed.js",
 					"routie/0.3.2/js/routie.fixed.js",
 					"shower/1.0.1/js/shower.fixed.js",
