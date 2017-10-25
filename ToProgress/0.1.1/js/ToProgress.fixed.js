@@ -1,16 +1,163 @@
-/*jslint browser: true */
-/*jslint node: true */
-/*global global, ActiveXObject, define, escape, module, pnotify, Proxy, jQuery, require, self, setImmediate, window */
 /*!
  * modified ToProgress v0.1.1
- * @see {@link https://github.com/djyde/ToProgress}
- * @see {@link https://gist.github.com/englishextra/6a8c79c9efbf1f2f50523d46a918b785}
- * @see {@link https://jsfiddle.net/englishextra/z5xhjde8/}
  * arguments.callee changed to TP, a local wrapper function,
  * so that public function name is now customizable;
  * wrapped in curly brackets:
  * else{document.body.appendChild(this.progressBar);};
  * removed module check
+ * @see {@link http://github.com/djyde/ToProgress}
+ * @see {@link https://github.com/djyde/ToProgress/blob/master/ToProgress.js}
+ * @see {@link https://gist.github.com/englishextra/6a8c79c9efbf1f2f50523d46a918b785}
+ * @see {@link https://jsfiddle.net/englishextra/z5xhjde8/}
  * passes jshint
  */
-(function(root){"use strict";var ToProgress=(function(){var TP=function(){var t=function(){var s=document.createElement("fakeelement"),i={transition:"transitionend",OTransition:"oTransitionEnd",MozTransition:"transitionend",WebkitTransition:"webkitTransitionEnd"};for(var j in i){if(i.hasOwnProperty(j)){if(void 0!==s.style[j]){return i[j];}}}},s=function(t,a){if(this.progress=0,this.options={id:"top-progress-bar",color:"#F44336",height:"2px",duration:0.2},t&&"object"===typeof t){for(var i in t){if(t.hasOwnProperty(i)){this.options[i]=t[i];}}}if(this.options.opacityDuration=3*this.options.duration,this.progressBar=document.createElement("div"),this.progressBar.id=this.options.id,this.progressBar.setCSS=function(t){for(var a in t){if(t.hasOwnProperty(a)){this.style[a]=t[a];}}},this.progressBar.setCSS({position:a?"relative":"fixed",top:"0",left:"0",right:"0","background-color":this.options.color,height:this.options.height,width:"0%",transition:"width "+this.options.duration+"s, opacity "+this.options.opacityDuration+"s","-moz-transition":"width "+this.options.duration+"s, opacity "+this.options.opacityDuration+"s","-webkit-transition":"width "+this.options.duration+"s, opacity "+this.options.opacityDuration+"s"}),a){var o=document.querySelector(a);if(o){if(o.hasChildNodes()){o.insertBefore(this.progressBar,o.firstChild);}else{o.appendChild(this.progressBar);}}}else{document.body.appendChild(this.progressBar);}},i=t();return s.prototype.transit=function(){this.progressBar.style.width=this.progress+"%";},s.prototype.getProgress=function(){return this.progress;},s.prototype.setProgress=function(t,s){this.show();this.progress=t>100?100:0>t?0:t;this.transit();if(s){s();}},s.prototype.increase=function(t,s){this.show();this.setProgress(this.progress+t,s);},s.prototype.decrease=function(t,s){this.show();this.setProgress(this.progress-t,s);},s.prototype.finish=function(t){var s=this;this.setProgress(100,t);this.hide();if(i){this.progressBar.addEventListener(i,function(t){s.reset();s.progressBar.removeEventListener(t.type,TP);});}},s.prototype.reset=function(t){this.progress=0;this.transit();if(t){t();}},s.prototype.hide=function(){this.progressBar.style.opacity="0";},s.prototype.show=function(){this.progressBar.style.opacity="1";},s;};return TP();}());root.ToProgress=ToProgress;}("undefined" !== typeof window ? window : this));
+(function (root, document, undefined) {
+	"use strict";
+	var ToProgress = (function () {
+		var TP = function () {
+			var addEventListener = "addEventListener";
+			var appendChild = "appendChild";
+			var createElement = "createElement";
+			var firstChild = "firstChild";
+			var getElementById = "getElementById";
+			var getElementsByClassName = "getElementsByClassName";
+			var hasOwnProperty = "hasOwnProperty";
+			var opacity = "opacity";
+			var prototype = "prototype";
+			var removeEventListener = "removeEventListener";
+			var style = "style";
+			function whichTransitionEvent() {
+				var t,
+				el = document[createElement]("fakeelement");
+				var transitions = {
+					"transition": "transitionend",
+					"OTransition": "oTransitionEnd",
+					"MozTransition": "transitionend",
+					"WebkitTransition": "webkitTransitionEnd"
+				};
+				for (t in transitions) {
+					if (transitions[hasOwnProperty](t)) {
+						if (el[style][t] !== undefined) {
+							return transitions[t];
+						}
+					}
+				}
+			}
+			var transitionEvent = whichTransitionEvent();
+			function ToProgress(opt, selector) {
+				this.progress = 0;
+				this.options = {
+					id: "top-progress-bar",
+					color: "#F44336",
+					height: "2px",
+					duration: 0.2
+				};
+				if (opt && typeof opt === "object") {
+					for (var key in opt) {
+						if (opt[hasOwnProperty](key)) {
+							this.options[key] = opt[key];
+						}
+					}
+				}
+				this.options.opacityDuration = this.options.duration * 3;
+				this.progressBar = document[createElement]("div");
+				this.progressBar.id = this.options.id;
+				this.progressBar.setCSS = function (style) {
+					for (var property in style) {
+						if (style[hasOwnProperty](property)) {
+							this.style[property] = style[property];
+						}
+					}
+				};
+				this.progressBar.setCSS({
+					"position": selector ? "relative" : "fixed",
+					"top": "0",
+					"left": "0",
+					"right": "0",
+					"background-color": this.options.color,
+					"height": this.options.height,
+					"width": "0%",
+					"transition": "width " + this.options.duration + "s" + ", opacity " + this.options.opacityDuration + "s",
+					"-moz-transition": "width " + this.options.duration + "s" + ", opacity " + this.options.opacityDuration + "s",
+					"-webkit-transition": "width " + this.options.duration + "s" + ", opacity " + this.options.opacityDuration + "s"
+				});
+				if (selector) {
+					var el;
+					if (selector.indexOf("#", 0) !== -1) {
+						el = document[getElementById](selector) || "";
+					} else {
+						if (selector.indexOf(".", 0) !== -1) {
+							el = document[getElementsByClassName](selector)[0] || "";
+						}
+					}
+					if (el) {
+						if (el.hasChildNodes()) {
+							el.insertBefore(this.progressBar, el[firstChild]);
+						} else {
+							el[appendChild](this.progressBar);
+						}
+					}
+				} else {
+					document.body[appendChild](this.progressBar);
+				}
+			}
+			ToProgress[prototype].transit = function () {
+				this.progressBar[style].width = this.progress + "%";
+			};
+			ToProgress[prototype].getProgress = function () {
+				return this.progress;
+			};
+			ToProgress[prototype].setProgress = function (progress, callback) {
+				this.show();
+				if (progress > 100) {
+					this.progress = 100;
+				} else if (progress < 0) {
+					this.progress = 0;
+				} else {
+					this.progress = progress;
+				}
+				this.transit();
+				if (callback) {
+					callback();
+				}
+			};
+			ToProgress[prototype].increase = function (toBeIncreasedProgress, callback) {
+				this.show();
+				this.setProgress(this.progress + toBeIncreasedProgress, callback);
+			};
+			ToProgress[prototype].decrease = function (toBeDecreasedProgress, callback) {
+				this.show();
+				this.setProgress(this.progress - toBeDecreasedProgress, callback);
+			};
+			ToProgress[prototype].finish = function (callback) {
+				var that = this;
+				this.setProgress(100, callback);
+				this.hide();
+				if (transitionEvent) {
+					this.progressBar[addEventListener](transitionEvent, function (e) {
+						that.reset();
+						that.progressBar[removeEventListener](e.type, TP);
+					});
+				}
+			};
+			ToProgress[prototype].reset = function (callback) {
+				this.progress = 0;
+				this.transit();
+				if (callback) {
+					callback();
+				}
+			};
+			ToProgress[prototype].hide = function () {
+				this.progressBar[style][opacity] = "0";
+			};
+			ToProgress[prototype].show = function () {
+				this.progressBar[style][opacity] = "1";
+			};
+			return ToProgress;
+		};
+		return TP();
+	}
+		());
+	root.ToProgress = ToProgress;
+}
+	("undefined" !== typeof window ? window : this, document));

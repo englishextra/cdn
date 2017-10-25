@@ -9,18 +9,18 @@
 (function (root, document) {
 	"use strict";
 	var echo = function (imgClass, dataAttributeName, throttleRate) {
-		imgClass = imgClass || "data-src-img";
-		dataAttributeName = dataAttributeName || "src";
-		throttleRate = throttleRate || 100;
+		var _imgClass = imgClass || "data-src-img";
+		var _dataAttributeName = dataAttributeName || "src";
+		var _throttleRate = throttleRate || 100;
 		var addEventListener = "addEventListener";
-		var dataset = "dataset";
-		var getElementsByClassName = "getElementsByClassName";
-		var getBoundingClientRect = "getBoundingClientRect";
 		var classList = "classList";
-		var getAttribute = "getAttribute";
-		var length = "length";
-		var documentElement = "documentElement";
+		var dataset = "dataset";
 		var defineProperty = "defineProperty";
+		var documentElement = "documentElement";
+		var getAttribute = "getAttribute";
+		var getBoundingClientRect = "getBoundingClientRect";
+		var getElementsByClassName = "getElementsByClassName";
+		var length = "length";
 		var Echo = function (elem) {
 			var _this = this;
 			_this.elem = elem;
@@ -38,7 +38,7 @@
 			return ((coords.top >= 0 && coords.left >= 0 && coords.top) <= (root.innerHeight || document[documentElement].clientHeight));
 		};
 		var echoSrc = function (img, callback) {
-			img.src = img[dataset][dataAttributeName] || img[getAttribute]("data-" + dataAttributeName);
+			img.src = img[dataset][_dataAttributeName] || img[getAttribute]("data-" + _dataAttributeName);
 			if (callback) {
 				callback();
 			}
@@ -49,7 +49,7 @@
 			}
 		};
 		var echoImageAll = function () {
-			for (var i = 0; i < echoStore.length; i++) {
+			for (var i = 0; i < echoStore[length]; i++) {
 				var self = echoStore[i];
 				if (scrolledIntoView(self)) {
 					echoSrc(self, removeEcho(self, i));
@@ -57,11 +57,18 @@
 			}
 		};
 		var throttle = function (func, wait) {
-			var ctx,
-			args,
-			rtn,
-			timeoutID;
+			var ctx;
+			var args;
+			var rtn;
+			var timeoutID;
 			var last = 0;
+			function call() {
+				timeoutID = 0;
+				last = +new Date();
+				rtn = func.apply(ctx, args);
+				ctx = null;
+				args = null;
+			}
 			return function throttled() {
 				ctx = this;
 				args = arguments;
@@ -75,15 +82,8 @@
 				}
 				return rtn;
 			};
-			function call() {
-				timeoutID = 0;
-				last = +new Date();
-				rtn = func.apply(ctx, args);
-				ctx = null;
-				args = null;
-			}
 		};
-		var throttleEchoImageAll = throttle(echoImageAll, throttleRate);
+		var throttleEchoImageAll = throttle(echoImageAll, _throttleRate);
 		var supportsPassive = (function () {
 				var support = false;
 				try {
@@ -111,7 +111,7 @@
 				}
 			}
 		};
-		var lazyImgs = document[getElementsByClassName](imgClass) || "";
+		var lazyImgs = document[getElementsByClassName](_imgClass) || "";
 		var walkLazyImageAll = function () {
 			for (var i = 0; i < lazyImgs[length]; i++) {
 				new Echo(lazyImgs[i]).init();

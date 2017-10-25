@@ -9,21 +9,21 @@
  */
 (function (root, document) {
 	"use strict";
-	var parentNode = "parentNode";
 	var addEventListener = "addEventListener";
-	var classList = "classList";
-	var getElementsByClassName = "getElementsByClassName";
 	var children = "children";
-	var getComputedStyle = "getComputedStyle";
-	var offsetTop = "offsetTop";
+	var classList = "classList";
 	var dataset = "dataset";
-	var nextElementSibling = "nextElementSibling";
-	var previousElementSibling = "previousElementSibling";
-	var length = "length";
+	var getComputedStyle = "getComputedStyle";
+	var getElementsByClassName = "getElementsByClassName";
 	var hasOwnProperty = "hasOwnProperty";
+	var length = "length";
+	var nextElementSibling = "nextElementSibling";
+	var offsetTop = "offsetTop";
+	var parentNode = "parentNode";
+	var previousElementSibling = "previousElementSibling";
 	var style = "style";
 	var zoomwall = {
-		create: function (blocks, enableKeys, dataAttributeHighresName, dataAttributeLowresName) {
+		create: function (blocks, enableKeys, dataAttributeHighresName, dataAttributeLowresName, done) {
 			var _this = this;
 			_this.dataAttributeHighresName = dataAttributeHighresName || "highres";
 			_this.dataAttributeLowresName = dataAttributeLowresName || "lowres";
@@ -39,6 +39,9 @@
 			}
 			if (enableKeys) {
 				zoomwall.keys(blocks);
+			}
+			if (typeof done === "function") {
+				done(blocks);
 			}
 		},
 		keys: function (blocks) {
@@ -94,9 +97,9 @@
 			for (var c = 0; c < blocks[length]; c++) {
 				var block = blocks[c];
 				if (block) {
-					if (top == -1) {
+					if (top === -1) {
 						top = block[offsetTop];
-					} else if (block[offsetTop] != top) {
+					} else if (block[offsetTop] !== top) {
 						zoomwall.resizeRow(row, zoomwall.calcRowWidth(row));
 						row = [];
 						top = block[offsetTop];
@@ -146,7 +149,7 @@
 				targetHeight -= parentTop;
 			}
 			if (block[dataset][_this.dataAttributeHighresName]) {
-				if (block.src != block[dataset][_this.dataAttributeHighresName] && block[dataset][_this.dataAttributeLowresName] === undefined) {
+				if (block.src !== block[dataset][_this.dataAttributeHighresName] && block[dataset][_this.dataAttributeLowresName] === undefined) {
 					block[dataset][_this.dataAttributeLowresName] = block.src;
 				}
 				block.src = block[dataset][_this.dataAttributeHighresName];
@@ -154,12 +157,12 @@
 			var row = [];
 			row.push(block);
 			var next = block[nextElementSibling];
-			while (next && next[offsetTop] == block[offsetTop]) {
+			while (next && next[offsetTop] === block[offsetTop]) {
 				row.push(next);
 				next = next[nextElementSibling];
 			}
 			var prev = block[previousElementSibling];
-			while (prev && prev[offsetTop] == block[offsetTop]) {
+			while (prev && prev[offsetTop] === block[offsetTop]) {
 				row.unshift(prev);
 				prev = prev[previousElementSibling];
 			}
@@ -175,12 +178,12 @@
 				offsetY -= parentTop;
 			}
 			var leftOffsetX = 0;
-			for (var i = 0; i < row[length] && row[i] != block; i++) {
+			for (var i = 0; i < row[length] && row[i] !== block; i++) {
 				leftOffsetX += parseInt(root[getComputedStyle](row[i]).width, 10) * scale;
 			}
 			leftOffsetX = parentWidth / 2 - blockWidth * scale / 2 - leftOffsetX;
 			var rightOffsetX = 0;
-			for (var j = row[length] - 1; j >= 0 && row[j] != block; j--) {
+			for (var j = row[length] - 1; j >= 0 && row[j] !== block; j--) {
 				rightOffsetX += parseInt(root[getComputedStyle](row[j]).width, 10) * scale;
 			}
 			rightOffsetX = parentWidth / 2 - blockWidth * scale / 2 - rightOffsetX;
@@ -204,10 +207,10 @@
 			var nextRowTop = -1;
 			while (next2) {
 				var curTop = next2[offsetTop];
-				if (curTop == nextRowTop) {
+				if (curTop === nextRowTop) {
 					itemOffset += prevWidth * scale - prevWidth;
 				} else {
-					if (nextRowTop != -1) {
+					if (nextRowTop !== -1) {
 						itemOffset = 0;
 						nextOffsetY += prevHeight * (scale - 1);
 					}
@@ -230,7 +233,7 @@
 			var prevRowTop = -1;
 			while (prev2) {
 				var curTop2 = prev2[offsetTop];
-				if (curTop2 == prevRowTop) {
+				if (curTop2 === prevRowTop) {
 					itemOffset -= prevWidth * scale - prevWidth;
 				} else {
 					itemOffset = 0;
