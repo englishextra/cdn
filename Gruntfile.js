@@ -17,7 +17,7 @@ module.exports = function (grunt) {
 					"fastclick/1.0.6/js/fastclick.fixed.js",
 					"fetch/2.0.3/js/fetch.fixed.js",
 					"google-code-prettify/0.1/js/prettify.bundled.fixed.js",
-					"iframe-lightbox/0.1.4/js/iframe-lightbox.fixed.js",
+					"iframe-lightbox/0.1.6/js/iframe-lightbox.fixed.js",
 					"infinite-scroll/0.1.0/js/infinite-scroll.fixed.js",
 					"isotope/3.0.1/js/isotope.imagesloaded.pkgd.fixed.js",
 					"isotope/3.0.1/js/isotope.pkgd.fixed.js",
