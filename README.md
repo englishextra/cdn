@@ -19,9 +19,9 @@ https://github.com/englishextra/cdn.git
 
 ## Remotes
 
- - [GitHub](https://github.com/englishextra/cdn)
- - [BitBucket](https://bitbucket.org/englishextra/cdn)
- - [GitLab](https://gitlab.com/englishextra/cdn)
+* [GitHub](https://github.com/englishextra/cdn)
+* [BitBucket](https://bitbucket.org/englishextra/cdn)
+* [GitLab](https://gitlab.com/englishextra/cdn)
 
 ## Copyright
 
