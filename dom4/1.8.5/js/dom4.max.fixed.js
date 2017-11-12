@@ -356,8 +356,7 @@ THE SOFTWARE.
 		}
 		window.requestAnimationFrame = rAF;
 		window.cancelAnimationFrame = cAF;
-	}
-		());
+	})();
 	try {
 		new window.CustomEvent('?');
 	} catch (o_O) {

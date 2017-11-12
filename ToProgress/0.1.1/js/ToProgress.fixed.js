@@ -156,8 +156,7 @@
 			return ToProgress;
 		};
 		return TP();
-	}
-		());
+	})();
 	root.ToProgress = ToProgress;
 }
 	("undefined" !== typeof window ? window : this, document));

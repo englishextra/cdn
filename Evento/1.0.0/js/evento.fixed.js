@@ -81,7 +81,6 @@
 			trigger: triggerEvent,
 			_handlers: _handlers
 		};
-	}
-		());
+	})();
 	root.evento = evento;
 })("undefined" !== typeof window ? window : this);
