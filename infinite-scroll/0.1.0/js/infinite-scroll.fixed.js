@@ -65,8 +65,7 @@
 			handleScroll(scroller, event);
 		};
 	};
-}
-	("undefined" !== typeof window ? window : this));
+})("undefined" !== typeof window ? window : this);
 /* infiniteScroll({
 	distance: 50,
 	callback: function (done) {

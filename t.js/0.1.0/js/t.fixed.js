@@ -85,6 +85,5 @@
 		return render(this.t, vars);
 	};
 	root.t = t;
-}
-	("undefined" !== typeof window ? window : this));
+})("undefined" !== typeof window ? window : this);
 	

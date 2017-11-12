@@ -84,5 +84,4 @@
 	}
 		());
 	root.evento = evento;
-}
-	("undefined" !== typeof window ? window : this));
+})("undefined" !== typeof window ? window : this);

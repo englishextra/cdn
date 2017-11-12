@@ -60,5 +60,4 @@
 			root.console.log("Registered Service Worker", workerScript);
 		}
 	}
-}
-	("undefined" !== typeof window ? window : this));
+})("undefined" !== typeof window ? window : this);

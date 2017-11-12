@@ -228,5 +228,4 @@
 	} else {
 		root.Tablesort = Tablesort;
 	}
-}
-	("undefined" !== typeof window ? window : this));
+})("undefined" !== typeof window ? window : this);

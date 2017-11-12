@@ -525,5 +525,4 @@
 			}
 		}
 			(root, root.document));
-}
-	("undefined" !== typeof window ? window : this));
+})("undefined" !== typeof window ? window : this);

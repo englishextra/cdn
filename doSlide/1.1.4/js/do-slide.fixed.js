@@ -1065,7 +1065,6 @@
 			};
 		})]);
 root.DoSlide = DoSlide;
-}
-	("undefined" !== typeof window ? window : this));
+})("undefined" !== typeof window ? window : this);
 /*jshint esnext: false */
 /*jshint bitwise: true */
