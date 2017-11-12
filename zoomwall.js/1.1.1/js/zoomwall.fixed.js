@@ -9,14 +9,14 @@
  */
 (function (root, document) {
 	"use strict";
-	var addEventListener = "addEventListener";
+	var _addEventListener = "addEventListener";
 	var children = "children";
 	var classList = "classList";
 	var dataset = "dataset";
 	var getComputedStyle = "getComputedStyle";
 	var getElementsByClassName = "getElementsByClassName";
 	var hasOwnProperty = "hasOwnProperty";
-	var length = "length";
+	var _length = "length";
 	var nextElementSibling = "nextElementSibling";
 	var offsetTop = "offsetTop";
 	var parentNode = "parentNode";
@@ -29,13 +29,13 @@
 			_this.dataAttributeLowresName = dataAttributeLowresName || "lowres";
 			zoomwall.resize(blocks[children]);
 			blocks[classList].remove("loading");
-			blocks[addEventListener]("click", function () {
-				if (_this[children] && _this[children][length] > 0) {
+			blocks[_addEventListener]("click", function () {
+				if (_this[children] && _this[children][_length] > 0) {
 					zoomwall.shrink(_this[children][0]);
 				}
 			});
-			for (var i = 0; i < blocks[children][length]; i++) {
-				blocks[children][i][addEventListener]("click", zoomwall.animate);
+			for (var i = 0; i < blocks[children][_length]; i++) {
+				blocks[children][i][_addEventListener]("click", zoomwall.animate);
 			}
 			if (enableKeys) {
 				zoomwall.keys(blocks);
@@ -53,7 +53,7 @@
 				if (elem) {
 					switch (e.keyCode) {
 					case 27:
-						if (elem[children] && elem[children][length] > 0) {
+						if (elem[children] && elem[children][_length] > 0) {
 							zoomwall.shrink(elem[children][0]);
 						}
 						e.preventDefault();
@@ -69,11 +69,11 @@
 					}
 				}
 			};
-			document[addEventListener]("keydown", keyPager);
+			document[_addEventListener]("keydown", keyPager);
 			return keyPager;
 		},
 		resizeRow: function (row, width) {
-			if (row && row[length] > 1) {
+			if (row && row[_length] > 1) {
 				for (var i in row) {
 					if (row[hasOwnProperty](i)) {
 						row[i][style].width = (parseInt(root[getComputedStyle](row[i]).width, 10) / width * 100) + "%";
@@ -94,7 +94,7 @@
 		resize: function (blocks) {
 			var row = [];
 			var top = -1;
-			for (var c = 0; c < blocks[length]; c++) {
+			for (var c = 0; c < blocks[_length]; c++) {
 				var block = blocks[c];
 				if (block) {
 					if (top === -1) {
@@ -178,18 +178,18 @@
 				offsetY -= parentTop;
 			}
 			var leftOffsetX = 0;
-			for (var i = 0; i < row[length] && row[i] !== block; i++) {
+			for (var i = 0; i < row[_length] && row[i] !== block; i++) {
 				leftOffsetX += parseInt(root[getComputedStyle](row[i]).width, 10) * scale;
 			}
 			leftOffsetX = parentWidth / 2 - blockWidth * scale / 2 - leftOffsetX;
 			var rightOffsetX = 0;
-			for (var j = row[length] - 1; j >= 0 && row[j] !== block; j--) {
+			for (var j = row[_length] - 1; j >= 0 && row[j] !== block; j--) {
 				rightOffsetX += parseInt(root[getComputedStyle](row[j]).width, 10) * scale;
 			}
 			rightOffsetX = parentWidth / 2 - blockWidth * scale / 2 - rightOffsetX;
 			var itemOffset = 0;
 			var prevWidth = 0;
-			for (var k = 0; k < row[length]; k++) {
+			for (var k = 0; k < row[_length]; k++) {
 				itemOffset += (prevWidth * scale - prevWidth);
 				prevWidth = parseInt(root[getComputedStyle](row[k]).width, 10);
 				var percentageOffsetX = (itemOffset + leftOffsetX) / prevWidth * 100;
@@ -203,7 +203,7 @@
 			var prevHeight;
 			itemOffset = 0;
 			prevWidth = 0;
-			var next2 = row[row[length] - 1][nextElementSibling];
+			var next2 = row[row[_length] - 1][nextElementSibling];
 			var nextRowTop = -1;
 			while (next2) {
 				var curTop = next2[offsetTop];
@@ -256,7 +256,7 @@
 				zoomwall.shrink(_this);
 			} else {
 				var actives = _this[parentNode][getElementsByClassName]("active");
-				for (var i = 0; i < actives[length]; i++) {
+				for (var i = 0; i < actives[_length]; i++) {
 					actives[i][classList].remove("active");
 				}
 				zoomwall.expand(_this);
@@ -265,7 +265,7 @@
 		},
 		page: function (blocks, isNext) {
 			var actives = blocks[getElementsByClassName]("active");
-			if (actives && actives[length] > 0) {
+			if (actives && actives[_length] > 0) {
 				var current = actives[0];
 				var next;
 				if (isNext) {

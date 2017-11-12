@@ -32,6 +32,7 @@ module.exports = function (grunt) {
 					"ManUp.js/0.7/js/manup.fixed.js",
 					"masonry/4.1.1/js/masonry.imagesloaded.pkgd.fixed.js",
 					"masonry/4.1.1/js/masonry.pkgd.fixed.js",
+					"minigrid/3.1.1/js/minigrid.fixed.js",
 					"mutation-observer/1.0.3/js/index.fixed.js",
 					"packery/2.1.1/js/packery.draggabilly.pkgd.fixed.js",
 					"packery/2.1.1/js/packery.imagesloaded.draggabilly.pkgd.fixed.js",

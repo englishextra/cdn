@@ -12,7 +12,7 @@
 		var _imgClass = imgClass || "data-src-img";
 		var _dataAttributeName = dataAttributeName || "src";
 		var _throttleRate = throttleRate || 100;
-		var addEventListener = "addEventListener";
+		var _addEventListener = "addEventListener";
 		var classList = "classList";
 		var dataset = "dataset";
 		var defineProperty = "defineProperty";
@@ -20,7 +20,7 @@
 		var getAttribute = "getAttribute";
 		var getBoundingClientRect = "getBoundingClientRect";
 		var getElementsByClassName = "getElementsByClassName";
-		var length = "length";
+		var _length = "length";
 		var Echo = function (elem) {
 			var _this = this;
 			_this.elem = elem;
@@ -30,8 +30,7 @@
 		var isBindedEchoClass = "is-binded-echo";
 		var isBindedEcho = (function () {
 			return document[documentElement][classList].contains(isBindedEchoClass) || "";
-		}
-			());
+		})();
 		var echoStore = [];
 		var scrolledIntoView = function (element) {
 			var coords = element[getBoundingClientRect]();
@@ -49,7 +48,7 @@
 			}
 		};
 		var echoImageAll = function () {
-			for (var i = 0; i < echoStore[length]; i++) {
+			for (var i = 0; i < echoStore[_length]; i++) {
 				var self = echoStore[i];
 				if (scrolledIntoView(self)) {
 					echoSrc(self, removeEcho(self, i));
@@ -92,11 +91,10 @@
 								support = true;
 							}
 						});
-					root[addEventListener]("test", function () {}, opts);
+					root[_addEventListener]("test", function () {}, opts);
 				} catch (err) {}
 				return support;
-			}
-				());
+			})();
 		Echo.prototype = {
 			init: function () {
 				echoStore.push(this.elem);
@@ -106,14 +104,14 @@
 			},
 			listen: function () {
 				if (!isBindedEcho) {
-					root[addEventListener]("scroll", throttleEchoImageAll, supportsPassive ? {passive: true} : false);
+					root[_addEventListener]("scroll", throttleEchoImageAll, supportsPassive ? {passive: true} : false);
 					document[documentElement][classList].add(isBindedEchoClass);
 				}
 			}
 		};
 		var lazyImgs = document[getElementsByClassName](_imgClass) || "";
 		var walkLazyImageAll = function () {
-			for (var i = 0; i < lazyImgs[length]; i++) {
+			for (var i = 0; i < lazyImgs[_length]; i++) {
 				new Echo(lazyImgs[i]).init();
 			}
 		};
@@ -122,5 +120,4 @@
 		}
 	};
 	root.echo = echo;
-}
-	("undefined" !== typeof window ? window : this, document));
+})("undefined" !== typeof window ? window : this, document);

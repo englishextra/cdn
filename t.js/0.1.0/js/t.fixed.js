@@ -1,6 +1,3 @@
-/*jslint browser: true */
-/*jslint node: true */
-/*global global, ActiveXObject, define, escape, module, pnotify, Proxy, jQuery, require, self, setImmediate, window */
 /*!
  * modified t.js
  * a micro-templating framework in ~400 bytes gzipped
@@ -22,7 +19,7 @@
 (function (root) {
 	"use strict";
 	var hasOwnProperty = "hasOwnProperty";
-	var length = "length";
+	var _length = "length";
 	var replace = "replace";
 	var blockregex = /\{\{(([@!]?)(.+?))\}\}(([\s\S]+?)(\{\{:\1\}\}([\s\S]+?))?)\{\{\/\1\}\}/g;
 	var valregex = /\{\{([=%])(.+?)\}\}/g;
@@ -34,7 +31,7 @@
 	}
 	function get_value(vars, key) {
 		var parts = key.split(".");
-		while (parts[length]) {
+		while (parts[_length]) {
 			if (!(parts[0]in vars)) {
 				return false;
 			}
@@ -86,4 +83,3 @@
 	};
 	root.t = t;
 })("undefined" !== typeof window ? window : this);
-	
