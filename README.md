@@ -25,5 +25,5 @@ https://github.com/englishextra/cdn.git
 
 ## Copyright
 
-© [englishextra.github.com](https://englishextra.github.com/), 2015-2017
+© [github.com/englishextra](https://github.com/englishextra), 2015-2018
 
