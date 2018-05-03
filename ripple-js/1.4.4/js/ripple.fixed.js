@@ -16,7 +16,8 @@
 			var childs = el.childNodes;
 			for (var ii = 0; ii < childs.length; ii++) {
 				try {
-					if (childs[ii].className.indexOf("rippleContainer") > -1) {
+					/* if (childs[ii].className.indexOf("rippleContainer") > -1) { */
+					if (childs[ii].classList.contains("rippleContainer")) {
 						return childs[ii];
 					}
 				} catch (err) {}
@@ -25,7 +26,8 @@
 		}
 		function rippleStart(e) {
 			var rippleContainer = getRippleContainer(e.target);
-			if ((rippleContainer.getAttribute("animating") === "0" || !rippleContainer.hasAttribute("animating")) && e.target.className.indexOf("ripple") > -1) {
+			/* if ((rippleContainer.getAttribute("animating") === "0" || !rippleContainer.hasAttribute("animating")) && e.target.className.indexOf("ripple") > -1) { */
+			if ((rippleContainer.getAttribute("animating") === "0" || !rippleContainer.hasAttribute("animating")) && e.target.classList.contains("ripple")) {
 				rippleContainer.setAttribute("animating", "1");
 				var offsetX = typeof e.offsetX === "number" ? e.offsetX : e.touches[0].clientX - e.target.getBoundingClientRect().left;
 				var offsetY = typeof e.offsetY === "number" ? e.offsetY : e.touches[0].clientY - e.target.getBoundingClientRect().top;
@@ -89,7 +91,8 @@
 						}
 						var overEl;
 						try {
-							overEl = document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY).className.indexOf("ripple") >= 0;
+							/* overEl = document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY).className.indexOf("ripple") >= 0; */
+							overEl = document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY).classList.contains("ripple");
 						} catch (err) {
 							overEl = false;
 						}
@@ -149,7 +152,8 @@
 				}
 			},
 			ripple: function (el) {
-				if (el.className.indexOf("ripple") < 0) {
+				/* if (el.className.indexOf("ripple") < 0) { */
+				if (!el.classList.contains("ripple")) {
 					return;
 				}
 				var rect = el.getBoundingClientRect();
@@ -162,13 +166,13 @@
 				rippleEnd(e);
 			}
 		};
-		root.addEventListener("load", function () {
+		/* root.addEventListener("load", function () { */
 			var css = document.createElement("style");
 			css.type = "text/css";
 			css.innerHTML = ".ripple { overflow: hidden !important; position: relative; } .ripple .rippleContainer { display: block; height: 200px !important; width: 200px !important; padding: 0px 0px 0px 0px; border-radius: 50%; position: absolute !important; top: 0px; left: 0px; transform: translate(-50%, -50%) scale(0); -webkit-transform: translate(-50%, -50%) scale(0); -ms-transform: translate(-50%, -50%) scale(0); background-color: transparent; }  .ripple * {pointer-events: none !important;}";
 			document.head.appendChild(css);
 			ripple.registerRipples();
-		});
+		/* }); */
 		return ripple;
 	})
 	();
