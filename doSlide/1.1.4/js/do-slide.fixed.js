@@ -933,7 +933,7 @@
 							_classCallCheck(this, Keyboard);
 							this.eventType = "keydown";
 							this.eventElement = window;
-							this.for  = doSlide;
+							this.for = doSlide;
 						this.$ = doSlide.$;
 						this.isOn = false;
 						this.listener = listener.bind(this);

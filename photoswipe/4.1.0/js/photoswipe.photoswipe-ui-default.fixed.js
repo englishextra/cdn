@@ -90,7 +90,7 @@
 						return Math.sin(k * (Math.PI / 2));
 					},
 					inOut: function (k) {
-						return  - (Math.cos(Math.PI * k) - 1) / 2;
+						return - (Math.cos(Math.PI * k) - 1) / 2;
 					}
 				},
 				cubic: {

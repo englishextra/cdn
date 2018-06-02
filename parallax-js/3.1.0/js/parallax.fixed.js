@@ -2,8 +2,8 @@
  * Parallax.js
  * @author Matthew Wagerfield - @wagerfield
  * @description Creates a parallax effect between an array of layers,
- *              driving the motion from the gyroscope output of a smartdevice.
- *              If no gyroscope is available, the cursor position is used.
+ *       driving the motion from the gyroscope output of a smartdevice.
+ *       If no gyroscope is available, the cursor position is used.
  */
 ;(function (window, document, undefined) {
 
@@ -473,7 +473,7 @@
 
 	Parallax.prototype.rotate = function (beta, gamma) {
 		// Extract Rotation
-		var x = (event.beta || 0) / MAGIC_NUMBER; //  -90 :: 90
+		var x = (event.beta || 0) / MAGIC_NUMBER; // -90 :: 90
 		var y = (event.gamma || 0) / MAGIC_NUMBER; // -180 :: 180
 
 		// Detect Orientation Change
