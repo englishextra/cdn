@@ -47,6 +47,7 @@ module.exports = function (grunt) {
 					"promise-polyfill/6.0.2/js/promise.fixed.js",
 					"qrjs2/0.1.6/js/qrjs2.fixed.js",
 					"reqwest/2.0.5/js/reqwest.fixed.js",
+					"resize/1.0.0/js/any-resize-event.fixed.js",
 					"ripple-js/1.4.4/js/ripple.fixed.js",
 					"routie/0.3.2/js/routie.fixed.js",
 					"shower/1.0.1/js/shower.fixed.js",
