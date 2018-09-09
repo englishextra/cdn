@@ -30,6 +30,7 @@ module.exports = function (grunt) {
 					"lazyload/3.2.2/js/lazyload.fixed.js",
 					"loadCSS/1.2.0/js/loadCSS.fixed.js",
 					"loadJS/0.2.3/js/loadJS.fixed.js",
+					"macy.js/2.3.0/js/macy.js",
 					"ManUp.js/0.7/js/manup.fixed.js",
 					"masonry/4.1.1/js/masonry.imagesloaded.pkgd.fixed.js",
 					"masonry/4.1.1/js/masonry.pkgd.fixed.js",
