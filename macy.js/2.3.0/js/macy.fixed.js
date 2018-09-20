@@ -1,5 +1,8 @@
+/*!
+ * https://github.com/bigbitecreative/macy.js
+ * passes jshint
+ */
 /*jshint expr: true */
-
 (function (t, n) {
 	"object" == typeof exports && "undefined" != typeof module ? module.exports = n() : "function" == typeof define && define.amd ? define(n) : t.Macy = n();
 }
