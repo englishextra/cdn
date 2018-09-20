@@ -1,5 +1,5 @@
 /*!
- * https://github.com/bigbitecreative/macy.js
+ * @see {@link https://github.com/bigbitecreative/macy.js}
  * passes jshint
  */
 /*jshint expr: true */

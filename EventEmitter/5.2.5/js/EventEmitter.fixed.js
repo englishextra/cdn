@@ -4,6 +4,10 @@
  * Oliver Caldwell - http://oli.me.uk/
  * @preserve
  */
+/*!
+ * @see {@link https://github.com/Olical/EventEmitter}
+ * passes jshint
+ */
 (function (exports) {
 	'use strict';
 	function EventEmitter() {}
