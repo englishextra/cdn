@@ -47,7 +47,7 @@ module.exports = function (grunt) {
 					"platform/1.3.4/js/platform.fixed.js",
 					"pnotify/1.3.1/js/pnotify.fixed.js",
 					"polyfills/js/polyfills.fixed.js",
-					"promise-polyfill/6.0.2/js/promise.fixed.js",
+					"promise-polyfill/8.1.0/js/promise.fixed.js",
 					"qrjs2/0.1.6/js/qrjs2.fixed.js",
 					"ReadMore.js/1.0.0/js/readMoreJS.fixed.js",
 					"reqwest/2.0.5/js/reqwest.fixed.js",
