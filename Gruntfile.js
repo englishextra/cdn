@@ -28,6 +28,7 @@ module.exports = function (grunt) {
 					"jquery/3.1.1/js/jquery.fixed.js",
 					"jqueryui/1.10.4/custom/js/jquery-ui.custom.fixed.js",
 					"js-cookie/2.1.3/js/js.cookie.fixed.js",
+					"justified-layout/2.1.1/js/justified-layout.fixed.js",
 					"kamil/0.1.1/js/kamil.fixed.js",
 					"lazyload/3.2.2/js/lazyload.fixed.js",
 					"loadCSS/1.2.0/js/loadCSS.fixed.js",
