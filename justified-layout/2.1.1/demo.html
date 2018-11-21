@@ -4,10 +4,11 @@
 		<meta charset="utf-8" />
 		<title>Justified Layout Demo</title>
 		<style type="text/css" media="screen">
+		body {margin: 0; padding: 0;}
 		.justified {
 			position: relative;
 			background: seagreen;
-			width: 1060px;
+			/*width: 100%;*/
 		}
 		.box {
 			position: absolute;
@@ -17,41 +18,85 @@
 	</head>
 	<body>
 		<h1>justified-layout demo</h1>
+		<div class="justified"></div>
 		<script src="./js/justified-layout.fixed.js"></script>
 		<script>
-		(function(root, document) {
-			"use strict";
-			root.addEventListener("load", function() {
-				var demos = [{
-					sizes: [0.5, 1.5, 1, 1.8, 0.4, 0.7, 0.9, 1.1, 1.7, 2, 2.1],
-					className: "various",
-					config: {}
-				}, {
-					sizes: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-					className: "squares",
-					config: {}
-				}, {
-					sizes: [1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1.5, 1.73, 1.1, 0.5, 1],
-					className: "breakout",
-					config: {
-						"fullWidthBreakoutRowCadence": 3
+			/*!
+			 * throttle
+			 */
+			(function (root) {
+				"use strict";
+				var throttle = function (func, wait) {
+					var ctx;
+					var args;
+					var rtn;
+					var timeoutID;
+					var last = 0;
+					function call() {
+						timeoutID = 0;
+						last = +new Date();
+						rtn = func.apply(ctx, args);
+						ctx = null;
+						args = null;
 					}
-				}];
-				// Loop through the demos and put them in the page
-				demos.forEach(function(demo) {
-					var section = document.createElement("section");
-					section.innerHTML = '\n\t\t\t\t\t<h2>Input: <code>[' + demo.sizes.join(", ") + ']</code></h2>\n\t\t\t\t\t<div class="justified"></div>\n\t\t\t\t';
-					document.body.appendChild(section);
-					var geometry = justifiedLayout(demo.sizes, demo.config);
-					console.log("geometry", geometry);
-					var boxes = geometry.boxes.map(function(box) {
-						return '<div class="box" style="width: ' + box.width + 'px; height: ' + box.height + 'px; top: ' + box.top + 'px; left: ' + box.left + 'px"></div>';
-					}).join('\n');
-					section.querySelector('.justified').innerHTML = boxes;
-					section.querySelector('.justified').style.height = geometry.containerHeight + "px";
-				});
-			}, false);
-		})("undefined" !== typeof window ? window : this, document);
+					return function throttled() {
+						ctx = this;
+						args = arguments;
+						var delta = new Date() - last;
+						if (!timeoutID) {
+							if (delta >= wait) {
+								call();
+							} else {
+								timeoutID = setTimeout(call, wait - delta);
+							}
+						}
+						return rtn;
+					};
+				};
+				root.throttle = throttle;
+			})("undefined" !== typeof window ? window : this);
+			/*!
+			 * run
+			 */
+			(function (root, document) {
+				"use strict";
+					/* var defaults = {
+						containerWidth: 1060,
+						containerPadding: 10,
+						boxSpacing: 10,
+						targetRowHeight: 320,
+						targetRowHeightTolerance: 0.25,
+						maxNumRows: Number.POSITIVE_INFINITY,
+						forceAspectRatio: false,
+						showWidows: true,
+						fullWidthBreakoutRowCadence: false,
+						widowLayoutStyle: 'left'
+					}; */
+					var applyJustifiedLayout = function (container, layoutSizes, layoutConfig) {
+						var geometry = justifiedLayout(layoutSizes, layoutConfig);
+						console.log("geometry", geometry);
+						var boxes = geometry.boxes.map(function (box) {
+								return '<div class="box" style="width: ' + box.width + 'px; height: ' + box.height + 'px; top: ' + box.top + 'px; left: ' + box.left + 'px"></div>';
+							}).join('\n');
+						container.innerHTML = boxes;
+						container.style.height = geometry.containerHeight + "px";
+					};
+					var container = document.getElementsByClassName("justified")[0] || "";
+					var layoutSizes = [0.5, 1.5, 1, 1.8, 0.4, 0.7, 0.9, 1.1, 1.7, 2, 2.1];
+					var handleJustifiedLayout = function () {
+						var layoutConfig = {
+							containerPadding: 10,
+							containerWidth: container.offsetWidth
+						};
+						applyJustifiedLayout(container, layoutSizes, layoutConfig);
+					};
+					handleJustifiedLayout();
+					var updateJustifiedLayoutThrottled = throttle(handleJustifiedLayout, 2000);
+					updateJustifiedLayoutThrottled();
+					if (container) {
+						root.addEventListener("resize", updateJustifiedLayoutThrottled, {passive: true});
+					}
+			})("undefined" !== typeof window ? window : this, document);
 		</script>
 	</body>
 </html>
