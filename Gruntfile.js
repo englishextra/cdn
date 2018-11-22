@@ -16,6 +16,7 @@ module.exports = function (grunt) {
 					"Evento/1.0.0/js/evento.fixed.js",
 					"fastclick/1.0.6/js/fastclick.fixed.js",
 					"fetch/2.0.3/js/fetch.fixed.js",
+					"glightbox/1.0.8/js/glightbox.fixed.js",
 					"google-code-prettify/0.1/js/prettify.bundled.fixed.js",
 					"highlight.js/9.12.0/js/highlight.pack.fixed.js",
 					"iframe-lightbox/0.1.7/js/iframe-lightbox.fixed.js",
