@@ -438,7 +438,11 @@
 					Thumbnail.prototype.destroy = function () {
 						if (this.core.s.thumbnail && this.core.items.length > 1) {
 							utils.off(window, '.lgthumb');
-							this.thumbOuter.parentNode.removeChild(this.thumbOuter);
+							//https://github.com/sachinchoolur/lightgallery.js/issues/43#issuecomment-441119589
+							if (this.thumbOuter.parentNode) {
+								this.thumbOuter.parentNode.removeChild(this.thumbOuter);
+							}
+							//this.thumbOuter.parentNode.removeChild(this.thumbOuter);
 							utils.removeClass(this.core.outer, 'lg-has-thumb');
 							var lgScript = document.getElementsByClassName('lg-script');
 							while (lgScript[0]) {
