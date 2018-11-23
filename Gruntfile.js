@@ -32,6 +32,7 @@ module.exports = function (grunt) {
 				"justified-layout/2.1.1/js/justified-layout.fixed.js",
 				"kamil/0.1.1/js/kamil.fixed.js",
 				"lazyload/3.2.2/js/lazyload.fixed.js",
+				"lazyload/10.19.0/js/lazyload.iife.fixed.js",
 				"lightgallery.js/1.1.1/js/lightgallery.fixed.js",
 				"loadCSS/1.2.0/js/loadCSS.fixed.js",
 				"loadJS/0.2.3/js/loadJS.fixed.js",
