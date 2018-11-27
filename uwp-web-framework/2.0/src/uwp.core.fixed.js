@@ -108,11 +108,27 @@
 
 			UWP.head = document.head;
 			UWP.body = document.body;
-			UWP.pageTitle = document.createElement("h1");
+
+
+			/* UWP.pageTitle = document.createElement("h1"); */
+			var pageTitle = document.createElement("div");
+			pageTitle.setAttribute("class", "uwp-title");
+			pageTitle.style.display = "none";
+			UWP.pageTitle = pageTitle;
+
 			document.body.appendChild(UWP.pageTitle);
-			UWP.header = document.createElement("header");
+
+			var header = document.createElement("div");
+			header.setAttribute("class", "uwp-header");
+			/* UWP.header = document.getElementsByClassName("uwp-header")[0] || ""; */
+			UWP.header = header;
 			document.body.appendChild(UWP.header);
-			UWP.main = document.createElement("main");
+
+
+			var main = document.createElement("div");
+			main.setAttribute("class", "uwp-main");
+			/* UWP.main = document.getElementsByClassName("uwp-header")[0] || ""; */
+			UWP.main = main;
 			document.body.appendChild(UWP.main);
 			/* Gets user-set config */
 
@@ -235,7 +251,10 @@
 
 					var elMainMenu = parsed.getElementsByTagName("nav-container")[0] || "";
 					var navsSource = elMainMenu || "";
-					UWP.nav = document.createElement("nav");
+					/* UWP.nav = document.createElement("nav"); */
+					var nav = document.createElement("div");
+					nav.setAttribute("class", "uwp-nav");
+					UWP.nav = nav;
 					/* Adds all the navigations to the DOM tree */
 
 					var elList = navsSource ? navsSource.getElementsByTagName("nav-list") || "" : "";
@@ -262,7 +281,9 @@
 		/* Highlights current page in navigation */
 		updateNavigation: function updateNavigation() {
 			console.log("UWP.updateNavigation()");
-			var nav = document.getElementsByTagName("nav")[0] || "";
+			/* var nav = document.getElementsByTagName("nav")[0] || ""; */
+			var nav = document.getElementsByClassName("uwp-nav")[0] || "";
+
 			var navA = nav ? nav.getElementsByTagName("a") || "" : "";
 			toArray(navA).forEach(function (link) {
 				if (link.getAttribute("data-target") === UWP.config.currentPage) {
@@ -303,7 +324,7 @@
 				}
 				/* var Darkened_RGB = parseColor(UWP.config.Darkened); */
 
-				UWP.customStyle.innerHTML += "\n\t\t\t\t[data-layout-type=\"tabs\"] header {\n\t\t\t\t\tbackground: ".concat(UWP.config.mainColor, ";\n\t\t\t\t}\n\n\t\t\t\t[data-layout-type=\"overlay\"] header {\n\t\t\t\t\tbackground: ").concat(UWP.config.mainColor, ";\n\t\t\t\t}\n\t\t\t\t[data-layout-type=\"overlay\"] header nav:nth-of-type(1) {\n\t\t\t\t\tbackground-color: ").concat(UWP.config.mainColorDarkened, ";\n\t\t\t\t}\n\n\t\t\t\t[data-layout-type=\"docked-minimized\"] header {\n\t\t\t\t\tbackground: ").concat(UWP.config.mainColor, ";\n\t\t\t\t}\n\t\t\t\t[data-layout-type=\"docked-minimized\"] header nav:nth-of-type(1) {\n\t\t\t\t\tbackground: ").concat(UWP.config.mainColorDarkened, ";\n\t\t\t\t}\n\n\t\t\t\t[data-layout-type=\"docked\"] header {\n\t\t\t\t\tbackground: ").concat(UWP.config.mainColor, ";\n\t\t\t\t}\n\t\t\t\t[data-layout-type=\"docked\"] header nav:nth-of-type(1) {\n\t\t\t\t\tbackground: ").concat(UWP.config.mainColorDarkened, ";\n\t\t\t\t}\n\t\t\t");
+				UWP.customStyle.innerHTML += "\n\t\t\t\t[data-layout-type=\"tabs\"] .uwp-header {\n\t\t\t\t\tbackground: ".concat(UWP.config.mainColor, ";\n\t\t\t\t}\n\n\t\t\t\t[data-layout-type=\"overlay\"] .uwp-header {\n\t\t\t\t\tbackground: ").concat(UWP.config.mainColor, ";\n\t\t\t\t}\n\t\t\t\t[data-layout-type=\"overlay\"] .uwp-header .uwp-nav:nth-of-type(1) {\n\t\t\t\t\tbackground-color: ").concat(UWP.config.mainColorDarkened, ";\n\t\t\t\t}\n\n\t\t\t\t[data-layout-type=\"docked-minimized\"] .uwp-header {\n\t\t\t\t\tbackground: ").concat(UWP.config.mainColor, ";\n\t\t\t\t}\n\t\t\t\t[data-layout-type=\"docked-minimized\"] .uwp-header .uwp-nav:nth-of-type(1) {\n\t\t\t\t\tbackground: ").concat(UWP.config.mainColorDarkened, ";\n\t\t\t\t}\n\n\t\t\t\t[data-layout-type=\"docked\"] .uwp-header {\n\t\t\t\t\tbackground: ").concat(UWP.config.mainColor, ";\n\t\t\t\t}\n\t\t\t\t[data-layout-type=\"docked\"] .uwp-header .uwp-nav:nth-of-type(1) {\n\t\t\t\t\tbackground: ").concat(UWP.config.mainColorDarkened, ";\n\t\t\t\t}\n\t\t\t");
 			}
 
 			if (UWP.config.activeColor) {
@@ -319,7 +340,7 @@
 					}
 				}
 
-				UWP.customStyle.innerHTML += "\n\t\t\t\t[data-layout-type=\"tabs\"] header nav:nth-of-type(1) ul li.active {\n\t\t\t\t\tcolor: ".concat(UWP.config.activeColor, ";\n\t\t\t\t\tborder-bottom-color: ").concat(UWP.config.activeColor, ";\n\t\t\t\t}\n\t\t\t\t[data-layout-type=\"overlay\"] header nav:nth-of-type(1) ul li.active {\n\t\t\t\t\tbackground-color: ").concat(UWP.config.activeColor, ";\n\t\t\t\t}\n\t\t\t\t[data-layout-type=\"docked-minimized\"] header nav:nth-of-type(1) ul li.active {\n\t\t\t\t\tbackground-color: ").concat(UWP.config.activeColor, ";\n\t\t\t\t}\n\t\t\t\t[data-layout-type=\"docked\"] header nav:nth-of-type(1) ul li.active {\n\t\t\t\t\tbackground-color: ").concat(UWP.config.activeColor, ";\n\t\t\t\t}\n\t\t\t");
+				UWP.customStyle.innerHTML += "\n\t\t\t\t[data-layout-type=\"tabs\"] .uwp-header .uwp-nav:nth-of-type(1) ul li.active {\n\t\t\t\t\tcolor: ".concat(UWP.config.activeColor, ";\n\t\t\t\t\tborder-bottom-color: ").concat(UWP.config.activeColor, ";\n\t\t\t\t}\n\t\t\t\t[data-layout-type=\"overlay\"] .uwp-header .uwp-nav:nth-of-type(1) ul li.active {\n\t\t\t\t\tbackground-color: ").concat(UWP.config.activeColor, ";\n\t\t\t\t}\n\t\t\t\t[data-layout-type=\"docked-minimized\"] .uwp-header .uwp-nav:nth-of-type(1) ul li.active {\n\t\t\t\t\tbackground-color: ").concat(UWP.config.activeColor, ";\n\t\t\t\t}\n\t\t\t\t[data-layout-type=\"docked\"] .uwp-header .uwp-nav:nth-of-type(1) ul li.active {\n\t\t\t\t\tbackground-color: ").concat(UWP.config.activeColor, ";\n\t\t\t\t}\n\t\t\t");
 			}
 
 			if (UWP.customStyle.innerHTML.length) {
@@ -341,7 +362,8 @@
 			UWP.menuButton.innerHTML = '<svg width="1792" height="1792" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" transform="scale(1.75 1.75) translate(0 0)" d="M1024 320h-1024v-64h1024v64zm0 512h-1024v-64h1024v64zm0-256.5h-1024v-63.5h1024v63.5z"/></svg>';
 			UWP.menuButton.setAttribute("aria-label", "Menu");
 
-			var headerNav = UWP.header.getElementsByTagName("nav")[0] || "";
+			/* var headerNav = UWP.header.getElementsByTagName("nav")[0] || ""; */
+			var headerNav = UWP.header.getElementsByClassName("uwp-nav")[0] || "";
 
 			UWP.menuList = headerNav || "";
 			UWP.menuButton.addEventListener("click", function () {
