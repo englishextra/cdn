@@ -134,6 +134,9 @@ MIT License 2014
 				iframe.style.opacity = 0;
 				iframe.style.top = 0;
 				iframe.style.left = 0;
+
+				iframe.setAttribute('title', 'any-resize-event');
+				iframe.setAttribute('aria-hidden', true);
 				computedStyle = window.getComputedStyle ? getComputedStyle(el) : el.currentStyle;
 				isStatic = computedStyle.position === 'static' && el.style.position === '';
 				isEmpty = computedStyle.position === '' && el.style.position === '';
