@@ -11,12 +11,15 @@ MIT License 2014
  * passes jshint
  */
 /*global define, module*/
+/*!
+LegoMushroom @legomushroom http://legomushroom.com
+MIT License 2014
+ */
 (function () {
-	"use strict";
 	var Main;
 	Main = (function () {
 		function Main(o) {
-			this.o = o !== null ? o : {};
+			this.o = o != null ? o : {};
 			if (window.isAnyResizeEventInited) {
 				return;
 			}
@@ -64,12 +67,12 @@ MIT License 2014
 					_results;
 					_ref = this.allowedProtos;
 					_results = [];
-					var fn1 = function (proto) {
+					var fn = function (proto) {
 						var listener,
 						remover;
 						listener = proto.prototype.addEventListener || proto.prototype.attachEvent;
-						var wrappedListener;
 						(function (listener) {
+							var wrappedListener;
 							wrappedListener = function () {
 								var option;
 								if (this !== window || this !== document) {
@@ -108,10 +111,11 @@ MIT License 2014
 					};
 					for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
 						proto = _ref[i];
-						if (proto.prototype === null || proto.prototype === undefined) {
+						if (proto.prototype == null) {
 							continue;
 						}
-						_results.push((fn1)(proto));
+						/* _results.push(fn.bind(null, proto)()); */
+						_results.push(fn(proto));
 					}
 					return _results;
 				}).call(this));
@@ -134,18 +138,17 @@ MIT License 2014
 				iframe.style.opacity = 0;
 				iframe.style.top = 0;
 				iframe.style.left = 0;
-
-				iframe.setAttribute('title', 'any-resize-event');
-				iframe.setAttribute('aria-hidden', true);
+				iframe.setAttribute("title", "any-resize-event");
+				iframe.setAttribute("aria-hidden", true);
 				computedStyle = window.getComputedStyle ? getComputedStyle(el) : el.currentStyle;
 				isStatic = computedStyle.position === 'static' && el.style.position === '';
 				isEmpty = computedStyle.position === '' && el.style.position === '';
 				if (isStatic || isEmpty) {
 					el.style.position = 'relative';
 				}
-				if ((_ref = iframe.contentWindow) !== null) {
+				if ((_ref = iframe.contentWindow) != null) {
 					_ref.onresize = (function (_this) {
-						return function () {
+						return function (e) {
 							return _this.dispatchEvent(el);
 						};
 					})(this);
@@ -202,26 +205,25 @@ MIT License 2014
 			it = this;
 			_ref = this.allowedProtos;
 			_results = [];
-			var fn2 = function (proto) {
-				var listener;
-				listener = proto.prototype.addEventListener || proto.prototype.attachEvent;
-				if (proto.prototype.addEventListener) {
-					proto.prototype.addEventListener = Element.prototype.addEventListener;
-				} else if (proto.prototype.attachEvent) {
-					proto.prototype.attachEvent = Element.prototype.attachEvent;
-				}
-				if (proto.prototype.removeEventListener) {
-					return (proto.prototype.removeEventListener = Element.prototype.removeEventListener);
-				} else if (proto.prototype.detachEvent) {
-					return (proto.prototype.detachEvent = Element.prototype.detachEvent);
-				}
-			};
 			for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
 				proto = _ref[i];
-				if (proto.prototype === null || proto.prototype === undefined) {
+				if (proto.prototype == null) {
 					continue;
 				}
-				_results.push((fn2)(proto));
+				_results.push((function (proto) {
+						var listener;
+						listener = proto.prototype.addEventListener || proto.prototype.attachEvent;
+						if (proto.prototype.addEventListener) {
+							proto.prototype.addEventListener = Element.prototype.addEventListener;
+						} else if (proto.prototype.attachEvent) {
+							proto.prototype.attachEvent = Element.prototype.attachEvent;
+						}
+						if (proto.prototype.removeEventListener) {
+							return (proto.prototype.removeEventListener = Element.prototype.removeEventListener);
+						} else if (proto.prototype.detachEvent) {
+							return (proto.prototype.detachEvent = Element.prototype.detachEvent);
+						}
+					})(proto));
 			}
 			return _results;
 		};
@@ -241,4 +243,4 @@ MIT License 2014
 			window.anyResizeEvent = new Main();
 		}
 	}
-}).call("undefined" !== typeof window ? window : this);
+}).call(this);
