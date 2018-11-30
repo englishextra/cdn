@@ -71,8 +71,10 @@ MIT License 2014
 						var listener,
 						remover;
 						listener = proto.prototype.addEventListener || proto.prototype.attachEvent;
+
+						var wrappedListener;
+
 						(function (listener) {
-							var wrappedListener;
 							wrappedListener = function () {
 								var option;
 								if (this !== window || this !== document) {
