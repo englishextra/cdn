@@ -205,25 +205,26 @@ MIT License 2014
 			it = this;
 			_ref = this.allowedProtos;
 			_results = [];
+			var fn = function (proto) {
+				var listener;
+				listener = proto.prototype.addEventListener || proto.prototype.attachEvent;
+				if (proto.prototype.addEventListener) {
+					proto.prototype.addEventListener = Element.prototype.addEventListener;
+				} else if (proto.prototype.attachEvent) {
+					proto.prototype.attachEvent = Element.prototype.attachEvent;
+				}
+				if (proto.prototype.removeEventListener) {
+					return (proto.prototype.removeEventListener = Element.prototype.removeEventListener);
+				} else if (proto.prototype.detachEvent) {
+					return (proto.prototype.detachEvent = Element.prototype.detachEvent);
+				}
+			};
 			for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
 				proto = _ref[i];
 				if (proto.prototype == null) {
 					continue;
 				}
-				_results.push((function (proto) {
-						var listener;
-						listener = proto.prototype.addEventListener || proto.prototype.attachEvent;
-						if (proto.prototype.addEventListener) {
-							proto.prototype.addEventListener = Element.prototype.addEventListener;
-						} else if (proto.prototype.attachEvent) {
-							proto.prototype.attachEvent = Element.prototype.attachEvent;
-						}
-						if (proto.prototype.removeEventListener) {
-							return (proto.prototype.removeEventListener = Element.prototype.removeEventListener);
-						} else if (proto.prototype.detachEvent) {
-							return (proto.prototype.detachEvent = Element.prototype.detachEvent);
-						}
-					})(proto));
+				_results.push(fn(proto));
 			}
 			return _results;
 		};
