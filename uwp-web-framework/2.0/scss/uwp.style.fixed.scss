@@ -65,7 +65,6 @@ img {
 	max-width: 100%;
 }
 
-
 /* Top level navigation */
 .uwp-header {
 	position: relative;
@@ -108,7 +107,7 @@ img {
 }
 
 /* Hide unnecessary menu button */
-[data-layout-type="tabs"] .uwp-header button {
+[data-layout-type="tabs"] .uwp-header .uwp-menu-button {
 	display: none;
 }
 
@@ -210,7 +209,7 @@ img {
 	border-left-color: rgba(255, 255, 255, 0.4);
 }
 
-[data-layout-type="overlay"] .uwp-header button {
+[data-layout-type="overlay"] .uwp-header .uwp-menu-button {
 	width: 44px;
 	height: 44px;
 	border: 0;
@@ -223,15 +222,15 @@ img {
 	color: inherit;
 }
 
-[data-layout-type="overlay"] .uwp-header button:hover {
+[data-layout-type="overlay"] .uwp-header .uwp-menu-button:hover {
 	background-color: rgb(218, 218, 218);
 }
 
-[data-layout-type="overlay"].theme-light .uwp-header button:hover {
+[data-layout-type="overlay"].theme-light .uwp-header .uwp-menu-button:hover {
 	background-color: rgba(0, 0, 0, 0.1);
 }
 
-[data-layout-type="overlay"].theme-dark .uwp-header button:hover {
+[data-layout-type="overlay"].theme-dark .uwp-header .uwp-menu-button:hover {
 	background-color: rgba(255, 255, 255, 0.1);
 }
 
@@ -360,7 +359,7 @@ img {
 	display: none;
 }
 
-[data-layout-type="docked-minimized"] .uwp-header button {
+[data-layout-type="docked-minimized"] .uwp-header .uwp-menu-button {
 	width: 44px;
 	height: 44px;
 	border: 0;
@@ -373,15 +372,15 @@ img {
 	color: inherit;
 }
 
-[data-layout-type="docked-minimized"] .uwp-header button:hover {
+[data-layout-type="docked-minimized"] .uwp-header .uwp-menu-button:hover {
 	background-color: rgb(218, 218, 218);
 }
 
-[data-layout-type="docked-minimized"].theme-light .uwp-header button:hover {
+[data-layout-type="docked-minimized"].theme-light .uwp-header .uwp-menu-button:hover {
 	background-color: rgba(0, 0, 0, 0.1);
 }
 
-[data-layout-type="docked-minimized"].theme-dark .uwp-header button:hover {
+[data-layout-type="docked-minimized"].theme-dark .uwp-header .uwp-menu-button:hover {
 	background-color: rgba(255, 255, 255, 0.1);
 }
 
@@ -512,7 +511,7 @@ img {
 }
 
 /* Hide unnecessary menu button */
-[data-layout-type="docked"] .uwp-header button {
+[data-layout-type="docked"] .uwp-header .uwp-menu-button {
 	display: none;
 }
 

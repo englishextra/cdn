@@ -95,9 +95,9 @@
     config: {
       pageTitle: "UWP web framework",
       layoutType: "docked-minimized",
-      activeColor: "#26c6da",
+      activeColor: "#26C6DA",
       mainColor: "#373737",
-      mainColorDarkened: "#0097a7",
+      mainColorDarkened: "#0097A7",
       includes: "./includes/serguei-uwp",
       includeScript: "./libs/serguei-uwp/js/include-script",
       includeStyle: "./libs/serguei-uwp/css/include-style",
@@ -128,7 +128,8 @@
       document.body.appendChild(UWP.header);
       var main = document.createElement("div");
       main.setAttribute("class", "uwp-main");
-      /* UWP.main = document.getElementsByClassName("uwp-header")[0] || ""; */
+      main.setAttribute("role", "main");
+      /* UWP.main = document.getElementsByClassName("uwp-main")[0] || ""; */
 
       UWP.main = main;
       document.body.appendChild(UWP.main);
@@ -355,7 +356,11 @@
     /* Puts a menu button in title bar */
     addMenuButton: function addMenuButton() {
       console.log("UWP.addMenuButton()");
-      UWP.menuButton = document.createElement("button");
+      /* UWP.menuButton = document.createElement("button"); */
+
+      var menuButton = document.createElement("button");
+      menuButton.setAttribute("class", "uwp-menu-button");
+      UWP.menuButton = menuButton;
       /* UWP.menuButton.innerHTML = "&#xE700;"; */
 
       /* var GlobalNavButton = document.createElement("img");
