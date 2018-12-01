@@ -10,8 +10,6 @@
  * MIT License
  */
 
-/* jshint unused: true, undef: true, strict: true */
-
 (function (global, factory) {
 	// universal module definition
 	/* jshint strict: false */
