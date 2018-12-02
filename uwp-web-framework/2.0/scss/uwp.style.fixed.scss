@@ -1,8 +1,5 @@
 * {
 	box-sizing: border-box;
-	-webkit-text-size-adjust: 100%;
-	-moz-text-size-adjust: 100%;
-	-ms-text-size-adjust: 100%;
 	-o-text-size-adjust: 100%;
 	text-size-adjust: 100%;
 	margin: 0;
@@ -672,18 +669,7 @@ img {
 }
 
 .uwp-main.start-animation {
-	-webkit-animation: uwp-main 500ms cubic-bezier(0.1, 0.9, 0.2, 1);
 	animation: uwp-main 500ms cubic-bezier(0.1, 0.9, 0.2, 1);
-}
-
-@-webkit-keyframes uwp-main {
-	0% {
-		margin-top: 20px;
-	}
-
-	100% {
-		margin-top: 0;
-	}
 }
 
 @keyframes uwp-main {
@@ -861,6 +847,5 @@ img {
 .uwp-main.error .error-container {
 	position: relative;
 	margin-top: calc(50vh - 44px);
-	-webkit-transform: translateY(-50%);
 	transform: translateY(-50%);
 }
