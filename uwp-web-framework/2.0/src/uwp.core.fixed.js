@@ -88,17 +88,17 @@
 
 		/* Default config */
 		config: {
-				pageTitle: "UWP web framework",
-				layoutType: "docked-minimized",
-				activeColor: "#26C6DA",
-				mainColor: "#373737",
-				mainColorDarkened: "#0097A7",
-				includes: "./includes/serguei-uwp",
-				includeScript: "./libs/serguei-uwp/js/include-script",
-				includeStyle: "./libs/serguei-uwp/css/include-style",
-				navContainer: "nav-container",
-				home: "home",
-				hashNavKey: "page"
+			pageTitle: "UWP web framework",
+			layoutType: "docked-minimized",
+			activeColor: "#26C6DA",
+			mainColor: "#373737",
+			mainColorDarkened: "#0097A7",
+			includes: "./includes/serguei-uwp",
+			includeScript: "./libs/serguei-uwp/js/include-script",
+			includeStyle: "./libs/serguei-uwp/css/include-style",
+			navContainer: "nav-container",
+			home: "home",
+			hashNavKey: "page"
 		},
 
 		/* Main init function */
@@ -117,15 +117,26 @@
 
 			document.body.appendChild(UWP.pageTitle);
 
+			UWP.container = null;
+			var _uwp_container = document.getElementsByClassName("uwp-container")[0] || "";
+			if (!_uwp_container) {
+				var container = document.createElement("div");
+				container.setAttribute("class", "uwp-container");
+				container.setAttribute("role", "document");
+				UWP.container = container;
+				document.body.appendChild(UWP.container);
+			} else {
+				UWP.container = _uwp_container;
+			}
+
 			UWP.header = null;
 			var _UWP_header = document.getElementsByClassName("uwp-header")[0] || "";
 			if (!_UWP_header) {
 				var header = document.createElement("div");
 				header.setAttribute("class", "uwp-header");
 				header.setAttribute("role", "navigation");
-				/* UWP.header = document.getElementsByClassName("uwp-header")[0] || ""; */
 				UWP.header = header;
-				document.body.appendChild(UWP.header);
+				UWP.container.appendChild(UWP.header);
 			} else {
 				UWP.header = _UWP_header;
 			}
@@ -136,9 +147,8 @@
 				var main = document.createElement("div");
 				main.setAttribute("class", "uwp-main");
 				main.setAttribute("role", "main");
-				/* UWP.main = document.getElementsByClassName("uwp-main")[0] || ""; */
 				UWP.main = main;
-				document.body.appendChild(UWP.main);
+				UWP.container.appendChild(UWP.main);
 			} else {
 				UWP.main = _uwp_main;
 			}
@@ -150,7 +160,6 @@
 				loading.setAttribute("class", "uwp-loading");
 				loading.setAttribute("role", "main");
 				loading.innerHTML = '<div class="uwp-loading__part"><div class="uwp-loading__rotator"></div></div><div class="uwp-loading__part uwp-loading__part--bottom"><div class="uwp-loading__rotator"></div></div>\n';
-				/* UWP.loading = document.getElementsByClassName("uwp-loading")[0] || ""; */
 				UWP.loading = loading;
 				document.body.appendChild(UWP.loading);
 			} else {
@@ -349,9 +358,9 @@
 					var mainColor_brightness = calculateBrightness(mainColor_RGB);
 
 					if (mainColor_brightness >= 128) {
-						UWP.body.classList.add("theme-light");
+						UWP.body.classList.add("uwp-theme--light");
 					} else {
-						UWP.body.classList.add("theme-dark");
+						UWP.body.classList.add("uwp-theme--dark");
 					}
 
 					var mainColorDarkened = mainColor_RGB.map(function (color) {
@@ -377,9 +386,9 @@
 					var activeColor_brightness = calculateBrightness(activeColor_RGB);
 
 					if (activeColor_brightness >= 128) {
-						UWP.body.classList.add("active-light");
+						UWP.body.classList.add("uwp-theme--active-light");
 					} else {
-						UWP.body.classList.add("active-dark");
+						UWP.body.classList.add("uwp-theme--active-dark");
 					}
 				}
 
@@ -395,30 +404,38 @@
 		/* Puts a menu button in title bar */
 		addMenuButton: function addMenuButton() {
 			console.log("UWP.addMenuButton()");
-			/* UWP.menuButton = document.createElement("button"); */
-			var menuButton = document.createElement("button");
-			menuButton.setAttribute("class", "uwp-menu-button");
-			UWP.menuButton = menuButton;
+
+			UWP.menuButton = null;
+			var _uwp_menu_button = document.getElementsByClassName("uwp-menu-button")[0] || "";
+			if (!_uwp_menu_button) {
+				var menuButton = document.createElement("button");
+				menuButton.setAttribute("class", "uwp-menu-button");
+				menuButton.setAttribute("aria-label", "Menu");
+				menuButton.innerHTML = '<svg width="1792" height="1792" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" transform="scale(1.75 1.75) translate(0 0)" d="M1024 320h-1024v-64h1024v64zm0 512h-1024v-64h1024v64zm0-256.5h-1024v-63.5h1024v63.5z"/></svg>';
+				UWP.menuButton = menuButton;
+				UWP.header.prependChild(UWP.menuButton);
+			} else {
+				UWP.menuButton = _uwp_menu_button;
+			}
+
 			/* UWP.menuButton.innerHTML = "&#xE700;"; */
 
 			/* var GlobalNavButton = document.createElement("img");
 			GlobalNavButton.src = "./static/img/svg/GlobalNavButton.svg";
 			UWP.menuButton.appendChild(GlobalNavButton); */
 
-			UWP.menuButton.innerHTML = '<svg width="1792" height="1792" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" transform="scale(1.75 1.75) translate(0 0)" d="M1024 320h-1024v-64h1024v64zm0 512h-1024v-64h1024v64zm0-256.5h-1024v-63.5h1024v63.5z"/></svg>';
-			UWP.menuButton.setAttribute("aria-label", "Menu");
-
 			/* var headerNav = UWP.header.getElementsByTagName("nav")[0] || ""; */
-			var headerNav = UWP.header.getElementsByClassName("uwp-nav")[0] || "";
 
-			UWP.menuList = headerNav || "";
-			UWP.menuButton.addEventListener("click", function () {
-				UWP.menuList.classList.toggle("active");
-			});
-			UWP.main.addEventListener("click", function () {
-				UWP.menuList.classList.remove("active");
-			});
-			UWP.header.prependChild(UWP.menuButton);
+			UWP.menuList = UWP.header.getElementsByClassName("uwp-nav")[0] || "";
+
+			if (UWP.menuList) {
+				UWP.menuButton.addEventListener("click", function () {
+					UWP.menuList.classList.toggle("active");
+				});
+				UWP.main.addEventListener("click", function () {
+					UWP.menuList.classList.remove("active");
+				});
+			}
 		},
 
 		/* Puts content in place */
@@ -438,13 +455,13 @@
 			}
 			/* Clears the page content */
 
-			UWP.main.classList.remove("error");
+			UWP.main.classList.remove("uwp-main--error");
 			UWP.main.innerHTML = "";
 			/* Displays error message */
 
 			function displayError(title) {
-				UWP.main.classList.add("error");
-				UWP.main.innerHTML = "\n\t\t\t\t<div class=\"error-container\">\n\t\t\t\t\t<p>".concat(title, "</p>\n\t\t\t\t\t<p><a href=\"javascript:void(0);\" class=\"error-link\">Go Home</a></p>\n\t\t\t\t</div>\n\t\t\t");
+				UWP.main.classList.add("uwp-main--error");
+				UWP.main.innerHTML = "\n\t\t\t\t<div class=\"uwp-error\">\n\t\t\t\t\t<p>".concat(title, "</p>\n\t\t\t\t\t<p><a href=\"javascript:void(0);\" class=\"error-link\">Go Home</a></p>\n\t\t\t\t</div>\n\t\t\t");
 				var mainA = UWP.main.getElementsByClassName("error-link")[0] || "";
 				mainA.addEventListener("click", function (event) {
 					event.stopPropagation();
@@ -497,7 +514,7 @@
 					UWP.main.innerHTML = "";
 					UWP.main.innerHTML = pageBody;
 
-					UWP.main.classList.remove("start-animation");
+					UWP.main.classList.remove("uwp-main--with-animation");
 
 					/*!
 					 * @see {@link https://stackoverflow.com/questions/30453078/uncaught-typeerror-cannot-set-property-offsetwidth-of-htmlelement-which-has/53089566#53089566}
@@ -506,7 +523,7 @@
 						return UWP.main.offsetWidth;
 					})();
 
-					UWP.main.classList.add("start-animation");
+					UWP.main.classList.add("uwp-main--with-animation");
 					/* Puts the new page title in place */
 
 					UWP.pageTitle.innerHTML = pageTitle;
@@ -555,4 +572,3 @@
 	};
 	root.UWP = UWP;
 })("undefined" !== typeof window ? window : void 0, document);
-
