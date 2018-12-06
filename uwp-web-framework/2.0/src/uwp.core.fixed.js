@@ -478,12 +478,10 @@
 			}
 			/* Clears the page content */
 
-			UWP.main.classList.remove("uwp-main--error");
 			UWP.main.innerHTML = "";
 			/* Displays error message */
 
 			function displayError(title) {
-				UWP.main.classList.add("uwp-main--error");
 				UWP.main.innerHTML = "\n\t<div class=\"uwp-error\">\n\t<p>".concat(title, "</p>\n\t<p><a href=\"javascript:void(0);\" class=\"error-link\">Go Home</a></p>\n\t</div>\n\t");
 				var mainA = UWP.main.getElementsByClassName("error-link")[0] || "";
 				mainA.addEventListener("click", function (event) {

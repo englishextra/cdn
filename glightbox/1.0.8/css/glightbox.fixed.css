@@ -21,7 +21,7 @@
 }
 
 .glightbox-container .gslider {
-	transition: transform 0.4s ease;
+	transition: transform .4s ease;
 	height: 100%;
 	left: 0;
 	top: 0;
@@ -136,7 +136,7 @@
 }
 
 .gslide-video:before {
-	content: "";
+	content: '';
 	display: block;
 	position: absolute;
 	width: 100%;
@@ -259,12 +259,8 @@
 	order: 2 !important;
 	max-height: 78vh;
 	overflow: auto !important;
-	background: linear-gradient(
-		to bottom,
-		transparent 0%,
-		rgba(0, 0, 0, 0.75) 100%
-	);
-	transition: opacity 0.3s linear;
+	background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.75) 100%);
+	transition: opacity .3s linear;
 }
 
 .glightbox-mobile .glightbox-container .gslide-title {
@@ -283,12 +279,12 @@
 
 .glightbox-mobile .glightbox-container .gslide-desc .desc-more {
 	color: #fff;
-	opacity: 0.4;
+	opacity: .4;
 }
 
 .gdesc-open .gslide-media {
-	transition: opacity 0.5s ease;
-	opacity: 0.4;
+	transition: opacity .5s ease;
+	opacity: .4;
 }
 
 .gdesc-open .gslide-description {
@@ -296,12 +292,12 @@
 }
 
 .gdesc-closed .gslide-media {
-	transition: opacity 0.5s ease;
+	transition: opacity .5s ease;
 	opacity: 1;
 }
 
 .greset {
-	transition: all 0.5s ease;
+	transition: all .5s ease;
 }
 
 .glightbox-desc {
@@ -319,7 +315,7 @@
 .gloader {
 	height: 25px;
 	width: 25px;
-	animation: lightboxLoader 0.8s infinite linear;
+	animation: lightboxLoader .8s infinite linear;
 	border: 2px solid #fff;
 	border-right-color: transparent;
 	border-radius: 50%;
@@ -356,7 +352,7 @@
 .gprev.disabled,
 .gnext.disabled,
 .gclose.disabled {
-	opacity: 0.1;
+	opacity: .1;
 }
 
 .gprev .garrow,
@@ -434,7 +430,7 @@ iframe.wait-autoplay {
 	top: 15px;
 	right: 10px;
 	position: absolute;
-	opacity: 0.7;
+	opacity: .7;
 	background-position: -59px 2px;
 }
 
@@ -444,41 +440,42 @@ iframe.wait-autoplay {
 
 /*CSS Animations*/
 .gfadeIn {
-	animation: gfadeIn 0.5s ease;
+	animation: gfadeIn .5s ease;
 }
 
 .gfadeOut {
-	animation: gfadeOut 0.5s ease;
+	animation: gfadeOut .5s ease;
 }
 
 .gslideOutLeft {
-	animation: gslideOutLeft 0.3s ease;
+	animation: gslideOutLeft .3s ease;
 }
 
 .gslideInLeft {
-	animation: gslideInLeft 0.3s ease;
+	animation: gslideInLeft .3s ease;
 }
 
 .gslideOutRight {
-	animation: gslideOutRight 0.3s ease;
+	animation: gslideOutRight .3s ease;
 }
 
 .gslideInRight {
-	animation: gslideInRight 0.3s ease;
+	animation: gslideInRight .3s ease;
 }
 
 .gzoomIn {
-	animation: gzoomIn 0.5s ease;
+	animation: gzoomIn .5s ease;
 }
 
 .gzoomOut {
-	animation: gzoomOut 0.5s ease;
+	animation: gzoomOut .5s ease;
 }
 
 @keyframes lightboxLoader {
 	0% {
 		transform: rotate(0deg);
 	}
+
 	100% {
 		transform: rotate(360deg);
 	}
@@ -488,6 +485,7 @@ iframe.wait-autoplay {
 	from {
 		opacity: 0;
 	}
+
 	to {
 		opacity: 1;
 	}
@@ -497,6 +495,7 @@ iframe.wait-autoplay {
 	from {
 		opacity: 1;
 	}
+
 	to {
 		opacity: 0;
 	}
@@ -507,6 +506,7 @@ iframe.wait-autoplay {
 		opacity: 0;
 		transform: translate3d(-60%, 0, 0);
 	}
+
 	to {
 		visibility: visible;
 		transform: translate3d(0, 0, 0);
@@ -520,6 +520,7 @@ iframe.wait-autoplay {
 		visibility: visible;
 		transform: translate3d(0, 0, 0);
 	}
+
 	to {
 		transform: translate3d(-60%, 0, 0);
 		opacity: 0;
@@ -533,6 +534,7 @@ iframe.wait-autoplay {
 		visibility: visible;
 		transform: translate3d(60%, 0, 0);
 	}
+
 	to {
 		transform: translate3d(0, 0, 0);
 		opacity: 1;
@@ -545,6 +547,7 @@ iframe.wait-autoplay {
 		visibility: visible;
 		transform: translate3d(0, 0, 0);
 	}
+
 	to {
 		transform: translate3d(60%, 0, 0);
 		opacity: 0;
@@ -556,6 +559,7 @@ iframe.wait-autoplay {
 		opacity: 0;
 		transform: scale3d(0.3, 0.3, 0.3);
 	}
+
 	to {
 		opacity: 1;
 	}
@@ -565,16 +569,19 @@ iframe.wait-autoplay {
 	from {
 		opacity: 1;
 	}
+
 	50% {
 		opacity: 0;
 		transform: scale3d(0.3, 0.3, 0.3);
 	}
+
 	to {
 		opacity: 0;
 	}
 }
 
 @media (min-width: 25em) {
+
 	.gslide iframe,
 	.gslide video {
 		min-width: 0;
@@ -586,21 +593,25 @@ iframe.wait-autoplay {
 		-ms-flex-direction: row;
 		flex-direction: row;
 	}
+
 	.glightbox-container .ginner-container.desc-left .gslide-description,
 	.glightbox-container .ginner-container.desc-top .gslide-description {
 		-ms-flex-order: 0;
 		order: 0;
 	}
+
 	.glightbox-container .ginner-container.desc-left .gslide-media,
 	.glightbox-container .ginner-container.desc-top .gslide-media {
 		-ms-flex-order: 1;
 		order: 1;
 	}
+
 	.gslide-image img {
 		width: auto;
 		width: initial;
 		max-height: 97vh;
 	}
+
 	.gslide-video {
 		display: -ms-flexbox;
 		display: flex;
@@ -608,12 +619,15 @@ iframe.wait-autoplay {
 		height: 100%;
 		max-height: 95vh !important;
 	}
+
 	.gslide-inline {
 		max-height: 95vh;
 	}
+
 	.gslide-external {
 		max-height: 95vh;
 	}
+
 	.gslide-media {
 		display: block;
 		display: -ms-inline-flexbox;
@@ -621,19 +635,24 @@ iframe.wait-autoplay {
 		-ms-flex-pack: center;
 		justify-content: center;
 	}
+
 	.gslide-description.description-left,
 	.gslide-description.description-right {
 		max-width: 275px;
 	}
+
 	.goverlay {
 		background: rgba(0, 0, 0, 0.92);
 	}
+
 	.glightbox-clean .ginner-container {
 		box-shadow: 1px 2px 9px 0px rgba(0, 0, 0, 0.65);
 	}
+
 	.glightbox-clean .gprev {
 		top: 45%;
 	}
+
 	.glightbox-clean .gnext {
 		top: 45%;
 	}

@@ -11,7 +11,7 @@ html {
 }
 
 body {
-	font-size: 1rem;
+	font-size: 1.000rem;
 	line-height: 1.333rem;
 }
 
@@ -157,38 +157,38 @@ body {
 }
 
 .col h1 {
-	font-size: 2.4rem;
-	line-height: 3.2rem;
+	font-size: 2.400rem;
+	line-height: 3.200rem;
 	padding: 0;
 }
 
 .col h2 {
-	font-size: 1.6rem;
+	font-size: 1.600rem;
 	line-height: 2.133rem;
 	padding: 0;
 }
 
 .col h3 {
 	font-size: 1.267rem;
-	line-height: 1.6rem;
+	line-height: 1.600rem;
 	padding: 0;
 }
 
 .col h4 {
-	font-size: 1rem;
+	font-size: 1.000rem;
 	line-height: 1.333rem;
 	padding: 0;
 }
 
 .col h5 {
-	font-size: 1rem;
+	font-size: 1.000rem;
 	line-height: 1.333rem;
 	text-transform: uppercase;
 	padding: 0;
 }
 
 .col h6 {
-	font-size: 1rem;
+	font-size: 1.000rem;
 	line-height: 1.333rem;
 	text-decoration: underline;
 	padding: 0;
@@ -208,7 +208,7 @@ body {
 .col p.larger,
 .col blockquote {
 	font-size: 1.133rem;
-	line-height: 1.6rem;
+	line-height: 1.600rem;
 }
 
 .col p,
@@ -268,7 +268,7 @@ body {
 
 .col table td,
 .col table th {
-	padding: 0.5rem 0.8rem 0.467rem 0.8rem;
+	padding: 0.500rem 0.800rem 0.467rem 0.800rem;
 	vertical-align: top;
 }
 
@@ -336,7 +336,7 @@ body {
 .col input[type^="datetime"],
 .col input[type^="datetime-local"],
 .col select {
-	height: 2.4rem;
+	height: 2.400rem;
 }
 
 .col button,
@@ -456,211 +456,211 @@ body {
 	margin-top: 0;
 }
 
-.col h2 + div,
-.col h2 + p,
-.col h2 + table,
-.col h3 + div,
-.col h3 + p,
-.col h3 + table,
-.col h4 + div,
-.col h4 + p,
-.col h4 + table,
-.col h5 + div,
-.col h5 + p,
-.col h5 + table,
-.col h6 + div,
-.col h6 + p,
-.col h6 + table {
+.col h2+div,
+.col h2+p,
+.col h2+table,
+.col h3+div,
+.col h3+p,
+.col h3+table,
+.col h4+div,
+.col h4+p,
+.col h4+table,
+.col h5+div,
+.col h5+p,
+.col h5+table,
+.col h6+div,
+.col h6+p,
+.col h6+table {
 	margin-top: 0.533rem;
 }
 
 .col address:first-child,
-.col div + address,
-.col h1 + blockquote,
-.col h1 + div,
-.col h1 + hr,
-.col h1 + div.hr,
-.col h1 + dl,
-.col h1 + ol,
-.col h1 + p,
-.col h1 + pre,
-.col h1 + table,
-.col h1 + ul,
-.col h1 + details,
-.col h2 + blockquote,
-.col h2 + dl,
-.col h2 + h3,
-.col h2 + ol,
-.col h2 + pre,
-.col h2 + ul,
-.col h2 + details,
-.col h3 + blockquote,
-.col h3 + dl,
-.col h3 + h4,
-.col h3 + ol,
-.col h3 + pre,
-.col h3 + ul,
-.col h3 + details,
-.col h4 + blockquote,
-.col h4 + dl,
-.col h4 + h3,
-.col h4 + h5,
-.col h4 + ol,
-.col h4 + pre,
-.col h4 + ul,
-.col h4 + details,
-.col h5 + blockquote,
-.col h5 + dl,
-.col h5 + h6,
-.col h5 + h2,
-.col h5 + ol,
-.col h5 + pre,
-.col h5 + ul,
-.col h5 + details,
-.col h6 + blockquote,
-.col h6 + dl,
-.col h6 + ol,
-.col h6 + pre,
-.col h6 + ul,
-.col h6 + details,
-.col p + address,
-.col p + p,
+.col div+address,
+.col h1+blockquote,
+.col h1+div,
+.col h1+hr,
+.col h1+div.hr,
+.col h1+dl,
+.col h1+ol,
+.col h1+p,
+.col h1+pre,
+.col h1+table,
+.col h1+ul,
+.col h1+details,
+.col h2+blockquote,
+.col h2+dl,
+.col h2+h3,
+.col h2+ol,
+.col h2+pre,
+.col h2+ul,
+.col h2+details,
+.col h3+blockquote,
+.col h3+dl,
+.col h3+h4,
+.col h3+ol,
+.col h3+pre,
+.col h3+ul,
+.col h3+details,
+.col h4+blockquote,
+.col h4+dl,
+.col h4+h3,
+.col h4+h5,
+.col h4+ol,
+.col h4+pre,
+.col h4+ul,
+.col h4+details,
+.col h5+blockquote,
+.col h5+dl,
+.col h5+h6,
+.col h5+h2,
+.col h5+ol,
+.col h5+pre,
+.col h5+ul,
+.col h5+details,
+.col h6+blockquote,
+.col h6+dl,
+.col h6+ol,
+.col h6+pre,
+.col h6+ul,
+.col h6+details,
+.col p+address,
+.col p+p,
 .col p.address,
 .col p.blockquote,
-.col pre + address,
-.col table + address,
-.col table + p.address,
-.col table + p.blockquote {
+.col pre+address,
+.col table+address,
+.col table+p.address,
+.col table+p.blockquote {
 	margin-top: 1.333rem;
 }
 
-.col blockquote + blockquote,
-.col blockquote + dl,
-.col blockquote + h1,
-.col blockquote + h2,
-.col blockquote + h3,
-.col blockquote + h4,
-.col blockquote + h5,
-.col blockquote + h6,
-.col blockquote + ol,
-.col blockquote + p,
-.col blockquote + pre,
-.col blockquote + table,
-.col blockquote + ul,
-.col blockquote + details,
-.col div + blockquote,
-.col div + dl,
-.col div + h1,
-.col div + h2,
-.col div + h3,
-.col div + h4,
-.col div + h5,
-.col div + h6,
-.col div + ol,
-.col div + p,
-.col div + pre,
-.col div + table,
-.col div + ul,
-.col div + details,
-.col dl + blockquote,
-.col dl + dl,
-.col dl + h1,
-.col dl + h2,
-.col dl + h3,
-.col dl + h4,
-.col dl + h5,
-.col dl + h6,
-.col dl + ol,
-.col dl + p,
-.col dl + pre,
-.col dl + table,
-.col dl + ul,
-.col dl + details,
-.col ol + blockquote,
-.col ol + dl,
-.col ol + h1,
-.col ol + h2,
-.col ol + h3,
-.col ol + h4,
-.col ol + h5,
-.col ol + h6,
-.col ol + ol,
-.col ol + p,
-.col ol + pre,
-.col ol + table,
-.col ol + ul,
-.col ol + details,
-.col p + blockquote,
-.col p + dl,
-.col p + figcaption,
-.col p + figure,
-.col p + h1,
-.col p + h2,
-.col p + h3,
-.col p + h4,
-.col p + h5,
-.col p + h6,
-.col p + ol,
-.col p + pre,
-.col p + table,
-.col p + ul,
-.col p + details,
-.col pre + blockquote,
-.col pre + dl,
-.col pre + h1,
-.col pre + h2,
-.col pre + h3,
-.col pre + h4,
-.col pre + h5,
-.col pre + h6,
-.col pre + ol,
-.col pre + p,
-.col pre + pre,
-.col pre + table,
-.col pre + ul,
-.col pre + details,
-.col table + blockquote,
-.col table + dl,
-.col table + h1,
-.col table + h2,
-.col table + h3,
-.col table + h4,
-.col table + h5,
-.col table + h6,
-.col table + ol,
-.col table + p,
-.col table + pre,
-.col table + table,
-.col table + ul,
-.col table + details,
-.col ul + blockquote,
-.col ul + dl,
-.col ul + h1,
-.col ul + h2,
-.col ul + h3,
-.col ul + h4,
-.col ul + h5,
-.col ul + h6,
-.col ul + ol,
-.col ul + p,
-.col ul + pre,
-.col ul + table,
-.col ul + ul,
-.col ul + details,
-.col details + blockquote,
-.col details + dl,
-.col details + h1,
-.col details + h2,
-.col details + h3,
-.col details + h4,
-.col details + h5,
-.col details + h6,
-.col details + ol,
-.col details + p,
-.col details + pre,
-.col details + table,
-.col details + ul,
-.col details + details,
+.col blockquote+blockquote,
+.col blockquote+dl,
+.col blockquote+h1,
+.col blockquote+h2,
+.col blockquote+h3,
+.col blockquote+h4,
+.col blockquote+h5,
+.col blockquote+h6,
+.col blockquote+ol,
+.col blockquote+p,
+.col blockquote+pre,
+.col blockquote+table,
+.col blockquote+ul,
+.col blockquote+details,
+.col div+blockquote,
+.col div+dl,
+.col div+h1,
+.col div+h2,
+.col div+h3,
+.col div+h4,
+.col div+h5,
+.col div+h6,
+.col div+ol,
+.col div+p,
+.col div+pre,
+.col div+table,
+.col div+ul,
+.col div+details,
+.col dl+blockquote,
+.col dl+dl,
+.col dl+h1,
+.col dl+h2,
+.col dl+h3,
+.col dl+h4,
+.col dl+h5,
+.col dl+h6,
+.col dl+ol,
+.col dl+p,
+.col dl+pre,
+.col dl+table,
+.col dl+ul,
+.col dl+details,
+.col ol+blockquote,
+.col ol+dl,
+.col ol+h1,
+.col ol+h2,
+.col ol+h3,
+.col ol+h4,
+.col ol+h5,
+.col ol+h6,
+.col ol+ol,
+.col ol+p,
+.col ol+pre,
+.col ol+table,
+.col ol+ul,
+.col ol+details,
+.col p+blockquote,
+.col p+dl,
+.col p+figcaption,
+.col p+figure,
+.col p+h1,
+.col p+h2,
+.col p+h3,
+.col p+h4,
+.col p+h5,
+.col p+h6,
+.col p+ol,
+.col p+pre,
+.col p+table,
+.col p+ul,
+.col p+details,
+.col pre+blockquote,
+.col pre+dl,
+.col pre+h1,
+.col pre+h2,
+.col pre+h3,
+.col pre+h4,
+.col pre+h5,
+.col pre+h6,
+.col pre+ol,
+.col pre+p,
+.col pre+pre,
+.col pre+table,
+.col pre+ul,
+.col pre+details,
+.col table+blockquote,
+.col table+dl,
+.col table+h1,
+.col table+h2,
+.col table+h3,
+.col table+h4,
+.col table+h5,
+.col table+h6,
+.col table+ol,
+.col table+p,
+.col table+pre,
+.col table+table,
+.col table+ul,
+.col table+details,
+.col ul+blockquote,
+.col ul+dl,
+.col ul+h1,
+.col ul+h2,
+.col ul+h3,
+.col ul+h4,
+.col ul+h5,
+.col ul+h6,
+.col ul+ol,
+.col ul+p,
+.col ul+pre,
+.col ul+table,
+.col ul+ul,
+.col ul+details,
+.col details+blockquote,
+.col details+dl,
+.col details+h1,
+.col details+h2,
+.col details+h3,
+.col details+h4,
+.col details+h5,
+.col details+h6,
+.col details+ol,
+.col details+p,
+.col details+pre,
+.col details+table,
+.col details+ul,
+.col details+details,
 .col h1:first-child,
 .col h2:first-child,
 .col h3:first-child,
@@ -713,21 +713,21 @@ body {
 	margin-bottom: 1.333rem;
 }
 
-.col blockquote + p,
-.col div + p,
-.col dl + p,
-.col h1 + p,
-.col h2 + p,
-.col h3 + p,
-.col h4 + p,
-.col h5 + p,
-.col h6 + p,
-.col ol + p,
-.col p + p,
-.col pre + p,
-.col table + p,
-.col ul + p,
-.col details + p {
+.col blockquote+p,
+.col div+p,
+.col dl+p,
+.col h1+p,
+.col h2+p,
+.col h3+p,
+.col h4+p,
+.col h5+p,
+.col h6+p,
+.col ol+p,
+.col p+p,
+.col pre+p,
+.col table+p,
+.col ul+p,
+.col details+p {
 	margin-bottom: 1.067rem;
 }
 
@@ -836,8 +836,7 @@ body {
  * font families
  */
 .col body {
-	font-family: "Segoe UI", "Segoe WP", "HelveticaNeue", "Roboto",
-		"Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif;
+	font-family: "Segoe UI", "Segoe WP", "HelveticaNeue", "Roboto", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif;
 }
 
 /* .col h1 {
@@ -845,8 +844,7 @@ body {
 } */
 .col pre,
 .col pre code {
-	font-family: "Consolas", "Monaco", "Droid Sans Mono", "Inconsolata",
-		"Source Code Pro", monospace;
+	font-family: "Consolas", "Monaco", "Droid Sans Mono", "Inconsolata", "Source Code Pro", monospace;
 }
 
 .col select {
@@ -879,21 +877,20 @@ body {
 }
 
 .col .phonetic {
-	font-family: "Roboto Mono", "Consolas", "Monaco", "Droid Sans Mono",
-		"Inconsolata", "Source Code Pro", monospace;
+	font-family: "Roboto Mono", "Consolas", "Monaco", "Droid Sans Mono", "Inconsolata", "Source Code Pro", monospace;
 }
 
 /*!
  * colors
  */
 .col a {
-	color: #3585d8;
+	color: #3585D8;
 }
 
 .col a:focus,
 .col a:hover,
 .col a:active {
-	color: #3585d8;
+	color: #3585D8;
 }
 
 .col h1,
@@ -966,7 +963,7 @@ body {
 
 .col pre {
 	color: inherit;
-	background-color: #f3f3f3;
+	background-color: #F3F3F3;
 }
 
 .col pre a:focus,
@@ -991,8 +988,8 @@ body {
 .col input[type^="datetime"],
 .col input[type^="datetime-local"],
 .col textarea {
-	background-color: #ffffff;
-	border: 0.067rem solid #c3c3c3;
+	background-color: #FFFFFF;
+	border: 0.067rem solid #C3C3C3;
 }
 
 .col button:focus,
@@ -1007,16 +1004,16 @@ body {
 .col input[type="button"]:active,
 .col input[type="reset"]:active,
 .col input[type="submit"]:active {
-	color: #ffffff;
-	background-color: #5f5f5f;
-	border: 0.067rem solid #5f5f5f;
+	color: #FFFFFF;
+	background-color: #5F5F5F;
+	border: 0.067rem solid #5F5F5F;
 }
 
 .col button,
 .col input[type="button"],
 .col input[type="reset"],
 .col input[type="submit"] {
-	color: #ffffff;
+	color: #FFFFFF;
 	background-color: #373737;
 	border: 0.067rem solid #373737;
 }
@@ -1054,8 +1051,8 @@ body {
 .col input[type^="datetime"]:active,
 .col input[type^="datetime-local"]:active,
 .col textarea:active {
-	background-color: #f3f3f3;
-	border: 0.067rem solid #c3c3c3;
+	background-color: #F3F3F3;
+	border: 0.067rem solid #C3C3C3;
 }
 
 .col select:disabled,
@@ -1074,43 +1071,43 @@ body {
 .col input[type^="datetime"]:disabled,
 .col input[type^="datetime-local"]:disabled,
 .col textarea:disabled {
-	background-color: #d5d5d5;
-	border-color: #d5d5d5;
+	background-color: #D5D5D5;
+	border-color: #D5D5D5;
 }
 
 .col button:disabled,
 .col input[type="button"]:disabled,
 .col input[type="reset"]:disabled,
 .col input[type="submit"]:disabled {
-	background-color: #d5d5d5;
-	border-color: #d5d5d5;
+	background-color: #D5D5D5;
+	border-color: #D5D5D5;
 }
 
 .col table {
 	border: none;
 	border-top-width: 0.067rem;
 	border-top-style: solid;
-	border-top-color: #c3c3c3;
+	border-top-color: #C3C3C3;
 	border-right-width: 0.067rem;
 	border-right-style: solid;
-	border-right-color: #c3c3c3;
+	border-right-color: #C3C3C3;
 	border-left-width: 0.067rem;
 	border-left-style: solid;
-	border-left-color: #c3c3c3;
+	border-left-color: #C3C3C3;
 }
 
 .col table th {
 	border: none;
 	border-bottom-width: 0.067rem;
 	border-bottom-style: solid;
-	border-bottom-color: #c3c3c3;
+	border-bottom-color: #C3C3C3;
 }
 
 .col table td {
 	border: none;
 	border-bottom-width: 0.067rem;
 	border-bottom-style: solid;
-	border-bottom-color: #c3c3c3;
+	border-bottom-color: #C3C3C3;
 }
 
 .col img {
@@ -1120,10 +1117,10 @@ body {
 
 .col hr,
 .col .hr {
-	background-color: #c3c3c3;
+	background-color: #C3C3C3;
 	border: 0;
 }
 
 .col .highlight {
-	color: #d93d3d;
+	color: #D93D3D;
 }
