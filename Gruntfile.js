@@ -5,6 +5,7 @@ module.exports = function (grunt) {
 	grunt.initConfig({
 		jshint: {
 			all: [
+				"adaptivecards/1.1.0/js/adaptivecards.fixed.js",
 				"bala/0.1.9/js/bala.fixed.js",
 				"bootstrap/3.3.7/js/bootstrap.fixed.js",
 				"crel/3.0.0/js/crel.fixed.js",
