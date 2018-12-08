@@ -1,2 +1,8 @@
+*.ai
+*.fw.png
 *.map
+*.min.css
+*.min.js
+*.psd
+*.zip
 node_modules/
