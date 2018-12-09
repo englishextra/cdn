@@ -375,7 +375,7 @@
 			return new Reqwest(o, fn);
 		}
 		function normalize(s) {
-			return s ? s.replace(/?\n/g, "\n") : "";
+			return s ? s.replace(/\r?\n/g, "\r\n") : "";
 		}
 		function serial(el, cb) {
 			var n = el.name,
