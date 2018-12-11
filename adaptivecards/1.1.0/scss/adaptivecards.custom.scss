@@ -1,0 +1,201 @@
+/*!
+ * fixes to adaptivecards.js
+ * @see {@link https://docs.microsoft.com/en-us/adaptive-cards/sdk/rendering-cards/javascript/native-styling}
+ */
+/* .ac-container 	containers
+.ac-selectable 	elements with selectAction
+.ac-image 	image
+.ac-pushButton 	actions rendered like buttons
+.ac-linkButton 	actions rendered like links
+.ac-input 	input controls
+.ac-textInput 	text input
+.ac-multiline 	multiline text input
+.ac-numberInput 	number input
+.ac-dateInput 	date input
+.ac-timeInput 	time input
+.ac-multichoiceInput 	multichoice input */
+
+.ac-columnSet {
+	display: flex;
+	justify-content: flex-start;
+	box-sizing: border-box;
+	flex: 0 0 auto;
+}
+
+.ac-textBlock {
+	overflow: hidden;
+	text-align: left;
+	font-size: 14px;
+	line-height: 18.62px;
+	font-weight: 400;
+	overflow-wrap: break-word;
+	box-sizing: border-box;
+	flex: 0 0 auto;
+}
+
+.ac-factset {
+	border-width: 0px;
+	border-spacing: 0px;
+	border-style: none;
+	border-collapse: collapse;
+	display: block;
+	overflow: hidden;
+	box-sizing: border-box;
+	flex: 0 0 auto;
+}
+
+.ac-fact-title {
+	padding: 0px;
+	max-width: 150px;
+	vertical-align: top;
+}
+
+.ac-fact-value {
+	padding: 0px 0px 0px 10px;
+	vertical-align: top;
+}
+
+.ac-textBlock--h3 {
+	overflow: hidden;
+	text-align: left;
+	font-size: 17px;
+	line-height: 22.61px;
+	font-weight: 400;
+	overflow-wrap: break-word;
+	box-sizing: border-box;
+	flex: 0 0 auto;
+}
+
+.ac-textBlock--h2 {
+	overflow: hidden;
+	text-align: left;
+	font-size: 17px;
+	line-height: 22.61px;
+	font-weight: 400;
+	overflow-wrap: break-word;
+	box-sizing: border-box;
+	flex: 0 0 auto;
+}
+
+.ac-image {
+	max-height: 100%;
+	min-width: 0px;
+	width: 100%;
+}
+
+.ac-image--person {
+	border-radius: 50%;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+}
+
+.ac-pushButton {
+	width: 120px;
+	font-size: 12px;
+	line-height: 12px;
+	font-weight: 400;
+	text-align: center;
+	color: #0D689B;
+	border: 1px solid #0D689B;
+	background-color: transparent;
+	border-radius: 3px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	padding: 8px 14px;
+	cursor: pointer;
+}
+
+.ac-pushButton[disabled] {
+	color: #484848;
+	background-color: transparent;
+	border: 1px solid #484848;
+}
+
+.ac-pushButton:not([disabled]):hover {
+	color: #FFFFFF;
+	background-color: #666666;
+	border: 1px solid #666666;
+}
+
+.ac-pushButton:not([disabled]):active,
+.ac-pushButton:not([disabled]):focus {
+	color: #666666;
+	background-color: #FFFFFF;
+	border: 1px solid #666666;
+}
+
+.ac-pushButton--primary {
+	color: #FFFFFF;
+	background-color: #0D689B;
+}
+
+/* .ac-selectable:hover,
+.ac-selectable:focus,
+.ac-selectable:active {
+	border: 1px solid #666666;
+} */
+
+.ac-column {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	box-sizing: border-box;
+	min-width: 0px;
+}
+
+.ac-wrapper {
+	display: flex;
+	align-items: flex-start;
+	justify-content: flex-start;
+	box-sizing: border-box;
+}
+
+.ac-vertical-margin {
+	width: 8px;
+	overflow: hidden;
+	flex: 0 0 auto;
+}
+
+.ac-horizontal-margin {
+	height: 8px;
+	overflow: hidden;
+	flex: 0 0 auto;
+}
+
+.ac-display--block {
+	display: block;
+}
+
+.ac-display--flex {
+	display: flex;
+}
+
+.ac-color--accent {
+	color: #0D689B;
+}
+
+.ac-color--default {
+	color: #000000;
+}
+
+.ac-color--subtle {
+	color: #484848;
+}
+
+.ac-size--small {
+	font-size: 12px;
+	line-height: 15.96px;
+}
+
+.ac-weight--bolder {
+	font-weight: bolder !important;
+}
+
+.ac-width--fit-width {
+	width: 100%;
+}
+
+.ac-margin--top-10 {
+	margin-top: 10px;
+}

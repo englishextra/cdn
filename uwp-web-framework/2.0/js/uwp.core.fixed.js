@@ -177,19 +177,19 @@
 			}
 
 			UWP.revealUWPLoading = function() {
-				UWP.loading.classList.add("is-active");
+				UWP.loading.classList.add("uwp-loading--is-active");
 			};
 
 			UWP.concealUWPLoading = function() {
 				var timer = setTimeout(function() {
 					clearTimeout(timer);
 					timer = null;
-					UWP.loading.classList.remove("is-active");
+					UWP.loading.classList.remove("uwp-loading--is-active");
 				}, 1000);
 			};
 
 			UWP.removeUWPLoading = function() {
-				UWP.loading.classList.remove("is-active");
+				UWP.loading.classList.remove("uwp-loading--is-active");
 			};
 
 			UWP.getConfig(params);
@@ -512,12 +512,12 @@
 			function displayError(title, linkText) {
 				UWP.main.innerHTML = '\n\t<div class="uwp-error">\n\t<p>'.concat(
 					title,
-					'</p>\n\t<p><a href="javascript:void(0);" class="error-link">' +
+					'</p>\n\t<p><a href="javascript:void(0);" class="uwp-error-link">' +
 						linkText +
 						"</a></p>\n\t</div>\n\t"
 				);
 				var mainA =
-					UWP.main.getElementsByClassName("error-link")[0] || "";
+					UWP.main.getElementsByClassName("uwp-error-link")[0] || "";
 				mainA.addEventListener("click", function(event) {
 					event.stopPropagation();
 					event.preventDefault();

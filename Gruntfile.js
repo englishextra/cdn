@@ -5,7 +5,7 @@ module.exports = function (grunt) {
 	grunt.initConfig({
 		jshint: {
 			all: [
-				"adaptivecards/1.1.0/js/adaptivecards.fixed.js",
+				"adaptivecards/1.1.0/src/adaptivecards.fixed.js",
 				"bala/0.1.9/js/bala.fixed.js",
 				"bootstrap/3.3.7/js/bootstrap.fixed.js",
 				"crel/3.0.0/js/crel.fixed.js",
@@ -54,6 +54,7 @@ module.exports = function (grunt) {
 				"pnotify/1.3.1/js/pnotify.fixed.js",
 				"polyfills/js/polyfills.fixed.js",
 				"promise-polyfill/8.1.0/js/promise.fixed.js",
+				"pwabuilder-serviceworkers/1.1.1/serviceWorker2/src/pwabuilder-sw.fixed.js",
 				"qrjs2/0.1.6/js/qrjs2.fixed.js",
 				"ReadMore.js/1.0.0/js/readMoreJS.fixed.js",
 				"reqwest/2.0.5/js/reqwest.fixed.js",
