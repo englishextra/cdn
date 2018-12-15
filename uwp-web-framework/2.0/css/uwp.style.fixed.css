@@ -844,7 +844,7 @@ body {
 	left: 50%;
 	margin-right: -50%;
 	transform: translate(-50%, -50%);
-	z-index: 1;
+	z-index: 1000;
 }
 
 .uwp-loading.is-active {
