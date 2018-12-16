@@ -20,7 +20,7 @@ module.exports = function (grunt) {
 				"glightbox/1.0.8/src/glightbox.fixed.js",
 				"google-code-prettify/0.1/js/prettify.bundled.fixed.js",
 				"highlight.js/9.12.0/src/highlight.pack.fixed.js",
-				"iframe-lightbox/0.2.0/js/iframe-lightbox.fixed.js",
+				"iframe-lightbox/0.2.2/js/iframe-lightbox.fixed.js",
 				"imagesloaded/4.1.4/js/imagesloaded.pkgd.fixed.js",
 				"img-lightbox/0.1.2/js/img-lightbox.fixed.js",
 				"infinite-scroll/0.1.0/js/infinite-scroll.fixed.js",
