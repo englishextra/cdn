@@ -3,27 +3,22 @@
  * @see {@link https://github.com/daneden/animate.css}
  * daneden.github.io/animate.css/
  */
-
 /* .animated {
 	animation-duration: 2s;
 	animation-fill-mode: both;
 } */
-
 @-webkit-keyframes fadeIn {
 	0% {
 		opacity: 0;
 	}
-
 	100% {
 		opacity: 1;
 	}
 }
-
 @keyframes fadeIn {
 	0% {
 		opacity: 0;
 	}
-
 	100% {
 		opacity: 1;
 	}
@@ -40,7 +35,6 @@
 		-webkit-transform: translate3d(0, 100%, 0);
 		transform: translate3d(0, 100%, 0);
 	}
-
 	100% {
 		opacity: 1;
 		-webkit-transform: none;
@@ -54,7 +48,6 @@
 		-webkit-transform: translate3d(0, 100%, 0);
 		transform: translate3d(0, 100%, 0);
 	}
-
 	100% {
 		opacity: 1;
 		-webkit-transform: none;
@@ -71,7 +64,6 @@
 	0% {
 		opacity: 1;
 	}
-
 	100% {
 		opacity: 0;
 	}
@@ -81,7 +73,6 @@
 	0% {
 		opacity: 1;
 	}
-
 	100% {
 		opacity: 0;
 	}
@@ -96,7 +87,6 @@
 	0% {
 		opacity: 1;
 	}
-
 	100% {
 		opacity: 0;
 		-webkit-transform: translate3d(0, 100%, 0);
@@ -108,7 +98,6 @@
 	0% {
 		opacity: 1;
 	}
-
 	100% {
 		opacity: 0;
 		-webkit-transform: translate3d(0, 100%, 0);
@@ -124,7 +113,6 @@
 /*!
  * img lightbox
  */
-
 .img-lightbox {
 	display: none;
 	opacity: 0;
@@ -165,7 +153,6 @@
  * reset for animate.css
  * daneden.github.io/animate.css/
  */
-
 .img-lightbox.animated,
 .img-lightbox img.animated {
 	-webkit-animation-duration: 0.4s;
@@ -178,7 +165,6 @@
  * another pure css spinner
  * @see {@link https://epic-spinners.epicmax.co/}
  */
-
 .img-lightbox .half-circle-spinner,
 .img-lightbox .half-circle-spinner * {
 	-webkit-box-sizing: border-box;
@@ -190,14 +176,12 @@
 	height: 60px;
 	border-radius: 100%;
 	position: relative;
-
 	margin: 0;
 	position: fixed;
 	top: 50%;
 	left: 50%;
 	margin-right: -50%;
 	-webkit-transform: translate(-50%, -50%);
-	-ms-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
 }
 
@@ -211,13 +195,13 @@
 }
 
 .img-lightbox .half-circle-spinner .circle.circle-1 {
-	border-top-color: #FFFFFF;
+	border-top-color: #ffffff;
 	-webkit-animation: half-circle-spinner-animation 1s infinite;
 	animation: half-circle-spinner-animation 1s infinite;
 }
 
 .img-lightbox .half-circle-spinner .circle.circle-2 {
-	border-bottom-color: #FFFFFF;
+	border-bottom-color: #ffffff;
 	-webkit-animation: half-circle-spinner-animation 1s infinite alternate;
 	animation: half-circle-spinner-animation 1s infinite alternate;
 }
@@ -227,7 +211,6 @@
 		-webkit-transform: rotate(0deg);
 		transform: rotate(0deg);
 	}
-
 	100% {
 		-webkit-transform: rotate(360deg);
 		transform: rotate(360deg);
@@ -239,7 +222,6 @@
 		-webkit-transform: rotate(0deg);
 		transform: rotate(0deg);
 	}
-
 	100% {
 		-webkit-transform: rotate(360deg);
 		transform: rotate(360deg);
@@ -254,23 +236,22 @@
 	position: fixed;
 	top: 0.625em;
 	right: 0.625em;
-	width: 1.500em;
-	height: 1.500em;
+	width: 1.5em;
+	height: 1.5em;
 }
 
 /*!
  * pure css version
  * @see {@link https://codepen.io/brissmyr/pen/egidw}
  */
-
 .img-lightbox .btn-close:before,
 .img-lightbox .btn-close:after {
 	content: " ";
 	width: 0.125em;
-	height: 1.500em;
+	height: 1.5em;
 	position: absolute;
 	right: 0.625em;
-	background-color: #FFFFFF;
+	background-color: #ffffff;
 }
 
 .img-lightbox .btn-close:before {
@@ -286,7 +267,6 @@
 /*!
  * @see {@link https://github.com/englishextra/iframe-lightbox/issues/12}
  */
-
 body.img-lightbox--open {
 	overflow: hidden;
 }
