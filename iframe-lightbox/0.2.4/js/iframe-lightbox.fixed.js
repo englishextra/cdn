@@ -7,6 +7,7 @@
  * new IframeLightbox(elem)
  * passes jshint
  */
+/*jshint -W014 */
 (function(root, document) {
 	"use strict";
 
