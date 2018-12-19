@@ -22,7 +22,7 @@ module.exports = function (grunt) {
 				"highlight.js/9.12.0/src/highlight.pack.fixed.js",
 				"iframe-lightbox/0.2.4/js/iframe-lightbox.fixed.js",
 				"imagesloaded/4.1.4/js/imagesloaded.pkgd.fixed.js",
-				"img-lightbox/0.1.6/js/img-lightbox.fixed.js",
+				"img-lightbox/0.1.7/js/img-lightbox.fixed.js",
 				"infinite-scroll/0.1.0/js/infinite-scroll.fixed.js",
 				"isotope/3.0.1/js/isotope.imagesloaded.pkgd.fixed.js",
 				"isotope/3.0.1/js/isotope.pkgd.fixed.js",
