@@ -5,6 +5,7 @@
  */
 
 /*jshint -W014 */
+/*jshint -W004 */
 (function(root, document) {
 	"use strict";
 
@@ -182,7 +183,7 @@
 		html.push('<a href="javascript:void(0);" class="btn-close"></a>');
 		container.innerHTML = html.join("");
 		docBody[appendChild](container);
-		var container =
+		container =
 			document[getElementsByClassName](containerClass)[0] || "";
 		var img = container
 			? container[getElementsByTagName]("img")[0] || ""
