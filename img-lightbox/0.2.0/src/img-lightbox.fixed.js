@@ -32,10 +32,8 @@
 	var imgLightboxLinkIsBindedClass = "img-lightbox-link--is-binded";
 	var isLoadedClass = "is-loaded";
 	var dummySrc = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
-
 	var isMobile = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(Android)|(PlayBook)|(BB10)|(BlackBerry)|(Opera Mini)|(IEMobile)|(webOS)|(MeeGo)/i);
 	var isTouch = isMobile !== null || document.createTouch !== undefined || "ontouchstart" in root || "onmsgesturechange" in root || navigator.msMaxTouchPoints;
-
 	var debounce = function (func, wait) {
 		var timeout;
 		var args;
@@ -105,6 +103,7 @@
 		var _linkClass = linkClass || "";
 		var options = settings || {};
 		var rate = options.rate || 500;
+		var touch = options.touch;
 		var onError = options.onError;
 		var onLoaded = options.onLoaded;
 		var onCreated = options.onCreated;
@@ -125,13 +124,7 @@
 			hideImgLightbox(onClosed);
 		};
 		container[_addEventListener]("click", handleImgLightboxContainer);
-		/* if (isTouch) {
-			container[_addEventListener]("touchstart", handleImgLightboxContainer);
-		} */
 		btnClose[_addEventListener]("click", handleImgLightboxContainer);
-		/* if (isTouch) {
-			btnClose[_addEventListener]("touchstart", handleImgLightboxContainer);
-		} */
 		root[_addEventListener]("keyup", function (ev) {
 			if (27 === (ev.which || ev.keyCode)) {
 				hideImgLightbox(onClosed);
@@ -139,6 +132,7 @@
 		});
 		var arrange = function (e) {
 			var hrefString = e[getAttribute]("href") || e[getAttribute]("data-src") || "";
+			var dataTouch = e[getAttribute]("data-touch") || "";
 			if (!hrefString) {
 				return;
 			}
@@ -174,7 +168,7 @@
 			if (!e[classList].contains(imgLightboxLinkIsBindedClass)) {
 				e[classList].add(imgLightboxLinkIsBindedClass);
 				e[_addEventListener]("click", handleImgLightboxLink);
-				if (isTouch) {
+				if (isTouch && (touch || dataTouch)) {
 					e[_addEventListener]("touchstart", handleImgLightboxLink);
 				}
 			}
