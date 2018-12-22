@@ -12,6 +12,7 @@
 (function(root, document) {
 	"use strict";
 
+	var docElem = document.documentElement || "";
 	var docBody = document.body || "";
 	var animatedClass = "animated";
 	var appendChild = "appendChild";
@@ -124,6 +125,7 @@
 			}, 400);
 		}
 
+		docElem[classList].remove(imgLightboxOpenClass);
 		docBody[classList].remove(imgLightboxOpenClass);
 	};
 
@@ -161,14 +163,8 @@
 		};
 
 		container[_addEventListener]("click", handleImgLightboxContainer);
-		/* if (isTouch) {
-    	container[_addEventListener]("touchstart", handleImgLightboxContainer);
-    } */
 
 		btnClose[_addEventListener]("click", handleImgLightboxContainer);
-		/* if (isTouch) {
-    	btnClose[_addEventListener]("touchstart", handleImgLightboxContainer);
-    } */
 
 		root[_addEventListener]("keyup", function(ev) {
 			if (27 === (ev.which || ev.keyCode)) {
@@ -179,9 +175,7 @@
 		var arrange = function arrange(e) {
 			var hrefString =
 				e[getAttribute]("href") || e[getAttribute]("data-src") || "";
-				
-			var dataTouch =
-				e[getAttribute]("data-touch") || "";
+			var dataTouch = e[getAttribute]("data-touch") || "";
 
 			if (!hrefString) {
 				return;
@@ -190,6 +184,7 @@
 			var handleImgLightboxLink = function handleImgLightboxLink(ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
+				docElem[classList].add(imgLightboxOpenClass);
 				docBody[classList].add(imgLightboxOpenClass);
 				container[classList].remove(isLoadedClass);
 
