@@ -8,7 +8,6 @@
 		"url": "git://github.com/englishextra/cdn.git"
 	},
 	"dependencies": {
-		"eslint": "^4.9.0",
 		"npm": "^4.0.5"
 	},
 	"devDependencies": {
