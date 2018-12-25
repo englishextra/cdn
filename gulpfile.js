@@ -15,7 +15,7 @@ var gulp = require("gulp");
 var eslint = require("gulp-eslint");
 
 var options = {
-	libPaths: {
+	libbundle: {
 		src: [
 			"adaptivecards/1.1.0/src/adaptivecards.fixed.js",
 			"bala/0.1.9/js/bala.fixed.js",
@@ -91,7 +91,7 @@ var options = {
 };
 
 gulp.task("lint-libbundle-js", function () {
-	return gulp.src(options.libPaths.src)
+	return gulp.src(options.libbundle.src)
 	.pipe(eslint())
 	.pipe(eslint.format())
 	.pipe(eslint.failAfterError());
