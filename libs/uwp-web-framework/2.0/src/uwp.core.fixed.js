@@ -34,6 +34,13 @@
 			return p + parseInt(c, 10);
 		}, 0) / 3;
 	};
+	var removeChildren = function (e) {
+		if (e && e.firstChild) {
+			for (; e.firstChild; ) {
+				e.removeChild(e.firstChild);
+			}
+		}
+	};
 	var removeJsCssFile = function removeJsCssFile(filename, filetype) {
 		var targetelement = filetype == "js" ? "script" : filetype == "css" ? "link" : "none";
 		var targetattr = filetype == "js" ? "src" : filetype == "css" ? "href" : "none";
@@ -130,17 +137,17 @@
 				UWP.loading = _uwp_loading;
 			}
 			UWP.revealUWPLoading = function () {
-				UWP.loading.classList.add("uwp-loading--is-active");
+				UWP.loading.classList.add("is-active");
 			};
 			UWP.concealUWPLoading = function () {
 				var timer = setTimeout(function () {
 						clearTimeout(timer);
 						timer = null;
-						UWP.loading.classList.remove("uwp-loading--is-active");
+						UWP.loading.classList.remove("is-active");
 					}, 1000);
 			};
 			UWP.removeUWPLoading = function () {
-				UWP.loading.classList.remove("uwp-loading--is-active");
+				UWP.loading.classList.remove("is-active");
 			};
 			UWP.getConfig(params);
 			UWP.header.type = UWP.config.layoutType;
@@ -331,7 +338,8 @@
 			if (addHistory !== false) {
 				history.pushState("", "", "".concat(root.location.href.split(/#\//)[0], UWP.config.hashBang, target));
 			}
-			UWP.main.innerHTML = "";
+			/* UWP.main.innerHTML = ""; */
+			removeChildren(UWP.main);
 			function displayError(title, linkText) {
 				UWP.main.innerHTML = "\n\t<div class=\"uwp-error\">\n\t<p>".concat(title, "</p>\n\t<p><a href=\"javascript:void(0);\" class=\"uwp-error-link\">" + linkText + "</a></p>\n\t</div>\n\t");
 				var mainA = UWP.main.getElementsByClassName("uwp-error-link")[0] || "";
@@ -367,7 +375,8 @@
 					var pageBody = elBody.innerHTML || "";
 					var pageIncludeScript = page ? page.getElementsByTagName("include-script")[0] || "" : "";
 					var pageIncludeStyle = page ? page.getElementsByTagName("include-style")[0] || "" : "";
-					UWP.main.innerHTML = "";
+					/* UWP.main.innerHTML = ""; */
+					removeChildren(UWP.main);
 					UWP.main.innerHTML = pageBody;
 					UWP.main.classList.remove("uwp-main--with-animation");
 					(function () {
