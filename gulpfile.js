@@ -34,7 +34,7 @@ var options = {
 			"./libs/highlight.js/9.12.0/src/highlight.pack.fixed.js",
 			"./libs/iframe-lightbox/0.2.8/src/iframe-lightbox.fixed.js",
 			"./libs/imagesloaded/4.1.4/js/imagesloaded.pkgd.fixed.js",
-			"./libs/img-lightbox/0.2.1/src/img-lightbox.fixed.js",
+			"./libs/img-lightbox/0.2.2/src/img-lightbox.fixed.js",
 			"./libs/infinite-scroll/0.1.0/js/infinite-scroll.fixed.js",
 			"./libs/isotope/3.0.1/js/isotope.imagesloaded.pkgd.fixed.js",
 			"./libs/isotope/3.0.1/js/isotope.pkgd.fixed.js",
