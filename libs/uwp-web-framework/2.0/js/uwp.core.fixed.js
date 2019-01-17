@@ -42,11 +42,16 @@
 	};
 
 	var calculateBrightness = function calculateBrightness(color) {
-		return (
-			color.reduce(function(p, c) {
-				return p + parseInt(c, 10);
-			}, 0) / 3
-		);
+		return color.reduce(function (p, c) {
+			return p + parseInt(c, 10);
+		}, 0) / 3;
+	};
+	var removeChildren = function (e) {
+		if (e && e.firstChild) {
+			for (; e.firstChild; ) {
+				e.removeChild(e.firstChild);
+			}
+		}
 	};
 
 	var removeJsCssFile = function removeJsCssFile(filename, filetype) {
