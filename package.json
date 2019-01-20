@@ -2,13 +2,17 @@
 	"name": "cdn",
 	"version": "0.1.1",
 	"description": "QR code generating with vanilla js (SVG Element, Data URI SVG String, Data URI PNG String, HTML Table Element).",
-	"keywords": ["cdn"],
+	"keywords": ["spa",
+	"pwa",
+	"webapp"],
+	"main_file": "index.js",
+	"electronVersion": "4.0.0",
 	"repository": {
 		"type": "git",
 		"url": "git://github.com/englishextra/cdn.git"
 	},
 	"dependencies": {
-		"npm": "^6.5.0"
+		"npm": "^6.6.0"
 	},
 	"devDependencies": {
 		"gulp": "^4.0.0",
@@ -20,7 +24,6 @@
 	},
 	"email": "englishextra@mail.ru",
 	"url": "https://github.com/englishextra/qrjs/issues",
-	"homepage": "https://github.com/englishextra/cdn",
 	"maintainers": {
 		"name": "Serguei Shimansky",
 		"email": "englishextra@mail.ru",
