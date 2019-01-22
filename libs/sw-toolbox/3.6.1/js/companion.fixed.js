@@ -22,6 +22,9 @@
 })(); */
 (function (root) {
 	"use strict";
+	if (self.location.protocol !== "https:" && self.location.protocol !== "http:") {
+		return;
+	}
 	var p = root ? root.location.protocol : "";
 	if ((/^http/).test(p) && Object.getPrototypeOf(navigator).hasOwnProperty("serviceWorker")) {
 		/* navigator.serviceWorker.getRegistrations().then(function (registrations) {
