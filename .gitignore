@@ -6,3 +6,5 @@
 *.psd
 *.zip
 node_modules/
+*.sublime-project
+*.sublime-workspace

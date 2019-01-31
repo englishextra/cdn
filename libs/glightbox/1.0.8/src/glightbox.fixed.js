@@ -260,7 +260,7 @@
 		if (utils.isArrayLike(collection) && !utils.isObject(collection)) {
 			var l = collection.length,
 			i = 0;
-			for (; i < l; i++) {
+			for (; i < l; i += 1) {
 				if (callback.call(collection[i], collection[i], i, collection) === false) {
 					break;
 				}

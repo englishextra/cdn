@@ -45,22 +45,28 @@
 		var targetelement = filetype == "js" ? "script" : filetype == "css" ? "link" : "none";
 		var targetattr = filetype == "js" ? "src" : filetype == "css" ? "href" : "none";
 		var allsuspects = document.getElementsByTagName(targetelement) || "";
-		for (var i = allsuspects.length; i >= 0; i--) {
+		var i;
+		for (i = allsuspects.length; i >= 0; i--) {
 			if (allsuspects[i] && allsuspects[i].getAttribute(targetattr) != null && allsuspects[i].getAttribute(targetattr).indexOf(filename) != -1) {
 				allsuspects[i].parentNode.removeChild(allsuspects[i]);
 			}
 		}
+		i = null;
 	};
 	var _extends = function _extends() {
 		var _extends = Object.assign || function (target) {
-			for (var i = 1; i < arguments.length; i++) {
+			var i;
+			for (i = 1; i < arguments.length; i++) {
 				var source = arguments[i];
-				for (var key in source) {
+				var key;
+				for (key in source) {
 					if (Object.prototype.hasOwnProperty.call(source, key)) {
 						target[key] = source[key];
 					}
 				}
+				key = null;
 			}
+			i = null;
 			return target;
 		};
 		return _extends.apply(this, arguments);
