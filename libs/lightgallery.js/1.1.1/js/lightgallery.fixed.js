@@ -1414,24 +1414,24 @@ function _typeof(obj) {
 							} //}
 						};
 						/**
-         *   @desc slide function for lightgallery
-         ** Slide() gets call on start
-         ** ** Set lg.on true once slide() function gets called.
-         ** Call loadContent() on slide() function inside setTimeout
-         ** ** On first slide we do not want any animation like slide of fade
-         ** ** So on first slide( if lg.on if false that is first slide) loadContent() should start loading immediately
-         ** ** Else loadContent() should wait for the transition to complete.
-         ** ** So set timeout s.speed + 50
-        <=> ** loadContent() will load slide content in to the particular slide
-         ** ** It has recursion (rec) parameter. if rec === true loadContent() will call preload() function.
-         ** ** preload will execute only when the previous slide is fully loaded (images iframe)
-         ** ** avoid simultaneous image load
-        <=> ** Preload() will check for s.preload value and call loadContent() again accoring to preload value
-         ** loadContent()  <====> Preload();
-         *   @param {Number} index - index of the slide
-         *   @param {Boolean} fromTouch - true if slide function called via touch event or mouse drag
-         *   @param {Boolean} fromThumb - true if slide function called via thumbnail click
-         */
+		 *   @desc slide function for lightgallery
+		 ** Slide() gets call on start
+		 ** ** Set lg.on true once slide() function gets called.
+		 ** Call loadContent() on slide() function inside setTimeout
+		 ** ** On first slide we do not want any animation like slide of fade
+		 ** ** So on first slide( if lg.on if false that is first slide) loadContent() should start loading immediately
+		 ** ** Else loadContent() should wait for the transition to complete.
+		 ** ** So set timeout s.speed + 50
+		<=> ** loadContent() will load slide content in to the particular slide
+		 ** ** It has recursion (rec) parameter. if rec === true loadContent() will call preload() function.
+		 ** ** preload will execute only when the previous slide is fully loaded (images iframe)
+		 ** ** avoid simultaneous image load
+		<=> ** Preload() will check for s.preload value and call loadContent() again accoring to preload value
+		 ** loadContent()  <====> Preload();
+		 *   @param {Number} index - index of the slide
+		 *   @param {Boolean} fromTouch - true if slide function called via touch event or mouse drag
+		 *   @param {Boolean} fromThumb - true if slide function called via thumbnail click
+		 */
 
 						Plugin.prototype.slide = function(
 							index,
