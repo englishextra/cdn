@@ -140,8 +140,7 @@
 		var onCreated = options.onCreated;
 		var onClosed = options.onClosed;
 		var link = document[getElementsByClassName](_linkClass) || "";
-		var container =
-			document[getElementsByClassName](containerClass)[0] || "";
+		var container = document[getElementsByClassName](containerClass)[0] || "";
 		var img = container
 			? container[getElementsByTagName]("img")[0] || ""
 			: "";
