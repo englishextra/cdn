@@ -34,9 +34,9 @@
 					if (!e[i]) {
 						var c = "function" == typeof require && require;
 						if (!f && c)
-							return c(i, !0);
+							return c(i, true);
 						if (u)
-							return u(i, !0);
+							return u(i, true);
 						var a = new Error("Cannot find module '" + i + "'");
 						throw (a.code = "MODULE_NOT_FOUND", a);
 					}

@@ -46,13 +46,13 @@
 			return p + parseInt(c, 10);
 		}, 0) / 3;
 	};
-	var removeChildren = function (e) {
-		if (e && e.firstChild) {
-			for (; e.firstChild; ) {
-				e.removeChild(e.firstChild);
+		var removeChildren = function (e) {
+			if (e && e.firstChild) {
+				for (; e.firstChild; ) {
+					e.removeChild(e.firstChild);
+				}
 			}
-		}
-	};
+		};
 
 	var removeJsCssFile = function removeJsCssFile(filename, filetype) {
 		var targetelement =

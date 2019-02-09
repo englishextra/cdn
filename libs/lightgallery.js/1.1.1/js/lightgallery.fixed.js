@@ -56,8 +56,8 @@ function _typeof(obj) {
 				if (!n[i]) {
 					if (!e[i]) {
 						var c = "function" == typeof require && require;
-						if (!f && c) return c(i, !0);
-						if (u) return u(i, !0);
+						if (!f && c) return c(i, true);
+						if (u) return u(i, true);
 						var a = new Error("Cannot find module '" + i + "'");
 						throw ((a.code = "MODULE_NOT_FOUND"), a);
 					}
