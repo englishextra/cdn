@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.gray {
+			background-color: gray;
+		}
+		.green {
+			background-color: green;
+		}
+		.red {
+			background-color: red;
+		}
+	</style>
+	<script>
+/*!
+ * class list wrapper
+ */
+(function (root, document) {
+	"use strict";
+	var classList = "classList";
+	var hasClass;
+	var addClass;
+	var removeClass;
+	if ('classList' in document.documentElement) {
+		hasClass = function (el, className) {
+			return el[classList].contains(className);
+		};
+		addClass = function (el, className) {
+			el[classList].add(className);
+		};
+		removeClass = function (el, className) {
+			el[classList].remove(className);
+		};
+	} else {
+		hasClass = function (el, className) {
+			return new RegExp('\\b' + className + '\\b').test(el.className);
+		};
+		addClass = function (el, className) {
+			if (!hasClass(el, className)) {
+				el.className += ' ' + className;
+			}
+		};
+		removeClass = function (el, className) {
+			el.className = el.className.replace(new RegExp('\\b' + className + '\\b', 'g'), '');
+		};
+	}
+	var toggleClass = function (el, className) {
+		if (hasClass(el, className)) {
+			removeClass(el, className);
+		} else {
+			addClass(el, className);
+		}
+	};
+	root.hasClass = hasClass;
+	root.addClass = addClass;
+	root.removeClass = removeClass;
+	root.toggleClass = toggleClass;
+})("undefined" !== typeof window ? window : this, document);
+	</script>
+</head>
+
+<body class="gray">
+	<script>
+		var docBody = document.body || "";
+	</script>
+	<input type="button" onclick="removeClass(docBody, 'red')" value="Remove red class" />
+	<input type="button" onclick="removeClass(docBody, 'green')" value="Remove green class" />
+	<input type="button" onclick="addClass(docBody, 'red')" value="Add red class" />
+	<input type="button" onclick="addClass(docBody, 'green')" value="Add green class" />
+	<input type="button" onclick="toggleClass(docBody, 'red')" value="Toggle red class" />
+	<input type="button" onclick="toggleClass(docBody, 'green')" value="Toggle green class" />
+</body>
+
+</html>

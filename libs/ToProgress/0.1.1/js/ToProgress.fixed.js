@@ -15,20 +15,19 @@
 	"use strict";
 	var ToProgress = (function () {
 		var TP = function () {
-			var addEventListener = "addEventListener";
+			var _addEventListener = "addEventListener";
 			var appendChild = "appendChild";
-			var createElement = "createElement";
 			var firstChild = "firstChild";
 			var getElementById = "getElementById";
 			var getElementsByClassName = "getElementsByClassName";
 			var hasOwnProperty = "hasOwnProperty";
 			var opacity = "opacity";
 			var prototype = "prototype";
-			var removeEventListener = "removeEventListener";
+			var _removeEventListener = "removeEventListener";
 			var style = "style";
 			function whichTransitionEvent() {
 				var t,
-				el = document[createElement]("fakeelement");
+				el = document.createElement("fakeelement");
 				var transitions = {
 					"transition": "transitionend",
 					"OTransition": "oTransitionEnd",
@@ -64,7 +63,7 @@
 					key = null;
 				}
 				this.options.opacityDuration = this.options.duration * 3;
-				this.progressBar = document[createElement]("div");
+				this.progressBar = document.createElement("div");
 				this.progressBar.id = this.options.id;
 				this.progressBar.setCSS = function (style) {
 					var property;
@@ -141,9 +140,9 @@
 				this.setProgress(100, callback);
 				this.hide();
 				if (transitionEvent) {
-					this.progressBar[addEventListener](transitionEvent, function (e) {
+					this.progressBar[_addEventListener](transitionEvent, function (e) {
 						that.reset();
-						that.progressBar[removeEventListener](e.type, TP);
+						that.progressBar[_removeEventListener](e.type, TP);
 					});
 				}
 			};
@@ -165,5 +164,4 @@
 		return TP();
 	})();
 	root.ToProgress = ToProgress;
-}
-	("undefined" !== typeof window ? window : this, document));
+})("undefined" !== typeof window ? window : this, document);

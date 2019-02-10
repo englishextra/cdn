@@ -141,27 +141,18 @@
 		var onClosed = options.onClosed;
 		var link = document[getElementsByClassName](_linkClass) || "";
 		var container = document[getElementsByClassName](containerClass)[0] || "";
-		var img = container
-			? container[getElementsByTagName]("img")[0] || ""
-			: "";
-
+		var img = container ? container[getElementsByTagName]("img")[0] || "" : "";
 		if (!container) {
 			container = document[createElement]("div");
-			addClass(container, containerClass);
+			container[classList].add(containerClass);
 			var html = [];
 			html.push('<img src="' + dummySrc + '" alt="" />');
-			html.push(
-				'<div class="half-circle-spinner"><div class="circle circle-1"></div><div class="circle circle-2"></div></div>'
-			);
+			html.push('<div class="half-circle-spinner"><div class="circle circle-1"></div><div class="circle circle-2"></div></div>');
 			html.push('<a href="javascript:void(0);" class="btn-close"></a>');
 			container[innerHTML] = html.join("");
 			docBody[appendChild](container);
-			img = container
-				? container[getElementsByTagName]("img")[0] || ""
-				: "";
-			var btnClose = container
-				? container[getElementsByClassName](btnCloseClass)[0] || ""
-				: "";
+			img = container ? container[getElementsByTagName]("img")[0] || "" : "";
+			var btnClose = container ? container[getElementsByClassName](btnCloseClass)[0] || "" : "";
 
 			var handleImgLightboxContainer = function handleImgLightboxContainer() {
 				hideImgLightbox(onClosed);
@@ -170,8 +161,8 @@
 			container[_addEventListener]("click", handleImgLightboxContainer);
 
 			btnClose[_addEventListener]("click", handleImgLightboxContainer);
-			if (!hasClass(docElem, imgLightboxWindowIsBindedClass)) {
-				addClass(docElem, imgLightboxWindowIsBindedClass);
+			if (!docElem[classList].contains(imgLightboxWindowIsBindedClass)) {
+				docElem[classList].add(imgLightboxWindowIsBindedClass);
 				root[_addEventListener]("keyup", function (ev) {
 					if (27 === (ev.which || ev.keyCode)) {
 						hideImgLightbox(onClosed);

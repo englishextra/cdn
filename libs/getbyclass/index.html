@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+
+<div class="test">000000</div>
+<div class="test">111111</div>
+<div class="test">222222</div>
+<div class="test">333333</div>
+
+<script>
+/*!
+ * getByClass wrapper
+ */
+(function (root, document) {
+	"use strict";
+	var getByClass = function (parent, name) {
+		if (!Element.getElementsByClassName) {
+			var children = (parent || document.body).getElementsByTagName("*"),
+			elements = [],
+			classRE = new RegExp("\\b" + name + "\\b"),
+			child;
+			var i,
+			l;
+			for (i = 0, l = children.length; i < l; i += 1) {
+				child = children[i];
+				if (classRE.test(child.className)) {
+					elements.push(child);
+				}
+			}
+			i = l = null;
+			return elements;
+		} else {
+			return parent ? parent.getElementsByClassName(name) : "";
+		}
+	};
+	root.getByClass = getByClass;
+})("undefined" !== typeof window ? window : this, document);
+
+</script>
+
+<script>
+var _test = getByClass(document, "test")[0];
+alert(_test.length);
+alert(_test.innerHTML);
+</script>
+</body>
+</html>
