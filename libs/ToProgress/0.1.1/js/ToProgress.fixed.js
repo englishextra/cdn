@@ -15,19 +15,9 @@
 	"use strict";
 	var ToProgress = (function () {
 		var TP = function () {
-			var _addEventListener = "addEventListener";
-			var appendChild = "appendChild";
-			var firstChild = "firstChild";
-			var getElementById = "getElementById";
-			var getElementsByClassName = "getElementsByClassName";
-			var hasOwnProperty = "hasOwnProperty";
-			var opacity = "opacity";
-			var prototype = "prototype";
-			var _removeEventListener = "removeEventListener";
-			var style = "style";
 			function whichTransitionEvent() {
-				var t,
-				el = document.createElement("fakeelement");
+				var t;
+				var el = document.createElement("fakeelement");
 				var transitions = {
 					"transition": "transitionend",
 					"OTransition": "oTransitionEnd",
@@ -35,14 +25,15 @@
 					"WebkitTransition": "webkitTransitionEnd"
 				};
 				for (t in transitions) {
-					if (transitions[hasOwnProperty](t)) {
-						if (el[style][t] !== undefined) {
+					if (transitions.hasOwnProperty(t)) {
+						if (el.style[t] !== undefined) {
 							return transitions[t];
 						}
 					}
 				}
 				t = null;
 			}
+
 			var transitionEvent = whichTransitionEvent();
 			function ToProgress(opt, selector) {
 				this.progress = 0;
@@ -56,7 +47,7 @@
 				if (opt && typeof opt === "object") {
 					var key;
 					for (key in opt) {
-						if (opt[hasOwnProperty](key)) {
+						if (opt.hasOwnProperty(key)) {
 							this.options[key] = opt[key];
 						}
 					}
@@ -68,7 +59,7 @@
 				this.progressBar.setCSS = function (style) {
 					var property;
 					for (property in style) {
-						if (style[hasOwnProperty](property)) {
+						if (style.hasOwnProperty(property)) {
 							this.style[property] = style[property];
 						}
 					}
@@ -90,30 +81,30 @@
 				if (selector) {
 					var el;
 					if (selector.indexOf("#", 0) !== -1) {
-						el = document[getElementById](selector) || "";
+						el = document.getElementById(selector) || "";
 					} else {
 						if (selector.indexOf(".", 0) !== -1) {
-							el = document[getElementsByClassName](selector)[0] || "";
+							el = document.getElementsByClassName(selector)[0] || "";
 						}
 					}
 					if (el) {
 						if (el.hasChildNodes()) {
-							el.insertBefore(this.progressBar, el[firstChild]);
+							el.insertBefore(this.progressBar, el.firstChild);
 						} else {
-							el[appendChild](this.progressBar);
+							el.appendChild(this.progressBar);
 						}
 					}
 				} else {
-					document.body[appendChild](this.progressBar);
+					document.body.appendChild(this.progressBar);
 				}
 			}
-			ToProgress[prototype].transit = function () {
-				this.progressBar[style].width = this.progress + "%";
+			ToProgress.prototype.transit = function () {
+				this.progressBar.style.width = this.progress + "%";
 			};
-			ToProgress[prototype].getProgress = function () {
+			ToProgress.prototype.getProgress = function () {
 				return this.progress;
 			};
-			ToProgress[prototype].setProgress = function (progress, callback) {
+			ToProgress.prototype.setProgress = function (progress, callback) {
 				this.show();
 				if (progress > 100) {
 					this.progress = 100;
@@ -127,37 +118,37 @@
 					callback();
 				}
 			};
-			ToProgress[prototype].increase = function (toBeIncreasedProgress, callback) {
+			ToProgress.prototype.increase = function (toBeIncreasedProgress, callback) {
 				this.show();
 				this.setProgress(this.progress + toBeIncreasedProgress, callback);
 			};
-			ToProgress[prototype].decrease = function (toBeDecreasedProgress, callback) {
+			ToProgress.prototype.decrease = function (toBeDecreasedProgress, callback) {
 				this.show();
 				this.setProgress(this.progress - toBeDecreasedProgress, callback);
 			};
-			ToProgress[prototype].finish = function (callback) {
+			ToProgress.prototype.finish = function (callback) {
 				var that = this;
 				this.setProgress(100, callback);
 				this.hide();
 				if (transitionEvent) {
-					this.progressBar[_addEventListener](transitionEvent, function (e) {
+					this.progressBar.addEventListener(transitionEvent, function (e) {
 						that.reset();
-						that.progressBar[_removeEventListener](e.type, TP);
+						that.progressBar.removeEventListener(e.type, TP);
 					});
 				}
 			};
-			ToProgress[prototype].reset = function (callback) {
+			ToProgress.prototype.reset = function (callback) {
 				this.progress = 0;
 				this.transit();
 				if (callback) {
 					callback();
 				}
 			};
-			ToProgress[prototype].hide = function () {
-				this.progressBar[style][opacity] = "0";
+			ToProgress.prototype.hide = function () {
+				this.progressBar.style.opacity = "0";
 			};
-			ToProgress[prototype].show = function () {
-				this.progressBar[style][opacity] = "1";
+			ToProgress.prototype.show = function () {
+				this.progressBar.style.opacity = "1";
 			};
 			return ToProgress;
 		};
