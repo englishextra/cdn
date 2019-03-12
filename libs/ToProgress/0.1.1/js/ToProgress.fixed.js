@@ -15,7 +15,7 @@
 	"use strict";
 	var ToProgress = (function () {
 		var TP = function () {
-			function whichTransitionEvent() {
+			var whichTransitionEvent = function () {
 				var t;
 				var el = document.createElement("fakeelement");
 				var transitions = {
@@ -32,10 +32,9 @@
 					}
 				}
 				t = null;
-			}
-
+			};
 			var transitionEvent = whichTransitionEvent();
-			function ToProgress(opt, selector) {
+			var ToProgress = function (opt, selector) {
 				this.progress = 0;
 				this.options = {
 					id: "top-progress-bar",
@@ -97,7 +96,7 @@
 				} else {
 					document.body.appendChild(this.progressBar);
 				}
-			}
+			};
 			ToProgress.prototype.transit = function () {
 				this.progressBar.style.width = this.progress + "%";
 			};
