@@ -2,9 +2,11 @@
 	"name": "cdn",
 	"version": "0.1.1",
 	"description": "QR code generating with vanilla js (SVG Element, Data URI SVG String, Data URI PNG String, HTML Table Element).",
-	"keywords": ["spa",
-	"pwa",
-	"webapp"],
+	"keywords": [
+		"spa",
+		"pwa",
+		"webapp"
+	],
 	"main": "main.js",
 	"window": {
 		"icon": "favicon-32x32.png"
@@ -14,7 +16,7 @@
 		"url": "git://github.com/englishextra/cdn.git"
 	},
 	"dependencies": {
-		"npm": "^6.7.0"
+		"npm": "^6.9.0"
 	},
 	"devDependencies": {
 		"gulp": "^4.0.0",
