@@ -16,7 +16,7 @@
 		"url": "git://github.com/englishextra/cdn.git"
 	},
 	"dependencies": {
-		"npm": "^6.9.0"
+		"npm": "^6.10.1"
 	},
 	"devDependencies": {
 		"gulp": "^4.0.0",

@@ -290,7 +290,7 @@
 						try {
 							resp = context.JSON ? context.JSON.parse(r) : eval("(" + r + ")");
 						} catch (err) {
-							return error(resp, "Could not parse JSON in response", err);
+							return error(resp, "Could not parse JSON in response " + err);
 						}
 						break;
 					case "js":
