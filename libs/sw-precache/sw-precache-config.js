@@ -17,6 +17,7 @@ module.exports = {
 	staticFileGlobs: [
 		"index.html"// ,
 		// "manifest.json",
+		// "manifest.webmanifest",
 		// "yandex-tableau.json",
 		// "**.{png,ico,svg}",
 		// "cdn/**/*.{png,jpg,js,json,css}",
