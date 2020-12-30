@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<!-- 1. use /tools/modularscale/index.html?15&px&1.25,1.125&web&text for font size and line height
+2. lazyload images
+3. remove font face, display block, opacity 1, visibility visible in critical inline css
+4. set font display swap in font face in css -->
+<html class="no-js" lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<!-- <meta http-equiv="x-ua-compatible" content="ie=edge" /> -->
+		<!-- https://content-security-policy.com/ --><meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; connect-src 'self' 'unsafe-inline' https:; frame-src 'self' https:; media-src 'self' https:; img-src 'self' 'unsafe-inline' https: data:" />
+		<meta name="HandheldFriendly" content="True" />
+		<meta name="MobileOptimized" content="320" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Infinite Demo Page</title>
+		<link rel="stylesheet" href="./css/do-slide.css" />
+		<style>
+		body {
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+		}
+		
+		.wrap {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+		}
+		
+		.section:nth-child(1) {
+			background-color: #FFBDBD;
+		}
+		
+		.section:nth-child(2) {
+			background-color: #FFDEAD;
+		}
+		
+		.section:nth-child(3) {
+			background-color: #C3EBFF;
+		}
+		
+		.section:nth-child(4) {
+			background-color: #F0B6FF;
+		}
+		
+		.container {
+			counter-reset: section-counter;
+		}
+		
+		.section:before {
+			content: counter(section-counter);
+			counter-increment: section-counter;
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			width: 1.5em;
+			height: 1.5em;
+			margin: -.8em 0 0 -.8em;
+			font-size: 5em;
+			text-align: center;
+			line-height: 1.5em;
+			color: #966;
+			border: .05em solid;
+			border-radius: 50%;
+		}
+		
+		.section.sub:before {
+			content: 'S' counter(section-counter);
+		}
+		
+		.arrow:after {
+			content: '';
+			position: absolute;
+			width: 0;
+			height: 0;
+			color: #f66;
+			border: 2em solid transparent;
+			opacity: .4;
+		}
+		
+		.up:after {
+			top: 0;
+			left: 50%;
+			margin-left: -2em;
+			border-bottom-color: inherit;
+		}
+		
+		.down:after {
+			bottom: 0;
+			left: 50%;
+			margin-left: -2em;
+			border-top-color: inherit;
+		}
+		
+		.left:after {
+			left: 0;
+			top: 50%;
+			margin-top: -2em;
+			border-right-color: inherit;
+		}
+		
+		.right:after {
+			right: 0;
+			top: 50%;
+			margin-top: -2em;
+			border-left-color: inherit;
+		}
+		</style>
+	</head>
+	<body>
+	<div class="wrap ds-parent">
+		<div class="ds-container container">
+			<div class="section">
+				<span class="arrow down"></span>
+				<span class="arrow up"></span>
+			</div>
+			<div class="section">
+				<span class="arrow down"></span>
+				<span class="arrow up"></span>
+			</div>
+			<div class="section">
+				<span class="arrow down"></span>
+				<span class="arrow up"></span>
+			</div>
+			<div class="section">
+				<span class="arrow down"></span>
+				<span class="arrow up"></span>
+			</div>
+		</div>
+	</div>
+		<script src="./js/do-slide.fixed.js"></script>
+		<script>
+		var slide = new DoSlide('.container', {
+			infinite: true
+		})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<!-- 1. use /tools/modularscale/index.html?15&px&1.25,1.125&web&text for font size and line height
+2. lazyload images
+3. remove font face, display block, opacity 1, visibility visible in critical inline css
+4. set font display swap in font face in css -->
+<html class="no-js" lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<!-- <meta http-equiv="x-ua-compatible" content="ie=edge" /> -->
+		<!-- https://content-security-policy.com/ --><meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; connect-src 'self' 'unsafe-inline' https:; frame-src 'self' https:; media-src 'self' https:; img-src 'self' 'unsafe-inline' https: data:" />
+		<meta name="HandheldFriendly" content="True" />
+		<meta name="MobileOptimized" content="320" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>class list wrapper Demo Page</title>
+		<style>
+		.gray {
+			background-color: gray;
+		}
+		.green {
+			background-color: green;
+		}
+		.red {
+			background-color: red;
+		}
+		</style>
+		<script>
+		/*!
+		* class list wrapper
+		*/
+(function (root, document) {
+	"use strict";
+	var classList = "classList";
+	var hasClass;
+	var addClass;
+	var removeClass;
+	if ('classList' in document.documentElement) {
+		hasClass = function (el, className) {
+			return el[classList].contains(className);
+		};
+		addClass = function (el, className) {
+			el[classList].add(className);
+		};
+		removeClass = function (el, className) {
+			el[classList].remove(className);
+		};
+	} else {
+		hasClass = function (el, className) {
+			return new RegExp('\\b' + className + '\\b').test(el.className);
+		};
+		addClass = function (el, className) {
+			if (!hasClass(el, className)) {
+				el.className += ' ' + className;
+			}
+		};
+		removeClass = function (el, className) {
+			el.className = el.className.replace(new RegExp('\\b' + className + '\\b', 'g'), '');
+		};
+	}
+	var toggleClass = function (el, className) {
+		if (hasClass(el, className)) {
+			removeClass(el, className);
+		} else {
+			addClass(el, className);
+		}
+	};
+	root.hasClass = hasClass;
+	root.addClass = addClass;
+	root.removeClass = removeClass;
+	root.toggleClass = toggleClass;
+})("undefined" !== typeof window ? window : this, document);
+		</script>
+	</head>
+	<body class="gray">
+		<script>
+		var docBody = document.body || "";
+		</script>
+	<input type="button" onclick="removeClass(docBody, 'red')" value="Remove red class" />
+	<input type="button" onclick="removeClass(docBody, 'green')" value="Remove green class" />
+	<input type="button" onclick="addClass(docBody, 'red')" value="Add red class" />
+	<input type="button" onclick="addClass(docBody, 'green')" value="Add green class" />
+	<input type="button" onclick="toggleClass(docBody, 'red')" value="Toggle red class" />
+	<input type="button" onclick="toggleClass(docBody, 'green')" value="Toggle green class" />
+	</body>
+</html>

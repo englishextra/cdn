@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<!-- 1. use /tools/modularscale/index.html?15&px&1.25,1.125&web&text for font size and line height
+2. lazyload images
+3. remove font face, display block, opacity 1, visibility visible in critical inline css
+4. set font display swap in font face in css -->
+<html class="no-js" lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<!-- <meta http-equiv="x-ua-compatible" content="ie=edge" /> -->
+		<!-- https://content-security-policy.com/ --><meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; connect-src 'self' 'unsafe-inline' https:; frame-src 'self' https:; media-src 'self' https:; img-src 'self' 'unsafe-inline' https: data:" />
+		<meta name="HandheldFriendly" content="True" />
+		<meta name="MobileOptimized" content="320" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Kamil Simple and highly customisable autocomplete Demo Page</title>
+		<link rel="stylesheet" href="./css/style.css" />
+		<link rel="stylesheet" href="./css/kamil.css" />
+		<style>
+		.kamil-autocomplete li.kamil-autocomplete-category {
+			font-weight: bold;
+			padding: .2em .4em;
+			margin: .8em 0 .2em;
+			line-height: 1.5;
+			background-color: #dadada;
+			cursor: default;
+		}
+		</style>
+	</head>
+	<body class="language-markup">
+	<header>
+		<h1 id="h1">Kamil autocomplete</h1>
+		<h2>
+			Simple, dependency-free and highly customisable autocomplete widget
+		</h2>
+		<nav>
+			<div class="nav-wrapper">
+				<ul class="left">
+					<li><a href="#basic-usage">Basic usage</a></li>
+					<li><a href="#customisation">Customisation</a></li>
+					<li><a href="#extension-points">Extension points</a></li>
+					<li><a href="#methods">Methods</a></li>
+					<li><a href="#events">Events</a></li>
+					<li><a href="#download-contribute">Download and contribute</a></li>
+					<li><a href="tests/index.html">Tests</a></li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+	<div class="content">
+		<div class="demo">
+			<h1 id="basic-usage">Basic usage</h1>
+			<p>In the following examples, assume that the source list is:</p>
+			<pre class="language-javascript">
+		<code>
+var tags = ["ActionScript", "AppleScript", "Asp", "BASIC", "C", "C++", "Clojure", "COBOL", ... ]
+		</code>
+		</pre>
+			<p>The basic usage of Kamil autocomplete is very simple to configure:</p>
+			<pre class="language-markup"><code>&lt;input id=&quot;tags&quot; placeholder=&quot;search&quot;&gt;</code></pre>
+			<pre class="language-javascript">
+		<code>
+var autoComplete = new Kamil('#tags', {
+	source: tags
+});
+		</code>
+		</pre>
+			<div class="example">
+				<input id="tags1" placeholder="Search">
+			</div>
+			<p>The same result can be achieved by passing a selector instead of an array:</p>
+			<pre class="language-markup"><code>
+&lt;input id=&quot;tags&quot; placeholder=&quot;search&quot;&gt;
+&lt;ul id=&quot;list&quot;&gt;
+	&lt;li&gt;ActionScript&lt;/li&gt;
+	&lt;li&gt;AppleScript&lt;/li&gt;
+	&lt;li&gt;Asp&lt;/li&gt;
+	&lt;li&gt;BASIC&lt;/li&gt;
+	&lt;li&gt;C&lt;/li&gt;
+	&lt;li&gt;C++&lt;/li&gt;
+	...
+&lt;/ul&gt;
+		</code></pre>
+			<pre class="language-javascript">
+		<code>
+	var autoComplete = new Kamil('#tags', { source: '#list' });
+		</code>
+		</pre>
+		</div>
+		<div class="demo">
+			<h1 id="customisation">Customisation</h1>
+			<p>
+				Kamil is highly customisable; you can pass and change various options through the Kamil object. The table below lists all the available options:
+			</p>
+			<table>
+				<thead>
+					<tr>
+						<th>Option</th>
+						<th>Description</th>
+						<th>Type</th>
+						<th>Default</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>source</td>
+						<td>The list of suggestions given as an array or a selector</td>
+						<td>Array | String</td>
+						<td>null</td>
+					</tr>
+					<tr>
+						<td>appendTo</td>
+						<td>Where to append the menu</td>
+						<td>String - selector</td>
+						<td>Directly after the input element</td>
+					</tr>
+					<tr>
+						<td>disabled</td>
+						<td>Whether the autocomplete functionality is disabled</td>
+						<td>Boolean</td>
+						<td>false</td>
+					</tr>
+					<tr>
+						<td>autoFocus</td>
+						<td>Should the first element be selected once the menu is open?</td>
+						<td>Boolean</td>
+						<td>false</td>
+					</tr>
+					<tr>
+						<td>minChars</td>
+						<td>Minimum number of character to type before a search starts</td>
+						<td>Number</td>
+						<td>1</td>
+					</tr>
+					<tr>
+						<td>property</td>
+						<td>The property to choose for the suggestion</td>
+						<td>String</td>
+						<td>null - no nested structure</td>
+					</tr>
+					<tr>
+						<td>exclude</td>
+						<td>Class name given to the list items to exclude from being part of the data</td>
+						<td>String</td>
+						<td>'kamil-autocomplete-category'</td>
+					</tr>
+					<tr>
+						<td>filter</td>
+						<td>
+							The filter function to apply to the source list:
+							<pre class="language-javascript">
+		<code>
+filter: function (listItem, input) { ... }
+		</code>
+		</pre>
+						</td>
+						<td>Function</td>
+						<td>Match anywhere, case insensitive</td>
+					</tr>
+					<tr>
+						<td>sort</td>
+						<td>
+							Sort function to sort the items after they have been filtered
+						</td>
+						<td>Function</td>
+						<td>Sort by ascending length</td>
+					</tr>
+				</tbody>
+			</table>
+			<p>Below you can find some examples of customisation.</p>
+			<h2>Auto focus</h2>
+			<pre class="language-markup"><code>&lt;input id=&quot;tags&quot; placeholder=&quot;search&quot;&gt;</code></pre>
+			<pre class="language-javascript">
+		<code>
+var autoComplete = new Kamil('#tags', {
+	source: tags,
+	autoFocus: true
+});
+		</code>
+		</pre>
+			<div class="example">
+				<input id="tags2" placeholder="Search">
+			</div>
+			<h2>Minimum characters</h2>
+			<pre class="language-markup"><code>&lt;input id=&quot;tags&quot; placeholder=&quot;search&quot;&gt;</code></pre>
+			<pre class="language-javascript">
+		<code>
+var autoComplete = new Kamil('#tags', {
+	source: tags,
+	minChars: 2
+});
+		</code>
+		</pre>
+			<p>Try typing 'co' or 'ja'</p>
+			<div class="example">
+				<input id="tags3" placeholder="Search">
+			</div>
+			<h2>Sort</h2>
+			<pre class="language-markup"><code>&lt;input id=&quot;tags&quot; placeholder=&quot;search&quot;&gt;</code></pre>
+			<pre class="language-javascript">
+		<code>
+var autoComplete = new Kamil('#tags', {
+	source: tags,
+	sort: function (a, b) {
+		return a.localeCompare(b);
+	}
+});
+		</code>
+		</pre>
+			<div class="example">
+				<input id="tags4" placeholder="Search">
+			</div>
+		</div>
+		<div class="demo">
+			<h1 id="extension-points">Extension points</h1>
+			<p>
+				When extending the widget, you have the ability to override or add to the behavior of existing methods. Extension points gives you more freedom than options.
+			</p>
+			<h2><code>renderItem(ul, item)</code></h2>
+			<p>
+				The renderItem extension point allows you to change the rendering of each list item. The method must create an item, append it to the ul parameter and return it (the item):
+			</p>
+			<pre class="language-markup"><code>&lt;input id=&quot;tags&quot; placeholder=&quot;search&quot;&gt;</code></pre>
+			<pre class="language-javascript">
+		<code>
+// Set up an array of objects
+var tags = [
+	{
+		label: "jQuery",
+		desc: "the write less, do more, JavaScript library"
+	},
+	{
+		label: "jQuery UI",
+		desc: "the official user interface library for jQuery"
+	},
+	{
+		label: "Sizzle JS",
+		desc: "a pure-JavaScript CSS selector engine"
+	}
+];
+var ac = new Kamil('#tags', {
+	source: tags
+});
+ac.renderItem = function (ul, item) {
+	// Render item and append to 'ul'
+	var li = document.createElement('li');
+	li.innerHTML = &quot;&lt;a&gt;&quot; + item.label + &quot;&lt;br&gt;&lt;small&gt;&quot; + item.desc + &quot;&lt;/small&gt;&lt;/a&gt;&quot;;
+	ul.appendChild(li);
+	return li; // Return the list item!
+};
+// More on events later
+ac.on('kamilfocus', function (e) {
+	e.inputElement.value = e.item.label;
+});
+ac.on('kamilselect', function (e) {
+	e.inputElement.value = e.item.label;
+});
+		</code>
+		</pre>
+			<div class="example">
+				<input id="tags5" placeholder="Search">
+			</div>
+			<h2><code>renderMenu(ul, items)</code></h2>
+			<p>
+				This method controls the rendering of the menu. It is passed an empty ul element and a list of items. Creation of the individual &lt;li&gt; elements should be delegated to _renderItemData() like in the following example:
+			</p>
+			<pre class="language-markup"><code>&lt;input id=&quot;tags&quot; placeholder=&quot;search&quot;&gt;</code></pre>
+			<pre class="language-javascript">
+		<code>
+var ac = new Kamil('#tags6', {
+	source: tags
+});
+ac.renderMenu = function (ul, items) {
+	var i, l;
+	// Render items
+	for (i = 0, l = items.length; i < l; i++) {
+	this._renderItemData(ul, items[i], i);
+	}
+	// Striped menu
+	var listItems = ul.getElementsByTagName('li');
+	for (i = 0, l = listItems.length; i < l; i++) {
+		if (i % 2 === 0) {
+			listItems[i].classList.add('striped-even');
+		}
+	}
+}
+		</code>
+		</pre>
+			<div class="example">
+				<input id="tags6" placeholder="Search">
+			</div>
+			<p>Categories (example from <a href="https://jqueryui.com/autocomplete/#categories">jQuery UI Autocomplete</a>):</p>
+			<pre class="language-markup"><code>&lt;input id=&quot;tags&quot; placeholder=&quot;search&quot;&gt;</code></pre>
+			<pre class="language-javascript">
+		<code>
+var data = [
+		{ label: "anders", category: "" },
+		{ label: "andreas", category: "" },
+		{ label: "antal", category: "" },
+		{ label: "annhhx10", category: "Products" },
+		{ label: "annk K12", category: "Products" },
+		{ label: "annttop C13", category: "Products" },
+		{ label: "anders andersson", category: "People" },
+		{ label: "andreas andersson", category: "People" },
+		{ label: "andreas johnson", category: "People" }
+	],
+	ac = new Kamil('#tags7', { source: data });
+// Customise menu rendering
+ac.renderMenu = function (ul, items) {
+	var self = this,
+	currentCategory = "";
+	// Loop through items
+	items.forEach(function (item, index) {
+		var li;
+		// Create category
+		if (item.category !== currentCategory) {
+			var catLi = document.createElement('li');
+			catLi.className = 'kamil-autocomplete-category';
+			catLi.innerHTML = item.category;
+			ul.appendChild(catLi);
+			currentCategory = item.category;
+		}
+		// Create item
+		li = self._renderItemData(ul, item, index);
+		if (item.category) {
+			li.setAttribute('aria-label', item.category + ' : ' + item.label);
+		}
+	});
+};
+		</code>
+		</pre>
+			<div class="example">
+				<input id="tags7" placeholder="Search">
+			</div>
+		</div>
+		<div class="demo">
+			<h1 id="methods">Methods</h1>
+			<p>
+				The following methods allow you to programmatically control the widget.
+			</p>
+			<h2><code>close()</code></h2>
+			<p>Closes the autocomplete menu.</p>
+			<h2><code>destroy()</code></h2>
+			<p>Removes the menu and the events attached to the input element.</p>
+			<h2><code>disable()</code></h2>
+			<p>Disables the autocomplete.</p>
+			<h2><code>enable()</code></h2>
+			<p>Enabls the autocomplete.</p>
+			<h2><code>option()</code></h2>
+			<p>Returns the options object.</p>
+			<h2><code>option(name)</code></h2>
+			<p>Return the value of the given option name.</p>
+			<h2><code>option(name, value)</code></h2>
+			<p>Sets the option to the given value.</p>
+			<h2><code>start([value])</code></h2>
+			<p>Starts a suggestions' search. If value is not specified then it takes the input's text.</p>
+		</div>
+		<div class="demo">
+			<h1 id="events">Events</h1>
+			You can add an event listener using the <code>on</code> method:
+			<pre class="language-javascript">
+		<code>
+autoComplete.on('kamilopen', function (e) {
+	...
+});
+		</code>
+		</pre>
+			<h2><code>kamilclose</code></h2>
+			<p>Triggered when the menu is closed (hidden).</p>
+			<h2><code>kamilfocus</code></h2>
+			<p>
+				Triggered when focus is moved to an item. The default behaviour is to replace the input's field with the 'property' option (if it's not specified then it will fallback on 'label' then 'value' then the item's text itself).
+			</p>
+			<h2><code>kamilopen</code></h2>
+			<p>
+				Fired when the menu is opened or updated.
+			</p>
+			<h2><code>kamilselect</code></h2>
+			<p>
+				Triggered when an item is selected from the menu.
+			</p>
+		</div>
+		<div class="demo">
+			<h1 id="download-contribute">Download and contribute</h1>
+			<p>Contributions are very welcome! <a href="https://github.com/oss6/kamil/issues/new">Suggest a feature? Spot a bug?</a></p>
+		</div>
+	</div>
+		<script src="./js/kamil.fixed.js"></script>
+		<script>
+		var examples = (function() {
+				var
+					tags = [
+						"ActionScript",
+						"AppleScript",
+						"Asp",
+						"BASIC",
+						"C",
+						"C++",
+						"Clojure",
+						"COBOL",
+						"ColdFusion",
+						"Erlang",
+						"Fortran",
+						"Groovy",
+						"Haskell",
+						"Java",
+						"JavaScript",
+						"Lisp",
+						"Perl",
+						"PHP",
+						"Python",
+						"Ruby",
+						"Scala",
+						"Scheme"
+					],
+					tags1 = [{
+						label: "jQuery",
+						desc: "the write less, do more, JavaScript library"
+					}, {
+						label: "jQuery UI",
+						desc: "the official user interface library for jQuery"
+					}, {
+						label: "Sizzle JS",
+						desc: "a pure-JavaScript CSS selector engine"
+					}],
+					example = function(num, opts) {
+						var autoComplete;
+						autoComplete = new Kamil('#tags' + num, opts);
+					},
+					example5 = function() {
+						var autoComplete = new Kamil('#tags5', {
+							source: tags1
+						});
+						autoComplete.renderItem = function(ul, item) {
+							var li = document.createElement('li');
+							li.innerHTML = "<a>" + item.label + "<br /><small>" + item.desc + "</small></a>";
+							ul.appendChild(li);
+							return li;
+						};
+						autoComplete.on('kamilfocus', function(e) {
+							e.inputElement.value = e.item.label;
+						});
+						autoComplete.on('kamilselect', function(e) {
+							e.inputElement.value = e.item.label;
+						});
+					},
+					example6 = function() {
+						var autoComplete = new Kamil('#tags6', {
+							source: tags
+						});
+						autoComplete.renderMenu = function(ul, items) {
+							var i,
+								l;
+							// Render items
+							for (i = 0, l = items.length; i < l; i += 1) {
+								this._renderItemData(ul, items[i], i);
+							}
+							// Striped menu
+							var listItems = ul.getElementsByTagName('li');
+							for (i = 0, l = listItems.length; i < l; i += 1) {
+								if (i % 2 === 0) {
+									listItems[i].classList.add('striped-even');
+								}
+							}
+						};
+					},
+					example7 = function() {
+						var data = [{
+								label: "anders",
+								category: ""
+							}, {
+								label: "andreas",
+								category: ""
+							}, {
+								label: "antal",
+								category: ""
+							}, {
+								label: "annhhx10",
+								category: "Products"
+							}, {
+								label: "annk K12",
+								category: "Products"
+							}, {
+								label: "annttop C13",
+								category: "Products"
+							}, {
+								label: "anders andersson",
+								category: "People"
+							}, {
+								label: "andreas andersson",
+								category: "People"
+							}, {
+								label: "andreas johnson",
+								category: "People"
+							}],
+							ac = new Kamil('#tags7', {
+								source: data
+							});
+						ac.renderMenu = function(ul, items) {
+							var self = this,
+								currentCategory = "";
+							items.forEach(function(item, index) {
+								var li;
+								if (item.category !== currentCategory) {
+									var catLi = document.createElement('li');
+									catLi.className = 'kamil-autocomplete-category';
+									catLi.innerHTML = item.category;
+									ul.appendChild(catLi);
+									currentCategory = item.category;
+								}
+								li = self._renderItemData(ul, item, index);
+								if (item.category) {
+									li.setAttribute('aria-label', item.category + ' : ' + item.label);
+								}
+							});
+						};
+					},
+					init = function() {
+						example(1, {
+							source: tags
+						});
+						example(2, {
+							source: tags,
+							autoFocus: true
+						});
+						example(3, {
+							source: tags,
+							minChars: 2
+						});
+						example(4, {
+							source: tags,
+							sort: function(a, b) {
+								return a.localeCompare(b);
+							}
+						});
+						example5();
+						example6();
+						example7();
+					};
+				return {
+					'init': init
+				};
+			}
+			());
+		window.onload = examples.init;
+		/* window.onload = function () {
+			var tags = [{
+					label: "jQuery",
+					desc: "the write less, do more, JavaScript library"
+				}, {
+					label: "jQuery UI",
+					desc: "the official user interface library for jQuery"
+				}, {
+					label: "Sizzle JS",
+					desc: "a pure-JavaScript CSS selector engine"
+				}
+			];
+			var autoComplete = new Kamil('#tags', {
+					source: tags
+				});
+			autoComplete.renderItem = function (ul, item) {
+				var li = document.createElement('li');
+				li.innerHTML = "<a>" + item.label + "<br /><small>" + item.desc + "</small></a>";
+				ul.appendChild(li);
+				return li;
+			};
+			autoComplete.on('kamilfocus', function (e) {
+				e.inputElement.value = e.item.label;
+			});
+			autoComplete.on('kamilselect', function (e) {
+				e.inputElement.value = e.item.label.toLowerCase();
+			});
+		}; */
+		</script>
+	</body>
+</html>

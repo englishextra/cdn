@@ -1,0 +1,22 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+	<script src="./js/object-path.fixed.js"></script>
+	<script>
+		var obj = {
+			a: {
+				b: "d",
+				c: ["e", "f"],
+				'\u1200': 'unicode key',
+				'dot.dot': 'key'
+			}
+		};
+		var str = objectPath.get(obj, 'a.\u1200');
+		console.log(str);
+	</script>
+</body>
+</html>

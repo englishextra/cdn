@@ -1,0 +1,44 @@
+{
+	"name": "cdn",
+	"version": "0.1.1",
+	"description": "Third-party libraries",
+	"keywords": [
+		"spa",
+		"pwa",
+		"webapp"
+	],
+	"main": "main.js",
+	"window": {
+		"icon": "favicon-32x32.png"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/englishextra/cdn.git"
+	},
+	"dependencies": {
+		"npm": "^6.14.8"
+	},
+	"devDependencies": {
+		"gulp": "^4.0.0",
+		"gulp-cli": "^2.0.1",
+		"gulp-eslint": "^5.0.0"
+	},
+	"scripts": {
+		"test": "gulp lint-libbundle-js"
+	},
+	"email": "englishextra@mail.ru",
+	"url": "https://github.com/englishextra/cdn/issues",
+	"maintainers": [
+		{
+			"name": "Serguei Shimansky",
+			"email": "englishextra@mail.ru",
+			"url": "https://github.com/englishextra"
+		}
+	],
+	"author": {
+		"name": "englishextra",
+		"email": "englishextra@mail.ru",
+		"url": "https://github.com/englishextra"
+	},
+	"license": "(MIT)"
+}

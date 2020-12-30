@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<!-- 1. use /tools/modularscale/index.html?15&px&1.25,1.125&web&text for font size and line height
+2. lazyload images
+3. remove font face, display block, opacity 1, visibility visible in critical inline css
+4. set font display swap in font face in css -->
+<html class="no-js" lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<!-- <meta http-equiv="x-ua-compatible" content="ie=edge" /> -->
+		<!-- https://content-security-policy.com/ --><meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; connect-src 'self' 'unsafe-inline' https:; frame-src 'self' https:; media-src 'self' https:; img-src 'self' 'unsafe-inline' https: data:" />
+		<meta name="HandheldFriendly" content="True" />
+		<meta name="MobileOptimized" content="320" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Slider Demo Page</title>
+		<link rel="stylesheet" href="./css/do-slide.css" />
+		<style>
+		body {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			margin: 0;
+			padding: 0;
+			font-family: Arial, Helvetica, sans-serif;
+			line-height: 1.5;
+			background-color: #eee;
+		}
+		
+		.wrap {
+			position: relative;
+			width: 1000px;
+			max-width: 100%;
+			min-height: 100%;
+			margin: 0 auto;
+			padding: 1rem;
+			box-sizing: border-box;
+			background-color: #fff;
+		}
+		
+		div.slider {
+			position: relative;
+			width: 100%;
+			padding-top: 56.25%;
+			max-width: 100%;
+			margin: 0 auto;
+		}
+		
+		.container {
+			top: 0;
+		}
+		
+		.img {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			margin: auto;
+			width: 100%;
+		}
+		</style>
+	</head>
+	<body>
+	<div class="wrap">
+		<div class="ds-parent slider">
+			<div class="ds-container container">
+				<div>
+					<img src="./img/1.jpg" class="img">
+				</div>
+				<div>
+					<img src="./img/2.jpg" class="img">
+				</div>
+				<div>
+					<img src="./img/3.jpg" class="img">
+				</div>
+			</div>
+		</div>
+		<h1 id="h1">Simple Slider</h1>
+		<p>
+			Use mouse wheel / slide to switch images.
+		</p>
+		<p>
+			To get more details about the images, please read <a href="https://github.com/MopTym/doSlide/tree/master/demo/images">README.md</a>.
+		</p>
+	</div>
+		<script src="./js/do-slide.fixed.js"></script>
+		<script>
+		var timer = function(slide, interval, token) {
+			function next() {
+				token = setTimeout(next, interval)
+				if (!(document.hidden || document.webkitHidden)) {
+					slide.next()
+				}
+			}
+			return function() {
+				clearTimeout(token)
+				token = setTimeout(next, interval)
+			}
+		}
+		var slide = new DoSlide('.container', {
+				duration: 1000,
+				horizontal: true,
+				infinite: true
+			}),
+			slideTimer = timer(slide, 1000)
+		slide.onChanged(slideTimer).do(slideTimer)
+		</script>
+	</body>
+</html>
