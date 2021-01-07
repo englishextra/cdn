@@ -19,8 +19,8 @@
 		"npm": "^7.3.0"
 	},
 	"devDependencies": {
-		"gulp": "^4.0.0",
-		"gulp-cli": "^2.0.1",
+		"gulp": "^4.0.2",
+		"gulp-cli": "^2.3.0",
 		"gulp-eslint": "^5.0.0"
 	},
 	"scripts": {
