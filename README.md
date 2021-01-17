@@ -1,6 +1,7 @@
 # cdn
 
-*Third-party libraries*
+Third-party libraries
+
 [![Travis](https://img.shields.io/travis/englishextra/cdn.svg)](https://github.com/englishextra/cdn)
 
 ## Usage
@@ -9,8 +10,8 @@
 <https://help.github.com/articles/open-source-licensing/>
 
 ## Default Push URL
-```
 
+```html
 https://github.com/englishextra/cdn.git
 ```
 
