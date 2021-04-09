@@ -7,10 +7,6 @@
 		"pwa",
 		"webapp"
 	],
-	"main": "main.js",
-	"window": {
-		"icon": "favicon-32x32.png"
-	},
 	"repository": {
 		"type": "git",
 		"url": "git://github.com/englishextra/cdn.git"
