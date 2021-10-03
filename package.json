@@ -1,6 +1,6 @@
 {
 	"name": "cdn",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"description": "Third-party libraries",
 	"keywords": [
 		"spa",
@@ -11,13 +11,14 @@
 		"type": "git",
 		"url": "git://github.com/englishextra/cdn.git"
 	},
-	"dependencies": {
-		"npm": "^7.3.0"
-	},
+	"dependencies": {},
 	"devDependencies": {
 		"gulp": "^4.0.2",
 		"gulp-cli": "^2.3.0",
 		"gulp-eslint": "^6.0.0"
+	},
+	"engines": {
+		"npm": "7.x"
 	},
 	"scripts": {
 		"test": "gulp lint-libbundle-js"
